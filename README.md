@@ -1,2 +1,2 @@
 # Eyes4D
-Repository for eyes4D dashboard
+Repository for eyes4D dashboard project
