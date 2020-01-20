@@ -172,7 +172,7 @@
             chartOptions() {
                 return {
                     title: {
-                        text: 'Latrine Characteristics Trend',
+                        text: 'Hand Washing Characteristics Trend',
                         margin: 36,
                         style: { "color": "#333333", "fontSize": "14px" }
                     },
@@ -256,29 +256,17 @@
             transformResult(response) {
                 return [
                     {
-                        name: "Has Latrine",
+                        name: "Hand wash place",
                         data: this.aggregateAttribute(response, 'has_latrine')
                     },
                     {
-                        name: "Lockable Door",
+                        name: "Hand wash container",
                         data: this.aggregateAttribute(response, 'has_lockable_door')
                     },
                     {
-                        name: "Brick Wall",
+                        name: "Soap",
                         data: this.aggregateAttribute(response, 'has_brick_wall')
                     },
-                    {
-                        name: "Cemented Floor",
-                        data: this.aggregateAttribute(response, 'has_cemented_floor')
-                    },
-                    {
-                        name: "Iron Sheet Roof",
-                        data: this.aggregateAttribute(response, 'has_iron_sheet_roof')
-                    },
-                    {
-                        name: "Adjacent bathroom",
-                        data: this.aggregateAttribute(response, 'has_adjacent_bathroom')
-                    }
                 ]
             }
         },

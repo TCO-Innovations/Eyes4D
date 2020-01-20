@@ -257,29 +257,29 @@
             transformResult(response) {
                 return [
                     {
-                        name: "Has Latrine",
+                        name: "Hand wash place",
                         y: this.aggregateAttribute(response, 'has_latrine')
                     },
                     {
-                        name: "Lockable Door",
+                        name: "Hand wash container",
                         y: this.aggregateAttribute(response, 'has_lockable_door')
                     },
                     {
-                        name: "Brick Wall",
+                        name: "Soap",
                         y: this.aggregateAttribute(response, 'has_brick_wall')
                     },
-                    {
-                        name: "Cemented Floor",
-                        y: this.aggregateAttribute(response, 'has_cemented_floor')
-                    },
-                    {
-                        name: "Iron Sheet Roof",
-                        y: this.aggregateAttribute(response, 'has_iron_sheet_roof')
-                    },
-                    {
-                        name: "Adjacent bathroom",
-                        y: this.aggregateAttribute(response, 'has_adjacent_bathroom')
-                    }
+                    // {
+                    //     name: "Cemented Floor",
+                    //     y: this.aggregateAttribute(response, 'has_cemented_floor')
+                    // },
+                    // {
+                    //     name: "Iron Sheet Roof",
+                    //     y: this.aggregateAttribute(response, 'has_iron_sheet_roof')
+                    // },
+                    // {
+                    //     name: "Adjacent bathroom",
+                    //     y: this.aggregateAttribute(response, 'has_adjacent_bathroom')
+                    // }
                 ]
             }
         }
