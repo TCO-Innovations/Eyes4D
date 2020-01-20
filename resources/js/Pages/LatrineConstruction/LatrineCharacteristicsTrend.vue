@@ -116,9 +116,19 @@
 </template>
 
 <script>
-    import axios from "axios";
+    import axios from 'axios';
+    import queryString from 'query-string';
 
     export default {
+        props: {
+            area: {
+                required: true,
+                type: Object
+            },
+            duration: {
+                required: true
+            }
+        },
         data() {
             return {
                 period: "daily",
@@ -149,6 +159,13 @@
                 this.date = new Date(this.year, this.month, this.day);
 
                 this.fetchReport();
+            },
+            duration(value) {
+                this.year = value;
+
+                this.date = new Date(value, this.month, this.day);
+
+                this.fetchReport();
             }
         },
         computed: {
@@ -160,7 +177,7 @@
                         style: { "color": "#333333", "fontSize": "14px" }
                     },
                     subtitle: {
-                        text: 'Ipinda: Jul 2019 - Sep 2019'
+                        text: `${this.areaName}: Jul 2019 - Sep 2019`
                     },
                     yAxis: {
                         title: {
@@ -173,6 +190,9 @@
                     series: this.statistics,
                     credits: { enabled: false },
                 }
+            },
+            areaName() {
+                return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`
             }
         },
         methods: {

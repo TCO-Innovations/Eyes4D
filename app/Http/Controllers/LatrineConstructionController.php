@@ -17,29 +17,14 @@ class LatrineConstructionController extends Controller
     public function __invoke(Request $request)
     {
         return Inertia::render("LatrineConstruction/Index", [
-            "metrics" => [
-                "consolidation" => $this->consolidationMetrics(),
-                "latrines" => $this->latrineMetrics(),
-            ]
+            "regions" => $this->regions(),
         ]);
     }
 
 
-    public function consolidationMetrics()
+    public function regions()
     {
-        $query = "SELECT id, name, village_assigned AS village, ( SELECT COUNT(contact_uuid) FROM runs WHERE contact_uuid = uuid GROUP by contact_uuid) as visits FROM contacts";
-
-        return collect(DB::select($query))->map(function ($item) {
-            return [
-                "name" => Str::title($item->name),
-                "visits" => $item->visits ?? 0
-            ];
-        });
-    }
-
-    public function latrineMetrics()
-    {
-        $query = "SELECT COUNT(is_there_a_latrine) AS latrine_count FROM runs WHERE is_there_a_latrine = 'Yes'";
+        $query = "SELECT DISTINCT region AS id, REPLACE(region,'Tanzania >','') as name FROM contacts WHERE region <> ''";
 
         return collect(DB::select($query));
     }

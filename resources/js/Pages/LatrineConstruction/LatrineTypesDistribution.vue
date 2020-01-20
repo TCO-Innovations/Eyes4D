@@ -84,6 +84,12 @@
 
 <script>
     export default {
+        props: {
+            area: {
+                required: true,
+                type: Object
+            }
+        },
         data() {
             return {
                 isVisible: false
@@ -104,7 +110,7 @@
                         style: { "color": "#333333", "fontSize": "14px" }
                     },
                     subtitle: {
-                        text: 'Ipinda Village - Jan 2019 to Jun 2019'
+                        text: `${this.areaName} - Jan 2019 to Jun 2019`
                     },
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -151,6 +157,9 @@
                         }]
                     }]
                 };
+            },
+            areaName() {
+                return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`
             }
         },
         methods: {

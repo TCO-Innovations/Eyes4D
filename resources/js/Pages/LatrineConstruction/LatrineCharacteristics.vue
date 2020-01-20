@@ -120,6 +120,15 @@
     import queryString from 'query-string';
 
     export default {
+        props: {
+            area: {
+                required: true,
+                type: Object
+            },
+            duration: {
+                required: true
+            }
+        },
         data() {
             return {
                 isVisible: false,
@@ -150,6 +159,13 @@
                 this.date = new Date(this.year, this.month, this.day);
 
                 this.fetchReport();
+            },
+            duration(value) {
+                this.year = value;
+
+                this.date = new Date(value, this.month, this.day);
+
+                this.fetchReport();
             }
         },
         computed: {
@@ -164,12 +180,10 @@
                         style: { "color": "#333333", "fontSize": "14px" }
                     },
                     subtitle: {
-                        text: 'Ipinda Village: Jan 2019 - Jun 2019'
+                        text: `${this.areaName}: Jul 2019 - Sep 2019`
                     },
                     accessibility: {
-                        announceNewData: {
-                            enabled: true
-                        }
+                        announceNewData: { enabled: true }
                     },
                     xAxis: {
                         type: 'category'
@@ -196,6 +210,9 @@
                         }
                     ],
                 };
+            },
+            areaName() {
+                return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`
             }
         },
         methods: {

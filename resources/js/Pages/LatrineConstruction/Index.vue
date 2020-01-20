@@ -3,71 +3,44 @@
         <div class="px-12">
             <div class="flex mb-16">
                 <header class="w-full flex justify-between border-b pb-8">
-                    <h1 class="text-2xl uppercase tracking-wider font-light text-blue-700">
+                    <h1 class="text-xl uppercase tracking-wider font-normal text-blue-700">
                         Latrine Construction and Improvement
                     </h1>
 
                     <nav class="flex items-center">
-                        <v-popover trigger="hover" placement="bottom-start">
-                            <button class="flex items-center px-2">
-                                <span class="mr-2 text-xs text-gray-700">
-                                    {{ region === "" ? "Organization Unit" : region  }}
-                                </span>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current">
-                                    <path fill="none" d="M0 0h24v24H0z"/>
-                                    <path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"/>
-                                </svg>
-                            </button>
+                        <select v-model="selectedRegion" class="bg-transparent">
+                            <option value="">Region...</option>
+                            <option
+                                :value="region.name"
+                                v-for="region in regions"
+                                :key="region.id"
+                            >{{ region.name }}</option>
+                        </select>
 
-                            <template #popover>
-                                <div class="bg-white shadow-xl text-xs uppercase tracking-wider text-gray-700">
-                                    <a
-                                        href="#"
-                                        class="block py-2 px-5 hover:bg-blue-100"
-                                        v-for="regionObject in regions"
-                                        @click.prevent="appendRegion(regionObject.name)"
-                                    >
-                                        {{ regionObject.name }}
-                                    </a>
-                                </div>
-                            </template>
-                        </v-popover>
+                        <select v-model="selectedDistrict" class="bg-transparent" v-if="districts.length">
+                            <option value="">District...</option>
+                            <option
+                                :value="district.name"
+                                v-for="district in districts"
+                                :key="district.name"
+                            >{{ district.name }}</option>
+                        </select>
 
-                        <v-popover trigger="hover" placement="bottom-start">
-                            <button class="flex items-center px-4">
-                                <span class="mr-2 text-sm text-gray-700">
-                                    {{ period }}
-                                </span>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current">
-                                    <path fill="none" d="M0 0h24v24H0z"/>
-                                    <path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"/>
-                                </svg>
-                            </button>
+                        <select v-model="selectedVillage" class="bg-transparent" v-if="villages.length">
+                            <option value="">Village...</option>
+                            <option
+                                :value="village.name"
+                                v-for="village in villages"
+                                :key="village.name"
+                            >{{ village.name }}</option>
+                        </select>
 
-                            <template #popover>
-                                <div class="bg-white shadow-xl text-xs uppercase tracking-wider text-gray-700">
-                                    <a
-                                        href="#"
-                                        class="block py-2 px-5 hover:bg-blue-100"
-                                        v-for="yearNumber in Array(5).keys()"
-                                        @click.prevent="appendPeriod((new Date).getFullYear() - yearNumber)"
-                                    >
-                                        {{ (new Date).getFullYear() - yearNumber }}
-                                    </a>
-                                </div>
-                            </template>
-                        </v-popover>
-
-                        <!--
-                            <a href="#" class="flex items-center px-4">
-                                <span class="mr-2 text-sm text-gray-700">Legend Set</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current">
-                                    <path fill="none" d="M0 0h24v24H0z"/>
-                                    <path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"/>
-                                </svg>
-                            </a>
-                        -->
-
+                        <select v-model="selectedPeriod" class="bg-transparent">
+                            <option
+                                :value="(new Date).getFullYear() - yearNumber" v-for="yearNumber in Array(5).keys()"
+                                :key="(new Date).getFullYear() - yearNumber"
+                            >{{ (new Date).getFullYear() - yearNumber }}</option>
+                        </select>
                     </nav>
                 </header>
             </div>
@@ -83,23 +56,23 @@
 
             <div class="flex mb-16 -mx-6">
                 <section class="w-1/2 px-6">
-                    <HouseWithLatrines :metrics="metrics.latrines"/>
+                    <HouseWithLatrines :area="area" />
                 </section>
 
                 <section class="w-1/2 px-6">
-                    <LatrineTypesDistribution/>
+                    <LatrineTypesDistribution :area="area" />
                 </section>
             </div>
 
             <div class="flex -mx-6 mb-16">
                 <section class="w-full px-6">
-                    <LatrineCharacteristics />
+                    <LatrineCharacteristics :area="area" :duration="selectedPeriod" />
                 </section>
             </div>
 
             <div class="flex -mx-6 mb-16">
                 <section class="w-full px-6">
-                    <LatrineCharacteristicsTrend />
+                    <LatrineCharacteristicsTrend :area="area" :duration="selectedPeriod" />
                 </section>
             </div>
 
@@ -113,7 +86,7 @@
 
             <div class="flex mb-16">
                 <section class="w-full">
-                    <LatrineConstructionImprovementScoreCard />
+                    <LatrineConstructionImprovementScoreCard :area="area" />
                 </section>
             </div>
         </div>
@@ -121,6 +94,7 @@
 </template>
 
 <script>
+    import axios from "axios";
     import queryString from "query-string";
     import Layout from "../../Shared/Layout";
     import HouseWithLatrines from "./HouseWithLatrines";
@@ -145,52 +119,80 @@
             LatrineConstructionImprovementScoreCard
         },
         props: {
-            metrics: { required: true },
+            regions: { required: true },
         },
         data(){
             return {
-                region: "",
-                period: (new Date()).getFullYear(),
-                regions: [
-                    { id: 1, name: "Mbeya", displayName: "Tanzania > Mbeya" },
-                    { id: 2, name: "Arusha", displayName: "Tanzania > Arusha" },
-                    { id: 3, name: "Dar es salaam", displayName: "Tanzania > Dar es salaam" },
-                    { id: 4, name: "Dodoma", displayName: "Tanzania > Dodoma" },
-                    { id: 5, name: "Mwanza", displayName: "Tanzania > Mwanza" },
-                ],
-                query: "",
+                districts: [],
+                villages: [],
+                selectedDistrict: "",
+                selectedRegion: "",
+                selectedVillage: "",
+                selectedPeriod: (new Date()).getFullYear(),
+                area: {
+                    name: "",
+                    type: ""
+                }
             }
         },
-        mounted() {
-            console.log(location.pathname);
-            this.query = queryString.stringify({
-                period: this.period,
-                region: this.region
-            });
+        watch: {
+            selectedRegion(value) {
+                history.pushState(null, null, queryString.stringifyUrl({
+                    url: window.location.href,
+                    query: { region: value }
+                }));
 
-            history.pushState(null, null, `?${this.query}`);
+                this.area = { name: value, type: "Region" };
+
+                if (value) {
+                    this.fetchDistricts(value);
+                } else {
+                    this.districts = [];
+                    this.selectedDistrict = "";
+                    this.villages = [];
+                    this.selectedVillage = "";
+                }
+            },
+            selectedDistrict(value) {
+                history.pushState(null, null, queryString.stringifyUrl({
+                    url: window.location.href,
+                    query: { district: value }
+                }));
+
+                this.area = { name: value, type: "District"};
+
+                if (value) {
+                    this.fetchVillages(value)
+                } else {
+                    this.villages = [];
+                }
+            },
+            selectedVillage(value) {
+                history.pushState(null, null, queryString.stringifyUrl({
+                    url: window.location.href,
+                    query: { village: value }
+                }));
+
+                this.area = { name: value, type: "Village" };
+            },
+            selectedPeriod(value) {
+                history.pushState(null, null, queryString.stringifyUrl({
+                    url: window.location.href,
+                    query: { period: value }
+                }));
+            }
         },
         methods: {
-            appendPeriod(period) {
-                this.query = queryString.stringify({
-                    period: this.period,
-                    region: this.region
-                });
+            async fetchDistricts(region) {
+                let response = await axios.get(`/api/regions/${region}/districts`);
 
-                this.period = period;
-
-                history.pushState(null, null, `?${this.query}`);
+                this.districts = response.data;
             },
-            appendRegion(region) {
-                this.query = queryString.stringify({
-                    period: this.period,
-                    region: region
-                });
+            async fetchVillages(district) {
+                let response = await axios.get(`/api/districts/${district}/villages`);
 
-                this.region = region;
-
-                history.pushState(null, null, `?${this.query}`);
-            },
+                this.villages = response.data;
+            }
         }
     }
 </script>

@@ -2,7 +2,9 @@
     <div class="shadow-lg overflow-hidden">
         <header class="px-6 bg-blue-100 py-4">
             <h2 class="text-lg mb-2">Latrine Construction and Improvement Scorecard</h2>
-            <div class="text-sm text-gray-700">Ipinda Village - July 2019 to September 2019</div>
+            <div class="text-sm text-gray-700">
+                {{ areaName }} - July 2019 to September 2019
+            </div>
         </header>
         <div class="overflow-x-scroll" style="height: 42rem;">
             <table class="whitespace-no-wrap">
@@ -75,23 +77,37 @@
 </template>
 
 <script>
-    import axios from  "axios";
+    import Axios from  "axios";
     import voca from "voca";
 
     export default {
+        props: {
+            area: {
+                required: true,
+                type: Object
+            },
+        },
         data() {
             return {
                 houses: []
             }
         },
+        computed: {
+            areaName() {
+                return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`
+            }
+        },
         mounted() {
-            axios.get("api/latrine_construction_improvement").then(response => {
-                this.houses = response.data;
-            });
+            this.fetchReport()
         },
         methods: {
             titleCase(string) {
                 return voca.titleCase(string);
+            },
+            async fetchReport() {
+                let response = await Axios.get(`api/latrine_construction_improvement`);
+
+                this.houses = response.data;
             }
         }
     }

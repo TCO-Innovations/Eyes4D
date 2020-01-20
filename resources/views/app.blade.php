@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="tracking-wider">
+<html class="antialiased font-sans text-gray-800 tracking-wide">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
