@@ -34,7 +34,10 @@ class LatrineConstructionImprovementController extends Controller
             {$this->hasCementedFloor()},
             {$this->hasIronSheetRoof()},
             {$this->hasAdjacentBathroom()},
-            {$this->cleanLatrine()}
+            {$this->cleanLatrine()},
+            {$this->hasHandWashPlace()},
+            {$this->hasHandWashContainer()},
+            {$this->hasSoap()}
         ";
     }
 
@@ -78,8 +81,23 @@ class LatrineConstructionImprovementController extends Controller
         return "(CASE WHEN does_it_have_a_bathroom_next_to_it = 'Yes' THEN 1 ELSE 0 END) AS has_adjacent_bathroom";
     }
 
-    private function cleanLatrine()
+    public function cleanLatrine()
     {
         return "(CASE WHEN kinyesi_ukutani = 'No' AND kinyesi_kuzunguka_nyumba = 'No' THEN 1 ELSE 0 END) AS clean_latrine";
+    }
+
+    public function hasHandWashPlace()
+    {
+        return "(CASE WHEN place_for_hand_washing = 'Yes' THEN 1 ELSE 0 END) AS has_handwash_place";
+    }
+
+    public function hasHandWashContainer()
+    {
+        return "(CASE WHEN container_for_hand_washing = 'Yes' THEN 1 ELSE 0 END) AS has_handwash_container";
+    }
+
+    public function hasSoap()
+    {
+        return "(CASE WHEN is_there_soap = 'Yes' THEN 1 ELSE 0 END) AS has_soap";
     }
 }

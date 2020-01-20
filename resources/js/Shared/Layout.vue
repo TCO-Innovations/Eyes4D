@@ -58,11 +58,11 @@
                         class="block px-6 py-4 bg-gray-100 mb-1 border-l-4 hover:border-blue-500"
                         :class="{ 'text-blue-800 border-blue-500 bg-blue-100' : isRoute('handwash_practise') }"
                     >Handwashing practice</inertia-link>
-                    <inertia-link
-                        :href="`/handwash_behaviour`"
-                        class="block px-6 py-4 bg-gray-100 mb-1 border-l-4 hover:border-blue-500"
-                        :class="{ 'text-blue-800 border-blue-500 bg-blue-100' : isRoute('handwash_behaviour') }"
-                    >Handwashing Behaviour</inertia-link>
+<!--                    <inertia-link-->
+<!--                        :href="`/handwash_behaviour`"-->
+<!--                        class="block px-6 py-4 bg-gray-100 mb-1 border-l-4 hover:border-blue-500"-->
+<!--                        :class="{ 'text-blue-800 border-blue-500 bg-blue-100' : isRoute('handwash_behaviour') }"-->
+<!--                    >Handwashing Behaviour</inertia-link>-->
                 </nav>
             </aside>
             <div class="w-3/4">

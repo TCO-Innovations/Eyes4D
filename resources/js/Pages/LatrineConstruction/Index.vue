@@ -45,6 +45,7 @@
                 </header>
             </div>
 
+            <!-- Visits -->
             <div class="flex -mx-6 mb-16">
                 <div class="w-1/2 px-6">
                     <VisitingPerContact />
@@ -54,6 +55,7 @@
                 </div>
             </div>
 
+            <!-- -->
             <div class="flex mb-16 -mx-6">
                 <section class="w-1/2 px-6">
                     <HouseWithLatrines :area="area" />

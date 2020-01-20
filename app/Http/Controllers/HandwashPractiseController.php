@@ -10,7 +10,9 @@ class HandwashPractiseController extends Controller
 {
     public function __invoke(Request $request)
     {
-        return Inertia::render("HandwashingPractice/Index");
+        return Inertia::render("HandwashingPractice/Index", [
+            "regions" => $this->regions(),
+        ]);
     }
 
     public function regions()
