@@ -31,7 +31,7 @@
         },
         computed: {
             path() {
-                return `/api/house_with_latrine`;
+                return `/api/handwashing_houses`;
             },
             chartOptions() {
                 return {
@@ -130,7 +130,7 @@
                     },
                     series: [{
                         name: 'Speed',
-                        data: [this.report.latrine_count],
+                        data: [this.report.sub_total],
                         tooltip: {
                             valueSuffix: 'Total'
                         }

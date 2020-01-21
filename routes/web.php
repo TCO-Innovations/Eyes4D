@@ -22,4 +22,5 @@ Route::get("api/visiting_per_village", "Api\VisitingPerVillageController");
 Route::get("api/regions/{region}/districts", "Api\RegionDistrictsController@index");
 Route::get("api/districts/{district}/villages", "Api\DistrictVillagesController@index");
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::get("api/handwashing_houses", "Api\HandwashingHousesController");
+Route::get("api/handwashing_characteristics", "Api\HandwashingCharacteristicsController");

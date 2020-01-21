@@ -2,7 +2,7 @@
     <div class="mx-auto shadow-lg overflow-hidden">
         <header class="px-6 bg-blue-100 border-b border-blue-100 flex justify-between items-center">
             <div class="text-sm text-gray-600">
-                <button class="px-2" @click.prevent="toggle">
+                <button class="px-2" @click.prevent="isVisible = !isVisible">
                     {{ !isVisible ? 'Show' : 'Hide' }} Details
                 </button>
             </div>
@@ -14,7 +14,7 @@
                             href="#"
                             class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
                             :class="{ 'border-blue-500' : period === 'daily' }"
-                            @click.prevent="dailyReport"
+                            @click.prevent="getReportBy('daily')"
                         >Daily</a>
                     </li>
                     <li>
@@ -22,7 +22,7 @@
                             href="#"
                             class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
                             :class="{ 'border-blue-500' : period === 'monthly' }"
-                            @click.prevent="monthlyReport"
+                            @click.prevent="getReportBy('monthly')"
                         >Monthly</a>
                     </li>
                     <li>
@@ -30,27 +30,35 @@
                             href="#"
                             class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
                             :class="{ 'border-blue-500' : period === 'annually' }"
-                            @click.prevent="annuallyReport"
+                            @click.prevent="getReportBy('annually')"
                         >Annually</a>
                     </li>
                 </ul>
 
                 <form class="flex items-center">
-                    <select id="day" class="bg-blue-100" v-model="day" v-if="period === 'daily'">
-                        <option v-for="dayNumber in (new Date(year, month + 1, 0)).getDate()" :value="dayNumber">
+                    <select id="day" class="bg-blue-100" v-model="selectedDate" v-if="period === 'daily'">
+                        <option
+                            v-for="dayNumber in (new Date(selectedYear, selectedMonth + 1, 0)).getDate()"
+                            :value="dayNumber"
+                        >
                             {{ dayNumber }}
                         </option>
                     </select>
 
-                    <select id="month" class="bg-blue-100" v-model="month" v-if="period === 'daily' || period === 'monthly'">
+                    <select
+                        id="month"
+                        class="bg-blue-100"
+                        v-model="selectedMonth"
+                        v-if="period === 'daily' || period === 'monthly'"
+                    >
                         <option :value="monthNumber" v-for="monthNumber in Array(12).keys()">
                             {{ getMonthName(monthNumber) }}
                         </option>
                     </select>
 
-                    <select id="year" class="bg-blue-100" v-model="year">
-                        <option v-for="yearNumber in Array(5).keys()" :value="year - yearNumber">
-                            {{ year - yearNumber }}
+                    <select id="year" class="bg-blue-100" v-model="selectedYear">
+                        <option v-for="yearNumber in Array(5).keys()" :value="selectedYear - yearNumber">
+                            {{ selectedYear - yearNumber }}
                         </option>
                     </select>
                 </form>
@@ -116,7 +124,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import Axios from 'axios';
     import queryString from 'query-string';
 
     export default {
@@ -131,41 +139,73 @@
         },
         data() {
             return {
-                isVisible: false,
-                day: (new Date).getDate(),
-                month: (new Date).getMonth(),
-                year: (new Date).getFullYear(),
+                apiEndPoint: "",
+                report: {},
+                period: 'monthly',
                 date: new Date,
-                period: 'daily',
-                statistics: []
+                isVisible: false,
+                selectedDate: (new Date).getDate(),
+                selectedMonth: (new Date).getMonth(),
+                selectedYear: (new Date).getFullYear(),
             }
         },
         mounted() {
-            this.fetchReport()
+            let query = Object.assign({
+                period: this.period,
+                date: this.date.toJSON().slice(0, 10)
+            }, queryString.parse(window.location.search));
+
+            this.apiEndPoint = queryString.stringifyUrl({
+                url: `${window.location.origin}/api/handwashing_characteristics`,
+                query: query
+            });
         },
         watch: {
-            day() {
-                this.date = new Date(this.year, this.month, this.day);
-
+            area: {
+                deep: true,
+                handler() {
+                    this.apiEndPoint = queryString.stringifyUrl({
+                        url: this.apiEndPoint,
+                        query: { [this.area.type.toLowerCase()]: this.area.name }
+                    })
+                }
+            },
+            apiEndPoint() {
                 this.fetchReport();
             },
-            month() {
+            selectedDate(date) {
+                this.date.setDate(date);
 
-                this.date = new Date(this.year, this.month, this.day);
-
-                this.fetchReport();
+                this.apiEndPoint = queryString.stringifyUrl({
+                    url: this.apiEndPoint,
+                    query: { date: this.date.toJSON().slice(0, 10) }
+                })
             },
-            year() {
-                this.date = new Date(this.year, this.month, this.day);
+            selectedMonth(month) {
+                this.date.setMonth(month);
 
-                this.fetchReport();
+                this.apiEndPoint = queryString.stringifyUrl({
+                    url: this.apiEndPoint,
+                    query: { date: this.date.toJSON().slice(0, 10) }
+                })
             },
-            duration(value) {
-                this.year = value;
+            selectedYear(year) {
+                this.date.setFullYear(year);
 
-                this.date = new Date(value, this.month, this.day);
+                this.apiEndPoint = queryString.stringifyUrl({
+                    url: this.apiEndPoint,
+                    query: { date: this.date.toJSON().slice(0, 10) }
+                });
+            },
+            duration(year) {
+                this.selectedYear = year;
 
-                this.fetchReport();
+                this.date.setFullYear(year);
+
+                this.apiEndPoint = queryString.stringifyUrl({
+                    url: this.apiEndPoint,
+                    query: { date: this.date.toJSON().slice(0, 10) }
+                });
             }
         },
         computed: {
@@ -190,7 +230,7 @@
                     },
                     yAxis: {
                         title: {
-                            text: 'Household With Latrines'
+                            text: 'Household With Handwash Place'
                         },
                     },
                     legend: {
@@ -206,81 +246,46 @@
                     series: [
                         {
                             colorByPoint: true,
-                            data: this.statistics
+                            data: [
+                                {
+                                    name: "Hand wash place",
+                                    y: this.report.has_handwash_place
+                                },
+                                {
+                                    name: "Hand wash container",
+                                    y: this.report.has_handwash_container
+                                },
+                                {
+                                    name: "Has Soap",
+                                    y: this.report.has_soap
+                                },
+                            ]
                         }
                     ],
                 };
             },
             areaName() {
-                return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`
+                return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`;
             }
         },
         methods: {
-            toggle() {
-                return this.isVisible = !this.isVisible;
-            },
             getMonthName(month) {
-                return (new Date(this.year, month, this.day)).toLocaleString('default', {
+                return (new Date(this.selectedYear, month, this.selectedDate)).toLocaleString('default', {
                     month: 'long'
                 });
             },
-            aggregateAttribute(response, name) {
-                return response.data.map(item => item[name]).reduce((accumulator, currentValue) => {
-                    return accumulator + currentValue;
+            getReportBy(period) {
+                this.period = period;
+
+                this.apiEndPoint = queryString.stringifyUrl({
+                    url: this.apiEndPoint,
+                    query: { period: period }
                 });
             },
-            dailyReport() {
-                this.period = "daily";
+            async fetchReport() {
+                let response = await Axios.get(this.apiEndPoint);
 
-                this.fetchReport();
-            },
-            monthlyReport() {
-                this.period = "monthly";
-
-                this.fetchReport();
-            },
-            annuallyReport() {
-                this.period = "annually";
-
-                this.fetchReport();
-            },
-            fetchReport() {
-                axios.get('/api/latrine_characteristics', {
-                    params: {
-                        period: this.period,
-                        date: this.date
-                    }
-                }).then((response) => {
-                    this.statistics = this.transformResult(response)
-                })
-            },
-            transformResult(response) {
-                return [
-                    {
-                        name: "Hand wash place",
-                        y: this.aggregateAttribute(response, 'has_latrine')
-                    },
-                    {
-                        name: "Hand wash container",
-                        y: this.aggregateAttribute(response, 'has_lockable_door')
-                    },
-                    {
-                        name: "Soap",
-                        y: this.aggregateAttribute(response, 'has_brick_wall')
-                    },
-                    // {
-                    //     name: "Cemented Floor",
-                    //     y: this.aggregateAttribute(response, 'has_cemented_floor')
-                    // },
-                    // {
-                    //     name: "Iron Sheet Roof",
-                    //     y: this.aggregateAttribute(response, 'has_iron_sheet_roof')
-                    // },
-                    // {
-                    //     name: "Adjacent bathroom",
-                    //     y: this.aggregateAttribute(response, 'has_adjacent_bathroom')
-                    // }
-                ]
+                this.report = response.data[0];
             }
         }
     }
