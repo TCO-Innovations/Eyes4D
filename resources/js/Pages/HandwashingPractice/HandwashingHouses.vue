@@ -111,7 +111,7 @@
                             {
                                 from: 0,
                                 to: (this.report.total * 0.333333).toFixed(1),
-                                color: '#DF5353'  // red
+                                color: '#55BF3B' // green
                             },
                             {
                                 from: (this.report.total * 0.333333).toFixed(1),
@@ -121,7 +121,7 @@
                             {
                                 from: (this.report.total * 0.666667).toFixed(1),
                                 to: this.report.total,
-                                color: '#55BF3B' // green
+                                color: '#DF5353'  // red
                             }
                         ]
                     },
@@ -130,7 +130,7 @@
                     },
                     series: [{
                         name: 'Speed',
-                        data: [this.report.sub_total],
+                        data: [this.report.total - this.report.sub_total],
                         tooltip: {
                             valueSuffix: 'Total'
                         }
