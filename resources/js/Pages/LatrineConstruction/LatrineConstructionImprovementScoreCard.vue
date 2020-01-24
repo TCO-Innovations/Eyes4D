@@ -1,6 +1,6 @@
 <template>
-    <div class="shadow-lg overflow-hidden">
-        <header class="px-6 bg-blue-100 py-4">
+    <div class="mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <header class="px-6 bg-gray-100 py-4">
             <h2 class="text-lg mb-2">Latrine Construction and Improvement Scorecard</h2>
             <div class="text-sm text-gray-700">
                 {{ areaName }} - July 2019 to September 2019
@@ -9,38 +9,38 @@
         <div class="overflow-x-scroll" style="height: 42rem;">
             <table class="whitespace-no-wrap">
                 <thead>
-                    <tr>
-                        <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left">
-                            Head Of House
+                    <tr class="text-xs uppercase tracking-wider text-gray-700 font-semibold">
+                        <th class="py-4 px-4 border-b text-left whitespace-no-wrap">
+                            <div><span>Head Of House</span></div>
                         </th>
-                        <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                            Has latrine
+                        <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
+                            <div><span>Has latrine</span></div>
                         </th>
-                        <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                            Easy washable cemented floor
+                        <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
+                            <div><span>Easy washable cemented floor</span></div>
                         </th>
-                        <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                            Lockable door
+                        <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
+                            <div><span>Lockable door</span></div>
                         </th>
-                        <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                            Iron sheet roof
+                        <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
+                            <div><span>Iron sheet roof</span></div>
                         </th>
-                        <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                            Wall with bricks
+                        <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
+                            <div><span>Wall with bricks</span></div>
                         </th>
-                        <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                            Adjacent bathroom
+                        <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
+                            <div><span>Adjacent bathroom</span></div>
                         </th>
-                        <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                            Clean latrine
+                        <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
+                            <div><span>Clean latrine</span></div>
                         </th>
-                        <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                            Latrine construction and improvement average
+                        <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
+                            <div><span>Latrine construction and improvement average</span></div>
                         </th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="text-sm">
                     <tr v-for="house in houses" :key="house.id">
                         <td class="border-b text-left  py-4 px-4">
                             {{ titleCase(house.head_of_house) }}

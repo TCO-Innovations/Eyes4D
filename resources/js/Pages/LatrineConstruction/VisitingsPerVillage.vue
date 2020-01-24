@@ -1,7 +1,7 @@
 <template>
-    <div class="shadow-lg">
-        <header class="flex justify-between px-4 py-5 bg-blue-100">
-            <h3 class="text-xs uppercase tracking-wide font-semibold text-blue-700">Visiting Per Village</h3>
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+        <header class="flex justify-between px-4 py-5 bg-gray-100">
+            <h3 class="text-xs uppercase tracking-wide font-semibold text-gray-700">Visiting Per Village</h3>
             <div class="text-xs">
                 <button @click.prevent="toggleDirection">Sort Order: {{ titleCase(order) }}</button>
             </div>

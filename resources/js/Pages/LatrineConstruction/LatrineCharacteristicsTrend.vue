@@ -1,54 +1,58 @@
 <template>
-    <div class="mx-auto shadow-lg overflow-hidden">
-        <header class="px-6 bg-blue-100 flex justify-between items-center">
-            <div class="text-sm text-gray-600">
-                <button class="px-2" @click.prevent="toggle">
-                    {{ !isVisible ? 'Show' : 'Hide' }} Details
-                </button>
-            </div>
+    <div class="mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <header class="px-6 bg-gray-100 border-b border-gray-100 flex justify-between items-center">
+            <button class="px-2 inline-flex items-center text-sm font-semibold text-gray-600" @click.prevent="toggle">
+                {{ !isVisible ? 'Show' : 'Hide' }} Details
+                <template v-if="isVisible">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current ml-1 text-gray-500"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"/></svg>
+                </template>
+                <template v-else>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current ml-1 text-gray-500"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/></svg>
+                </template>
+            </button>
 
             <div class="flex">
-                <ul class="flex items-center mx-6">
+                <ul class="flex items-center mx-6 text-xs uppercase tracking-wide font-semibold text-gray-600">
                     <li>
                         <a
                             href="#"
-                            class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
-                            :class="{ 'border-blue-500' : period === 'daily' }"
+                            class="px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500"
+                            :class="{ 'border-blue-500 text-gray-700' : period === 'daily' }"
                             @click.prevent="dailyReport"
                         >Daily</a>
                     </li>
                     <li>
                         <a
                             href="#"
-                            class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
-                            :class="{ 'border-blue-500' : period === 'monthly' }"
+                            class="px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500"
+                            :class="{ 'border-blue-500 text-gray-700' : period === 'monthly' }"
                             @click.prevent="monthlyReport"
                         >Monthly</a>
                     </li>
                     <li>
                         <a
                             href="#"
-                            class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
-                            :class="{ 'border-blue-500' : period === 'annually' }"
+                            class="px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500"
+                            :class="{ 'border-blue-500 text-gray-700' : period === 'annually' }"
                             @click.prevent="annuallyReport"
                         >Annually</a>
                     </li>
                 </ul>
 
                 <form class="flex items-center">
-                    <select id="day" class="bg-blue-100" v-model="day" v-if="period === 'daily'">
+                    <select id="day" class="form-select form-select-sm border-0 bg-transparent w-16" v-model="day" v-if="period === 'daily'">
                         <option v-for="dayNumber in (new Date(year, month + 1, 0)).getDate()" :value="dayNumber">
                             {{ dayNumber }}
                         </option>
                     </select>
 
-                    <select id="month" class="bg-blue-100" v-model="month" v-if="period === 'daily' || period === 'monthly'">
+                    <select id="month" class="form-select form-select-sm border-0 bg-transparent w-24" v-model="month" v-if="period === 'daily' || period === 'monthly'">
                         <option :value="monthNumber" v-for="monthNumber in Array(12).keys()">
                             {{ getMonthName(monthNumber) }}
                         </option>
                     </select>
 
-                    <select id="year" class="bg-blue-100" v-model="year">
+                    <select id="year" class="form-select form-select-sm border-0 bg-transparent w-20" v-model="year">
                         <option v-for="yearNumber in Array(5).keys()" :value="year - yearNumber">
                             {{ year - yearNumber }}
                         </option>
@@ -131,7 +135,7 @@
         },
         data() {
             return {
-                period: "daily",
+                period: "monthly",
                 year: (new Date).getFullYear(),
                 month: (new Date).getMonth(),
                 day: (new Date).getDate(),

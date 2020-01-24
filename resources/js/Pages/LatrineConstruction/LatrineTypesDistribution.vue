@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto border-t-4 border-blue-400 shadow-lg overflow-hidden">
+    <div class="mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         <div class="px-6 py-8 border-b" :class="{ 'border-b': isVisible }">
             <highcharts :options="chartOptions"/>
         </div>
@@ -9,7 +9,7 @@
                     <tr>
                         <th class="py-1">
                             <div class="flex items-center text-sm font-semibold text-gray-700">
-                                <span class="block h-4 w-4 rounded bg-blue-500 mr-2"></span>
+                                <span class="block h-4 w-4 rounded bg-blue-500 mr-2"/>
                                 EcoSan Latrine
                             </div>
                         </th>
@@ -19,7 +19,7 @@
                     <tr>
                         <th class="py-1">
                             <div class="flex items-center text-sm font-semibold text-gray-700">
-                                <span class="block h-4 w-4 rounded bg-green-500 mr-2"></span>
+                                <span class="block h-4 w-4 rounded bg-green-500 mr-2"/>
                                 Pour Flush Latrine
                             </div>
                         </th>
@@ -29,7 +29,7 @@
                     <tr>
                         <th class="py-1">
                             <div class="flex items-center text-sm font-semibold text-gray-700">
-                                <span class="block h-4 w-4 rounded bg-yellow-500 mr-2"></span>
+                                <span class="block h-4 w-4 rounded bg-yellow-500 mr-2"/>
                                 Flush Latrine
                             </div>
                         </th>
@@ -39,7 +39,7 @@
                     <tr>
                         <th class="py-1">
                             <div class="flex items-center text-sm font-semibold text-gray-700">
-                                <span class="block h-4 w-4 rounded bg-red-500 mr-2"></span>
+                                <span class="block h-4 w-4 rounded bg-red-500 mr-2"/>
                                 VIP Latrine
                             </div>
                         </th>
@@ -49,7 +49,7 @@
                     <tr>
                         <th class="py-1">
                             <div class="flex items-center text-sm font-semibold text-gray-700">
-                                <span class="block h-4 w-4 rounded bg-purple-500 mr-2"></span>
+                                <span class="block h-4 w-4 rounded bg-purple-500 mr-2"/>
                                 Improved Traditional Pit Latrine
                             </div>
                         </th>
@@ -59,7 +59,7 @@
                     <tr>
                         <th class="py-1">
                             <div class="flex items-center text-sm font-semibold text-gray-700">
-                                <span class="block h-4 w-4 rounded bg-blue-500 mr-2"></span>
+                                <span class="block h-4 w-4 rounded bg-blue-500 mr-2"/>
                                 Traditional Pit Latrine
                             </div>
                         </th>
@@ -69,7 +69,7 @@
                     <tr>
                         <th class="py-1">
                             <div class="flex items-center text-sm font-semibold text-gray-700">
-                                <span class="block h-4 w-4 rounded bg-green-500 mr-2"></span>
+                                <span class="block h-4 w-4 rounded bg-green-500 mr-2"/>
                                 Improved Shared Latrine
                             </div>
                         </th>
