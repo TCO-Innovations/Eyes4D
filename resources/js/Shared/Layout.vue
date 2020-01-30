@@ -1,6 +1,6 @@
 <template>
     <div>
-        <header class="flex items-center justify-between bg-blue-800 border-b">
+        <header class="flex items-center justify-between bg-blue-600 border-b">
             <div class="px-6 font-bold text-white">
                 {{ $page.app.name }}
             </div>

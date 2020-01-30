@@ -46,23 +46,23 @@
             </div>
 
             <!-- Overview -->
-            <div class="flex -mx-6 mb-16">
+            <div class="flex mb-16 bg-blue-600 rounded-lg shadow">
                 <div class="w-1/3 px-6">
-                    <div class="px-6 py-5 rounded-lg shadow-lg overflow-hidden bg-blue-800">
-                        <h3 class="text-blue-300 text-xs uppercase tracking-wide font-semibold">Total Household</h3>
-                        <div class="text-white text-5xl font-light">2,658</div>
+                    <div class="px-6 py-5">
+                        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Total Household</h3>
+                        <div class="text-white text-5xl font-medium">2,658</div>
                     </div>
                 </div>
                 <div class="w-1/3 px-6">
-                    <div class="px-6 py-5 rounded-lg shadow-lg overflow-hidden bg-blue-800">
-                        <h3 class="text-blue-300 text-xs uppercase tracking-wide font-semibold">Visited Household</h3>
-                        <div class="text-white text-5xl font-light">2,351</div>
+                    <div class="px-6 py-5">
+                        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Visited Household</h3>
+                        <div class="text-white text-5xl font-medium">2,351</div>
                     </div>
                 </div>
                 <div class="w-1/3 px-6">
-                    <div class="px-6 py-5 rounded-lg shadow-lg overflow-hidden bg-blue-800">
-                        <h3 class="text-blue-300 text-xs uppercase tracking-wide font-semibold">Houses With Latrine</h3>
-                        <div class="text-white text-5xl font-light">1,876</div>
+                    <div class="px-6 py-5">
+                        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Houses With Latrine</h3>
+                        <div class="text-white text-5xl font-medium">1,876</div>
                     </div>
                 </div>
             </div>
@@ -111,6 +111,7 @@
             </div>
 
             <!-- Visits -->
+            <!--
             <div class="flex -mx-6 mb-16">
                 <div class="w-1/2 px-6">
                     <VisitingPerContact />
@@ -119,6 +120,7 @@
                     <VisitingPerVillage />
                 </div>
             </div>
+            -->
 
             <!-- -->
             <div class="flex mb-16 -mx-6">
