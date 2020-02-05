@@ -1,1 +1,1413 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[14],{1:function(t,e,r){t.exports=r(44)},21:function(t,e,r){"use strict";r.r(e);var n=r(1),i=r.n(n),o=r(5),a=r.n(o),s=r(2),c=r.n(s);function u(t,e,r,n,i,o,a){try{var s=t[o](a),c=s.value}catch(t){return void r(t)}s.done?e(c):Promise.resolve(c).then(n,i)}var l,h,f={data:function(){return{visits:[],limit:5,order:"desc"}},mounted:function(){this.fetchResult()},methods:{titleCase:function(t){return a.a.titleCase(t)},more:function(){this.limit=this.limit+5,this.fetchResult()},less:function(){this.limit=this.limit-5,this.fetchResult()},toggleDirection:function(){this.order="desc"===this.order?"asc":"desc",this.fetchResult()},fetchResult:(l=i.a.mark((function t(){var e;return i.a.wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,c.a.get("api/visiting_per_contact",{params:{take:this.limit,order:this.order}});case 2:e=t.sent,this.visits=e.data;case 4:case"end":return t.stop()}}),t,this)})),h=function(){var t=this,e=arguments;return new Promise((function(r,n){var i=l.apply(t,e);function o(t){u(i,r,n,o,a,"next",t)}function a(t){u(i,r,n,o,a,"throw",t)}o(void 0)}))},function(){return h.apply(this,arguments)})}},p=r(0),v=Object(p.a)(f,(function(){var t=this,e=t.$createElement,r=t._self._c||e;return r("div",{staticClass:"bg-white shadow-lg rounded-lg overflow-hidden"},[r("header",{staticClass:"flex justify-between px-4 py-5 bg-gray-100"},[r("h3",{staticClass:"text-xs uppercase tracking-wide font-semibold text-gray-700"},[t._v("Visiting Per Contact")]),t._v(" "),r("button",{staticClass:"inline-flex items-center text-xs uppercase tracking-wide text-gray-600",on:{click:function(e){return e.preventDefault(),t.toggleDirection(e)}}},[t._v("\n            Sort Order: "+t._s(t.titleCase(t.order))+"\n            "),"desc"===t.order?[r("svg",{staticClass:"h-4 w-4 fill-current text-gray-500 ml-1",attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"}},[r("path",{attrs:{fill:"none",d:"M0 0h24v24H0z"}}),r("path",{attrs:{d:"M13 16.172l5.364-5.364 1.414 1.414L12 20l-7.778-7.778 1.414-1.414L11 16.172V4h2v12.172z"}})])]:t._e(),t._v(" "),"asc"===t.order?[r("svg",{staticClass:"h-4 w-4 fill-current text-gray-500 ml-1",attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"}},[r("path",{attrs:{fill:"none",d:"M0 0h24v24H0z"}}),r("path",{attrs:{d:"M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828z"}})])]:t._e()],2)]),t._v(" "),r("div",{staticClass:"py-4 px-4"},[r("table",{staticClass:"w-full text-left"},[t._m(0),t._v(" "),r("tbody",t._l(t.visits,(function(e){return r("tr",{staticClass:"border-b last:border-b-0"},[r("th",{staticClass:"text-sm py-3"},[t._v("\n                        "+t._s(t.titleCase(e.contact_name))+"\n                    ")]),t._v(" "),r("td",{staticClass:"text-sm py-3"},[t._v("\n                        "+t._s(t.titleCase(e.village))+"\n                    ")]),t._v(" "),r("td",{staticClass:"text-sm py-3"},[t._v("\n                        "+t._s(e.visits)+"\n                    ")])])})),0)])]),t._v(" "),r("footer",{staticClass:"px-4 flex py-4 justify-between"},[r("button",{staticClass:"text-xs uppercase text-blue-500 tracking-wide",on:{click:function(e){return e.preventDefault(),t.more(e)}}},[t._v("View More")]),t._v(" "),t.limit>5?r("button",{staticClass:"text-xs uppercase text-blue-500 tracking-wide",on:{click:function(e){return e.preventDefault(),t.less(e)}}},[t._v("View Less")]):t._e()])])}),[function(){var t=this.$createElement,e=this._self._c||t;return e("tbody",[e("tr",{staticClass:"border-b"},[e("th",{staticClass:"text-xs uppercase tracking-wide text-gray-600 py-4"},[this._v("Contact")]),this._v(" "),e("th",{staticClass:"text-xs uppercase tracking-wide text-gray-600 py-4"},[this._v("Village")]),this._v(" "),e("th",{staticClass:"text-xs uppercase tracking-wide text-gray-600 py-4"},[this._v("Visits")])])])}],!1,null,null,null);e.default=v.exports},44:function(t,e,r){var n=function(t){"use strict";var e=Object.prototype,r=e.hasOwnProperty,n="function"==typeof Symbol?Symbol:{},i=n.iterator||"@@iterator",o=n.asyncIterator||"@@asyncIterator",a=n.toStringTag||"@@toStringTag";function s(t,e,r,n){var i=e&&e.prototype instanceof l?e:l,o=Object.create(i.prototype),a=new b(n||[]);return o._invoke=function(t,e,r){var n="suspendedStart";return function(i,o){if("executing"===n)throw new Error("Generator is already running");if("completed"===n){if("throw"===i)throw o;return C()}for(r.method=i,r.arg=o;;){var a=r.delegate;if(a){var s=w(a,r);if(s){if(s===u)continue;return s}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if("suspendedStart"===n)throw n="completed",r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);n="executing";var l=c(t,e,r);if("normal"===l.type){if(n=r.done?"completed":"suspendedYield",l.arg===u)continue;return{value:l.arg,done:r.done}}"throw"===l.type&&(n="completed",r.method="throw",r.arg=l.arg)}}}(t,r,a),o}function c(t,e,r){try{return{type:"normal",arg:t.call(e,r)}}catch(t){return{type:"throw",arg:t}}}t.wrap=s;var u={};function l(){}function h(){}function f(){}var p={};p[i]=function(){return this};var v=Object.getPrototypeOf,d=v&&v(v(L([])));d&&d!==e&&r.call(d,i)&&(p=d);var y=f.prototype=l.prototype=Object.create(p);function g(t){["next","throw","return"].forEach((function(e){t[e]=function(t){return this._invoke(e,t)}}))}function m(t){var e;this._invoke=function(n,i){function o(){return new Promise((function(e,o){!function e(n,i,o,a){var s=c(t[n],t,i);if("throw"!==s.type){var u=s.arg,l=u.value;return l&&"object"==typeof l&&r.call(l,"__await")?Promise.resolve(l.__await).then((function(t){e("next",t,o,a)}),(function(t){e("throw",t,o,a)})):Promise.resolve(l).then((function(t){u.value=t,o(u)}),(function(t){return e("throw",t,o,a)}))}a(s.arg)}(n,i,e,o)}))}return e=e?e.then(o,o):o()}}function w(t,e){var r=t.iterator[e.method];if(void 0===r){if(e.delegate=null,"throw"===e.method){if(t.iterator.return&&(e.method="return",e.arg=void 0,w(t,e),"throw"===e.method))return u;e.method="throw",e.arg=new TypeError("The iterator does not provide a 'throw' method")}return u}var n=c(r,t.iterator,e.arg);if("throw"===n.type)return e.method="throw",e.arg=n.arg,e.delegate=null,u;var i=n.arg;return i?i.done?(e[t.resultName]=i.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=void 0),e.delegate=null,u):i:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,u)}function x(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function _(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function b(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(x,this),this.reset(!0)}function L(t){if(t){var e=t[i];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var n=-1,o=function e(){for(;++n<t.length;)if(r.call(t,n))return e.value=t[n],e.done=!1,e;return e.value=void 0,e.done=!0,e};return o.next=o}}return{next:C}}function C(){return{value:void 0,done:!0}}return h.prototype=y.constructor=f,f.constructor=h,f[a]=h.displayName="GeneratorFunction",t.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===h||"GeneratorFunction"===(e.displayName||e.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,f):(t.__proto__=f,a in t||(t[a]="GeneratorFunction")),t.prototype=Object.create(y),t},t.awrap=function(t){return{__await:t}},g(m.prototype),m.prototype[o]=function(){return this},t.AsyncIterator=m,t.async=function(e,r,n,i){var o=new m(s(e,r,n,i));return t.isGeneratorFunction(r)?o:o.next().then((function(t){return t.done?t.value:o.next()}))},g(y),y[a]="Generator",y[i]=function(){return this},y.toString=function(){return"[object Generator]"},t.keys=function(t){var e=[];for(var r in t)e.push(r);return e.reverse(),function r(){for(;e.length;){var n=e.pop();if(n in t)return r.value=n,r.done=!1,r}return r.done=!0,r}},t.values=L,b.prototype={constructor:b,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=void 0,this.done=!1,this.delegate=null,this.method="next",this.arg=void 0,this.tryEntries.forEach(_),!t)for(var e in this)"t"===e.charAt(0)&&r.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=void 0)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function n(r,n){return a.type="throw",a.arg=t,e.next=r,n&&(e.method="next",e.arg=void 0),!!n}for(var i=this.tryEntries.length-1;i>=0;--i){var o=this.tryEntries[i],a=o.completion;if("root"===o.tryLoc)return n("end");if(o.tryLoc<=this.prev){var s=r.call(o,"catchLoc"),c=r.call(o,"finallyLoc");if(s&&c){if(this.prev<o.catchLoc)return n(o.catchLoc,!0);if(this.prev<o.finallyLoc)return n(o.finallyLoc)}else if(s){if(this.prev<o.catchLoc)return n(o.catchLoc,!0)}else{if(!c)throw new Error("try statement without catch or finally");if(this.prev<o.finallyLoc)return n(o.finallyLoc)}}}},abrupt:function(t,e){for(var n=this.tryEntries.length-1;n>=0;--n){var i=this.tryEntries[n];if(i.tryLoc<=this.prev&&r.call(i,"finallyLoc")&&this.prev<i.finallyLoc){var o=i;break}}o&&("break"===t||"continue"===t)&&o.tryLoc<=e&&e<=o.finallyLoc&&(o=null);var a=o?o.completion:{};return a.type=t,a.arg=e,o?(this.method="next",this.next=o.finallyLoc,u):this.complete(a)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),u},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),_(r),u}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var i=n.arg;_(r)}return i}}throw new Error("illegal catch attempt")},delegateYield:function(t,e,r){return this.delegate={iterator:L(t),resultName:e,nextLoc:r},"next"===this.method&&(this.arg=void 0),u}},t}(t.exports);try{regeneratorRuntime=n}catch(t){Function("r","regeneratorRuntime = r")(n)}}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    area: {
+      required: true,
+      type: Object
+    }
+  },
+  data: function data() {
+    return {
+      report: {}
+    };
+  },
+  watch: {
+    area: {
+      deep: true,
+      handler: function handler() {
+        this.fetchReport();
+      }
+    }
+  },
+  computed: {
+    path: function path() {
+      return "/api/house_with_latrine";
+    },
+    chartOptions: function chartOptions() {
+      return {
+        chart: {
+          type: 'gauge',
+          plotBorderWidth: 0,
+          plotShadow: false,
+          plotBackgroundColor: null,
+          plotBackgroundImage: null
+        },
+        title: {
+          margin: 36,
+          text: 'House Without Latrines',
+          style: {
+            "color": "#333333",
+            "fontSize": "14px"
+          }
+        },
+        subtitle: {
+          text: "".concat(this.areaName, " - Jan 2019 to Jun 2019")
+        },
+        pane: {
+          startAngle: -150,
+          endAngle: 150,
+          background: [{
+            backgroundColor: {
+              linearGradient: {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 1
+              },
+              stops: [[0, '#FFF'], [1, '#333']]
+            },
+            borderWidth: 0,
+            outerRadius: '109%'
+          }, {
+            backgroundColor: {
+              linearGradient: {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 1
+              },
+              stops: [[0, '#333'], [1, '#FFF']]
+            },
+            borderWidth: 1,
+            outerRadius: '107%'
+          }, {}, {
+            backgroundColor: '#DDD',
+            borderWidth: 0,
+            outerRadius: '105%',
+            innerRadius: '103%'
+          }]
+        },
+        yAxis: {
+          min: 0,
+          max: this.report.total,
+          minorTickInterval: 'auto',
+          minorTickWidth: 1,
+          minorTickLength: 10,
+          minorTickPosition: 'inside',
+          minorTickColor: '#666',
+          tickPixelInterval: 30,
+          tickWidth: 2,
+          tickPosition: 'inside',
+          tickLength: 10,
+          tickColor: '#666',
+          labels: {
+            step: 2,
+            rotation: 'auto'
+          },
+          title: {
+            text: ''
+          },
+          plotBands: [{
+            from: 0,
+            to: (this.report.total * 0.333333).toFixed(1),
+            color: '#55BF3B' // green
+
+          }, {
+            from: (this.report.total * 0.333333).toFixed(1),
+            to: (this.report.total * 0.666667).toFixed(1),
+            color: '#DDDF0D' // yellow
+
+          }, {
+            from: (this.report.total * 0.666667).toFixed(1),
+            to: this.report.total,
+            color: '#DF5353' // red
+
+          }]
+        },
+        credits: {
+          enabled: false
+        },
+        series: [{
+          name: 'Speed',
+          data: [this.report.total - this.report.latrine_count],
+          tooltip: {
+            valueSuffix: 'Total'
+          }
+        }]
+      };
+    },
+    areaName: function areaName() {
+      return "".concat(this.area.name ? this.area.name : "All", " ").concat(this.area.type ? this.area.type : "Regions");
+    },
+    parameters: function parameters() {
+      if (!this.area.type && !this.area.name) {
+        return null;
+      }
+
+      return _defineProperty({}, this.area.type.toLowerCase(), this.area.name);
+    }
+  },
+  mounted: function mounted() {
+    this.fetchReport();
+  },
+  methods: {
+    fetchReport: function () {
+      var _fetchReport = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(this.path, {
+                  params: this.parameters
+                });
+
+              case 2:
+                response = _context.sent;
+                this.report = response.data[0];
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function fetchReport() {
+        return _fetchReport.apply(this, arguments);
+      }
+
+      return fetchReport;
+    }()
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/Index.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/Index.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Shared/Layout */ "./resources/js/Shared/Layout.vue");
+/* harmony import */ var _HouseWithLatrines__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./HouseWithLatrines */ "./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue");
+/* harmony import */ var _LatrineTypesDistribution__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./LatrineTypesDistribution */ "./resources/js/Pages/LatrineConstruction/LatrineTypesDistribution.vue");
+/* harmony import */ var _LatrineCharacteristics__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./LatrineCharacteristics */ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue");
+/* harmony import */ var _LatrineCharacteristicsTrend__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./LatrineCharacteristicsTrend */ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue");
+/* harmony import */ var _VisitingsPerVillage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./VisitingsPerVillage */ "./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue");
+/* harmony import */ var _VisitingsPerContact__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./VisitingsPerContact */ "./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue");
+/* harmony import */ var _LatrineConstructionImprovementScoreCard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./LatrineConstructionImprovementScoreCard */ "./resources/js/Pages/LatrineConstruction/LatrineConstructionImprovementScoreCard.vue");
+/* harmony import */ var _HouseholdVisiting__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./HouseholdVisiting */ "./resources/js/Pages/LatrineConstruction/HouseholdVisiting.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Layout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_3__["default"],
+    LatrineCharacteristicsTrend: _LatrineCharacteristicsTrend__WEBPACK_IMPORTED_MODULE_7__["default"],
+    HouseWithLatrines: _HouseWithLatrines__WEBPACK_IMPORTED_MODULE_4__["default"],
+    LatrineCharacteristics: _LatrineCharacteristics__WEBPACK_IMPORTED_MODULE_6__["default"],
+    VisitingPerContact: _VisitingsPerContact__WEBPACK_IMPORTED_MODULE_9__["default"],
+    VisitingPerVillage: _VisitingsPerVillage__WEBPACK_IMPORTED_MODULE_8__["default"],
+    LatrineTypesDistribution: _LatrineTypesDistribution__WEBPACK_IMPORTED_MODULE_5__["default"],
+    HouseholdVisiting: _HouseholdVisiting__WEBPACK_IMPORTED_MODULE_11__["default"],
+    LatrineConstructionImprovementScoreCard: _LatrineConstructionImprovementScoreCard__WEBPACK_IMPORTED_MODULE_10__["default"]
+  },
+  props: {
+    regions: {
+      required: true
+    },
+    totalHouseholds: {
+      required: true
+    },
+    visitedHouseholds: {
+      required: true
+    },
+    houseWithLatrine: {
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      districts: [],
+      villages: [],
+      selectedDistrict: "",
+      selectedRegion: "",
+      selectedVillage: "",
+      selectedPeriod: new Date().getFullYear(),
+      area: {
+        name: "",
+        type: ""
+      }
+    };
+  },
+  watch: {
+    selectedRegion: function selectedRegion(value) {
+      history.pushState(null, null, query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
+        url: window.location.href,
+        query: {
+          region: value
+        }
+      }));
+      this.area = {
+        name: value,
+        type: "Region"
+      };
+
+      if (value) {
+        this.fetchDistricts(value);
+      } else {
+        this.districts = [];
+        this.selectedDistrict = "";
+        this.villages = [];
+        this.selectedVillage = "";
+      }
+    },
+    selectedDistrict: function selectedDistrict(value) {
+      history.pushState(null, null, query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
+        url: window.location.href,
+        query: {
+          district: value
+        }
+      }));
+      this.area = {
+        name: value,
+        type: "District"
+      };
+
+      if (value) {
+        this.fetchVillages(value);
+      } else {
+        this.villages = [];
+      }
+    },
+    selectedVillage: function selectedVillage(value) {
+      history.pushState(null, null, query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
+        url: window.location.href,
+        query: {
+          village: value
+        }
+      }));
+      this.area = {
+        name: value,
+        type: "Village"
+      };
+    },
+    selectedPeriod: function selectedPeriod(value) {
+      history.pushState(null, null, query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
+        url: window.location.href,
+        query: {
+          period: value
+        }
+      }));
+    }
+  },
+  methods: {
+    fetchDistricts: function () {
+      var _fetchDistricts = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(region) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/regions/".concat(region, "/districts"));
+
+              case 2:
+                response = _context.sent;
+                this.districts = response.data;
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function fetchDistricts(_x) {
+        return _fetchDistricts.apply(this, arguments);
+      }
+
+      return fetchDistricts;
+    }(),
+    fetchVillages: function () {
+      var _fetchVillages = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(district) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/districts/".concat(district, "/villages"));
+
+              case 2:
+                response = _context2.sent;
+                this.villages = response.data;
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function fetchVillages(_x2) {
+        return _fetchVillages.apply(this, arguments);
+      }
+
+      return fetchVillages;
+    }()
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var voca__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! voca */ "./node_modules/voca/index.js");
+/* harmony import */ var voca__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(voca__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      visits: [],
+      limit: 5,
+      order: 'desc'
+    };
+  },
+  mounted: function mounted() {
+    this.fetchResult();
+  },
+  methods: {
+    titleCase: function titleCase(string) {
+      return voca__WEBPACK_IMPORTED_MODULE_0___default.a.titleCase(string);
+    },
+    more: function more() {
+      this.limit = this.limit + 5;
+      this.fetchResult();
+    },
+    less: function less() {
+      this.limit = this.limit - 5;
+      this.fetchResult();
+    },
+    toggleDirection: function toggleDirection() {
+      this.order = this.order === "desc" ? "asc" : "desc";
+      this.fetchResult();
+    },
+    fetchResult: function fetchResult() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("api/visiting_per_village", {
+        params: {
+          take: this.limit,
+          order: this.order
+        }
+      }).then(function (response) {
+        _this.visits = response.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue?vue&type=template&id=48087c62&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue?vue&type=template&id=48087c62& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "mx-auto bg-white rounded-lg shadow overflow-hidden" },
+    [
+      _c(
+        "div",
+        { staticClass: "py-8 px-8" },
+        [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/Index.vue?vue&type=template&id=c0134170&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/Index.vue?vue&type=template&id=c0134170& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("layout", [
+    _c("div", { staticClass: "px-12" }, [
+      _c("div", { staticClass: "flex mb-16" }, [
+        _c(
+          "header",
+          { staticClass: "w-full flex justify-between border-b pb-8" },
+          [
+            _c("h1", { staticClass: "text-2xl font-semibold text-gray-600" }, [
+              _vm._v(
+                "\n                    Latrine Construction and Improvement\n                "
+              )
+            ]),
+            _vm._v(" "),
+            _c("nav", { staticClass: "flex items-center" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedRegion,
+                      expression: "selectedRegion"
+                    }
+                  ],
+                  staticClass:
+                    "min-w-24 form-select form-select-sm border-0 bg-transparent",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedRegion = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [_vm._v("Region...")]),
+                  _vm._v(" "),
+                  _vm._l(_vm.regions, function(region) {
+                    return _c(
+                      "option",
+                      { key: region.id, domProps: { value: region.name } },
+                      [_vm._v(_vm._s(region.name))]
+                    )
+                  })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _vm.districts.length
+                ? _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.selectedDistrict,
+                          expression: "selectedDistrict"
+                        }
+                      ],
+                      staticClass:
+                        "min-w-24 form-select form-select-sm border-0 bg-transparent",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.selectedDistrict = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("District...")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.districts, function(district) {
+                        return _c(
+                          "option",
+                          {
+                            key: district.name,
+                            domProps: { value: district.name }
+                          },
+                          [_vm._v(_vm._s(district.name))]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.villages.length
+                ? _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.selectedVillage,
+                          expression: "selectedVillage"
+                        }
+                      ],
+                      staticClass:
+                        "min-w-24 form-select form-select-sm border-0 bg-transparent",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.selectedVillage = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [
+                        _vm._v("Village...")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.villages, function(village) {
+                        return _c(
+                          "option",
+                          {
+                            key: village.name,
+                            domProps: { value: village.name }
+                          },
+                          [_vm._v(_vm._s(village.name))]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedPeriod,
+                      expression: "selectedPeriod"
+                    }
+                  ],
+                  staticClass:
+                    "w-20 form-select form-select-sm border-0 bg-transparent",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.selectedPeriod = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(Array(5).keys(), function(yearNumber) {
+                  return _c(
+                    "option",
+                    {
+                      key: new Date().getFullYear() - yearNumber,
+                      domProps: { value: new Date().getFullYear() - yearNumber }
+                    },
+                    [_vm._v(_vm._s(new Date().getFullYear() - yearNumber))]
+                  )
+                }),
+                0
+              )
+            ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex mb-16 bg-blue-600 rounded-lg shadow" }, [
+        _c("div", { staticClass: "w-1/3 px-6" }, [
+          _c("div", { staticClass: "px-6 py-5" }, [
+            _c(
+              "h3",
+              {
+                staticClass:
+                  "text-blue-200 text-xs uppercase tracking-wide font-semibold"
+              },
+              [_vm._v("Total Household")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-white text-5xl font-medium" }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(
+                    new Intl.NumberFormat("en-US").format(_vm.totalHouseholds)
+                  ) +
+                  "\n                    "
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-1/3 px-6" }, [
+          _c("div", { staticClass: "px-6 py-5" }, [
+            _c(
+              "h3",
+              {
+                staticClass:
+                  "text-blue-200 text-xs uppercase tracking-wide font-semibold"
+              },
+              [_vm._v("Visited Household")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-white text-5xl font-medium" }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(
+                    new Intl.NumberFormat("en-US").format(_vm.visitedHouseholds)
+                  ) +
+                  "\n                    "
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-1/3 px-6" }, [
+          _c("div", { staticClass: "px-6 py-5" }, [
+            _c(
+              "h3",
+              {
+                staticClass:
+                  "text-blue-200 text-xs uppercase tracking-wide font-semibold"
+              },
+              [_vm._v("Houses With Latrine")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-white text-5xl font-medium" }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(
+                    new Intl.NumberFormat("en-US").format(_vm.houseWithLatrine)
+                  ) +
+                  "\n                    "
+              )
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex -mx-6 mb-16" }, [
+        _c("div", { staticClass: "w-full px-6" }, [_c("HouseholdVisiting")], 1)
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex mb-16 -mx-6" }, [
+        _c(
+          "section",
+          { staticClass: "w-1/2 px-6" },
+          [_c("HouseWithLatrines", { attrs: { area: _vm.area } })],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "section",
+          { staticClass: "w-1/2 px-6" },
+          [_c("LatrineTypesDistribution", { attrs: { area: _vm.area } })],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex -mx-6 mb-16" }, [
+        _c(
+          "section",
+          { staticClass: "w-full px-6" },
+          [
+            _c("LatrineCharacteristics", {
+              attrs: { area: _vm.area, duration: _vm.selectedPeriod }
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex -mx-6 mb-16" }, [
+        _c(
+          "section",
+          { staticClass: "w-full px-6" },
+          [
+            _c("LatrineCharacteristicsTrend", {
+              attrs: { area: _vm.area, duration: _vm.selectedPeriod }
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "flex mb-16" }, [
+        _c(
+          "section",
+          { staticClass: "w-full" },
+          [
+            _c("LatrineConstructionImprovementScoreCard", {
+              attrs: { area: _vm.area }
+            })
+          ],
+          1
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=template&id=443f3401&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=template&id=443f3401& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "bg-white shadow-lg rounded-lg overflow-hidden" },
+    [
+      _c(
+        "header",
+        { staticClass: "flex justify-between px-4 py-5 bg-gray-100" },
+        [
+          _c(
+            "h3",
+            {
+              staticClass:
+                "text-xs uppercase tracking-wide font-semibold text-gray-700"
+            },
+            [_vm._v("Visiting Per Village")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "text-xs" }, [
+            _c(
+              "button",
+              {
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.toggleDirection($event)
+                  }
+                }
+              },
+              [_vm._v("Sort Order: " + _vm._s(_vm.titleCase(_vm.order)))]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "py-4 px-4" }, [
+        _c("table", { staticClass: "w-full text-left" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.visits, function(visit) {
+              return _c("tr", { staticClass: "border-b last:border-b-0" }, [
+                _c("th", { staticClass: "text-sm py-3" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.titleCase(visit.village)) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-sm py-3" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.titleCase(visit.district)) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-sm py-3" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(visit.visits) +
+                      "\n                "
+                  )
+                ])
+              ])
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "footer",
+        {
+          staticClass:
+            "px-4 flex py-4 justify-between text-xs uppercase text-blue-500 tracking-wider"
+        },
+        [
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.more($event)
+                }
+              }
+            },
+            [_vm._v("View More")]
+          ),
+          _vm._v(" "),
+          _vm.limit > 5
+            ? _c(
+                "button",
+                {
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.less($event)
+                    }
+                  }
+                },
+                [_vm._v("View Less")]
+              )
+            : _vm._e()
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tbody", [
+      _c("tr", { staticClass: "border-b" }, [
+        _c(
+          "th",
+          {
+            staticClass:
+              "text-xs uppercase tracking-wider font-light text-gray-600 py-4"
+          },
+          [_vm._v("Village")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "text-xs uppercase tracking-wider font-light text-gray-600 py-4"
+          },
+          [_vm._v("District")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "text-xs uppercase tracking-wider font-light text-gray-600 py-4"
+          },
+          [_vm._v("Visits")]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue":
+/*!**********************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _HouseWithLatrines_vue_vue_type_template_id_48087c62___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HouseWithLatrines.vue?vue&type=template&id=48087c62& */ "./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue?vue&type=template&id=48087c62&");
+/* harmony import */ var _HouseWithLatrines_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HouseWithLatrines.vue?vue&type=script&lang=js& */ "./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _HouseWithLatrines_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _HouseWithLatrines_vue_vue_type_template_id_48087c62___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _HouseWithLatrines_vue_vue_type_template_id_48087c62___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HouseWithLatrines_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./HouseWithLatrines.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HouseWithLatrines_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue?vue&type=template&id=48087c62&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue?vue&type=template&id=48087c62& ***!
+  \*****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HouseWithLatrines_vue_vue_type_template_id_48087c62___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./HouseWithLatrines.vue?vue&type=template&id=48087c62& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue?vue&type=template&id=48087c62&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HouseWithLatrines_vue_vue_type_template_id_48087c62___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HouseWithLatrines_vue_vue_type_template_id_48087c62___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/Index.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/Index.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Index_vue_vue_type_template_id_c0134170___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=c0134170& */ "./resources/js/Pages/LatrineConstruction/Index.vue?vue&type=template&id=c0134170&");
+/* harmony import */ var _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js& */ "./resources/js/Pages/LatrineConstruction/Index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Index_vue_vue_type_template_id_c0134170___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Index_vue_vue_type_template_id_c0134170___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/LatrineConstruction/Index.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/Index.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/Index.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/Index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/Index.vue?vue&type=template&id=c0134170&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/Index.vue?vue&type=template&id=c0134170& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_c0134170___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Index.vue?vue&type=template&id=c0134170& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/Index.vue?vue&type=template&id=c0134170&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_c0134170___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_c0134170___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _VisitingsPerVillage_vue_vue_type_template_id_443f3401___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VisitingsPerVillage.vue?vue&type=template&id=443f3401& */ "./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=template&id=443f3401&");
+/* harmony import */ var _VisitingsPerVillage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VisitingsPerVillage.vue?vue&type=script&lang=js& */ "./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _VisitingsPerVillage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _VisitingsPerVillage_vue_vue_type_template_id_443f3401___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _VisitingsPerVillage_vue_vue_type_template_id_443f3401___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerVillage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./VisitingsPerVillage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerVillage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=template&id=443f3401&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=template&id=443f3401& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerVillage_vue_vue_type_template_id_443f3401___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./VisitingsPerVillage.vue?vue&type=template&id=443f3401& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=template&id=443f3401&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerVillage_vue_vue_type_template_id_443f3401___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerVillage_vue_vue_type_template_id_443f3401___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

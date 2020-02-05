@@ -1,1 +1,846 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[9],{0:function(t,e,r){"use strict";function n(t,e,r,n,o,i,a,c){var s,u="function"==typeof t?t.options:t;if(e&&(u.render=e,u.staticRenderFns=r,u._compiled=!0),n&&(u.functional=!0),i&&(u._scopeId="data-v-"+i),a?(s=function(t){(t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),o&&o.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(a)},u._ssrRegister=s):o&&(s=c?function(){o.call(this,this.$root.$options.shadowRoot)}:o),s)if(u.functional){u._injectStyles=s;var h=u.render;u.render=function(t,e){return s.call(e),h(t,e)}}else{var l=u.beforeCreate;u.beforeCreate=l?[].concat(l,s):[s]}return{exports:t,options:u}}r.d(e,"a",(function(){return n}))},1:function(t,e,r){t.exports=r(44)},11:function(t,e,r){"use strict";r.r(e);var n=r(1),o=r.n(n),i=r(2),a=r.n(i);function c(t,e,r,n,o,i,a){try{var c=t[i](a),s=c.value}catch(t){return void r(t)}c.done?e(s):Promise.resolve(s).then(n,o)}var s,u,h={props:{area:{required:!0,type:Object}},data:function(){return{report:{}}},watch:{area:{deep:!0,handler:function(){this.fetchReport()}}},computed:{path:function(){return"/api/handwashing_houses"},chartOptions:function(){return{chart:{type:"gauge",plotBorderWidth:0,plotShadow:!1,plotBackgroundColor:null,plotBackgroundImage:null},title:{margin:36,text:"House Without Handwashing Place",style:{color:"#333333",fontSize:"14px"}},subtitle:{text:"".concat(this.areaName," - Jan 2019 to Jun 2019")},pane:{startAngle:-150,endAngle:150,background:[{backgroundColor:{linearGradient:{x1:0,y1:0,x2:0,y2:1},stops:[[0,"#FFF"],[1,"#333"]]},borderWidth:0,outerRadius:"109%"},{backgroundColor:{linearGradient:{x1:0,y1:0,x2:0,y2:1},stops:[[0,"#333"],[1,"#FFF"]]},borderWidth:1,outerRadius:"107%"},{},{backgroundColor:"#DDD",borderWidth:0,outerRadius:"105%",innerRadius:"103%"}]},yAxis:{min:0,max:this.report.total,minorTickInterval:"auto",minorTickWidth:1,minorTickLength:10,minorTickPosition:"inside",minorTickColor:"#666",tickPixelInterval:30,tickWidth:2,tickPosition:"inside",tickLength:10,tickColor:"#666",labels:{step:2,rotation:"auto"},title:{text:""},plotBands:[{from:0,to:(.333333*this.report.total).toFixed(1),color:"#55BF3B"},{from:(.333333*this.report.total).toFixed(1),to:(.666667*this.report.total).toFixed(1),color:"#DDDF0D"},{from:(.666667*this.report.total).toFixed(1),to:this.report.total,color:"#DF5353"}]},credits:{enabled:!1},series:[{name:"Speed",data:[this.report.total-this.report.sub_total],tooltip:{valueSuffix:"Total"}}]}},areaName:function(){return"".concat(this.area.name?this.area.name:"All"," ").concat(this.area.type?this.area.type:"Regions")},parameters:function(){return this.area.type||this.area.name?(t={},e=this.area.type.toLowerCase(),r=this.area.name,e in t?Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[e]=r,t):null;var t,e,r}},mounted:function(){this.fetchReport()},methods:{fetchReport:(s=o.a.mark((function t(){var e;return o.a.wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,a.a.get(this.path,{params:this.parameters});case 2:e=t.sent,this.report=e.data[0];case 4:case"end":return t.stop()}}),t,this)})),u=function(){var t=this,e=arguments;return new Promise((function(r,n){var o=s.apply(t,e);function i(t){c(o,r,n,i,a,"next",t)}function a(t){c(o,r,n,i,a,"throw",t)}i(void 0)}))},function(){return u.apply(this,arguments)})}},l=r(0),f=Object(l.a)(h,(function(){var t=this.$createElement,e=this._self._c||t;return e("div",{staticClass:"mx-auto border-t-4 border-blue-400 shadow-lg overflow-hidden"},[e("div",{staticClass:"py-8 px-8"},[e("highcharts",{attrs:{options:this.chartOptions}})],1)])}),[],!1,null,null,null);e.default=f.exports},44:function(t,e,r){var n=function(t){"use strict";var e=Object.prototype,r=e.hasOwnProperty,n="function"==typeof Symbol?Symbol:{},o=n.iterator||"@@iterator",i=n.asyncIterator||"@@asyncIterator",a=n.toStringTag||"@@toStringTag";function c(t,e,r,n){var o=e&&e.prototype instanceof h?e:h,i=Object.create(o.prototype),a=new _(n||[]);return i._invoke=function(t,e,r){var n="suspendedStart";return function(o,i){if("executing"===n)throw new Error("Generator is already running");if("completed"===n){if("throw"===o)throw i;return k()}for(r.method=o,r.arg=i;;){var a=r.delegate;if(a){var c=w(a,r);if(c){if(c===u)continue;return c}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if("suspendedStart"===n)throw n="completed",r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);n="executing";var h=s(t,e,r);if("normal"===h.type){if(n=r.done?"completed":"suspendedYield",h.arg===u)continue;return{value:h.arg,done:r.done}}"throw"===h.type&&(n="completed",r.method="throw",r.arg=h.arg)}}}(t,r,a),i}function s(t,e,r){try{return{type:"normal",arg:t.call(e,r)}}catch(t){return{type:"throw",arg:t}}}t.wrap=c;var u={};function h(){}function l(){}function f(){}var p={};p[o]=function(){return this};var d=Object.getPrototypeOf,v=d&&d(d(L([])));v&&v!==e&&r.call(v,o)&&(p=v);var y=f.prototype=h.prototype=Object.create(p);function m(t){["next","throw","return"].forEach((function(e){t[e]=function(t){return this._invoke(e,t)}}))}function g(t){var e;this._invoke=function(n,o){function i(){return new Promise((function(e,i){!function e(n,o,i,a){var c=s(t[n],t,o);if("throw"!==c.type){var u=c.arg,h=u.value;return h&&"object"==typeof h&&r.call(h,"__await")?Promise.resolve(h.__await).then((function(t){e("next",t,i,a)}),(function(t){e("throw",t,i,a)})):Promise.resolve(h).then((function(t){u.value=t,i(u)}),(function(t){return e("throw",t,i,a)}))}a(c.arg)}(n,o,e,i)}))}return e=e?e.then(i,i):i()}}function w(t,e){var r=t.iterator[e.method];if(void 0===r){if(e.delegate=null,"throw"===e.method){if(t.iterator.return&&(e.method="return",e.arg=void 0,w(t,e),"throw"===e.method))return u;e.method="throw",e.arg=new TypeError("The iterator does not provide a 'throw' method")}return u}var n=s(r,t.iterator,e.arg);if("throw"===n.type)return e.method="throw",e.arg=n.arg,e.delegate=null,u;var o=n.arg;return o?o.done?(e[t.resultName]=o.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=void 0),e.delegate=null,u):o:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,u)}function x(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function b(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function _(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(x,this),this.reset(!0)}function L(t){if(t){var e=t[o];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var n=-1,i=function e(){for(;++n<t.length;)if(r.call(t,n))return e.value=t[n],e.done=!1,e;return e.value=void 0,e.done=!0,e};return i.next=i}}return{next:k}}function k(){return{value:void 0,done:!0}}return l.prototype=y.constructor=f,f.constructor=l,f[a]=l.displayName="GeneratorFunction",t.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===l||"GeneratorFunction"===(e.displayName||e.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,f):(t.__proto__=f,a in t||(t[a]="GeneratorFunction")),t.prototype=Object.create(y),t},t.awrap=function(t){return{__await:t}},m(g.prototype),g.prototype[i]=function(){return this},t.AsyncIterator=g,t.async=function(e,r,n,o){var i=new g(c(e,r,n,o));return t.isGeneratorFunction(r)?i:i.next().then((function(t){return t.done?t.value:i.next()}))},m(y),y[a]="Generator",y[o]=function(){return this},y.toString=function(){return"[object Generator]"},t.keys=function(t){var e=[];for(var r in t)e.push(r);return e.reverse(),function r(){for(;e.length;){var n=e.pop();if(n in t)return r.value=n,r.done=!1,r}return r.done=!0,r}},t.values=L,_.prototype={constructor:_,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=void 0,this.done=!1,this.delegate=null,this.method="next",this.arg=void 0,this.tryEntries.forEach(b),!t)for(var e in this)"t"===e.charAt(0)&&r.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=void 0)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function n(r,n){return a.type="throw",a.arg=t,e.next=r,n&&(e.method="next",e.arg=void 0),!!n}for(var o=this.tryEntries.length-1;o>=0;--o){var i=this.tryEntries[o],a=i.completion;if("root"===i.tryLoc)return n("end");if(i.tryLoc<=this.prev){var c=r.call(i,"catchLoc"),s=r.call(i,"finallyLoc");if(c&&s){if(this.prev<i.catchLoc)return n(i.catchLoc,!0);if(this.prev<i.finallyLoc)return n(i.finallyLoc)}else if(c){if(this.prev<i.catchLoc)return n(i.catchLoc,!0)}else{if(!s)throw new Error("try statement without catch or finally");if(this.prev<i.finallyLoc)return n(i.finallyLoc)}}}},abrupt:function(t,e){for(var n=this.tryEntries.length-1;n>=0;--n){var o=this.tryEntries[n];if(o.tryLoc<=this.prev&&r.call(o,"finallyLoc")&&this.prev<o.finallyLoc){var i=o;break}}i&&("break"===t||"continue"===t)&&i.tryLoc<=e&&e<=i.finallyLoc&&(i=null);var a=i?i.completion:{};return a.type=t,a.arg=e,i?(this.method="next",this.next=i.finallyLoc,u):this.complete(a)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),u},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),b(r),u}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var o=n.arg;b(r)}return o}}throw new Error("illegal catch attempt")},delegateYield:function(t,e,r){return this.delegate={iterator:L(t),resultName:e,nextLoc:r},"next"===this.method&&(this.arg=void 0),u}},t}(t.exports);try{regeneratorRuntime=n}catch(t){Function("r","regeneratorRuntime = r")(n)}}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    area: {
+      required: true,
+      type: Object
+    },
+    duration: {
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      period: "monthly",
+      year: new Date().getFullYear(),
+      month: new Date().getMonth(),
+      day: new Date().getDate(),
+      isVisible: false,
+      statistics: [],
+      categories: []
+    };
+  },
+  mounted: function mounted() {
+    this.fetchReport();
+  },
+  watch: {
+    day: function day() {
+      this.date = new Date(this.year, this.month, this.day);
+      this.fetchReport();
+    },
+    month: function month() {
+      this.date = new Date(this.year, this.month, this.day);
+      this.fetchReport();
+    },
+    year: function year() {
+      this.date = new Date(this.year, this.month, this.day);
+      this.fetchReport();
+    },
+    duration: function duration(value) {
+      this.year = value;
+      this.date = new Date(value, this.month, this.day);
+      this.fetchReport();
+    }
+  },
+  computed: {
+    chartOptions: function chartOptions() {
+      return {
+        title: {
+          text: 'Latrine Characteristics Trend',
+          margin: 36,
+          style: {
+            "color": "#333333",
+            "fontSize": "14px"
+          }
+        },
+        subtitle: {
+          text: "".concat(this.areaName, ": Jul 2019 - Sep 2019")
+        },
+        yAxis: {
+          title: {
+            text: 'Number of Households'
+          }
+        },
+        xAxis: {
+          categories: this.categories
+        },
+        series: this.statistics,
+        credits: {
+          enabled: false
+        }
+      };
+    },
+    areaName: function areaName() {
+      return "".concat(this.area.name ? this.area.name : "All", " ").concat(this.area.type ? this.area.type : "Regions");
+    }
+  },
+  methods: {
+    toggle: function toggle() {
+      this.isVisible = !this.isVisible;
+    },
+    getMonthName: function getMonthName(month) {
+      return new Date(this.year, month, this.day).toLocaleString('default', {
+        month: 'long'
+      });
+    },
+    aggregateAttribute: function aggregateAttribute(response, type) {
+      return response.data.map(function (item) {
+        return item[type] == null ? 0 : item[type];
+      });
+    },
+    dailyReport: function dailyReport() {
+      this.period = "daily";
+      this.fetchReport();
+    },
+    monthlyReport: function monthlyReport() {
+      this.period = "monthly";
+      this.fetchReport();
+    },
+    annuallyReport: function annuallyReport() {
+      this.period = "annually";
+      this.fetchReport();
+    },
+    fetchReport: function fetchReport() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/latrine_characteristics_trend', {
+        params: {
+          period: this.period,
+          date: this.date
+        }
+      }).then(function (response) {
+        if (_this.period === 'daily') {
+          _this.categories = response.data.map(function (item) {
+            return item['hour'];
+          });
+        }
+
+        if (_this.period === 'monthly') {
+          _this.categories = response.data.map(function (item) {
+            return item['day'];
+          });
+        }
+
+        if (_this.period === 'annually') {
+          _this.categories = response.data.map(function (item) {
+            return item['month'];
+          });
+        }
+
+        _this.statistics = _this.transformResult(response);
+      });
+    },
+    transformResult: function transformResult(response) {
+      return [{
+        name: "Has Latrine",
+        data: this.aggregateAttribute(response, 'has_latrine')
+      }, {
+        name: "Lockable Door",
+        data: this.aggregateAttribute(response, 'has_lockable_door')
+      }, {
+        name: "Brick Wall",
+        data: this.aggregateAttribute(response, 'has_brick_wall')
+      }, {
+        name: "Cemented Floor",
+        data: this.aggregateAttribute(response, 'has_cemented_floor')
+      }, {
+        name: "Iron Sheet Roof",
+        data: this.aggregateAttribute(response, 'has_iron_sheet_roof')
+      }, {
+        name: "Adjacent bathroom",
+        data: this.aggregateAttribute(response, 'has_adjacent_bathroom')
+      }];
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "mx-auto bg-white rounded-lg shadow overflow-hidden" },
+    [
+      _c(
+        "header",
+        {
+          staticClass:
+            "px-6 bg-gray-100 border-b border-gray-100 flex justify-between items-center"
+        },
+        [
+          _c(
+            "button",
+            {
+              staticClass:
+                "px-2 inline-flex items-center text-sm font-semibold text-gray-600",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.toggle($event)
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\n            " +
+                  _vm._s(!_vm.isVisible ? "Show" : "Hide") +
+                  " Details\n            "
+              ),
+              _vm.isVisible
+                ? [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "h-4 w-4 fill-current ml-1 text-gray-500",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 24 24"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: { fill: "none", d: "M0 0h24v24H0z" }
+                        }),
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                : [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "h-4 w-4 fill-current ml-1 text-gray-500",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 24 24"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: { fill: "none", d: "M0 0h24v24H0z" }
+                        }),
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex" }, [
+            _c(
+              "ul",
+              {
+                staticClass:
+                  "flex items-center mx-6 text-xs uppercase tracking-wide font-semibold text-gray-600"
+              },
+              [
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500",
+                      class: {
+                        "border-blue-500 text-gray-700": _vm.period === "daily"
+                      },
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.dailyReport($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Daily")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500",
+                      class: {
+                        "border-blue-500 text-gray-700":
+                          _vm.period === "monthly"
+                      },
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.monthlyReport($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Monthly")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500",
+                      class: {
+                        "border-blue-500 text-gray-700":
+                          _vm.period === "annually"
+                      },
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.annuallyReport($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Annually")]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("form", { staticClass: "flex items-center" }, [
+              _vm.period === "daily"
+                ? _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.day,
+                          expression: "day"
+                        }
+                      ],
+                      staticClass:
+                        "form-select form-select-sm border-0 bg-transparent w-16",
+                      attrs: { id: "day" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.day = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    _vm._l(
+                      new Date(_vm.year, _vm.month + 1, 0).getDate(),
+                      function(dayNumber) {
+                        return _c(
+                          "option",
+                          { domProps: { value: dayNumber } },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(dayNumber) +
+                                "\n                    "
+                            )
+                          ]
+                        )
+                      }
+                    ),
+                    0
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.period === "daily" || _vm.period === "monthly"
+                ? _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.month,
+                          expression: "month"
+                        }
+                      ],
+                      staticClass:
+                        "form-select form-select-sm border-0 bg-transparent w-24",
+                      attrs: { id: "month" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.month = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    _vm._l(Array(12).keys(), function(monthNumber) {
+                      return _c(
+                        "option",
+                        { domProps: { value: monthNumber } },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.getMonthName(monthNumber)) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.year,
+                      expression: "year"
+                    }
+                  ],
+                  staticClass:
+                    "form-select form-select-sm border-0 bg-transparent w-20",
+                  attrs: { id: "year" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.year = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(Array(5).keys(), function(yearNumber) {
+                  return _c(
+                    "option",
+                    { domProps: { value: _vm.year - yearNumber } },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.year - yearNumber) +
+                          "\n                    "
+                      )
+                    ]
+                  )
+                }),
+                0
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "px-6 py-8", class: { "border-b": _vm.isVisible } },
+        [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
+        1
+      ),
+      _vm._v(" "),
+      _vm.isVisible
+        ? _c("div", { staticClass: "px-6 py-6 bg-gray-100" }, [_vm._m(0)])
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("table", { staticClass: "w-full" }, [
+      _c("tbody", [
+        _c("tr", [
+          _c("th", { staticClass: "py-1" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-center text-sm font-semibold text-gray-700"
+              },
+              [
+                _c("span", {
+                  staticClass: "block h-4 w-4 rounded bg-blue-500 mr-2"
+                }),
+                _vm._v(
+                  " Easy Washable Cemented Floor\n                        "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("12")
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("20%")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "py-1" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-center text-sm font-semibold text-gray-700"
+              },
+              [
+                _c("span", {
+                  staticClass: "block h-4 w-4 rounded bg-green-500 mr-2"
+                }),
+                _vm._v(" Iron Sheet Roof\n                        ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("12")
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("20%")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "py-1" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-center text-sm font-semibold text-gray-700"
+              },
+              [
+                _c("span", {
+                  staticClass: "block h-4 w-4 rounded bg-yellow-500 mr-2"
+                }),
+                _vm._v(" Adjacent Bathroom\n                        ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("12")
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("20%")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "py-1" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-center text-sm font-semibold text-gray-700"
+              },
+              [
+                _c("span", {
+                  staticClass: "block h-4 w-4 rounded bg-red-500 mr-2"
+                }),
+                _vm._v(" Lockable Door\n                        ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("12")
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("20%")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "py-1" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-center text-sm font-semibold text-gray-700"
+              },
+              [
+                _c("span", {
+                  staticClass: "block h-4 w-4 rounded bg-purple-500 mr-2"
+                }),
+                _vm._v(" Wall With Bricks\n                        ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("12")
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("20%")
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue":
+/*!********************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LatrineCharacteristicsTrend_vue_vue_type_template_id_ec8ac3b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0& */ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0&");
+/* harmony import */ var _LatrineCharacteristicsTrend_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LatrineCharacteristicsTrend.vue?vue&type=script&lang=js& */ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _LatrineCharacteristicsTrend_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LatrineCharacteristicsTrend_vue_vue_type_template_id_ec8ac3b0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LatrineCharacteristicsTrend_vue_vue_type_template_id_ec8ac3b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristicsTrend_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LatrineCharacteristicsTrend.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristicsTrend_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0&":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0& ***!
+  \***************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristicsTrend_vue_vue_type_template_id_ec8ac3b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristicsTrend_vue_vue_type_template_id_ec8ac3b0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristicsTrend_vue_vue_type_template_id_ec8ac3b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

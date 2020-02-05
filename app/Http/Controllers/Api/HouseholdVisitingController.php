@@ -34,7 +34,7 @@ class HouseholdVisitingController extends Controller
 
     public function columns()
     {
-        return "region,district,assigned_village AS village,COUNT(DISTINCT contact_id)AS reporters,(SELECT houses FROM surveys WHERE region=s1.region AND district=s1.district AND assigned_village=s1.assigned_village LIMIT 1)AS houses,COUNT(run_id)AS visited_houses";
+        return "region, district, assigned_village AS village, COUNT(DISTINCT contact_name) AS reporters, (SELECT houses FROM surveys WHERE region=s1.region AND district=s1.district AND assigned_village=s1.assigned_village LIMIT 1)AS houses,COUNT(run_id)AS visited_houses";
     }
 
     public function table()

@@ -77,18 +77,46 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="visit in visits" class="border-b last:border-0">
-                    <td class="py-4 px-5 whitespace-no-wrap text-left">{{ titleCase(visit.district) }}</td>
-                    <td class="py-4 px-5 whitespace-no-wrap text-left">{{ titleCase(visit.village) }}</td>
-                    <td class="py-4 px-5 whitespace-no-wrap text-right">{{ visit.reporters }}</td>
-                    <td class="py-4 px-5 whitespace-no-wrap text-right">{{ visit.houses }}</td>
-                    <td class="py-4 px-5 whitespace-no-wrap text-right">{{ visit.visited_houses }}</td>
-                    <td class="py-4 px-5 whitespace-no-wrap text-right">
-                        <template v-if="visit.visited_houses && visit.houses">
-                            {{ ((visit.visited_houses/ visit.houses) * 100).toFixed(2) }}%
-                        </template>
-                    </td>
-                </tr>
+                    <template v-for="visit in visits">
+                        <tr  class="border-b last:border-0 cursor-pointer" @click="showContacts(visit)">
+                            <td class="py-4 px-5 whitespace-no-wrap text-left">{{ titleCase(visit.district) }}</td>
+                            <td class="py-4 px-5 whitespace-no-wrap text-left">{{ titleCase(visit.village) }}</td>
+                            <td class="py-4 px-5 whitespace-no-wrap text-right">{{ visit.reporters }}</td>
+                            <td class="py-4 px-5 whitespace-no-wrap text-right">{{ visit.houses }}</td>
+                            <td class="py-4 px-5 whitespace-no-wrap text-right">{{ visit.visited_houses }}</td>
+                            <td class="py-4 px-5 whitespace-no-wrap text-right">
+                                <template v-if="visit.visited_houses && visit.houses">
+                                    {{ ((visit.visited_houses/ visit.houses) * 100).toFixed(2) }}%
+                                </template>
+                            </td>
+                        </tr>
+                        <tr v-if="visit.isVisible">
+                            <td class="py-4 px-5 bg-gray-200" colspan="6">
+                                <div class="py-4 px-4 shadow-sm bg-white rounded-lg">
+                                    <table class="w-full">
+                                        <thead>
+                                            <tr>
+                                                <th class="py-3 px-4">Name</th>
+                                                <th class="py-3 px-4">Phone</th>
+                                                <th class="py-3 px-4">Gender</th>
+                                                <th class="py-3 px-4 text-right">Visits</th>
+                                                <th class="py-3 px-4 text-right">Last visit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="contact in contacts" class="border-t">
+                                                <td class="py-3 px-4">{{ titleCase(contact.contact_name) }}</td>
+                                                <td class="py-3 px-4">{{ contact.contact_phone }}</td>
+                                                <td class="py-3 px-4">{{ titleCase(contact.contact_gender) }}</td>
+                                                <td class="py-3 px-4 text-right">{{ contact.households_visited }}</td>
+                                                <td class="py-3 px-4 text-right">{{ contact.last_household_visit }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
                 </tbody>
             </table>
         </div>
@@ -108,6 +136,7 @@
         data() {
             return {
                 visits: [],
+                contacts: [],
                 filters: {
                     limit: 5,
                     sort: {
@@ -131,7 +160,15 @@
             async fetchReport() {
                 let { data } = await Axios.get(`/api/household_visiting`, { params: this.filters });
 
-                this.visits = data;
+                this.visits = data.map(visit => ({
+                    ...visit,
+                    isVisible: false
+                }));
+            },
+            async fetchContacts(path){
+                let { data } = await Axios.get(path);
+
+                this.contacts = data;
             },
             titleCase(string) {
                 return Voca.titleCase(string);
@@ -149,6 +186,16 @@
             viewLess() {
                 this.filters.limit = this.filters.limit - 5;
             },
+            showContacts(visit) {
+
+                let index = this.visits.findIndex(item => item.village === visit.village);
+
+                this.visits[index].isVisible = !this.visits[index].isVisible;
+
+                //this.visits = this.visits.map(item => ({...item, isVisible: (item.village === visit.village)}));
+
+                this.fetchContacts(`api/villages/${visit.village}/contacts`);
+            }
         }
     }
 </script>

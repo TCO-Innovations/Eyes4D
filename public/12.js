@@ -1,1 +1,420 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[12],{1:function(t,e,r){t.exports=r(44)},16:function(t,e,r){"use strict";r.r(e);var n=r(1),i=r.n(n),s=r(2),o=r.n(s),a=r(5),l=r.n(a);function c(t,e,r,n,i,s,o){try{var a=t[s](o),l=a.value}catch(t){return void r(t)}a.done?e(l):Promise.resolve(l).then(n,i)}var h,u,f={data:function(){return{visits:[],filters:{limit:5,sort:{visited_houses:"desc"}}}},mounted:function(){this.fetchReport()},watch:{filters:{deep:!0,handler:function(){this.fetchReport()}}},methods:{fetchReport:(h=i.a.mark((function t(){var e,r;return i.a.wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,o.a.get("/api/household_visiting",{params:this.filters});case 2:e=t.sent,r=e.data,this.visits=r;case 5:case"end":return t.stop()}}),t,this)})),u=function(){var t=this,e=arguments;return new Promise((function(r,n){var i=h.apply(t,e);function s(t){c(i,r,n,s,o,"next",t)}function o(t){c(i,r,n,s,o,"throw",t)}s(void 0)}))},function(){return u.apply(this,arguments)}),titleCase:function(t){return l.a.titleCase(t)},sortBy:function(t){var e,r,n;t in this.filters.sort?this.filters.sort[t]="desc"===this.filters.sort[t]?"asc":"desc":this.filters.sort=(n="desc",(r=t)in(e={})?Object.defineProperty(e,r,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[r]=n,e)},viewMore:function(){this.filters.limit=this.filters.limit+5},viewLess:function(){this.filters.limit=this.filters.limit-5}}},p=r(0),v=Object(p.a)(f,(function(){var t=this,e=t.$createElement,r=t._self._c||e;return r("div",{staticClass:"bg-white shadow rounded-lg overflow-hidden"},[t._m(0),t._v(" "),r("div",{staticClass:"overflow-y-auto"},[r("table",{staticClass:"text-left w-full text-sm whitespace-no-wrap"},[r("thead",[r("tr",[r("th",{staticClass:"py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-left"},[r("a",{staticClass:"inline-flex items-center",attrs:{href:"#"},on:{click:function(e){return e.preventDefault(),t.sortBy("district")}}},[t._v("\n                        District\n                        "),"district"in t.filters.sort?["desc"===t.filters.sort.district?[r("svg",{staticClass:"h-4 w-4 fill-current ml-2",attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"}},[r("path",{attrs:{fill:"none",d:"M0 0h24v24H0z"}}),r("path",{attrs:{d:"M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828z"}})])]:t._e(),t._v(" "),"asc"===t.filters.sort.district?[r("svg",{staticClass:"h-4 w-4 fill-current ml-2",attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"}},[r("path",{attrs:{fill:"none",d:"M0 0h24v24H0z"}}),r("path",{attrs:{d:"M13 16.172l5.364-5.364 1.414 1.414L12 20l-7.778-7.778 1.414-1.414L11 16.172V4h2v12.172z"}})])]:t._e()]:t._e()],2)]),t._v(" "),r("th",{staticClass:"py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-left"},[r("a",{staticClass:"inline-flex items-center",attrs:{href:"#"},on:{click:function(e){return e.preventDefault(),t.sortBy("village")}}},[t._v("\n                        Village\n                        "),"village"in t.filters.sort?["desc"===t.filters.sort.village?[r("svg",{staticClass:"h-4 w-4 fill-current ml-2",attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"}},[r("path",{attrs:{fill:"none",d:"M0 0h24v24H0z"}}),r("path",{attrs:{d:"M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828z"}})])]:t._e(),t._v(" "),"asc"===t.filters.sort.village?[r("svg",{staticClass:"h-4 w-4 fill-current ml-2",attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"}},[r("path",{attrs:{fill:"none",d:"M0 0h24v24H0z"}}),r("path",{attrs:{d:"M13 16.172l5.364-5.364 1.414 1.414L12 20l-7.778-7.778 1.414-1.414L11 16.172V4h2v12.172z"}})])]:t._e()]:t._e()],2)]),t._v(" "),r("th",{staticClass:"py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-right"},[r("a",{staticClass:"inline-flex items-center",attrs:{href:"#"},on:{click:function(e){return e.preventDefault(),t.sortBy("reporters")}}},[t._v("\n                        Number of U-Reporters\n                        "),"reporters"in t.filters.sort?["desc"===t.filters.sort.reporters?[r("svg",{staticClass:"h-4 w-4 fill-current ml-2",attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"}},[r("path",{attrs:{fill:"none",d:"M0 0h24v24H0z"}}),r("path",{attrs:{d:"M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828z"}})])]:t._e(),t._v(" "),"asc"===t.filters.sort.reporters?[r("svg",{staticClass:"h-4 w-4 fill-current ml-2",attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"}},[r("path",{attrs:{fill:"none",d:"M0 0h24v24H0z"}}),r("path",{attrs:{d:"M13 16.172l5.364-5.364 1.414 1.414L12 20l-7.778-7.778 1.414-1.414L11 16.172V4h2v12.172z"}})])]:t._e()]:t._e()],2)]),t._v(" "),r("th",{staticClass:"py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-right"},[r("a",{staticClass:"inline-flex items-center",attrs:{href:"#"},on:{click:function(e){return e.preventDefault(),t.sortBy("houses")}}},[t._v("\n                        Number of Households\n                        "),"houses"in t.filters.sort?["desc"===t.filters.sort.houses?[r("svg",{staticClass:"h-4 w-4 fill-current ml-2",attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"}},[r("path",{attrs:{fill:"none",d:"M0 0h24v24H0z"}}),r("path",{attrs:{d:"M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828z"}})])]:t._e(),t._v(" "),"asc"===t.filters.sort.houses?[r("svg",{staticClass:"h-4 w-4 fill-current ml-2",attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"}},[r("path",{attrs:{fill:"none",d:"M0 0h24v24H0z"}}),r("path",{attrs:{d:"M13 16.172l5.364-5.364 1.414 1.414L12 20l-7.778-7.778 1.414-1.414L11 16.172V4h2v12.172z"}})])]:t._e()]:t._e()],2)]),t._v(" "),r("th",{staticClass:"py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-right"},[r("a",{staticClass:"inline-flex items-center",attrs:{href:"#"},on:{click:function(e){return e.preventDefault(),t.sortBy("visited_houses")}}},[t._v("\n                        Visited Households\n                        "),"visited_houses"in t.filters.sort?["desc"===t.filters.sort.visited_houses?[r("svg",{staticClass:"h-4 w-4 fill-current ml-2",attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"}},[r("path",{attrs:{fill:"none",d:"M0 0h24v24H0z"}}),r("path",{attrs:{d:"M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828z"}})])]:t._e(),t._v(" "),"asc"===t.filters.sort.visited_houses?[r("svg",{staticClass:"h-4 w-4 fill-current ml-2",attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"}},[r("path",{attrs:{fill:"none",d:"M0 0h24v24H0z"}}),r("path",{attrs:{d:"M13 16.172l5.364-5.364 1.414 1.414L12 20l-7.778-7.778 1.414-1.414L11 16.172V4h2v12.172z"}})])]:t._e()]:t._e()],2)]),t._v(" "),r("th",{staticClass:"py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-right"},[t._v("Ratio")])])]),t._v(" "),r("tbody",t._l(t.visits,(function(e){return r("tr",{staticClass:"border-b last:border-0"},[r("td",{staticClass:"py-4 px-5 whitespace-no-wrap text-left"},[t._v(t._s(t.titleCase(e.district)))]),t._v(" "),r("td",{staticClass:"py-4 px-5 whitespace-no-wrap text-left"},[t._v(t._s(t.titleCase(e.village)))]),t._v(" "),r("td",{staticClass:"py-4 px-5 whitespace-no-wrap text-right"},[t._v(t._s(e.reporters))]),t._v(" "),r("td",{staticClass:"py-4 px-5 whitespace-no-wrap text-right"},[t._v(t._s(e.houses))]),t._v(" "),r("td",{staticClass:"py-4 px-5 whitespace-no-wrap text-right"},[t._v(t._s(e.visited_houses))]),t._v(" "),r("td",{staticClass:"py-4 px-5 whitespace-no-wrap text-right"},[e.visited_houses&&e.houses?[t._v("\n                        "+t._s((e.visited_houses/e.houses*100).toFixed(2))+"%\n                    ")]:t._e()],2)])})),0)])]),t._v(" "),r("footer",{staticClass:"flex items-center justify-between px-6 py-4 bg-gray-100"},[r("button",{staticClass:"text-blue-500 text-sm",on:{click:function(e){return e.preventDefault(),t.viewMore(e)}}},[t._v("Load More")]),t._v(" "),t.filters.limit>5?r("button",{staticClass:"text-blue-500 text-sm",on:{click:function(e){return e.preventDefault(),t.viewLess(e)}}},[t._v("Load Less")]):t._e()])])}),[function(){var t=this.$createElement,e=this._self._c||t;return e("header",{staticClass:"flex justify-between px-4 py-5 bg-gray-100"},[e("h3",{staticClass:"text-xs uppercase tracking-wide font-semibold text-gray-700"},[this._v("Visiting Per Contact")])])}],!1,null,null,null);e.default=v.exports},44:function(t,e,r){var n=function(t){"use strict";var e=Object.prototype,r=e.hasOwnProperty,n="function"==typeof Symbol?Symbol:{},i=n.iterator||"@@iterator",s=n.asyncIterator||"@@asyncIterator",o=n.toStringTag||"@@toStringTag";function a(t,e,r,n){var i=e&&e.prototype instanceof h?e:h,s=Object.create(i.prototype),o=new b(n||[]);return s._invoke=function(t,e,r){var n="suspendedStart";return function(i,s){if("executing"===n)throw new Error("Generator is already running");if("completed"===n){if("throw"===i)throw s;return C()}for(r.method=i,r.arg=s;;){var o=r.delegate;if(o){var a=x(o,r);if(a){if(a===c)continue;return a}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if("suspendedStart"===n)throw n="completed",r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);n="executing";var h=l(t,e,r);if("normal"===h.type){if(n=r.done?"completed":"suspendedYield",h.arg===c)continue;return{value:h.arg,done:r.done}}"throw"===h.type&&(n="completed",r.method="throw",r.arg=h.arg)}}}(t,r,o),s}function l(t,e,r){try{return{type:"normal",arg:t.call(e,r)}}catch(t){return{type:"throw",arg:t}}}t.wrap=a;var c={};function h(){}function u(){}function f(){}var p={};p[i]=function(){return this};var v=Object.getPrototypeOf,d=v&&v(v(L([])));d&&d!==e&&r.call(d,i)&&(p=d);var w=f.prototype=h.prototype=Object.create(p);function g(t){["next","throw","return"].forEach((function(e){t[e]=function(t){return this._invoke(e,t)}}))}function y(t){var e;this._invoke=function(n,i){function s(){return new Promise((function(e,s){!function e(n,i,s,o){var a=l(t[n],t,i);if("throw"!==a.type){var c=a.arg,h=c.value;return h&&"object"==typeof h&&r.call(h,"__await")?Promise.resolve(h.__await).then((function(t){e("next",t,s,o)}),(function(t){e("throw",t,s,o)})):Promise.resolve(h).then((function(t){c.value=t,s(c)}),(function(t){return e("throw",t,s,o)}))}o(a.arg)}(n,i,e,s)}))}return e=e?e.then(s,s):s()}}function x(t,e){var r=t.iterator[e.method];if(void 0===r){if(e.delegate=null,"throw"===e.method){if(t.iterator.return&&(e.method="return",e.arg=void 0,x(t,e),"throw"===e.method))return c;e.method="throw",e.arg=new TypeError("The iterator does not provide a 'throw' method")}return c}var n=l(r,t.iterator,e.arg);if("throw"===n.type)return e.method="throw",e.arg=n.arg,e.delegate=null,c;var i=n.arg;return i?i.done?(e[t.resultName]=i.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=void 0),e.delegate=null,c):i:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,c)}function m(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function _(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function b(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(m,this),this.reset(!0)}function L(t){if(t){var e=t[i];if(e)return e.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var n=-1,s=function e(){for(;++n<t.length;)if(r.call(t,n))return e.value=t[n],e.done=!1,e;return e.value=void 0,e.done=!0,e};return s.next=s}}return{next:C}}function C(){return{value:void 0,done:!0}}return u.prototype=w.constructor=f,f.constructor=u,f[o]=u.displayName="GeneratorFunction",t.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===u||"GeneratorFunction"===(e.displayName||e.name))},t.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,f):(t.__proto__=f,o in t||(t[o]="GeneratorFunction")),t.prototype=Object.create(w),t},t.awrap=function(t){return{__await:t}},g(y.prototype),y.prototype[s]=function(){return this},t.AsyncIterator=y,t.async=function(e,r,n,i){var s=new y(a(e,r,n,i));return t.isGeneratorFunction(r)?s:s.next().then((function(t){return t.done?t.value:s.next()}))},g(w),w[o]="Generator",w[i]=function(){return this},w.toString=function(){return"[object Generator]"},t.keys=function(t){var e=[];for(var r in t)e.push(r);return e.reverse(),function r(){for(;e.length;){var n=e.pop();if(n in t)return r.value=n,r.done=!1,r}return r.done=!0,r}},t.values=L,b.prototype={constructor:b,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=void 0,this.done=!1,this.delegate=null,this.method="next",this.arg=void 0,this.tryEntries.forEach(_),!t)for(var e in this)"t"===e.charAt(0)&&r.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=void 0)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function n(r,n){return o.type="throw",o.arg=t,e.next=r,n&&(e.method="next",e.arg=void 0),!!n}for(var i=this.tryEntries.length-1;i>=0;--i){var s=this.tryEntries[i],o=s.completion;if("root"===s.tryLoc)return n("end");if(s.tryLoc<=this.prev){var a=r.call(s,"catchLoc"),l=r.call(s,"finallyLoc");if(a&&l){if(this.prev<s.catchLoc)return n(s.catchLoc,!0);if(this.prev<s.finallyLoc)return n(s.finallyLoc)}else if(a){if(this.prev<s.catchLoc)return n(s.catchLoc,!0)}else{if(!l)throw new Error("try statement without catch or finally");if(this.prev<s.finallyLoc)return n(s.finallyLoc)}}}},abrupt:function(t,e){for(var n=this.tryEntries.length-1;n>=0;--n){var i=this.tryEntries[n];if(i.tryLoc<=this.prev&&r.call(i,"finallyLoc")&&this.prev<i.finallyLoc){var s=i;break}}s&&("break"===t||"continue"===t)&&s.tryLoc<=e&&e<=s.finallyLoc&&(s=null);var o=s?s.completion:{};return o.type=t,o.arg=e,s?(this.method="next",this.next=s.finallyLoc,c):this.complete(o)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),c},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),_(r),c}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var i=n.arg;_(r)}return i}}throw new Error("illegal catch attempt")},delegateYield:function(t,e,r){return this.delegate={iterator:L(t),resultName:e,nextLoc:r},"next"===this.method&&(this.arg=void 0),c}},t}(t.exports);try{regeneratorRuntime=n}catch(t){Function("r","regeneratorRuntime = r")(n)}}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var voca__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! voca */ "./node_modules/voca/index.js");
+/* harmony import */ var voca__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(voca__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      visits: [],
+      limit: 5,
+      order: 'desc'
+    };
+  },
+  mounted: function mounted() {
+    this.fetchResult();
+  },
+  methods: {
+    titleCase: function titleCase(string) {
+      return voca__WEBPACK_IMPORTED_MODULE_1___default.a.titleCase(string);
+    },
+    more: function more() {
+      this.limit = this.limit + 5;
+      this.fetchResult();
+    },
+    less: function less() {
+      this.limit = this.limit - 5;
+      this.fetchResult();
+    },
+    toggleDirection: function toggleDirection() {
+      this.order = this.order === "desc" ? "asc" : "desc";
+      this.fetchResult();
+    },
+    fetchResult: function () {
+      var _fetchResult = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/visiting_per_contact", {
+                  params: {
+                    take: this.limit,
+                    order: this.order
+                  }
+                });
+
+              case 2:
+                response = _context.sent;
+                this.visits = response.data;
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function fetchResult() {
+        return _fetchResult.apply(this, arguments);
+      }
+
+      return fetchResult;
+    }()
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue?vue&type=template&id=5290d975&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue?vue&type=template&id=5290d975& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "bg-white shadow-lg rounded-lg overflow-hidden" },
+    [
+      _c(
+        "header",
+        { staticClass: "flex justify-between px-4 py-5 bg-gray-100" },
+        [
+          _c(
+            "h3",
+            {
+              staticClass:
+                "text-xs uppercase tracking-wide font-semibold text-gray-700"
+            },
+            [_vm._v("Visiting Per Contact")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "inline-flex items-center text-xs uppercase tracking-wide text-gray-600",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.toggleDirection($event)
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\n            Sort Order: " +
+                  _vm._s(_vm.titleCase(_vm.order)) +
+                  "\n            "
+              ),
+              _vm.order === "desc"
+                ? [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "h-4 w-4 fill-current text-gray-500 ml-1",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 24 24"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: { fill: "none", d: "M0 0h24v24H0z" }
+                        }),
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M13 16.172l5.364-5.364 1.414 1.414L12 20l-7.778-7.778 1.414-1.414L11 16.172V4h2v12.172z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.order === "asc"
+                ? [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "h-4 w-4 fill-current text-gray-500 ml-1",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 24 24"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: { fill: "none", d: "M0 0h24v24H0z" }
+                        }),
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                : _vm._e()
+            ],
+            2
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "py-4 px-4" }, [
+        _c("table", { staticClass: "w-full text-left" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.visits, function(visit) {
+              return _c("tr", { staticClass: "border-b last:border-b-0" }, [
+                _c("th", { staticClass: "text-sm py-3" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.titleCase(visit.contact_name)) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-sm py-3" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.titleCase(visit.village)) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-sm py-3" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(visit.visits) +
+                      "\n                    "
+                  )
+                ])
+              ])
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("footer", { staticClass: "px-4 flex py-4 justify-between" }, [
+        _c(
+          "button",
+          {
+            staticClass: "text-xs uppercase text-blue-500 tracking-wide",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.more($event)
+              }
+            }
+          },
+          [_vm._v("View More")]
+        ),
+        _vm._v(" "),
+        _vm.limit > 5
+          ? _c(
+              "button",
+              {
+                staticClass: "text-xs uppercase text-blue-500 tracking-wide",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.less($event)
+                  }
+                }
+              },
+              [_vm._v("View Less")]
+            )
+          : _vm._e()
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tbody", [
+      _c("tr", { staticClass: "border-b" }, [
+        _c(
+          "th",
+          { staticClass: "text-xs uppercase tracking-wide text-gray-600 py-4" },
+          [_vm._v("Contact")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          { staticClass: "text-xs uppercase tracking-wide text-gray-600 py-4" },
+          [_vm._v("Village")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          { staticClass: "text-xs uppercase tracking-wide text-gray-600 py-4" },
+          [_vm._v("Visits")]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _VisitingsPerContact_vue_vue_type_template_id_5290d975___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VisitingsPerContact.vue?vue&type=template&id=5290d975& */ "./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue?vue&type=template&id=5290d975&");
+/* harmony import */ var _VisitingsPerContact_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VisitingsPerContact.vue?vue&type=script&lang=js& */ "./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _VisitingsPerContact_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _VisitingsPerContact_vue_vue_type_template_id_5290d975___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _VisitingsPerContact_vue_vue_type_template_id_5290d975___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerContact_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./VisitingsPerContact.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerContact_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue?vue&type=template&id=5290d975&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue?vue&type=template&id=5290d975& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerContact_vue_vue_type_template_id_5290d975___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./VisitingsPerContact.vue?vue&type=template&id=5290d975& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue?vue&type=template&id=5290d975&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerContact_vue_vue_type_template_id_5290d975___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerContact_vue_vue_type_template_id_5290d975___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

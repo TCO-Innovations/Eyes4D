@@ -1,1 +1,446 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[15],{0:function(t,a,e){"use strict";function r(t,a,e,r,o,n,s,i){var d,h="function"==typeof t?t.options:t;if(a&&(h.render=a,h.staticRenderFns=e,h._compiled=!0),r&&(h.functional=!0),n&&(h._scopeId="data-v-"+n),s?(d=function(t){(t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),o&&o.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(s)},h._ssrRegister=d):o&&(d=i?function(){o.call(this,this.$root.$options.shadowRoot)}:o),d)if(h.functional){h._injectStyles=d;var _=h.render;h.render=function(t,a){return d.call(a),_(t,a)}}else{var l=h.beforeCreate;h.beforeCreate=l?[].concat(l,d):[d]}return{exports:t,options:h}}e.d(a,"a",(function(){return r}))},10:function(t,a,e){"use strict";e.r(a);var r={data:function(){return{houses:[{id:1,name:"IPHH01",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:2,name:"IPHH02",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:3,name:"IPHH03",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:4,name:"IPHH04",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:5,name:"IPHH05",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:6,name:"IPHH06",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:7,name:"IPHH07",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:8,name:"IPHH08",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:9,name:"IPHH09",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:10,name:"IPHH10",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:11,name:"IPHH11",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:12,name:"IPHH12",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:13,name:"IPHH13",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:14,name:"IPHH14",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)},{id:15,name:"IPHH15",has_latrine:this.random(0,10),easy_washable_cemented_floor:this.random(0,10),lockable_door:this.random(0,10),iron_sheet_roof:this.random(0,10),wall_with_bricks:this.random(0,10),adjacent_bathroom:this.random(0,10),clean_latrine:this.random(0,10)}]}},methods:{random:function(t,a){return.1*(Math.floor(Math.random()*(t-a+1))+a)}}},o=e(0),n=Object(o.a)(r,(function(){var t=this,a=t.$createElement,e=t._self._c||a;return e("div",{staticClass:"shadow-xl rounded-lg overflow-hidden"},[t._m(0),t._v(" "),e("div",{staticClass:"overflow-x-scroll"},[e("table",{staticClass:"whitespace-no-wrap"},[t._m(1),t._v(" "),e("tbody",t._l(t.houses,(function(a){return e("tr",{key:a.id},[e("td",{staticClass:"border-b text-left  py-4 px-4"},[t._v("\n                        "+t._s(a.name)+"\n                    ")]),t._v(" "),e("td",{staticClass:"border-b text-right py-4 px-4",class:{"bg-green-200":Math.round(a.has_latrine),"bg-red-200":!Math.round(a.has_latrine)}},[t._v("\n                        "+t._s(Math.round(a.has_latrine))+"\n                    ")]),t._v(" "),e("td",{staticClass:"border-b text-right py-4 px-4",class:{"bg-green-200":Math.round(a.easy_washable_cemented_floor),"bg-red-200":!Math.round(a.easy_washable_cemented_floor)}},[t._v("\n                        "+t._s(Math.round(a.easy_washable_cemented_floor))+"\n                    ")]),t._v(" "),e("td",{staticClass:"border-b text-right py-4 px-4",class:{"bg-green-200":Math.round(a.lockable_door),"bg-red-200":!Math.round(a.lockable_door)}},[t._v("\n                        "+t._s(Math.round(a.lockable_door))+"\n                    ")]),t._v(" "),e("td",{staticClass:"border-b text-right py-4 px-4",class:{"bg-green-200":Math.round(a.iron_sheet_roof),"bg-red-200":!Math.round(a.iron_sheet_roof)}},[t._v("\n                        "+t._s(Math.round(a.iron_sheet_roof))+"\n                    ")]),t._v(" "),e("td",{staticClass:"border-b text-right py-4 px-4",class:{"bg-green-200":Math.round(a.wall_with_bricks),"bg-red-200":!Math.round(a.wall_with_bricks)}},[t._v("\n                        "+t._s(Math.round(a.wall_with_bricks))+"\n                    ")]),t._v(" "),e("td",{staticClass:"border-b text-right py-4 px-4",class:{"bg-green-200":Math.round(a.adjacent_bathroom),"bg-red-200":!Math.round(a.adjacent_bathroom)}},[t._v("\n                        "+t._s(Math.round(a.adjacent_bathroom))+"\n                    ")]),t._v(" "),e("td",{staticClass:"border-b text-right py-4 px-4",class:{"bg-green-200":Math.round(a.clean_latrine),"bg-red-200":!Math.round(a.clean_latrine)}},[t._v("\n                        "+t._s(Math.round(a.clean_latrine))+"\n                    ")]),t._v(" "),e("td",{staticClass:"border-b text-right py-4 px-4 bg-yellow-200"},[t._v("\n                        "+t._s(Math.random().toFixed(2))+"\n                    ")])])})),0)])])])}),[function(){var t=this.$createElement,a=this._self._c||t;return a("header",{staticClass:"px-6 bg-gray-100 py-4 border-b"},[a("h2",{staticClass:"text-lg mb-2"},[this._v("Latrine Construction and Improvement Scorecard")]),this._v(" "),a("div",{staticClass:"text-sm text-gray-700"},[this._v("Ipinda Village - July 2019 to September 2019")])])},function(){var t=this,a=t.$createElement,e=t._self._c||a;return e("thead",[e("tr",[e("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left"},[t._v("\n                    Village\n                ")]),t._v(" "),e("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"},[t._v("\n                    Has latrine\n                ")]),t._v(" "),e("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"},[t._v("\n                    Easy washable cemented floor\n                ")]),t._v(" "),e("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"},[t._v("\n                    Lockable door\n                ")]),t._v(" "),e("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"},[t._v("\n                    Iron sheet roof\n                ")]),t._v(" "),e("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"},[t._v("\n                    Wall with bricks\n                ")]),t._v(" "),e("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"},[t._v("\n                    Adjacent bathroom\n                ")]),t._v(" "),e("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"},[t._v("\n                    Clean latrine\n                ")]),t._v(" "),e("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"},[t._v("\n                    Latrine construction and improvement average\n                ")])])])}],!1,null,"03bc1da6",null);a.default=n.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[15],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var voca__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! voca */ "./node_modules/voca/index.js");
+/* harmony import */ var voca__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(voca__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      visits: [],
+      limit: 5,
+      order: 'desc'
+    };
+  },
+  mounted: function mounted() {
+    this.fetchResult();
+  },
+  methods: {
+    titleCase: function titleCase(string) {
+      return voca__WEBPACK_IMPORTED_MODULE_0___default.a.titleCase(string);
+    },
+    more: function more() {
+      this.limit = this.limit + 5;
+      this.fetchResult();
+    },
+    less: function less() {
+      this.limit = this.limit - 5;
+      this.fetchResult();
+    },
+    toggleDirection: function toggleDirection() {
+      this.order = this.order === "desc" ? "asc" : "desc";
+      this.fetchResult();
+    },
+    fetchResult: function fetchResult() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("api/visiting_per_village", {
+        params: {
+          take: this.limit,
+          order: this.order
+        }
+      }).then(function (response) {
+        _this.visits = response.data;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=template&id=443f3401&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=template&id=443f3401& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "bg-white shadow-lg rounded-lg overflow-hidden" },
+    [
+      _c(
+        "header",
+        { staticClass: "flex justify-between px-4 py-5 bg-gray-100" },
+        [
+          _c(
+            "h3",
+            {
+              staticClass:
+                "text-xs uppercase tracking-wide font-semibold text-gray-700"
+            },
+            [_vm._v("Visiting Per Village")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "text-xs" }, [
+            _c(
+              "button",
+              {
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.toggleDirection($event)
+                  }
+                }
+              },
+              [_vm._v("Sort Order: " + _vm._s(_vm.titleCase(_vm.order)))]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "py-4 px-4" }, [
+        _c("table", { staticClass: "w-full text-left" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.visits, function(visit) {
+              return _c("tr", { staticClass: "border-b last:border-b-0" }, [
+                _c("th", { staticClass: "text-sm py-3" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.titleCase(visit.village)) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-sm py-3" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.titleCase(visit.district)) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-sm py-3" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(visit.visits) +
+                      "\n                "
+                  )
+                ])
+              ])
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "footer",
+        {
+          staticClass:
+            "px-4 flex py-4 justify-between text-xs uppercase text-blue-500 tracking-wider"
+        },
+        [
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.more($event)
+                }
+              }
+            },
+            [_vm._v("View More")]
+          ),
+          _vm._v(" "),
+          _vm.limit > 5
+            ? _c(
+                "button",
+                {
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.less($event)
+                    }
+                  }
+                },
+                [_vm._v("View Less")]
+              )
+            : _vm._e()
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tbody", [
+      _c("tr", { staticClass: "border-b" }, [
+        _c(
+          "th",
+          {
+            staticClass:
+              "text-xs uppercase tracking-wider font-light text-gray-600 py-4"
+          },
+          [_vm._v("Village")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "text-xs uppercase tracking-wider font-light text-gray-600 py-4"
+          },
+          [_vm._v("District")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "text-xs uppercase tracking-wider font-light text-gray-600 py-4"
+          },
+          [_vm._v("Visits")]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue":
+/*!************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _VisitingsPerVillage_vue_vue_type_template_id_443f3401___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VisitingsPerVillage.vue?vue&type=template&id=443f3401& */ "./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=template&id=443f3401&");
+/* harmony import */ var _VisitingsPerVillage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VisitingsPerVillage.vue?vue&type=script&lang=js& */ "./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _VisitingsPerVillage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _VisitingsPerVillage_vue_vue_type_template_id_443f3401___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _VisitingsPerVillage_vue_vue_type_template_id_443f3401___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerVillage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./VisitingsPerVillage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerVillage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=template&id=443f3401&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=template&id=443f3401& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerVillage_vue_vue_type_template_id_443f3401___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./VisitingsPerVillage.vue?vue&type=template&id=443f3401& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue?vue&type=template&id=443f3401&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerVillage_vue_vue_type_template_id_443f3401___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VisitingsPerVillage_vue_vue_type_template_id_443f3401___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

@@ -1,1 +1,846 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{11:function(t,e,a){"use strict";a.r(e);var s=a(1),r=a.n(s),n=a(2),i=a.n(n);function o(t,e,a,s,r,n,i){try{var o=t[n](i),l=o.value}catch(t){return void a(t)}o.done?e(l):Promise.resolve(l).then(s,r)}var l,c,u={props:{area:{required:!0,type:Object}},data:function(){return{report:{}}},watch:{area:{deep:!0,handler:function(){this.fetchReport()}}},computed:{path:function(){return"/api/handwashing_houses"},chartOptions:function(){return{chart:{type:"gauge",plotBorderWidth:0,plotShadow:!1,plotBackgroundColor:null,plotBackgroundImage:null},title:{margin:36,text:"House Without Handwashing Place",style:{color:"#333333",fontSize:"14px"}},subtitle:{text:"".concat(this.areaName," - Jan 2019 to Jun 2019")},pane:{startAngle:-150,endAngle:150,background:[{backgroundColor:{linearGradient:{x1:0,y1:0,x2:0,y2:1},stops:[[0,"#FFF"],[1,"#333"]]},borderWidth:0,outerRadius:"109%"},{backgroundColor:{linearGradient:{x1:0,y1:0,x2:0,y2:1},stops:[[0,"#333"],[1,"#FFF"]]},borderWidth:1,outerRadius:"107%"},{},{backgroundColor:"#DDD",borderWidth:0,outerRadius:"105%",innerRadius:"103%"}]},yAxis:{min:0,max:this.report.total,minorTickInterval:"auto",minorTickWidth:1,minorTickLength:10,minorTickPosition:"inside",minorTickColor:"#666",tickPixelInterval:30,tickWidth:2,tickPosition:"inside",tickLength:10,tickColor:"#666",labels:{step:2,rotation:"auto"},title:{text:""},plotBands:[{from:0,to:(.333333*this.report.total).toFixed(1),color:"#55BF3B"},{from:(.333333*this.report.total).toFixed(1),to:(.666667*this.report.total).toFixed(1),color:"#DDDF0D"},{from:(.666667*this.report.total).toFixed(1),to:this.report.total,color:"#DF5353"}]},credits:{enabled:!1},series:[{name:"Speed",data:[this.report.total-this.report.sub_total],tooltip:{valueSuffix:"Total"}}]}},areaName:function(){return"".concat(this.area.name?this.area.name:"All"," ").concat(this.area.type?this.area.type:"Regions")},parameters:function(){return this.area.type||this.area.name?(t={},e=this.area.type.toLowerCase(),a=this.area.name,e in t?Object.defineProperty(t,e,{value:a,enumerable:!0,configurable:!0,writable:!0}):t[e]=a,t):null;var t,e,a}},mounted:function(){this.fetchReport()},methods:{fetchReport:(l=r.a.mark((function t(){var e;return r.a.wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,i.a.get(this.path,{params:this.parameters});case 2:e=t.sent,this.report=e.data[0];case 4:case"end":return t.stop()}}),t,this)})),c=function(){var t=this,e=arguments;return new Promise((function(a,s){var r=l.apply(t,e);function n(t){o(r,a,s,n,i,"next",t)}function i(t){o(r,a,s,n,i,"throw",t)}n(void 0)}))},function(){return c.apply(this,arguments)})}},d=a(0),p=Object(d.a)(u,(function(){var t=this.$createElement,e=this._self._c||t;return e("div",{staticClass:"mx-auto border-t-4 border-blue-400 shadow-lg overflow-hidden"},[e("div",{staticClass:"py-8 px-8"},[e("highcharts",{attrs:{options:this.chartOptions}})],1)])}),[],!1,null,null,null);e.default=p.exports},12:function(t,e,a){"use strict";a.r(e);var s=a(1),r=a.n(s),n=a(2),i=a.n(n),o=a(5),l=a.n(o);function c(t,e,a,s,r,n,i){try{var o=t[n](i),l=o.value}catch(t){return void a(t)}o.done?e(l):Promise.resolve(l).then(s,r)}var u,d,p={props:{area:{required:!0,type:Object}},data:function(){return{houses:[]}},computed:{areaName:function(){return"".concat(this.area.name?this.area.name:"All"," ").concat(this.area.type?this.area.type:"Regions")}},mounted:function(){this.fetchReport()},methods:{titleCase:function(t){return l.a.titleCase(t)},fetchReport:(u=r.a.mark((function t(){var e;return r.a.wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,i.a.get("api/latrine_construction_improvement");case 2:e=t.sent,this.houses=e.data;case 4:case"end":return t.stop()}}),t,this)})),d=function(){var t=this,e=arguments;return new Promise((function(a,s){var r=u.apply(t,e);function n(t){c(r,a,s,n,i,"next",t)}function i(t){c(r,a,s,n,i,"throw",t)}n(void 0)}))},function(){return d.apply(this,arguments)})}},h=a(0),v=Object(h.a)(p,(function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",{staticClass:"shadow-lg overflow-hidden"},[a("header",{staticClass:"px-6 bg-blue-100 py-4"},[a("h2",{staticClass:"text-lg mb-2"},[t._v("Handwashing Practice Scorecard")]),t._v(" "),a("div",{staticClass:"text-sm text-gray-700"},[t._v("\n            "+t._s(t.areaName)+" - July 2019 to September 2019\n        ")])]),t._v(" "),a("div",{staticClass:"overflow-x-scroll",staticStyle:{height:"42rem"}},[a("table",{staticClass:"whitespace-no-wrap"},[t._m(0),t._v(" "),a("tbody",t._l(t.houses,(function(e){return a("tr",{key:e.id},[a("td",{staticClass:"border-b text-left  py-4 px-4"},[t._v("\n                    "+t._s(t.titleCase(e.head_of_house))+"\n                ")]),t._v(" "),a("td",{staticClass:"border-b text-left  py-4 px-4",class:{"bg-green-200":Math.round(e.has_handwash_place),"bg-red-200":!Math.round(e.has_handwash_place)}},[t._v("\n                    "+t._s(Math.round(e.has_handwash_place))+"\n                ")]),t._v(" "),a("td",{staticClass:"border-b text-right py-4 px-4",class:{"bg-green-200":Math.round(e.has_soap),"bg-red-200":!Math.round(e.has_soap)}},[t._v("\n                    "+t._s(Math.round(e.has_soap))+"\n                ")]),t._v(" "),a("td",{staticClass:"border-b text-right py-4 px-4",class:{"bg-green-200":Math.round(e.has_handwash_container),"bg-red-200":!Math.round(e.has_handwash_container)}},[t._v("\n                    "+t._s(Math.round(e.has_handwash_container))+"\n                ")]),t._v(" "),a("td",{staticClass:"border-b text-right py-4 px-4 bg-yellow-200"},[t._v("\n                    "+t._s(((e.has_handwash_place+e.has_soap+e.has_handwash_container)/3).toFixed(2))+"\n                ")])])})),0)])])])}),[function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("thead",[a("tr",[a("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left"},[t._v("\n                    Head Of House\n                ")]),t._v(" "),a("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"},[t._v("\n                    Has handwash place\n                ")]),t._v(" "),a("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"},[t._v("\n                    Has soap\n                ")]),t._v(" "),a("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"},[t._v("\n                    Has handwash container\n                ")]),t._v(" "),a("th",{staticClass:"py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"},[t._v("\n                    Hand washing practise average\n                ")])])])}],!1,null,null,null);e.default=v.exports},13:function(t,e,a){"use strict";a.r(e);var s=a(1),r=a.n(s),n=a(2),i=a.n(n),o=a(3),l=a.n(o);function c(t,e,a,s,r,n,i){try{var o=t[n](i),l=o.value}catch(t){return void a(t)}o.done?e(l):Promise.resolve(l).then(s,r)}var u,d,p={props:{area:{required:!0,type:Object},duration:{required:!0}},data:function(){return{apiEndPoint:"",report:{},period:"monthly",date:new Date,isVisible:!1,selectedDate:(new Date).getDate(),selectedMonth:(new Date).getMonth(),selectedYear:(new Date).getFullYear()}},mounted:function(){var t=Object.assign({period:this.period,date:this.date.toJSON().slice(0,10)},l.a.parse(window.location.search));this.apiEndPoint=l.a.stringifyUrl({url:"".concat(window.location.origin,"/api/handwashing_characteristics"),query:t})},watch:{area:{deep:!0,handler:function(){var t,e,a;this.apiEndPoint=l.a.stringifyUrl({url:this.apiEndPoint,query:(t={},e=this.area.type.toLowerCase(),a=this.area.name,e in t?Object.defineProperty(t,e,{value:a,enumerable:!0,configurable:!0,writable:!0}):t[e]=a,t)})}},apiEndPoint:function(){this.fetchReport()},selectedDate:function(t){this.date.setDate(t),this.apiEndPoint=l.a.stringifyUrl({url:this.apiEndPoint,query:{date:this.date.toJSON().slice(0,10)}})},selectedMonth:function(t){this.date.setMonth(t),this.apiEndPoint=l.a.stringifyUrl({url:this.apiEndPoint,query:{date:this.date.toJSON().slice(0,10)}})},selectedYear:function(t){this.date.setFullYear(t),this.apiEndPoint=l.a.stringifyUrl({url:this.apiEndPoint,query:{date:this.date.toJSON().slice(0,10)}})},duration:function(t){this.selectedYear=t,this.date.setFullYear(t),this.apiEndPoint=l.a.stringifyUrl({url:this.apiEndPoint,query:{date:this.date.toJSON().slice(0,10)}})}},computed:{chartOptions:function(){return{chart:{type:"column"},title:{text:"Hand Washing Characteristics",margin:36,style:{color:"#333333",fontSize:"14px"}},subtitle:{text:"".concat(this.areaName,": Jul 2019 - Sep 2019")},accessibility:{announceNewData:{enabled:!0}},xAxis:{type:"category"},yAxis:{title:{text:"Household With Handwash Place"}},legend:{enabled:!1},tooltip:{headerFormat:'<span style="font-size:11px">{point.name}</span><br>',pointFormat:"<span>{point.name}</span>: <b>{point.y}</b><br/>"},credits:{enabled:!1},series:[{colorByPoint:!0,data:[{name:"Hand wash place",y:this.report.has_handwash_place},{name:"Hand wash container",y:this.report.has_handwash_container},{name:"Has Soap",y:this.report.has_soap}]}]}},areaName:function(){return"".concat(this.area.name?this.area.name:"All"," ").concat(this.area.type?this.area.type:"Regions")}},methods:{getMonthName:function(t){return new Date(this.selectedYear,t,this.selectedDate).toLocaleString("default",{month:"long"})},getReportBy:function(t){this.period=t,this.apiEndPoint=l.a.stringifyUrl({url:this.apiEndPoint,query:{period:t}})},fetchReport:(u=r.a.mark((function t(){var e;return r.a.wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,i.a.get(this.apiEndPoint);case 2:e=t.sent,this.report=e.data[0];case 4:case"end":return t.stop()}}),t,this)})),d=function(){var t=this,e=arguments;return new Promise((function(a,s){var r=u.apply(t,e);function n(t){c(r,a,s,n,i,"next",t)}function i(t){c(r,a,s,n,i,"throw",t)}n(void 0)}))},function(){return d.apply(this,arguments)})}},h=a(0),v=Object(h.a)(p,(function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",{staticClass:"mx-auto shadow-lg overflow-hidden"},[a("header",{staticClass:"px-6 bg-blue-100 border-b border-blue-100 flex justify-between items-center"},[a("div",{staticClass:"text-sm text-gray-600"},[a("button",{staticClass:"px-2",on:{click:function(e){e.preventDefault(),t.isVisible=!t.isVisible}}},[t._v("\n                "+t._s(t.isVisible?"Hide":"Show")+" Details\n            ")])]),t._v(" "),a("div",{staticClass:"flex"},[a("ul",{staticClass:"flex items-center mx-6"},[a("li",[a("a",{staticClass:"px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500",class:{"border-blue-500":"daily"===t.period},attrs:{href:"#"},on:{click:function(e){return e.preventDefault(),t.getReportBy("daily")}}},[t._v("Daily")])]),t._v(" "),a("li",[a("a",{staticClass:"px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500",class:{"border-blue-500":"monthly"===t.period},attrs:{href:"#"},on:{click:function(e){return e.preventDefault(),t.getReportBy("monthly")}}},[t._v("Monthly")])]),t._v(" "),a("li",[a("a",{staticClass:"px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500",class:{"border-blue-500":"annually"===t.period},attrs:{href:"#"},on:{click:function(e){return e.preventDefault(),t.getReportBy("annually")}}},[t._v("Annually")])])]),t._v(" "),a("form",{staticClass:"flex items-center"},["daily"===t.period?a("select",{directives:[{name:"model",rawName:"v-model",value:t.selectedDate,expression:"selectedDate"}],staticClass:"bg-blue-100",attrs:{id:"day"},on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.selectedDate=e.target.multiple?a:a[0]}}},t._l(new Date(t.selectedYear,t.selectedMonth+1,0).getDate(),(function(e){return a("option",{domProps:{value:e}},[t._v("\n                        "+t._s(e)+"\n                    ")])})),0):t._e(),t._v(" "),"daily"===t.period||"monthly"===t.period?a("select",{directives:[{name:"model",rawName:"v-model",value:t.selectedMonth,expression:"selectedMonth"}],staticClass:"bg-blue-100",attrs:{id:"month"},on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.selectedMonth=e.target.multiple?a:a[0]}}},t._l(Array(12).keys(),(function(e){return a("option",{domProps:{value:e}},[t._v("\n                        "+t._s(t.getMonthName(e))+"\n                    ")])})),0):t._e(),t._v(" "),a("select",{directives:[{name:"model",rawName:"v-model",value:t.selectedYear,expression:"selectedYear"}],staticClass:"bg-blue-100",attrs:{id:"year"},on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.selectedYear=e.target.multiple?a:a[0]}}},t._l(Array(5).keys(),(function(e){return a("option",{domProps:{value:t.selectedYear-e}},[t._v("\n                        "+t._s(t.selectedYear-e)+"\n                    ")])})),0)])])]),t._v(" "),a("div",{staticClass:"px-6 py-8"},[a("highcharts",{attrs:{options:t.chartOptions}})],1),t._v(" "),t.isVisible?a("div",{staticClass:"px-6 py-6 bg-gray-100"},[t._m(0)]):t._e()])}),[function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("table",{staticClass:"w-full"},[a("tbody",[a("tr",[a("th",{staticClass:"py-1"},[a("div",{staticClass:"flex items-center text-sm font-semibold text-gray-700"},[a("span",{staticClass:"block h-4 w-4 rounded bg-blue-500 mr-2"}),t._v(" Easy Washable Cemented Floor\n                    ")])]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("12")]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("20%")])]),t._v(" "),a("tr",[a("th",{staticClass:"py-1"},[a("div",{staticClass:"flex items-center text-sm font-semibold text-gray-700"},[a("span",{staticClass:"block h-4 w-4 rounded bg-green-500 mr-2"}),t._v(" Iron Sheet Roof\n                    ")])]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("12")]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("20%")])]),t._v(" "),a("tr",[a("th",{staticClass:"py-1"},[a("div",{staticClass:"flex items-center text-sm font-semibold text-gray-700"},[a("span",{staticClass:"block h-4 w-4 rounded bg-yellow-500 mr-2"}),t._v(" Adjacent Bathroom\n                    ")])]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("12")]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("20%")])]),t._v(" "),a("tr",[a("th",{staticClass:"py-1"},[a("div",{staticClass:"flex items-center text-sm font-semibold text-gray-700"},[a("span",{staticClass:"block h-4 w-4 rounded bg-red-500 mr-2"}),t._v(" Lockable Door\n                    ")])]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("12")]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("20%")])]),t._v(" "),a("tr",[a("th",{staticClass:"py-1"},[a("div",{staticClass:"flex items-center text-sm font-semibold text-gray-700"},[a("span",{staticClass:"block h-4 w-4 rounded bg-purple-500 mr-2"}),t._v(" Wall With Bricks\n                    ")])]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("12")]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("20%")])])])])}],!1,null,null,null);e.default=v.exports},14:function(t,e,a){"use strict";a.r(e);var s=a(2),r=a.n(s),n=(a(3),{props:{area:{required:!0,type:Object},duration:{required:!0}},data:function(){return{period:"daily",year:(new Date).getFullYear(),month:(new Date).getMonth(),day:(new Date).getDate(),isVisible:!1,statistics:[],categories:[]}},mounted:function(){this.fetchReport()},watch:{day:function(){this.date=new Date(this.year,this.month,this.day),this.fetchReport()},month:function(){this.date=new Date(this.year,this.month,this.day),this.fetchReport()},year:function(){this.date=new Date(this.year,this.month,this.day),this.fetchReport()},duration:function(t){this.year=t,this.date=new Date(t,this.month,this.day),this.fetchReport()}},computed:{chartOptions:function(){return{title:{text:"Hand Washing Characteristics Trend",margin:36,style:{color:"#333333",fontSize:"14px"}},subtitle:{text:"".concat(this.areaName,": Jul 2019 - Sep 2019")},yAxis:{title:{text:"Number of Households"}},xAxis:{categories:this.categories},series:this.statistics,credits:{enabled:!1}}},areaName:function(){return"".concat(this.area.name?this.area.name:"All"," ").concat(this.area.type?this.area.type:"Regions")}},methods:{toggle:function(){this.isVisible=!this.isVisible},getMonthName:function(t){return new Date(this.year,t,this.day).toLocaleString("default",{month:"long"})},aggregateAttribute:function(t,e){return t.data.map((function(t){return null==t[e]?0:t[e]}))},dailyReport:function(){this.period="daily",this.fetchReport()},monthlyReport:function(){this.period="monthly",this.fetchReport()},annuallyReport:function(){this.period="annually",this.fetchReport()},fetchReport:function(){var t=this;r.a.get("/api/latrine_characteristics_trend",{params:{period:this.period,date:this.date}}).then((function(e){"daily"===t.period&&(t.categories=e.data.map((function(t){return t.hour}))),"monthly"===t.period&&(t.categories=e.data.map((function(t){return t.day}))),"annually"===t.period&&(t.categories=e.data.map((function(t){return t.month}))),t.statistics=t.transformResult(e)}))},transformResult:function(t){return[{name:"Hand wash place",data:this.aggregateAttribute(t,"has_latrine")},{name:"Hand wash container",data:this.aggregateAttribute(t,"has_lockable_door")},{name:"Soap",data:this.aggregateAttribute(t,"has_brick_wall")}]}}}),i=a(0),o=Object(i.a)(n,(function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",{staticClass:"mx-auto shadow-lg overflow-hidden"},[a("header",{staticClass:"px-6 bg-blue-100 flex justify-between items-center"},[a("div",{staticClass:"text-sm text-gray-600"},[a("button",{staticClass:"px-2",on:{click:function(e){return e.preventDefault(),t.toggle(e)}}},[t._v("\n                "+t._s(t.isVisible?"Hide":"Show")+" Details\n            ")])]),t._v(" "),a("div",{staticClass:"flex"},[a("ul",{staticClass:"flex items-center mx-6"},[a("li",[a("a",{staticClass:"px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500",class:{"border-blue-500":"daily"===t.period},attrs:{href:"#"},on:{click:function(e){return e.preventDefault(),t.dailyReport(e)}}},[t._v("Daily")])]),t._v(" "),a("li",[a("a",{staticClass:"px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500",class:{"border-blue-500":"monthly"===t.period},attrs:{href:"#"},on:{click:function(e){return e.preventDefault(),t.monthlyReport(e)}}},[t._v("Monthly")])]),t._v(" "),a("li",[a("a",{staticClass:"px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500",class:{"border-blue-500":"annually"===t.period},attrs:{href:"#"},on:{click:function(e){return e.preventDefault(),t.annuallyReport(e)}}},[t._v("Annually")])])]),t._v(" "),a("form",{staticClass:"flex items-center"},["daily"===t.period?a("select",{directives:[{name:"model",rawName:"v-model",value:t.day,expression:"day"}],staticClass:"bg-blue-100",attrs:{id:"day"},on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.day=e.target.multiple?a:a[0]}}},t._l(new Date(t.year,t.month+1,0).getDate(),(function(e){return a("option",{domProps:{value:e}},[t._v("\n                        "+t._s(e)+"\n                    ")])})),0):t._e(),t._v(" "),"daily"===t.period||"monthly"===t.period?a("select",{directives:[{name:"model",rawName:"v-model",value:t.month,expression:"month"}],staticClass:"bg-blue-100",attrs:{id:"month"},on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.month=e.target.multiple?a:a[0]}}},t._l(Array(12).keys(),(function(e){return a("option",{domProps:{value:e}},[t._v("\n                        "+t._s(t.getMonthName(e))+"\n                    ")])})),0):t._e(),t._v(" "),a("select",{directives:[{name:"model",rawName:"v-model",value:t.year,expression:"year"}],staticClass:"bg-blue-100",attrs:{id:"year"},on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.year=e.target.multiple?a:a[0]}}},t._l(Array(5).keys(),(function(e){return a("option",{domProps:{value:t.year-e}},[t._v("\n                        "+t._s(t.year-e)+"\n                    ")])})),0)])])]),t._v(" "),a("div",{staticClass:"px-6 py-8",class:{"border-b":t.isVisible}},[a("highcharts",{attrs:{options:t.chartOptions}})],1),t._v(" "),t.isVisible?a("div",{staticClass:"px-6 py-6 bg-gray-100"},[t._m(0)]):t._e()])}),[function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("table",{staticClass:"w-full"},[a("tbody",[a("tr",[a("th",{staticClass:"py-1"},[a("div",{staticClass:"flex items-center text-sm font-semibold text-gray-700"},[a("span",{staticClass:"block h-4 w-4 rounded bg-blue-500 mr-2"}),t._v(" Easy Washable Cemented Floor\n                    ")])]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("12")]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("20%")])]),t._v(" "),a("tr",[a("th",{staticClass:"py-1"},[a("div",{staticClass:"flex items-center text-sm font-semibold text-gray-700"},[a("span",{staticClass:"block h-4 w-4 rounded bg-green-500 mr-2"}),t._v(" Iron Sheet Roof\n                    ")])]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("12")]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("20%")])]),t._v(" "),a("tr",[a("th",{staticClass:"py-1"},[a("div",{staticClass:"flex items-center text-sm font-semibold text-gray-700"},[a("span",{staticClass:"block h-4 w-4 rounded bg-yellow-500 mr-2"}),t._v(" Adjacent Bathroom\n                    ")])]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("12")]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("20%")])]),t._v(" "),a("tr",[a("th",{staticClass:"py-1"},[a("div",{staticClass:"flex items-center text-sm font-semibold text-gray-700"},[a("span",{staticClass:"block h-4 w-4 rounded bg-red-500 mr-2"}),t._v(" Lockable Door\n                    ")])]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("12")]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("20%")])]),t._v(" "),a("tr",[a("th",{staticClass:"py-1"},[a("div",{staticClass:"flex items-center text-sm font-semibold text-gray-700"},[a("span",{staticClass:"block h-4 w-4 rounded bg-purple-500 mr-2"}),t._v(" Wall With Bricks\n                    ")])]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("12")]),t._v(" "),a("td",{staticClass:"py-2 px-2 font-normal text-sm"},[t._v("20%")])])])])}],!1,null,null,null);e.default=o.exports},27:function(t,e,a){"use strict";a.r(e);var s=a(1),r=a.n(s),n=a(2),i=a.n(n),o=a(3),l=a.n(o),c=a(8),u=a(12),d=a(11),p=a(13),h=a(14);function v(t,e,a,s,r,n,i){try{var o=t[n](i),l=o.value}catch(t){return void a(t)}o.done?e(l):Promise.resolve(l).then(s,r)}function f(t){return function(){var e=this,a=arguments;return new Promise((function(s,r){var n=t.apply(e,a);function i(t){v(n,s,r,i,o,"next",t)}function o(t){v(n,s,r,i,o,"throw",t)}i(void 0)}))}}var m,y,g={components:{Layout:c.a,HandwashingScoreCard:u.default,HandwashingHouses:d.default,HandwashingStationCharacteristics:p.default,HandwashingStationCharacteristicsTrend:h.default},props:{regions:{required:!0}},data:function(){return{districts:[],villages:[],selectedDistrict:"",selectedRegion:"",selectedVillage:"",selectedPeriod:(new Date).getFullYear(),area:{name:"",type:""}}},watch:{selectedRegion:function(t){history.pushState(null,null,l.a.stringifyUrl({url:window.location.href,query:{region:t}})),this.area={name:t,type:"Region"},t?this.fetchDistricts(t):(this.districts=[],this.selectedDistrict="",this.villages=[],this.selectedVillage="")},selectedDistrict:function(t){history.pushState(null,null,l.a.stringifyUrl({url:window.location.href,query:{district:t}})),this.area={name:t,type:"District"},t?this.fetchVillages(t):this.villages=[]},selectedVillage:function(t){history.pushState(null,null,l.a.stringifyUrl({url:window.location.href,query:{village:t}})),this.area={name:t,type:"Village"}},selectedPeriod:function(t){history.pushState(null,null,l.a.stringifyUrl({url:window.location.href,query:{period:t}}))}},methods:{fetchDistricts:(y=f(r.a.mark((function t(e){var a;return r.a.wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,i.a.get("/api/regions/".concat(e,"/districts"));case 2:a=t.sent,this.districts=a.data;case 4:case"end":return t.stop()}}),t,this)}))),function(t){return y.apply(this,arguments)}),fetchVillages:(m=f(r.a.mark((function t(e){var a;return r.a.wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,i.a.get("/api/districts/".concat(e,"/villages"));case 2:a=t.sent,this.villages=a.data;case 4:case"end":return t.stop()}}),t,this)}))),function(t){return m.apply(this,arguments)})}},x=a(0),_=Object(x.a)(g,(function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("layout",[a("div",{staticClass:"px-12"},[a("div",{staticClass:"flex mb-16"},[a("header",{staticClass:"w-full flex justify-between border-b pb-8"},[a("h1",{staticClass:"text-xl uppercase tracking-wider font-normal text-blue-700"},[t._v("\n                    Handwashing Practice\n                ")]),t._v(" "),a("nav",{staticClass:"flex items-center"},[a("select",{directives:[{name:"model",rawName:"v-model",value:t.selectedRegion,expression:"selectedRegion"}],staticClass:"bg-transparent",on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.selectedRegion=e.target.multiple?a:a[0]}}},[a("option",{attrs:{value:""}},[t._v("Region...")]),t._v(" "),t._l(t.regions,(function(e){return a("option",{key:e.id,domProps:{value:e.name}},[t._v(t._s(e.name))])}))],2),t._v(" "),t.districts.length?a("select",{directives:[{name:"model",rawName:"v-model",value:t.selectedDistrict,expression:"selectedDistrict"}],staticClass:"bg-transparent",on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.selectedDistrict=e.target.multiple?a:a[0]}}},[a("option",{attrs:{value:""}},[t._v("District...")]),t._v(" "),t._l(t.districts,(function(e){return a("option",{key:e.name,domProps:{value:e.name}},[t._v(t._s(e.name))])}))],2):t._e(),t._v(" "),t.villages.length?a("select",{directives:[{name:"model",rawName:"v-model",value:t.selectedVillage,expression:"selectedVillage"}],staticClass:"bg-transparent",on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.selectedVillage=e.target.multiple?a:a[0]}}},[a("option",{attrs:{value:""}},[t._v("Village...")]),t._v(" "),t._l(t.villages,(function(e){return a("option",{key:e.name,domProps:{value:e.name}},[t._v(t._s(e.name))])}))],2):t._e(),t._v(" "),a("select",{directives:[{name:"model",rawName:"v-model",value:t.selectedPeriod,expression:"selectedPeriod"}],staticClass:"bg-transparent",on:{change:function(e){var a=Array.prototype.filter.call(e.target.options,(function(t){return t.selected})).map((function(t){return"_value"in t?t._value:t.value}));t.selectedPeriod=e.target.multiple?a:a[0]}}},t._l(Array(5).keys(),(function(e){return a("option",{key:(new Date).getFullYear()-e,domProps:{value:(new Date).getFullYear()-e}},[t._v(t._s((new Date).getFullYear()-e))])})),0)])])]),t._v(" "),a("div",{staticClass:"flex mb-16 -mx-6"},[a("section",{staticClass:"w-1/2 px-6"},[a("HandwashingHouses",{attrs:{area:t.area}})],1),t._v(" "),a("section",{staticClass:"w-1/2 px-6"})]),t._v(" "),a("div",{staticClass:"flex -mx-6 mb-16"},[a("section",{staticClass:"w-full px-6"},[a("HandwashingStationCharacteristics",{attrs:{area:t.area,duration:t.selectedPeriod}})],1)]),t._v(" "),a("div",{staticClass:"flex -mx-6 mb-16"},[a("section",{staticClass:"w-full px-6"},[a("HandwashingStationCharacteristicsTrend",{attrs:{area:t.area,duration:t.selectedPeriod}})],1)]),t._v(" "),a("div",{staticClass:"flex mb-16"},[a("section",{staticClass:"w-full"},[a("HandwashingScoreCard",{attrs:{area:t.area}})],1)])])])}),[],!1,null,null,null);e.default=_.exports},8:function(t,e,a){"use strict";var s=a(1),r=a.n(s),n=a(2),i=a.n(n);function o(t,e,a,s,r,n,i){try{var o=t[n](i),l=o.value}catch(t){return void a(t)}o.done?e(l):Promise.resolve(l).then(s,r)}var l,c,u={data:function(){return{regions:[{id:1,name:"Mbeya"},{id:2,name:"Iringa"},{id:3,name:"Tanga"},{id:4,name:"Arusha"}]}},methods:{isRoute:function(t){return route().current(t)},handleSignOut:(l=r.a.mark((function t(){return r.a.wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,i.a.post("/logout");case 2:window.location.href="/login";case 3:case"end":return t.stop()}}),t)})),c=function(){var t=this,e=arguments;return new Promise((function(a,s){var r=l.apply(t,e);function n(t){o(r,a,s,n,i,"next",t)}function i(t){o(r,a,s,n,i,"throw",t)}n(void 0)}))},function(){return c.apply(this,arguments)})}},d=a(0),p=Object(d.a)(u,(function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",[a("header",{staticClass:"flex items-center justify-between bg-blue-600 border-b"},[a("div",{staticClass:"px-6 font-bold text-white"},[t._v("\n            "+t._s(t.$page.app.name)+"\n        ")]),t._v(" "),a("div",{staticClass:"flex-shrink-0 px-10 py-4"},[a("v-popover",{attrs:{offset:"16",placement:"bottom-start"},scopedSlots:t._u([{key:"popover",fn:function(){return[a("div",{staticClass:"bg-white shadow-xl rounded-lg px-3"},[a("header",{staticClass:"text-sm px-2 py-4 border-b-2"},[a("p",{staticClass:"text-gray-700"},[t._v(t._s(t.$page.auth.user.email))])]),t._v(" "),a("nav",{staticClass:"text-sm font-medium text-gray-600 pt-2 pb-4"},[a("a",{staticClass:"block mt-1 px-3 py-2 rounded-lg hover:bg-gray-200",attrs:{href:"#"}},[t._v("Profile")]),t._v(" "),a("a",{staticClass:"block mt-1 px-3 py-2 rounded-lg hover:bg-gray-200",attrs:{href:"#"}},[t._v("Changes Password")]),t._v(" "),a("a",{staticClass:"block mt-1 px-3 py-2 rounded-lg hover:bg-gray-200",attrs:{href:"/logout"},on:{click:function(e){return e.preventDefault(),t.handleSignOut(e)}}},[t._v("Sign out")])])])]},proxy:!0}])},[a("button",{staticClass:"hidden sm:flex sm:items-center sm:w-full"},[a("img",{staticClass:"h-8 w-8 rounded-full object-cover",attrs:{src:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=144&h=144&q=80",alt:""}}),t._v(" "),a("span",{staticClass:"hidden lg:inline ml-4 mr-2 text-sm font-semibold tracking-wide text-white"},[t._v("\n                        "+t._s(t.$page.auth.user.name)+"\n                    ")]),t._v(" "),a("svg",{staticClass:"ml-2 h-6 w-6 fill-current text-gray-400 lg:ml-auto",attrs:{viewBox:"0 0 24 24"}},[a("path",{attrs:{d:"M7.293 9.293a1 1 0 011.414 0L12 12.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"}})])])])],1)]),t._v(" "),a("div",{staticClass:"flex w-full"},[a("div",{staticClass:"w-1/4 pt-8 border-r bg-gray-100"},[a("div",{staticClass:"px-6"},[a("h3",{staticClass:"text-xs font-semibold text-gray-600 uppercase tracking-wide"},[t._v("Dashboards")]),t._v(" "),a("nav",{staticClass:"text-sm font-semibold text-gray-600 mt-4"},[a("inertia-link",{staticClass:"-mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium bg-gray-200 rounded-lg",class:{"text-gray-700":t.isRoute("latrine")},attrs:{href:"/home"}},[t._v("Latrine Construction And Practise")]),t._v(" "),a("inertia-link",{staticClass:"mt-2 -mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg",class:{"text-gray-700":t.isRoute("handwash_practise")},attrs:{href:"/handwash_practise"}},[t._v("Handwashing Infrastructure")])],1)]),t._v(" "),a("div",{staticClass:"mt-10"},[a("div",{staticClass:"px-6"},[a("h3",{staticClass:"text-xs font-semibold text-gray-600 uppercase tracking-wide"},[t._v("Organization Unit")]),t._v(" "),a("div",{staticClass:"mt-3"},t._l(t.regions,(function(e){return a("label",{staticClass:"text-sm mt-2 block",attrs:{for:e.id}},[a("input",{staticClass:"form-checkbox mr-2",attrs:{type:"checkbox",id:t.i}}),t._v("\n                            "+t._s(e.name)+"\n                        ")])})),0)]),t._v(" "),t._m(0)])]),t._v(" "),a("div",{staticClass:"w-3/4 pt-8"},[t._t("default")],2)])])}),[function(){var t=this,e=t.$createElement,a=t._self._c||e;return a("div",{staticClass:"px-6 mt-10"},[a("h3",{staticClass:"text-xs font-semibold text-gray-600 uppercase tracking-wide"},[t._v("Period Unit")]),t._v(" "),a("div",{staticClass:"flex items-center justify-between mt-5 -mx-2"},[a("div",{staticClass:"px-2 w-full"},[a("select",{staticClass:"form-select form-select-sm w-full"},[a("option",{attrs:{value:""}},[t._v("Day")])])]),t._v(" "),a("div",{staticClass:"px-2 w-full"},[a("select",{staticClass:"form-select form-select-sm w-full"},[a("option",{attrs:{value:""}},[t._v("Month")])])]),t._v(" "),a("div",{staticClass:"px-2 w-full"},[a("select",{staticClass:"form-select form-select-sm w-full"},[a("option",{attrs:{value:""}},[t._v("Year")])])])]),t._v(" "),a("div",{staticClass:"flex items-center justify-between mt-5 -mx-2"},[a("div",{staticClass:"px-2 w-1/2"},[a("label",{staticClass:"text-xs mb-2 block",attrs:{for:"from"}},[t._v("Start From")]),t._v(" "),a("input",{staticClass:"form-input form-input-sm w-full",attrs:{id:"from",type:"date",placeholder:"..."}})]),t._v(" "),a("div",{staticClass:"px-2 w-1/2"},[a("label",{staticClass:"text-xs mb-2 block",attrs:{for:"to"}},[t._v("End To")]),t._v(" "),a("input",{staticClass:"form-input form-input-sm w-full",attrs:{id:"to",type:"date",placeholder:"..."}})])])])}],!1,null,null,null);e.a=p.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    area: {
+      required: true,
+      type: Object
+    },
+    duration: {
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      isVisible: false,
+      day: new Date().getDate(),
+      month: new Date().getMonth(),
+      year: new Date().getFullYear(),
+      date: new Date(),
+      period: 'monthly',
+      statistics: []
+    };
+  },
+  mounted: function mounted() {
+    this.fetchReport();
+  },
+  watch: {
+    day: function day() {
+      this.date = new Date(this.year, this.month, this.day);
+      this.fetchReport();
+    },
+    month: function month() {
+      this.date = new Date(this.year, this.month, this.day);
+      this.fetchReport();
+    },
+    year: function year() {
+      this.date = new Date(this.year, this.month, this.day);
+      this.fetchReport();
+    },
+    duration: function duration(value) {
+      this.year = value;
+      this.date = new Date(value, this.month, this.day);
+      this.fetchReport();
+    }
+  },
+  computed: {
+    chartOptions: function chartOptions() {
+      return {
+        chart: {
+          type: 'column'
+        },
+        title: {
+          text: 'Latrine Characteristics',
+          margin: 36,
+          style: {
+            "color": "#333333",
+            "fontSize": "14px"
+          }
+        },
+        subtitle: {
+          text: "".concat(this.areaName, ": Jul 2019 - Sep 2019")
+        },
+        accessibility: {
+          announceNewData: {
+            enabled: true
+          }
+        },
+        xAxis: {
+          type: 'category'
+        },
+        yAxis: {
+          title: {
+            text: 'Household With Latrines'
+          }
+        },
+        legend: {
+          enabled: false
+        },
+        tooltip: {
+          headerFormat: '<span style="font-size:11px">{point.name}</span><br>',
+          pointFormat: '<span>{point.name}</span>: <b>{point.y}</b><br/>'
+        },
+        credits: {
+          enabled: false
+        },
+        series: [{
+          colorByPoint: true,
+          data: this.statistics
+        }]
+      };
+    },
+    areaName: function areaName() {
+      return "".concat(this.area.name ? this.area.name : "All", " ").concat(this.area.type ? this.area.type : "Regions");
+    }
+  },
+  methods: {
+    toggle: function toggle() {
+      return this.isVisible = !this.isVisible;
+    },
+    getMonthName: function getMonthName(month) {
+      return new Date(this.year, month, this.day).toLocaleString('default', {
+        month: 'long'
+      });
+    },
+    aggregateAttribute: function aggregateAttribute(response, name) {
+      return response.data.map(function (item) {
+        return item[name];
+      }).reduce(function (accumulator, currentValue) {
+        return accumulator + currentValue;
+      });
+    },
+    dailyReport: function dailyReport() {
+      this.period = "daily";
+      this.fetchReport();
+    },
+    monthlyReport: function monthlyReport() {
+      this.period = "monthly";
+      this.fetchReport();
+    },
+    annuallyReport: function annuallyReport() {
+      this.period = "annually";
+      this.fetchReport();
+    },
+    fetchReport: function fetchReport() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/latrine_characteristics', {
+        params: {
+          period: this.period,
+          date: this.date
+        }
+      }).then(function (response) {
+        _this.statistics = _this.transformResult(response);
+      });
+    },
+    transformResult: function transformResult(response) {
+      return [{
+        name: "Has Latrine",
+        y: this.aggregateAttribute(response, 'has_latrine')
+      }, {
+        name: "Lockable Door",
+        y: this.aggregateAttribute(response, 'has_lockable_door')
+      }, {
+        name: "Brick Wall",
+        y: this.aggregateAttribute(response, 'has_brick_wall')
+      }, {
+        name: "Cemented Floor",
+        y: this.aggregateAttribute(response, 'has_cemented_floor')
+      }, {
+        name: "Iron Sheet Roof",
+        y: this.aggregateAttribute(response, 'has_iron_sheet_roof')
+      }, {
+        name: "Adjacent bathroom",
+        y: this.aggregateAttribute(response, 'has_adjacent_bathroom')
+      }];
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "mx-auto bg-white rounded-lg shadow overflow-hidden" },
+    [
+      _c(
+        "header",
+        {
+          staticClass:
+            "px-6 bg-gray-100 border-b border-gray-100 flex justify-between items-center"
+        },
+        [
+          _c(
+            "button",
+            {
+              staticClass:
+                "px-2 inline-flex items-center text-sm font-semibold text-gray-600",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.toggle($event)
+                }
+              }
+            },
+            [
+              _vm._v(
+                "\n            " +
+                  _vm._s(!_vm.isVisible ? "Show" : "Hide") +
+                  " Details\n            "
+              ),
+              _vm.isVisible
+                ? [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "h-4 w-4 fill-current ml-1 text-gray-500",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 24 24"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: { fill: "none", d: "M0 0h24v24H0z" }
+                        }),
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                : [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "h-4 w-4 fill-current ml-1 text-gray-500",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 24 24"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: { fill: "none", d: "M0 0h24v24H0z" }
+                        }),
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex" }, [
+            _c(
+              "ul",
+              {
+                staticClass:
+                  "flex items-center mx-6 text-xs uppercase tracking-wide font-semibold text-gray-600"
+              },
+              [
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500",
+                      class: {
+                        "border-blue-500 text-gray-700": _vm.period === "daily"
+                      },
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.dailyReport($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Daily")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500",
+                      class: {
+                        "border-blue-500 text-gray-700":
+                          _vm.period === "monthly"
+                      },
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.monthlyReport($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Monthly")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500",
+                      class: {
+                        "border-blue-500 text-gray-700":
+                          _vm.period === "annually"
+                      },
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.annuallyReport($event)
+                        }
+                      }
+                    },
+                    [_vm._v("Annually")]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("form", { staticClass: "flex items-center flex-shrink-0" }, [
+              _vm.period === "daily"
+                ? _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.day,
+                          expression: "day"
+                        }
+                      ],
+                      staticClass:
+                        "form-select form-select-sm border-0 bg-transparent w-16",
+                      attrs: { id: "day" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.day = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    _vm._l(
+                      new Date(_vm.year, _vm.month + 1, 0).getDate(),
+                      function(dayNumber) {
+                        return _c(
+                          "option",
+                          { domProps: { value: dayNumber } },
+                          [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(dayNumber) +
+                                "\n                    "
+                            )
+                          ]
+                        )
+                      }
+                    ),
+                    0
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.period === "daily" || _vm.period === "monthly"
+                ? _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.month,
+                          expression: "month"
+                        }
+                      ],
+                      staticClass:
+                        "form-select form-select-sm border-0 bg-transparent w-24",
+                      attrs: { id: "month" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.month = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    _vm._l(Array(12).keys(), function(monthNumber) {
+                      return _c(
+                        "option",
+                        { domProps: { value: monthNumber } },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.getMonthName(monthNumber)) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.year,
+                      expression: "year"
+                    }
+                  ],
+                  staticClass:
+                    "form-select form-select-sm border-0 bg-transparent w-20",
+                  attrs: { id: "year" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.year = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                _vm._l(Array(5).keys(), function(yearNumber) {
+                  return _c(
+                    "option",
+                    { domProps: { value: _vm.year - yearNumber } },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.year - yearNumber) +
+                          "\n                    "
+                      )
+                    ]
+                  )
+                }),
+                0
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "px-6 py-8" },
+        [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
+        1
+      ),
+      _vm._v(" "),
+      _vm.isVisible
+        ? _c("div", { staticClass: "px-6 py-6 bg-gray-100" }, [_vm._m(0)])
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("table", { staticClass: "w-full" }, [
+      _c("tbody", [
+        _c("tr", [
+          _c("th", { staticClass: "py-1" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-center text-sm font-semibold text-gray-700"
+              },
+              [
+                _c("span", {
+                  staticClass: "block h-4 w-4 rounded bg-blue-500 mr-2"
+                }),
+                _vm._v(" Easy Washable Cemented Floor\n                    ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("12")
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("20%")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "py-1" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-center text-sm font-semibold text-gray-700"
+              },
+              [
+                _c("span", {
+                  staticClass: "block h-4 w-4 rounded bg-green-500 mr-2"
+                }),
+                _vm._v(" Iron Sheet Roof\n                    ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("12")
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("20%")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "py-1" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-center text-sm font-semibold text-gray-700"
+              },
+              [
+                _c("span", {
+                  staticClass: "block h-4 w-4 rounded bg-yellow-500 mr-2"
+                }),
+                _vm._v(" Adjacent Bathroom\n                    ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("12")
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("20%")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "py-1" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-center text-sm font-semibold text-gray-700"
+              },
+              [
+                _c("span", {
+                  staticClass: "block h-4 w-4 rounded bg-red-500 mr-2"
+                }),
+                _vm._v(" Lockable Door\n                    ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("12")
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("20%")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "py-1" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-center text-sm font-semibold text-gray-700"
+              },
+              [
+                _c("span", {
+                  staticClass: "block h-4 w-4 rounded bg-purple-500 mr-2"
+                }),
+                _vm._v(" Wall With Bricks\n                    ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("12")
+          ]),
+          _vm._v(" "),
+          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
+            _vm._v("20%")
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LatrineCharacteristics_vue_vue_type_template_id_3a84fbb6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6& */ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6&");
+/* harmony import */ var _LatrineCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LatrineCharacteristics.vue?vue&type=script&lang=js& */ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _LatrineCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LatrineCharacteristics_vue_vue_type_template_id_3a84fbb6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LatrineCharacteristics_vue_vue_type_template_id_3a84fbb6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LatrineCharacteristics.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6& ***!
+  \**********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristics_vue_vue_type_template_id_3a84fbb6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristics_vue_vue_type_template_id_3a84fbb6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristics_vue_vue_type_template_id_3a84fbb6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

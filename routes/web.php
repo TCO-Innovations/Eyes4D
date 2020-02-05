@@ -5,9 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', "Auth\LoginController@showLoginForm");
 
 Route::get("home", "LatrineConstructionController")->name("latrine");
 Route::get("handwash_practise", "HandwashPractiseController")->name("handwash_practise");
@@ -25,3 +23,4 @@ Route::get("api/districts/{district}/villages", "Api\DistrictVillagesController@
 Route::get("api/handwashing_houses", "Api\HandwashingHousesController");
 Route::get("api/handwashing_characteristics", "Api\HandwashingCharacteristicsController");
 Route::get("api/household_visiting", "Api\HouseholdVisitingController");
+Route::get("api/villages/{village}/contacts", "Api\VillageContactsController");
