@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div class="mx-auto bg-white rounded-lg shadow overflow-hidden">
         <div class="py-8 px-8">
             <highcharts :options="chartOptions" />
         </div>

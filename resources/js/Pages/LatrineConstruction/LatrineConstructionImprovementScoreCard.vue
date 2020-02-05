@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div class="mx-auto bg-white rounded-lg shadow overflow-hidden">
         <header class="px-6 bg-gray-100 py-4">
             <h2 class="text-lg mb-2">Latrine Construction and Improvement Scorecard</h2>
             <div class="text-sm text-gray-700">
@@ -42,31 +42,31 @@
 
                 <tbody class="text-sm">
                     <tr v-for="house in houses" :key="house.id">
-                        <td class="border-b text-left  py-4 px-4">
+                        <td class="border-b border-gray-400 text-left  py-4 px-4">
                             {{ titleCase(house.head_of_house) }}
                         </td>
-                        <td class="border-b text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.has_latrine), 'bg-red-600': !Math.round(house.has_latrine) }">
+                        <td class="border-b border-gray-400 text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.has_latrine), 'bg-red-600': !Math.round(house.has_latrine) }">
                             {{ Math.round(house.has_latrine) }}
                         </td>
-                        <td class="border-b text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.has_cemented_floor), 'bg-red-600': !Math.round(house.has_cemented_floor) }">
+                        <td class="border-b border-gray-400 text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.has_cemented_floor), 'bg-red-600': !Math.round(house.has_cemented_floor) }">
                             {{ Math.round(house.has_cemented_floor) }}
                         </td>
-                        <td class="border-b text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.has_lockable_door), 'bg-red-600': !Math.round(house.has_lockable_door) }">
+                        <td class="border-b border-gray-400 text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.has_lockable_door), 'bg-red-600': !Math.round(house.has_lockable_door) }">
                             {{ Math.round(house.has_lockable_door) }}
                         </td>
-                        <td class="border-b text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.has_iron_sheet_roof), 'bg-red-600': !Math.round(house.has_iron_sheet_roof) }">
+                        <td class="border-b border-gray-400 text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.has_iron_sheet_roof), 'bg-red-600': !Math.round(house.has_iron_sheet_roof) }">
                             {{ Math.round(house.has_iron_sheet_roof) }}
                         </td>
-                        <td class="border-b text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.has_brick_wall), 'bg-red-600': !Math.round(house.has_brick_wall) }">
+                        <td class="border-b border-gray-400 text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.has_brick_wall), 'bg-red-600': !Math.round(house.has_brick_wall) }">
                             {{ Math.round(house.has_brick_wall) }}
                         </td>
-                        <td class="border-b text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.has_adjacent_bathroom), 'bg-red-600': !Math.round(house.has_adjacent_bathroom) }">
+                        <td class="border-b border-gray-400 text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.has_adjacent_bathroom), 'bg-red-600': !Math.round(house.has_adjacent_bathroom) }">
                             {{ Math.round(house.has_adjacent_bathroom) }}
                         </td>
-                        <td class="border-b text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.clean_latrine), 'bg-red-600': !Math.round(house.clean_latrine) }">
+                        <td class="border-b border-gray-400 text-right py-4 px-4" :class="{ 'bg-green-600' : Math.round(house.clean_latrine), 'bg-red-600': !Math.round(house.clean_latrine) }">
                             {{ Math.round(house.clean_latrine) }}
                         </td>
-                        <td class="border-b text-right py-4 px-4 bg-yellow-400">
+                        <td class="border-b border-gray-400 text-right py-4 px-4 bg-yellow-400">
                             {{ ((house.has_latrine + house.has_cemented_floor + house.has_lockable_door + house.has_iron_sheet_roof + house.has_brick_wall + house.has_adjacent_bathroom + house.clean_latrine) / 7).toFixed(2) }}
                         </td>
                     </tr>

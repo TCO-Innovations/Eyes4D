@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div class="mx-auto bg-white rounded-lg shadow overflow-hidden">
         <div class="px-6 py-8 border-b" :class="{ 'border-b': isVisible }">
             <highcharts :options="chartOptions"/>
         </div>

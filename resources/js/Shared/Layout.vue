@@ -6,7 +6,7 @@
             </div>
 
             <div class="flex-shrink-0 px-10 py-4">
-                <v-popover placement="bottom-start">
+                <v-popover offset="16" placement="bottom-start">
                     <button class="hidden sm:flex sm:items-center sm:w-full">
                         <img
                             src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=144&amp;h=144&amp;q=80"
@@ -14,7 +14,7 @@
                             class="h-8 w-8 rounded-full object-cover"
                         />
 
-                        <span class="hidden lg:inline ml-4 mr-2 text-sm font-medium text-white">
+                        <span class="hidden lg:inline ml-4 mr-2 text-sm font-semibold tracking-wide text-white">
                             {{ $page.auth.user.name }}
                         </span>
 
@@ -24,21 +24,14 @@
                     </button>
 
                     <template #popover>
-                        <div class="bg-white shadow-xl rounded-lg px-4">
-                            <header class="text-xs px-4 py-4 border-b">
-                                <h3 class="font-semibold">{{ $page.auth.user.name }}</h3>
-                                <p class="text-gray-500">
-                                    {{ $page.auth.user.email }}
-                                </p>
+                        <div class="bg-white shadow-xl rounded-lg px-3">
+                            <header class="text-sm px-2 py-4 border-b-2">
+                                <p class="text-gray-700">{{ $page.auth.user.email }}</p>
                             </header>
-                            <nav class="text-sm font-semibold text-gray-600 pt-2 pb-5">
-                                <a href="#" class="block mt-2 px-4 py-2 rounded-lg hover:bg-gray-200">Profile</a>
-                                <a href="#" class="block mt-2 px-4 py-2 rounded-lg hover:bg-gray-200">Changes Password</a>
-                                <a
-                                    :href="`/logout`"
-                                    class="block mt-2 px-4 py-2 rounded-lg hover:bg-gray-200"
-                                    @click.prevent="handleSignOut"
-                                >Sign out</a>
+                            <nav class="text-sm font-medium text-gray-600 pt-2 pb-4">
+                                <a class="block mt-1 px-3 py-2 rounded-lg hover:bg-gray-200" href="#">Profile</a>
+                                <a class="block mt-1 px-3 py-2 rounded-lg hover:bg-gray-200" href="#">Changes Password</a>
+                                <a class="block mt-1 px-3 py-2 rounded-lg hover:bg-gray-200" :href="`/logout`" @click.prevent="handleSignOut">Sign out</a>
                             </nav>
                         </div>
                     </template>

@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div class="mx-auto bg-white rounded-lg shadow overflow-hidden">
         <header class="px-6 bg-gray-100 border-b border-gray-100 flex justify-between items-center">
             <button class="px-2 inline-flex items-center text-sm font-semibold text-gray-600" @click.prevent="toggle">
                 {{ !isVisible ? 'Show' : 'Hide' }} Details

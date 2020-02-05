@@ -24,3 +24,4 @@ Route::get("api/districts/{district}/villages", "Api\DistrictVillagesController@
 
 Route::get("api/handwashing_houses", "Api\HandwashingHousesController");
 Route::get("api/handwashing_characteristics", "Api\HandwashingCharacteristicsController");
+Route::get("api/household_visiting", "Api\HouseholdVisitingController");

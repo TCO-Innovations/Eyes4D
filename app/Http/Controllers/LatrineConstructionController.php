@@ -18,6 +18,9 @@ class LatrineConstructionController extends Controller
     {
         return Inertia::render("LatrineConstruction/Index", [
             "regions" => $this->regions(),
+            "totalHouseholds" => $this->totalHouseholds(),
+            "visitedHouseholds" => $this->visitedHouseholds(),
+            "houseWithLatrine" => $this->houseWithLatrine(),
         ]);
     }
 
@@ -27,5 +30,20 @@ class LatrineConstructionController extends Controller
         $query = "SELECT DISTINCT region AS id, REPLACE(region,'Tanzania >','') as name FROM contacts WHERE region <> ''";
 
         return collect(DB::select($query));
+    }
+
+    public function totalHouseholds()
+    {
+        return DB::table('villages')->sum('houses');
+    }
+
+    public function visitedHouseholds()
+    {
+        return DB::table('surveys')->count();
+    }
+
+    public function houseWithLatrine()
+    {
+        return DB::table('surveys')->where('has_latrine', 'Yes')->count();
     }
 }
