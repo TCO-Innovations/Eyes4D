@@ -5,11 +5,23 @@
                 <h1 class="text-2xl font-semibold text-gray-600">Latrine Construction and Improvement</h1>
 
                 <nav class="flex items-center bg-white shadow rounded-lg px-3 text-sm">
-                    <input type="text" class="bg-transparent w-24 focus:outline-none focus:text-blue-500" value="Feb 20, 2020">
+                    <input
+                        type="text"
+                        class="bg-transparent w-24 focus:outline-none focus:text-blue-500"
+                        value="Feb 20, 2020"
+                        ref="datepickerStart"
+                        v-model="date.start"
+                    >
                     <span class="px-2 inline-block">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 fill-current text-gray-600"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></svg>
                     </span>
-                    <input type="text" class="bg-transparent w-24 focus:outline-none focus:text-blue-500" value="Mar 24, 2020">
+                    <input
+                        type="text"
+                        class="bg-transparent w-24 focus:outline-none focus:text-blue-500"
+                        value="Mar 24, 2020"
+                        ref="datepickerStop"
+                        v-model="date.stop"
+                    >
                     <v-popover placement="bottom-end" offset="16">
                         <button class="border-l pl-3 py-1 text-gray-600 focus:outline-none focus:text-blue-500">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h12v2H3v-2zm0 7h18v2H3v-2z"/></svg>
@@ -125,6 +137,7 @@
 </template>
 
 <script>
+    import Pikaday from 'pikaday';
     import axios from "axios";
     import queryString from "query-string";
     import Layout from "../../Shared/Layout";
@@ -186,6 +199,10 @@
                 area: {
                     name: "",
                     type: ""
+                },
+                date: {
+                    start: '2019-12-01',
+                    stop: '2020-04-31'
                 }
             }
         },
@@ -235,6 +252,11 @@
                     query: { period: value }
                 }));
             }
+        },
+        mounted() {
+            new Pikaday({ field: this.$refs.datepickerStart });
+
+            new Pikaday({ field: this.$refs.datepickerStop });
         },
         methods: {
             async fetchDistricts(region) {

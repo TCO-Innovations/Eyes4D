@@ -2,6 +2,8 @@
 
 @import "tailwindcss/components";
 
+@import "~pikaday/css/pikaday.css";
+
 .tooltip {
     display: block !important;
     z-index: 10000;

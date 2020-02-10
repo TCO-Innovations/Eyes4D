@@ -1,36 +1,18 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
-/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_2__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -162,85 +144,42 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      apiEndPoint: "",
-      report: {},
-      period: 'monthly',
-      date: new Date(),
+      period: "daily",
+      year: new Date().getFullYear(),
+      month: new Date().getMonth(),
+      day: new Date().getDate(),
       isVisible: false,
-      selectedDate: new Date().getDate(),
-      selectedMonth: new Date().getMonth(),
-      selectedYear: new Date().getFullYear()
+      statistics: [],
+      categories: []
     };
   },
   mounted: function mounted() {
-    var query = Object.assign({
-      period: this.period,
-      date: this.date.toJSON().slice(0, 10)
-    }, query_string__WEBPACK_IMPORTED_MODULE_2___default.a.parse(window.location.search));
-    this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-      url: "".concat(window.location.origin, "/api/handwashing_characteristics"),
-      query: query
-    });
+    this.fetchReport();
   },
   watch: {
-    area: {
-      deep: true,
-      handler: function handler() {
-        this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-          url: this.apiEndPoint,
-          query: _defineProperty({}, this.area.type.toLowerCase(), this.area.name)
-        });
-      }
-    },
-    apiEndPoint: function apiEndPoint() {
+    day: function day() {
+      this.date = new Date(this.year, this.month, this.day);
       this.fetchReport();
     },
-    selectedDate: function selectedDate(date) {
-      this.date.setDate(date);
-      this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-        url: this.apiEndPoint,
-        query: {
-          date: this.date.toJSON().slice(0, 10)
-        }
-      });
+    month: function month() {
+      this.date = new Date(this.year, this.month, this.day);
+      this.fetchReport();
     },
-    selectedMonth: function selectedMonth(month) {
-      this.date.setMonth(month);
-      this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-        url: this.apiEndPoint,
-        query: {
-          date: this.date.toJSON().slice(0, 10)
-        }
-      });
+    year: function year() {
+      this.date = new Date(this.year, this.month, this.day);
+      this.fetchReport();
     },
-    selectedYear: function selectedYear(year) {
-      this.date.setFullYear(year);
-      this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-        url: this.apiEndPoint,
-        query: {
-          date: this.date.toJSON().slice(0, 10)
-        }
-      });
-    },
-    duration: function duration(year) {
-      this.selectedYear = year;
-      this.date.setFullYear(year);
-      this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-        url: this.apiEndPoint,
-        query: {
-          date: this.date.toJSON().slice(0, 10)
-        }
-      });
+    duration: function duration(value) {
+      this.year = value;
+      this.date = new Date(value, this.month, this.day);
+      this.fetchReport();
     }
   },
   computed: {
     chartOptions: function chartOptions() {
       return {
-        chart: {
-          type: 'column'
-        },
         title: {
-          text: 'Hand Washing Characteristics',
+          text: 'Hand Washing Characteristics Trend',
           margin: 36,
           style: {
             "color": "#333333",
@@ -250,42 +189,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         subtitle: {
           text: "".concat(this.areaName, ": Jul 2019 - Sep 2019")
         },
-        accessibility: {
-          announceNewData: {
-            enabled: true
+        yAxis: {
+          title: {
+            text: 'Number of Households'
           }
         },
         xAxis: {
-          type: 'category'
+          categories: this.categories
         },
-        yAxis: {
-          title: {
-            text: 'Household With Handwash Place'
-          }
-        },
-        legend: {
-          enabled: false
-        },
-        tooltip: {
-          headerFormat: '<span style="font-size:11px">{point.name}</span><br>',
-          pointFormat: '<span>{point.name}</span>: <b>{point.y}</b><br/>'
-        },
+        series: this.statistics,
         credits: {
           enabled: false
-        },
-        series: [{
-          colorByPoint: true,
-          data: [{
-            name: "Hand wash place",
-            y: this.report.has_handwash_place
-          }, {
-            name: "Hand wash container",
-            y: this.report.has_handwash_container
-          }, {
-            name: "Has Soap",
-            y: this.report.has_soap
-          }]
-        }]
+        }
       };
     },
     areaName: function areaName() {
@@ -293,59 +208,82 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
+    toggle: function toggle() {
+      this.isVisible = !this.isVisible;
+    },
     getMonthName: function getMonthName(month) {
-      return new Date(this.selectedYear, month, this.selectedDate).toLocaleString('default', {
+      return new Date(this.year, month, this.day).toLocaleString('default', {
         month: 'long'
       });
     },
-    getReportBy: function getReportBy(period) {
-      this.period = period;
-      this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-        url: this.apiEndPoint,
-        query: {
-          period: period
-        }
+    aggregateAttribute: function aggregateAttribute(response, type) {
+      return response.data.map(function (item) {
+        return item[type] == null ? 0 : item[type];
       });
     },
-    fetchReport: function () {
-      var _fetchReport = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(this.apiEndPoint);
+    dailyReport: function dailyReport() {
+      this.period = "daily";
+      this.fetchReport();
+    },
+    monthlyReport: function monthlyReport() {
+      this.period = "monthly";
+      this.fetchReport();
+    },
+    annuallyReport: function annuallyReport() {
+      this.period = "annually";
+      this.fetchReport();
+    },
+    fetchReport: function fetchReport() {
+      var _this = this;
 
-              case 2:
-                response = _context.sent;
-                this.report = response.data[0];
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/latrine_characteristics_trend', {
+        params: {
+          period: this.period,
+          date: this.date
+        }
+      }).then(function (response) {
+        if (_this.period === 'daily') {
+          _this.categories = response.data.map(function (item) {
+            return item['hour'];
+          });
+        }
 
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
+        if (_this.period === 'monthly') {
+          _this.categories = response.data.map(function (item) {
+            return item['day'];
+          });
+        }
 
-      function fetchReport() {
-        return _fetchReport.apply(this, arguments);
-      }
+        if (_this.period === 'annually') {
+          _this.categories = response.data.map(function (item) {
+            return item['month'];
+          });
+        }
 
-      return fetchReport;
-    }()
+        _this.statistics = _this.transformResult(response);
+      });
+    },
+    transformResult: function transformResult(response) {
+      return [{
+        name: "Hand wash place",
+        data: this.aggregateAttribute(response, 'has_latrine')
+      }, {
+        name: "Hand wash container",
+        data: this.aggregateAttribute(response, 'has_lockable_door')
+      }, {
+        name: "Soap",
+        data: this.aggregateAttribute(response, 'has_brick_wall')
+      }];
+    }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802&":
-/*!***************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802& ***!
-  \***************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue?vue&type=template&id=7f0c36e4&":
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue?vue&type=template&id=7f0c36e4& ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -360,10 +298,7 @@ var render = function() {
   return _c("div", { staticClass: "mx-auto shadow-lg overflow-hidden" }, [
     _c(
       "header",
-      {
-        staticClass:
-          "px-6 bg-blue-100 border-b border-blue-100 flex justify-between items-center"
-      },
+      { staticClass: "px-6 bg-blue-100 flex justify-between items-center" },
       [
         _c("div", { staticClass: "text-sm text-gray-600" }, [
           _c(
@@ -373,7 +308,7 @@ var render = function() {
               on: {
                 click: function($event) {
                   $event.preventDefault()
-                  _vm.isVisible = !_vm.isVisible
+                  return _vm.toggle($event)
                 }
               }
             },
@@ -400,7 +335,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.preventDefault()
-                      return _vm.getReportBy("daily")
+                      return _vm.dailyReport($event)
                     }
                   }
                 },
@@ -419,7 +354,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.preventDefault()
-                      return _vm.getReportBy("monthly")
+                      return _vm.monthlyReport($event)
                     }
                   }
                 },
@@ -438,7 +373,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       $event.preventDefault()
-                      return _vm.getReportBy("annually")
+                      return _vm.annuallyReport($event)
                     }
                   }
                 },
@@ -456,8 +391,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.selectedDate,
-                        expression: "selectedDate"
+                        value: _vm.day,
+                        expression: "day"
                       }
                     ],
                     staticClass: "bg-blue-100",
@@ -472,18 +407,14 @@ var render = function() {
                             var val = "_value" in o ? o._value : o.value
                             return val
                           })
-                        _vm.selectedDate = $event.target.multiple
+                        _vm.day = $event.target.multiple
                           ? $$selectedVal
                           : $$selectedVal[0]
                       }
                     }
                   },
                   _vm._l(
-                    new Date(
-                      _vm.selectedYear,
-                      _vm.selectedMonth + 1,
-                      0
-                    ).getDate(),
+                    new Date(_vm.year, _vm.month + 1, 0).getDate(),
                     function(dayNumber) {
                       return _c("option", { domProps: { value: dayNumber } }, [
                         _vm._v(
@@ -506,8 +437,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.selectedMonth,
-                        expression: "selectedMonth"
+                        value: _vm.month,
+                        expression: "month"
                       }
                     ],
                     staticClass: "bg-blue-100",
@@ -522,7 +453,7 @@ var render = function() {
                             var val = "_value" in o ? o._value : o.value
                             return val
                           })
-                        _vm.selectedMonth = $event.target.multiple
+                        _vm.month = $event.target.multiple
                           ? $$selectedVal
                           : $$selectedVal[0]
                       }
@@ -548,8 +479,8 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.selectedYear,
-                    expression: "selectedYear"
+                    value: _vm.year,
+                    expression: "year"
                   }
                 ],
                 staticClass: "bg-blue-100",
@@ -564,7 +495,7 @@ var render = function() {
                         var val = "_value" in o ? o._value : o.value
                         return val
                       })
-                    _vm.selectedYear = $event.target.multiple
+                    _vm.year = $event.target.multiple
                       ? $$selectedVal
                       : $$selectedVal[0]
                   }
@@ -573,11 +504,11 @@ var render = function() {
               _vm._l(Array(5).keys(), function(yearNumber) {
                 return _c(
                   "option",
-                  { domProps: { value: _vm.selectedYear - yearNumber } },
+                  { domProps: { value: _vm.year - yearNumber } },
                   [
                     _vm._v(
                       "\n                        " +
-                        _vm._s(_vm.selectedYear - yearNumber) +
+                        _vm._s(_vm.year - yearNumber) +
                         "\n                    "
                     )
                   ]
@@ -592,7 +523,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "px-6 py-8" },
+      { staticClass: "px-6 py-8", class: { "border-b": _vm.isVisible } },
       [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
       1
     ),
@@ -748,17 +679,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue ***!
-  \**************************************************************************************/
+/***/ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue ***!
+  \*******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _HandwashingStationCharacteristics_vue_vue_type_template_id_2c8d5802___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802& */ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802&");
-/* harmony import */ var _HandwashingStationCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HandwashingStationCharacteristics.vue?vue&type=script&lang=js& */ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=script&lang=js&");
+/* harmony import */ var _HandwashingStationCharacteristicsTrend_vue_vue_type_template_id_7f0c36e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HandwashingStationCharacteristicsTrend.vue?vue&type=template&id=7f0c36e4& */ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue?vue&type=template&id=7f0c36e4&");
+/* harmony import */ var _HandwashingStationCharacteristicsTrend_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HandwashingStationCharacteristicsTrend.vue?vue&type=script&lang=js& */ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -768,9 +699,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _HandwashingStationCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _HandwashingStationCharacteristics_vue_vue_type_template_id_2c8d5802___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _HandwashingStationCharacteristics_vue_vue_type_template_id_2c8d5802___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _HandwashingStationCharacteristicsTrend_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _HandwashingStationCharacteristicsTrend_vue_vue_type_template_id_7f0c36e4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _HandwashingStationCharacteristicsTrend_vue_vue_type_template_id_7f0c36e4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -780,38 +711,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue"
+component.options.__file = "resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************!*\
-  !*** ./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************/
+/***/ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./HandwashingStationCharacteristics.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristicsTrend_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./HandwashingStationCharacteristicsTrend.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristicsTrend_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802&":
-/*!*********************************************************************************************************************!*\
-  !*** ./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802& ***!
-  \*********************************************************************************************************************/
+/***/ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue?vue&type=template&id=7f0c36e4&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue?vue&type=template&id=7f0c36e4& ***!
+  \**************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristics_vue_vue_type_template_id_2c8d5802___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristics_vue_vue_type_template_id_2c8d5802___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristicsTrend_vue_vue_type_template_id_7f0c36e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./HandwashingStationCharacteristicsTrend.vue?vue&type=template&id=7f0c36e4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue?vue&type=template&id=7f0c36e4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristicsTrend_vue_vue_type_template_id_7f0c36e4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristics_vue_vue_type_template_id_2c8d5802___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristicsTrend_vue_vue_type_template_id_7f0c36e4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
