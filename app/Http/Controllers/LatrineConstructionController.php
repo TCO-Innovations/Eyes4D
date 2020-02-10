@@ -21,6 +21,11 @@ class LatrineConstructionController extends Controller
             "totalHouseholds" => $this->totalHouseholds(),
             "visitedHouseholds" => $this->visitedHouseholds(),
             "houseWithLatrine" => $this->houseWithLatrine(),
+
+            "numberOfUReporters" => $this->numberOfUReporters(),
+            "numberOfVillages" => $this->numberOfVillages(),
+            "numberOfVisitedHouseholds" => $this->numberOfVisitedHouseholds(),
+            "totalNumberOfHouseholds" => $this->totalNumberOfHouseholds(),
         ]);
     }
 
@@ -45,5 +50,25 @@ class LatrineConstructionController extends Controller
     public function houseWithLatrine()
     {
         return DB::table('surveys')->where('has_latrine', 'Yes')->count();
+    }
+
+    public function numberOfUReporters()
+    {
+        return collect(DB::select("SELECT COUNT(DISTINCT LOWER(name)) AS total FROM contacts"))->first()->total;
+    }
+
+    public function numberOfVillages()
+    {
+        return collect(DB::select("SELECT COUNT(DISTINCT LOWER(village_name)) AS total FROM surveys"))->first()->total;
+    }
+
+    public function numberOfVisitedHouseholds()
+    {
+        return collect(DB::select("SELECT COUNT(*) AS total FROM surveys"))->first()->total;
+    }
+
+    public function totalNumberOfHouseholds()
+    {
+        return collect(DB::select("SELECT SUM(houses) AS total FROM villages"))->first()->total;
     }
 }

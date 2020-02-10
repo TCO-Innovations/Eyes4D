@@ -1,3 +1,5 @@
+import Vue from 'vue';
+import './filters';
 import { InertiaApp } from '@inertiajs/inertia-vue';
 import VueApexCharts from 'vue-apexcharts';
 import Highcharts from 'highcharts';
@@ -7,7 +9,7 @@ import solidGauge from 'highcharts/modules/solid-gauge';
 import VTooltip from 'v-tooltip';
 import route from 'ziggy';
 import { Ziggy } from './ziggy';
-import Vue from 'vue';
+
 
 Vue.use(InertiaApp);
 Vue.use(HighchartsVue);

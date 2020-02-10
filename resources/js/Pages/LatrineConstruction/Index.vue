@@ -1,122 +1,121 @@
 <template>
     <layout>
         <div class="px-12">
-            <div class="flex mb-16">
-                <header class="w-full flex justify-between border-b pb-8">
-                    <h1 class="text-2xl font-semibold text-gray-600">
-                        Latrine Construction and Improvement
-                    </h1>
+            <header class="flex mb-8 w-full justify-between border-b pb-8">
+                <h1 class="text-2xl font-semibold text-gray-600">Latrine Construction and Improvement</h1>
 
-                    <nav class="flex items-center">
-                        <select v-model="selectedRegion" class="min-w-24 form-select form-select-sm border-0 bg-transparent">
-                            <option value="">Region...</option>
-                            <option
-                                :value="region.name"
-                                v-for="region in regions"
-                                :key="region.id"
-                            >{{ region.name }}</option>
-                        </select>
+                <nav class="flex items-center bg-white shadow rounded-lg px-3 text-sm">
+                    <input type="text" class="bg-transparent w-24 focus:outline-none focus:text-blue-500" value="Feb 20, 2020">
+                    <span class="px-2 inline-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 fill-current text-gray-600"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></svg>
+                    </span>
+                    <input type="text" class="bg-transparent w-24 focus:outline-none focus:text-blue-500" value="Mar 24, 2020">
+                    <v-popover placement="bottom-end" offset="16">
+                        <button class="border-l pl-3 py-1 text-gray-600 focus:outline-none focus:text-blue-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 fill-current"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h12v2H3v-2zm0 7h18v2H3v-2z"/></svg>
+                        </button>
 
-                        <select v-model="selectedDistrict" class="min-w-24 form-select form-select-sm border-0 bg-transparent" v-if="districts.length">
-                            <option value="">District...</option>
-                            <option
-                                :value="district.name"
-                                v-for="district in districts"
-                                :key="district.name"
-                            >{{ district.name }}</option>
-                        </select>
-
-                        <select v-model="selectedVillage" class="min-w-24 form-select form-select-sm border-0 bg-transparent" v-if="villages.length">
-                            <option value="">Village...</option>
-                            <option
-                                :value="village.name"
-                                v-for="village in villages"
-                                :key="village.name"
-                            >{{ village.name }}</option>
-                        </select>
-
-                        <select v-model="selectedPeriod" class="w-20 form-select form-select-sm border-0 bg-transparent">
-                            <option
-                                :value="(new Date).getFullYear() - yearNumber" v-for="yearNumber in Array(5).keys()"
-                                :key="(new Date).getFullYear() - yearNumber"
-                            >{{ (new Date).getFullYear() - yearNumber }}</option>
-                        </select>
-                    </nav>
-                </header>
-            </div>
+                        <template #popover>
+                            <div class="bg-white rounded-lg overflow-hidden">
+                                <div>
+                                    <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
+                                        <span class="mr-3 font-medium text-blue-500">Last 30 Days</span>
+                                        <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                                    </a>
+                                    <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
+                                        <span class="mr-3 font-medium text-blue-500">This month</span>
+                                        <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                                    </a>
+                                    <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
+                                        <span class="mr-3 font-medium text-blue-500">Last month</span>
+                                        <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                                    </a>
+                                    <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
+                                        <span class="mr-3 font-medium text-blue-500">Last 3 months</span>
+                                        <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                                    </a>
+                                    <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
+                                        <span class="mr-3 font-medium text-blue-500">Last 6 Months</span>
+                                        <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                                    </a>
+                                    <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
+                                        <span class="mr-3 font-medium text-blue-500">Last year</span>
+                                        <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                                    </a>
+                                    <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm">
+                                        <span class="mr-3 font-medium text-blue-500">All time</span>
+                                        <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </template>
+                    </v-popover>
+                </nav>
+            </header>
 
             <!-- Overview -->
-            <div class="flex mb-16 bg-blue-600 rounded-lg shadow">
-                <div class="w-1/3 px-6">
-                    <div class="px-6 py-5">
-                        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Total Household</h3>
+            <div class="flex mb-8 bg-blue-600 rounded-lg shadow">
+                <div class="w-1/4">
+                    <div class="px-3 py-5">
+                        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Number of U-Reporters</h3>
                         <div class="text-white text-5xl font-medium">
-                            {{ new Intl.NumberFormat('en-US').format(totalHouseholds) }}
+                            {{ numberOfUReporters | toNumberFormat }}
                         </div>
                     </div>
                 </div>
-                <div class="w-1/3 px-6">
-                    <div class="px-6 py-5">
+                <div class="w-1/4">
+                    <div class="px-3 py-5">
+                        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Number of villages</h3>
+                        <div class="text-white text-5xl font-medium">
+                            {{ numberOfVillages | toNumberFormat }}
+                        </div>
+                    </div>
+                </div>
+                <div class="w-1/4">
+                    <div class="px-3 py-5">
                         <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Visited Household</h3>
                         <div class="text-white text-5xl font-medium">
-                            {{ new Intl.NumberFormat('en-US').format(visitedHouseholds) }}
+                            {{ numberOfVisitedHouseholds | toNumberFormat }}
                         </div>
                     </div>
                 </div>
-                <div class="w-1/3 px-6">
-                    <div class="px-6 py-5">
-                        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Houses With Latrine</h3>
+                <div class="w-1/4">
+                    <div class="px-3 py-5">
+                        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Total Number Of Households</h3>
                         <div class="text-white text-5xl font-medium">
-                            {{ new Intl.NumberFormat('en-US').format(houseWithLatrine) }}
+                            {{ totalNumberOfHouseholds | toNumberFormat }}
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- New Visit Widget -->
-            <div class="flex -mx-6 mb-16">
+            <div class="flex mb-8 -mx-6">
                 <div class="w-full px-6">
                     <HouseholdVisiting></HouseholdVisiting>
                 </div>
             </div>
 
-            <!-- Visits -->
-            <!--
-            <div class="flex -mx-6 mb-16">
-                <div class="w-1/2 px-6">
-                    <VisitingPerContact />
-                </div>
-                <div class="w-1/2 px-6">
-                    <VisitingPerVillage />
-                </div>
-            </div>
-            -->
-
             <!-- -->
-            <div class="flex mb-16 -mx-6">
-                <section class="w-1/2 px-6">
-                    <HouseWithLatrines :area="area" />
-                </section>
-
-                <section class="w-1/2 px-6">
+            <div class="flex mb-8 -mx-6">
+                <section class="w-full px-6">
                     <LatrineTypesDistribution :area="area" />
                 </section>
             </div>
 
-            <div class="flex -mx-6 mb-16">
+            <div class="flex mb-8 -mx-6">
                 <section class="w-full px-6">
                     <LatrineCharacteristics :area="area" :duration="selectedPeriod" />
                 </section>
             </div>
 
-            <div class="flex -mx-6 mb-16">
+            <div class="flex mb-8 -mx-6">
                 <section class="w-full px-6">
                     <LatrineCharacteristicsTrend :area="area" :duration="selectedPeriod" />
                 </section>
             </div>
 
-
-            <div class="flex mb-16">
+            <div class="flex mb-8">
                 <section class="w-full">
                     <LatrineConstructionImprovementScoreCard :area="area" />
                 </section>
@@ -161,6 +160,18 @@
                 required: true
             },
             houseWithLatrine: {
+                required: true
+            },
+            numberOfUReporters: {
+                required: true
+            },
+            numberOfVillages: {
+                required: true
+            },
+            numberOfVisitedHouseholds: {
+                required: true
+            },
+            totalNumberOfHouseholds: {
                 required: true
             }
         },

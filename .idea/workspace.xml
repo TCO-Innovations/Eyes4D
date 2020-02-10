@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74ddae7b-08d7-434a-b4aa-9fb811edd7c2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/js/filters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/apple.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/apple.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/HouseholdVisitingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/HouseholdVisitingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/LatrineConstructionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/LatrineConstructionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/0.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/0.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/1.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/10.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/10.js" afterDir="false" />
@@ -11,26 +13,25 @@
       <change beforePath="$PROJECT_DIR$/public/12.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/12.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/13.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/13.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/14.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/14.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/15.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/15.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/16.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/16.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/17.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/17.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/18.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/18.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/19.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/19.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/24.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/24.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/25.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/25.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/26.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/26.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/27.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/27.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/3.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/4.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/4.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/5.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/5.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/6.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/6.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/7.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/7.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/8.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/8.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/9.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/9.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/HouseholdVisiting.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/HouseholdVisiting.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/HandwashingHouses.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/HandwashingHouses.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/LatrineConstructionImprovementScoreCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/LatrineConstructionImprovementScoreCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Shared/Layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Shared/Layout.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +48,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Vue Single File Component" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -236,7 +238,17 @@
       <workItem from="1580898227952" duration="1617000" />
       <workItem from="1580900033949" duration="1796000" />
       <workItem from="1580901945738" duration="569000" />
-      <workItem from="1580905715965" duration="155000" />
+      <workItem from="1580905715965" duration="351000" />
+      <workItem from="1580909138881" duration="85000" />
+      <workItem from="1580998371446" duration="384000" />
+      <workItem from="1581063907376" duration="13000" />
+      <workItem from="1581311752838" duration="887000" />
+      <workItem from="1581314150458" duration="1080000" />
+      <workItem from="1581315960296" duration="1041000" />
+      <workItem from="1581318818380" duration="1422000" />
+      <workItem from="1581320720789" duration="1468000" />
+      <workItem from="1581325560494" duration="1701000" />
+      <workItem from="1581327382726" duration="1612000" />
     </task>
     <servers />
   </component>
@@ -252,14 +264,14 @@
       <screen x="0" y="23" width="1440" height="829" />
     </state>
     <state x="341" y="95" key="#phpunit.xml/0.23.1440.829@0.23.1440.829" timestamp="1580887841705" />
-    <state x="380" y="270" key="com.intellij.ide.util.TipDialog" timestamp="1580905716698">
+    <state x="380" y="270" key="com.intellij.ide.util.TipDialog" timestamp="1581327382713">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
-    <state x="380" y="270" key="com.intellij.ide.util.TipDialog/0.23.1440.829@0.23.1440.829" timestamp="1580905716698" />
-    <state x="385" y="176" width="670" height="676" key="search.everywhere.popup" timestamp="1580900203364">
+    <state x="380" y="270" key="com.intellij.ide.util.TipDialog/0.23.1440.829@0.23.1440.829" timestamp="1581327382713" />
+    <state x="385" y="176" width="670" height="676" key="search.everywhere.popup" timestamp="1581327792064">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
-    <state x="385" y="176" width="670" height="676" key="search.everywhere.popup/0.23.1440.829@0.23.1440.829" timestamp="1580900203364" />
+    <state x="385" y="176" width="670" height="676" key="search.everywhere.popup/0.23.1440.829@0.23.1440.829" timestamp="1581327792064" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

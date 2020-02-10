@@ -59,48 +59,24 @@
                 <!-- Filters -->
                 <div class="mt-10">
                     <div class="px-6">
-                        <h3 class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Organization Unit</h3>
+                        <h3 class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Region</h3>
 
                         <div class="mt-3">
-                            <label :for="region.id" class="text-sm mt-2 block" v-for="region in regions">
-                                <input type="checkbox" :id="i" class="form-checkbox mr-2">
-                                {{ region.name }}
+                            <label :for="region.id" class="text-sm mt-4 block" v-for="region in regions">
+                                <input type="checkbox" :id="region.id" class="form-radio mr-2"> {{ region.name }}
+                                <span class="block ml-3">
+                                    <label class="block mt-2" for="mbeya_dc">
+                                        <input type="radio" id="mbeya_dc" v-model="selectedDistricts" value="mbeya"> Mbeya dc
+                                    </label>
+
+                                    <label class="block mt-2" for="mbarali_dc">
+                                        <input type="radio" id="mbarali_dc" v-model="selectedDistricts" value="mbarali"> Mbarali dc
+                                    </label>
+                                </span>
                             </label>
                         </div>
                     </div>
 
-                    <div class="px-6 mt-10">
-                        <h3 class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Period Unit</h3>
-
-                        <div class="flex items-center justify-between mt-5 -mx-2">
-                            <div class="px-2 w-full">
-                                <select class="form-select form-select-sm w-full">
-                                    <option value="">Day</option>
-                                </select>
-                            </div>
-                            <div class="px-2 w-full">
-                                <select class="form-select form-select-sm w-full">
-                                    <option value="">Month</option>
-                                </select>
-                            </div>
-                            <div class="px-2 w-full">
-                                <select class="form-select form-select-sm w-full">
-                                    <option value="">Year</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between mt-5 -mx-2">
-                            <div class="px-2 w-1/2">
-                                <label for="from" class="text-xs mb-2 block">Start From</label>
-                                <input id="from" type="date" class="form-input form-input-sm w-full" placeholder="...">
-                            </div>
-                            <div class="px-2 w-1/2">
-                                <label for="to" class="text-xs mb-2 block">End To</label>
-                                <input id="to" type="date" class="form-input form-input-sm w-full" placeholder="...">
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="w-3/4 pt-8">
@@ -118,10 +94,8 @@
             return {
                 regions: [
                     { id: 1, name: "Mbeya" },
-                    { id: 2, name: "Iringa" },
-                    { id: 3, name: "Tanga" },
-                    { id: 4, name: "Arusha" },
-                ]
+                ],
+                selectedDistricts: [],
             }
         },
         methods: {

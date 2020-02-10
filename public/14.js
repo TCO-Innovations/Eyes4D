@@ -358,14 +358,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -400,6 +392,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       required: true
     },
     houseWithLatrine: {
+      required: true
+    },
+    numberOfUReporters: {
+      required: true
+    },
+    numberOfVillages: {
+      required: true
+    },
+    numberOfVisitedHouseholds: {
+      required: true
+    },
+    totalNumberOfHouseholds: {
       required: true
     }
   },
@@ -694,7 +698,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("layout", [
     _c("div", { staticClass: "px-12" }, [
-      _c("div", { staticClass: "flex mb-16" }, [
+      _c("div", { staticClass: "flex mb-8" }, [
         _c(
           "header",
           { staticClass: "w-full flex justify-between border-b pb-8" },
@@ -895,32 +899,51 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "flex mb-16 bg-blue-600 rounded-lg shadow" }, [
-        _c("div", { staticClass: "w-1/3 px-6" }, [
-          _c("div", { staticClass: "px-6 py-5" }, [
+      _c("div", { staticClass: "flex mb-8 bg-blue-600 rounded-lg shadow" }, [
+        _c("div", { staticClass: "w-1/4" }, [
+          _c("div", { staticClass: "px-3 py-5" }, [
             _c(
               "h3",
               {
                 staticClass:
                   "text-blue-200 text-xs uppercase tracking-wide font-semibold"
               },
-              [_vm._v("Total Household")]
+              [_vm._v("Number of U-Reporters")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "text-white text-5xl font-medium" }, [
               _vm._v(
                 "\n                        " +
-                  _vm._s(
-                    new Intl.NumberFormat("en-US").format(_vm.totalHouseholds)
-                  ) +
+                  _vm._s(_vm._f("toNumberFormat")(_vm.numberOfUReporters)) +
                   "\n                    "
               )
             ])
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "w-1/3 px-6" }, [
-          _c("div", { staticClass: "px-6 py-5" }, [
+        _c("div", { staticClass: "w-1/4" }, [
+          _c("div", { staticClass: "px-3 py-5" }, [
+            _c(
+              "h3",
+              {
+                staticClass:
+                  "text-blue-200 text-xs uppercase tracking-wide font-semibold"
+              },
+              [_vm._v("Number of villages")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-white text-5xl font-medium" }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm._f("toNumberFormat")(_vm.numberOfVillages)) +
+                  "\n                    "
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "w-1/4" }, [
+          _c("div", { staticClass: "px-3 py-5" }, [
             _c(
               "h3",
               {
@@ -934,7 +957,7 @@ var render = function() {
               _vm._v(
                 "\n                        " +
                   _vm._s(
-                    new Intl.NumberFormat("en-US").format(_vm.visitedHouseholds)
+                    _vm._f("toNumberFormat")(_vm.numberOfVisitedHouseholds)
                   ) +
                   "\n                    "
               )
@@ -942,22 +965,22 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "w-1/3 px-6" }, [
-          _c("div", { staticClass: "px-6 py-5" }, [
+        _c("div", { staticClass: "w-1/4" }, [
+          _c("div", { staticClass: "px-3 py-5" }, [
             _c(
               "h3",
               {
                 staticClass:
                   "text-blue-200 text-xs uppercase tracking-wide font-semibold"
               },
-              [_vm._v("Houses With Latrine")]
+              [_vm._v("Total Number Of Households")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "text-white text-5xl font-medium" }, [
               _vm._v(
                 "\n                        " +
                   _vm._s(
-                    new Intl.NumberFormat("en-US").format(_vm.houseWithLatrine)
+                    _vm._f("toNumberFormat")(_vm.totalNumberOfHouseholds)
                   ) +
                   "\n                    "
               )
@@ -966,27 +989,20 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "flex -mx-6 mb-16" }, [
+      _c("div", { staticClass: "flex mb-8 -mx-6" }, [
         _c("div", { staticClass: "w-full px-6" }, [_c("HouseholdVisiting")], 1)
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "flex mb-16 -mx-6" }, [
+      _c("div", { staticClass: "flex mb-8 -mx-6" }, [
         _c(
           "section",
-          { staticClass: "w-1/2 px-6" },
-          [_c("HouseWithLatrines", { attrs: { area: _vm.area } })],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "section",
-          { staticClass: "w-1/2 px-6" },
+          { staticClass: "w-full px-6" },
           [_c("LatrineTypesDistribution", { attrs: { area: _vm.area } })],
           1
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "flex -mx-6 mb-16" }, [
+      _c("div", { staticClass: "flex mb-8 -mx-6" }, [
         _c(
           "section",
           { staticClass: "w-full px-6" },
@@ -999,7 +1015,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "flex -mx-6 mb-16" }, [
+      _c("div", { staticClass: "flex mb-8 -mx-6" }, [
         _c(
           "section",
           { staticClass: "w-full px-6" },
@@ -1012,7 +1028,7 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "flex mb-16" }, [
+      _c("div", { staticClass: "flex mb-8" }, [
         _c(
           "section",
           { staticClass: "w-full" },

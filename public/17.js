@@ -228,7 +228,7 @@ var render = function() {
     "div",
     {
       staticClass:
-        "mx-auto border-t-4 border-blue-400 shadow-lg overflow-hidden"
+        "bg-white mx-auto border-t-4 border-blue-400 shadow-lg overflow-hidden"
     },
     [
       _c(

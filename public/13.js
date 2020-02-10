@@ -438,27 +438,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -639,7 +618,7 @@ var render = function() {
     "div",
     {
       staticClass:
-        "mx-auto border-t-4 border-blue-400 shadow-lg overflow-hidden"
+        "bg-white mx-auto border-t-4 border-blue-400 shadow-lg overflow-hidden"
     },
     [
       _c(
@@ -887,11 +866,7 @@ var render = function() {
                 staticClass:
                   "text-xl uppercase tracking-wider font-normal text-blue-700"
               },
-              [
-                _vm._v(
-                  "\n                    Handwashing Practice\n                "
-                )
-              ]
+              [_vm._v("Handwashing Practice")]
             ),
             _vm._v(" "),
             _c("nav", { staticClass: "flex items-center" }, [
@@ -1078,17 +1053,6 @@ var render = function() {
             ])
           ]
         )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "flex mb-16 -mx-6" }, [
-        _c(
-          "section",
-          { staticClass: "w-1/2 px-6" },
-          [_c("HandwashingHouses", { attrs: { area: _vm.area } })],
-          1
-        ),
-        _vm._v(" "),
-        _c("section", { staticClass: "w-1/2 px-6" })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "flex -mx-6 mb-16" }, [

@@ -3,9 +3,7 @@
         <div class="px-12">
             <div class="flex mb-16">
                 <header class="w-full flex justify-between border-b pb-8">
-                    <h1 class="text-xl uppercase tracking-wider font-normal text-blue-700">
-                        Handwashing Practice
-                    </h1>
+                    <h1 class="text-xl uppercase tracking-wider font-normal text-blue-700">Handwashing Practice</h1>
 
                     <nav class="flex items-center">
                         <select v-model="selectedRegion" class="bg-transparent">
@@ -43,25 +41,6 @@
                         </select>
                     </nav>
                 </header>
-            </div>
-
-            <div class="flex mb-16 -mx-6">
-                <section class="w-1/2 px-6">
-                    <!--
-                        <div class="shadow-lg rounded px-6 py-6">
-                            <h1>Handwashing station characteristics</h1>
-                        </div>
-                    -->
-                    <HandwashingHouses :area="area" />
-                </section>
-
-                <section class="w-1/2 px-6">
-                    <!--
-                        <div class="shadow-lg rounded px-6 py-6">
-                            <h1>Handwashing station characteristics trend</h1>
-                        </div>
-                    -->
-                </section>
             </div>
 
             <div class="flex -mx-6 mb-16">
