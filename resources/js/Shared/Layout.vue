@@ -62,18 +62,72 @@
                         <h3 class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Region</h3>
 
                         <div class="mt-3">
-                            <label :for="region.id" class="text-sm mt-4 block" v-for="region in regions">
-                                <input type="checkbox" :id="region.id" class="form-radio mr-2"> {{ region.name }}
-                                <span class="block ml-3">
-                                    <label class="block mt-2" for="mbeya_dc">
-                                        <input type="radio" id="mbeya_dc" v-model="selectedDistricts" value="mbeya"> Mbeya dc
-                                    </label>
+                            <div class="text-sm mt-4 block" v-for="region in regions">
+                                <a
+                                    href="#"
+                                    class="block flex items-center justify-between"
+                                    @click.prevent="selectRegion(region.name)"
+                                    :class="{ 'text-blue-500 font-medium' : region.name === selectedRegion }"
+                                >
+                                    <span class="inline-flex items-center">
+                                        <template v-if="region.name === selectedRegion">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-600 mr-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"/></svg>
+                                        </template>
+                                        <template v-else>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-600 mr-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/></svg>
+                                        </template>
+                                        {{ region.name }}
+                                    </span>
+                                </a>
 
-                                    <label class="block mt-2" for="mbarali_dc">
-                                        <input type="radio" id="mbarali_dc" v-model="selectedDistricts" value="mbarali"> Mbarali dc
-                                    </label>
-                                </span>
-                            </label>
+                                <div class="block mt-3 ml-4" v-for="district in districts">
+                                    <a
+                                        href="#"
+                                        class="block flex items-center mt-2"
+                                        @click.prevent="selectDistrict(district.name)"
+                                        :class="{ 'text-blue-500 font-medium' : district.name === selectedDistrict }"
+                                        :key="district.name"
+                                    >
+                                        <template v-if="district.name === selectedDistrict">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-600 mr-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"/></svg>
+                                        </template>
+                                        <template v-else>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-600 mr-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/></svg>
+                                        </template>
+                                        {{ district.name | toTitleCase }}
+                                    </a>
+
+                                    <div class="block mt-3 ml-4 transition duration-500 ease-in-out" :key="district.name" v-if="district.name === selectedDistrict">
+                                        <div>
+                                            <a
+                                                href="#"
+                                                class="block flex items-center mt-2 transition duration-500 ease-in-out"
+                                                v-for="village in villages.slice(0, limit)"
+                                                @click.prevent="selectVillage(village.name)"
+                                                :class="{ 'text-blue-500 font-medium' : village.name === selectedVillage }"
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-600 mr-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></svg>
+                                                {{ village.name | toTitleCase }}
+                                            </a>
+                                        </div>
+                                        <a
+                                            class="block flex items-center mt-2 text-blue-500 leading-loose text-sm"
+                                            href="#"
+                                            v-if="limit < villages.length"
+                                            @click.prevent="limit = limit + 5"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current mr-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></svg>
+                                            Show more...
+                                        </a>
+                                        <a
+                                            class="block mt-2 text-blue-500 leading-loose text-sm"
+                                            href="#"
+                                            v-if="limit > villages.length"
+                                            @click.prevent="limit = 5"
+                                        >Show less...</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -88,25 +142,73 @@
 
 <script>
     import axios from "axios";
+    import EventBus from '@/events';
 
     export default {
+        props: {
+            regions: {
+                required: true
+            }
+        },
         data() {
             return {
-                regions: [
-                    { id: 1, name: "Mbeya" },
-                ],
-                selectedDistricts: [],
+                districts: [],
+                villages: [],
+                selectedRegion: '',
+                selectedDistrict: '',
+                selectedVillage: '',
+                limit: 5
             }
         },
         methods: {
             isRoute(name) {
                 return route().current(name);
             },
+
             async handleSignOut() {
                 await axios.post("/logout");
 
                 window.location.href = "/login";
             },
+            async fetchDistricts(region) {
+                let { data } = await axios.get(`/api/regions/${region}/districts`);
+
+                this.districts = data;
+            },
+            async fetchVillages(district) {
+                let { data } = await axios.get(`/api/districts/${district}/villages`);
+
+                this.villages = data;
+            },
+
+            selectRegion(region) {
+                this.selectedRegion = region;
+
+                this.fetchDistricts(region);
+
+                EventBus.$emit("filter:area", {
+                    name: region,
+                    type: 'region'
+                });
+            },
+            selectDistrict(district) {
+                this.selectedDistrict = district;
+
+                this.fetchVillages(district);
+
+                EventBus.$emit("filter:area", {
+                    name: district,
+                    type: 'district'
+                });
+            },
+            selectVillage(village) {
+                this.selectedVillage = village;
+
+                EventBus.$emit("filter:area", {
+                    name: village,
+                    type: 'village'
+                });
+            }
         }
     }
 </script>

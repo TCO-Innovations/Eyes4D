@@ -83,17 +83,21 @@
 </template>
 
 <script>
+    import Voca from 'voca';
+    import moment from 'moment';
+    import EventBus from "@/events";
+
     export default {
-        props: {
-            area: {
-                required: true,
-                type: Object
-            }
-        },
         data() {
             return {
-                isVisible: false
+                isVisible: false,
+                area: null,
+                timePeriod: null
             }
+        },
+        mounted() {
+            EventBus.$on("filter:area", area => { this.area = area });
+            EventBus.$on("filter:period", period => { this.timePeriod = period });
         },
         computed: {
             chartOptions() {
@@ -110,7 +114,7 @@
                         style: { "color": "#333333", "fontSize": "14px" }
                     },
                     subtitle: {
-                        text: `${this.areaName} - Jan 2019 to Jun 2019`
+                        text: `${this.areaName}: ${this.timeRange}`
                     },
                     tooltip: {
                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -159,13 +163,28 @@
                 };
             },
             areaName() {
-                return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`
+                if (this.area) {
+                    let name = `${this.area.name} ${this.area.type}`;
+
+                    return Voca.titleCase(name);
+                }
+
+                return `All Regions`;
+            },
+            timeRange() {
+                if (this.timePeriod) {
+                    return `${this.toFormattedDate(this.timePeriod.start)} - ${this.toFormattedDate(this.timePeriod.stop)}`;
+                }
+                return "All The Time";
             }
         },
         methods: {
             toggle() {
                 this.isVisible = !this.isVisible;
+            },
+            toFormattedDate(date) {
+                return moment(date).format("MMM DD, YYYY");
             }
-        }
+        },
     }
 </script>

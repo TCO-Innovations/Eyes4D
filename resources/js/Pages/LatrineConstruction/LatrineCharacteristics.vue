@@ -121,18 +121,11 @@
 
 <script>
     import axios from 'axios';
-    import queryString from 'query-string';
+    import Voca from 'voca';
+    import EventBus from "@/events";
+    import moment from "moment";
 
     export default {
-        props: {
-            area: {
-                required: true,
-                type: Object
-            },
-            duration: {
-                required: true
-            }
-        },
         data() {
             return {
                 isVisible: false,
@@ -141,11 +134,15 @@
                 year: (new Date).getFullYear(),
                 date: new Date,
                 period: 'monthly',
-                statistics: []
+                statistics: [],
+                area: null,
+                timePeriod: null
             }
         },
         mounted() {
-            this.fetchReport()
+            this.fetchReport();
+            EventBus.$on("filter:area", area => { this.area = area });
+            EventBus.$on("filter:period", period => { this.timePeriod = period });
         },
         watch: {
             day() {
@@ -184,7 +181,7 @@
                         style: { "color": "#333333", "fontSize": "14px" }
                     },
                     subtitle: {
-                        text: `${this.areaName}: Jul 2019 - Sep 2019`
+                        text: `${this.areaName}: ${this.timeRange}`
                     },
                     accessibility: {
                         announceNewData: { enabled: true }
@@ -216,7 +213,19 @@
                 };
             },
             areaName() {
-                return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`
+                if (this.area) {
+                    let name = `${this.area.name} ${this.area.type}`;
+
+                    return Voca.titleCase(name);
+                }
+
+                return `All Regions`;
+            },
+            timeRange() {
+                if (this.timePeriod) {
+                    return `${this.toFormattedDate(this.timePeriod.start)} - ${this.toFormattedDate(this.timePeriod.stop)}`;
+                }
+                return "All The Time";
             }
         },
         methods: {
@@ -249,12 +258,10 @@
                 this.fetchReport();
             },
             fetchReport() {
-                axios.get('/api/latrine_characteristics', {
-                        params: {
-                            period: this.period,
-                            date: this.date
-                        }
-                    }).then((response) => {
+                axios.get('/api/latrine_characteristics', { params: {
+                    period: this.period,
+                    date: this.date
+                }}).then((response) => {
                     this.statistics = this.transformResult(response)
                 })
             },
@@ -285,6 +292,9 @@
                         y: this.aggregateAttribute(response, 'has_adjacent_bathroom')
                     }
                 ]
+            },
+            toFormattedDate(date) {
+                return moment(date).format("MMM DD, YYYY");
             }
         }
     }

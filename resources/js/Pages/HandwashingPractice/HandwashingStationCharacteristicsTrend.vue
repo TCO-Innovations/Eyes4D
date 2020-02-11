@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto shadow-lg overflow-hidden">
+    <div class="mx-auto bg-white rounded-lg shadow overflow-hidden">
         <header class="px-6 bg-blue-100 flex justify-between items-center">
             <div class="text-sm text-gray-600">
                 <button class="px-2" @click.prevent="toggle">

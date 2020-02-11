@@ -13,6 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/events */ "./resources/js/events.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -107,15 +108,76 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    regions: {
+      required: true
+    }
+  },
   data: function data() {
     return {
-      regions: [{
-        id: 1,
-        name: "Mbeya"
-      }],
-      selectedDistricts: []
+      districts: [],
+      villages: [],
+      selectedRegion: '',
+      selectedDistrict: '',
+      selectedVillage: '',
+      limit: 5
     };
   },
   methods: {
@@ -149,7 +211,94 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return handleSignOut;
-    }()
+    }(),
+    fetchDistricts: function () {
+      var _fetchDistricts = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(region) {
+        var _ref, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/regions/".concat(region, "/districts"));
+
+              case 2:
+                _ref = _context2.sent;
+                data = _ref.data;
+                this.districts = data;
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function fetchDistricts(_x) {
+        return _fetchDistricts.apply(this, arguments);
+      }
+
+      return fetchDistricts;
+    }(),
+    fetchVillages: function () {
+      var _fetchVillages = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(district) {
+        var _ref2, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/districts/".concat(district, "/villages"));
+
+              case 2:
+                _ref2 = _context3.sent;
+                data = _ref2.data;
+                this.villages = data;
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function fetchVillages(_x2) {
+        return _fetchVillages.apply(this, arguments);
+      }
+
+      return fetchVillages;
+    }(),
+    selectRegion: function selectRegion(region) {
+      this.selectedRegion = region;
+      this.fetchDistricts(region);
+      _events__WEBPACK_IMPORTED_MODULE_2__["default"].$emit("filter:area", {
+        name: region,
+        type: 'region'
+      });
+    },
+    selectDistrict: function selectDistrict(district) {
+      this.selectedDistrict = district;
+      this.fetchVillages(district);
+      _events__WEBPACK_IMPORTED_MODULE_2__["default"].$emit("filter:area", {
+        name: district,
+        type: 'district'
+      });
+    },
+    selectVillage: function selectVillage(village) {
+      this.selectedVillage = village;
+      _events__WEBPACK_IMPORTED_MODULE_2__["default"].$emit("filter:area", {
+        name: village,
+        type: 'village'
+      });
+    }
   }
 });
 
@@ -371,93 +520,326 @@ var render = function() {
               { staticClass: "mt-3" },
               _vm._l(_vm.regions, function(region) {
                 return _c(
-                  "label",
-                  {
-                    staticClass: "text-sm mt-4 block",
-                    attrs: { for: region.id }
-                  },
+                  "div",
+                  { staticClass: "text-sm mt-4 block" },
                   [
-                    _c("input", {
-                      staticClass: "form-radio mr-2",
-                      attrs: { type: "checkbox", id: region.id }
-                    }),
-                    _vm._v(
-                      " " +
-                        _vm._s(region.name) +
-                        "\n                            "
+                    _c(
+                      "a",
+                      {
+                        staticClass: "block flex items-center justify-between",
+                        class: {
+                          "text-blue-500 font-medium":
+                            region.name === _vm.selectedRegion
+                        },
+                        attrs: { href: "#" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.selectRegion(region.name)
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "span",
+                          { staticClass: "inline-flex items-center" },
+                          [
+                            region.name === _vm.selectedRegion
+                              ? [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass:
+                                        "h-4 w-4 fill-current text-gray-600 mr-2",
+                                      attrs: {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 24 24"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          fill: "none",
+                                          d: "M0 0h24v24H0z"
+                                        }
+                                      }),
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              : [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass:
+                                        "h-4 w-4 fill-current text-gray-600 mr-2",
+                                      attrs: {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 24 24"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          fill: "none",
+                                          d: "M0 0h24v24H0z"
+                                        }
+                                      }),
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ],
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(region.name) +
+                                "\n                                "
+                            )
+                          ],
+                          2
+                        )
+                      ]
                     ),
-                    _c("span", { staticClass: "block ml-3" }, [
-                      _c(
-                        "label",
-                        {
-                          staticClass: "block mt-2",
-                          attrs: { for: "mbeya_dc" }
-                        },
-                        [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.selectedDistricts,
-                                expression: "selectedDistricts"
-                              }
-                            ],
-                            attrs: {
-                              type: "radio",
-                              id: "mbeya_dc",
-                              value: "mbeya"
+                    _vm._v(" "),
+                    _vm._l(_vm.districts, function(district) {
+                      return _c("div", { staticClass: "block mt-3 ml-4" }, [
+                        _c(
+                          "a",
+                          {
+                            key: district.name,
+                            staticClass: "block flex items-center mt-2",
+                            class: {
+                              "text-blue-500 font-medium":
+                                district.name === _vm.selectedDistrict
                             },
-                            domProps: {
-                              checked: _vm._q(_vm.selectedDistricts, "mbeya")
-                            },
+                            attrs: { href: "#" },
                             on: {
-                              change: function($event) {
-                                _vm.selectedDistricts = "mbeya"
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.selectDistrict(district.name)
                               }
                             }
-                          }),
-                          _vm._v(" Mbeya dc\n                                ")
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "block mt-2",
-                          attrs: { for: "mbarali_dc" }
-                        },
-                        [
-                          _c("input", {
-                            directives: [
+                          },
+                          [
+                            district.name === _vm.selectedDistrict
+                              ? [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass:
+                                        "h-4 w-4 fill-current text-gray-600 mr-2",
+                                      attrs: {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 24 24"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          fill: "none",
+                                          d: "M0 0h24v24H0z"
+                                        }
+                                      }),
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              : [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass:
+                                        "h-4 w-4 fill-current text-gray-600 mr-2",
+                                      attrs: {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        viewBox: "0 0 24 24"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          fill: "none",
+                                          d: "M0 0h24v24H0z"
+                                        }
+                                      }),
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ],
+                            _vm._v(
+                              "\n                                    " +
+                                _vm._s(_vm._f("toTitleCase")(district.name)) +
+                                "\n                                "
+                            )
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        district.name === _vm.selectedDistrict
+                          ? _c(
+                              "div",
                               {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.selectedDistricts,
-                                expression: "selectedDistricts"
-                              }
-                            ],
-                            attrs: {
-                              type: "radio",
-                              id: "mbarali_dc",
-                              value: "mbarali"
-                            },
-                            domProps: {
-                              checked: _vm._q(_vm.selectedDistricts, "mbarali")
-                            },
-                            on: {
-                              change: function($event) {
-                                _vm.selectedDistricts = "mbarali"
-                              }
-                            }
-                          }),
-                          _vm._v(
-                            " Mbarali dc\n                                "
-                          )
-                        ]
-                      )
-                    ])
-                  ]
+                                key: district.name,
+                                staticClass:
+                                  "block mt-3 ml-4 transition duration-500 ease-in-out"
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  _vm._l(
+                                    _vm.villages.slice(0, _vm.limit),
+                                    function(village) {
+                                      return _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "block flex items-center mt-2 transition duration-500 ease-in-out",
+                                          class: {
+                                            "text-blue-500 font-medium":
+                                              village.name ===
+                                              _vm.selectedVillage
+                                          },
+                                          attrs: { href: "#" },
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              return _vm.selectVillage(
+                                                village.name
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "svg",
+                                            {
+                                              staticClass:
+                                                "h-4 w-4 fill-current text-gray-600 mr-2",
+                                              attrs: {
+                                                xmlns:
+                                                  "http://www.w3.org/2000/svg",
+                                                viewBox: "0 0 24 24"
+                                              }
+                                            },
+                                            [
+                                              _c("path", {
+                                                attrs: {
+                                                  fill: "none",
+                                                  d: "M0 0h24v24H0z"
+                                                }
+                                              }),
+                                              _c("path", {
+                                                attrs: { d: "M5 11h14v2H5z" }
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(
+                                                _vm._f("toTitleCase")(
+                                                  village.name
+                                                )
+                                              ) +
+                                              "\n                                        "
+                                          )
+                                        ]
+                                      )
+                                    }
+                                  ),
+                                  0
+                                ),
+                                _vm._v(" "),
+                                _vm.limit < _vm.villages.length
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "block flex items-center mt-2 text-blue-500 leading-loose text-sm",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            _vm.limit = _vm.limit + 5
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass:
+                                              "h-4 w-4 fill-current mr-2",
+                                            attrs: {
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg",
+                                              viewBox: "0 0 24 24"
+                                            }
+                                          },
+                                          [
+                                            _c("path", {
+                                              attrs: {
+                                                fill: "none",
+                                                d: "M0 0h24v24H0z"
+                                              }
+                                            }),
+                                            _c("path", {
+                                              attrs: {
+                                                d:
+                                                  "M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"
+                                              }
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(
+                                          "\n                                        Show more...\n                                    "
+                                        )
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.limit > _vm.villages.length
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "block mt-2 text-blue-500 leading-loose text-sm",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            _vm.limit = 5
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Show less...")]
+                                    )
+                                  : _vm._e()
+                              ]
+                            )
+                          : _vm._e()
+                      ])
+                    })
+                  ],
+                  2
                 )
               }),
               0
@@ -543,6 +925,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Layout_vue_vue_type_template_id_6bf30086___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/events.js":
+/*!********************************!*\
+  !*** ./resources/js/events.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = (new vue__WEBPACK_IMPORTED_MODULE_0___default.a());
 
 /***/ })
 

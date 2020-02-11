@@ -121,18 +121,11 @@
 
 <script>
     import axios from 'axios';
-    import queryString from 'query-string';
+    import Voca from "voca";
+    import EventBus from "@/events";
+    import moment from "moment";
 
     export default {
-        props: {
-            area: {
-                required: true,
-                type: Object
-            },
-            duration: {
-                required: true
-            }
-        },
         data() {
             return {
                 period: "monthly",
@@ -141,11 +134,16 @@
                 day: (new Date).getDate(),
                 isVisible: false,
                 statistics: [],
-                categories: []
+                categories: [],
+                area: '',
+                timePeriod: '',
             }
         },
         mounted() {
             this.fetchReport();
+
+            EventBus.$on("filter:area", area => { this.area = area });
+            EventBus.$on("filter:period", period => { this.timePeriod = period });
         },
         watch: {
             day() {
@@ -176,12 +174,12 @@
             chartOptions() {
                 return {
                     title: {
-                        text: 'Latrine Characteristics Trend',
+                        text: 'Latrine Type by Month of Reporting',
                         margin: 36,
                         style: { "color": "#333333", "fontSize": "14px" }
                     },
                     subtitle: {
-                        text: `${this.areaName}: Jul 2019 - Sep 2019`
+                        text: `${this.areaName}: ${this.timeRange}`
                     },
                     yAxis: {
                         title: {
@@ -196,7 +194,19 @@
                 }
             },
             areaName() {
-                return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`
+                if (this.area) {
+                    let name = `${this.area.name} ${this.area.type}`;
+
+                    return Voca.titleCase(name);
+                }
+
+                return `All Regions`;
+            },
+            timeRange() {
+                if (this.timePeriod) {
+                    return `${this.toFormattedDate(this.timePeriod.start)} - ${this.toFormattedDate(this.timePeriod.stop)}`;
+                }
+                return "All The Time";
             }
         },
         methods: {
@@ -284,6 +294,9 @@
                         data: this.aggregateAttribute(response, 'has_adjacent_bathroom')
                     }
                 ]
+            },
+            toFormattedDate(date) {
+                return moment(date).format("MMM DD, YYYY");
             }
         },
     }

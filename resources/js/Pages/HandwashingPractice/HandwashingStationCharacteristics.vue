@@ -1,5 +1,5 @@
 <template>
-    <div class="mx-auto shadow-lg overflow-hidden">
+    <div class="mx-auto bg-white shadow rounded-lg overflow-hidden">
         <header class="px-6 bg-blue-100 border-b border-blue-100 flex justify-between items-center">
             <div class="text-sm text-gray-600">
                 <button class="px-2" @click.prevent="isVisible = !isVisible">

@@ -142,7 +142,9 @@
                     sort: {
                         visited_houses: 'desc'
                     },
-                }
+                },
+                area: null,
+                timePeriod: null
             }
         },
         mounted() {

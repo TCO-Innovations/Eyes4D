@@ -3,26 +3,24 @@
         <header class="flex justify-between px-6 bg-gray-100 py-4">
             <div>
                 <h2 class="text-lg mb-2">Latrine Construction and Improvement Scorecard</h2>
-                <div class="text-sm text-gray-700">{{ areaName }} - July 2019 to September 2019</div>
+                <div class="text-sm text-gray-700">{{ areaName }}: {{ timeRange }}</div>
             </div>
 
-            <div>
-                <div class="flex flex-col">
-                    <div class="flex -mx-4">
-                        <span class="px-4 flex items-center text-sm text-gray-600">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 fill-current text-green-600 mr-2"><rect width="24" height="24" rx="4" /></svg>
-                            Present
-                        </span>
-                        <span class="px-4 flex items-center text-sm text-gray-600">
-                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 fill-current text-red-600 mr-2"><rect width="24" height="24" rx="4" /></svg>
-                            Absent
-                        </span>
-                    </div>
+            <div class="flex flex-col">
+                <div class="flex -mx-4">
+                    <span class="px-4 flex items-center text-sm text-gray-600">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 fill-current text-green-600 mr-2"><rect width="24" height="24" rx="4" /></svg>
+                        Present
+                    </span>
+                    <span class="px-4 flex items-center text-sm text-gray-600">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 fill-current text-red-600 mr-2"><rect width="24" height="24" rx="4" /></svg>
+                        Absent
+                    </span>
+                </div>
 
-                    <div class="flex items-start text-sm mt-3 text-gray-600">
-                        <span class="inline-block text-center text-red-500 h-3 w-3 mr-2 text-base">*</span>
-                        Criteria has no impact on categorize latrine type
-                    </div>
+                <div class="flex items-start text-sm mt-3 text-gray-600">
+                    <span class="inline-block text-center text-red-500 h-3 w-3 mr-2 text-base">*</span>
+                    Observation has no impact on latrine type
                 </div>
             </div>
         </header>
@@ -86,9 +84,22 @@
                         <td class="border border-gray-400 text-right py-4 text-transparent px-4" :class="{ 'bg-green-600' : Math.round(house.clean_latrine), 'bg-red-600': !Math.round(house.clean_latrine) }">
                             {{ Math.round(house.clean_latrine) }}
                         </td>
-                        <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-yellow-400">
-                            {{ ((house.has_latrine + house.has_cemented_floor + house.has_lockable_door + house.has_iron_sheet_roof + house.has_brick_wall + house.has_adjacent_bathroom + house.clean_latrine) / 7).toFixed(2) }}
-                        </td>
+
+                        <template v-if="house.has_latrine === 0">
+                            <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-orange-400"><span>No Latrine</span></td>
+                        </template>
+
+                        <template v-else-if="house.has_latrine === 1 && house.has_cemented_floor === 0">
+                            <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-blue-400"><span>Traditional Pit latrine</span></td>
+                        </template>
+
+                        <template v-else-if="house.has_latrine === 1 && house.has_cemented_floor === 1 && (house.has_lockable_door === 1 || house.has_brick_wall || house.has_iron_sheet_roof)">
+                            <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-pink-400"><span>Ventilated Improved Pit (VIP) Latrine</span></td>
+                        </template>
+
+                        <template v-else-if="house.has_latrine === 1 && house.has_cemented_floor === 1">
+                            <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-gray-400"><span>Improved Traditional Pit latrine</span></td>
+                        </template>
                     </tr>
                 </tbody>
             </table>
@@ -98,38 +109,50 @@
 
 <script>
     import Axios from  "axios";
-    import voca from "voca";
+    import Voca from "voca";
+    import EventBus from "@/events";
+    import moment from "moment";
 
     export default {
-        props: {
-            area: {
-                required: true,
-                type: Object
-            },
-        },
         data() {
             return {
-                houses: []
+                houses: [],
+                area: null,
+                timePeriod: null,
             }
         },
         computed: {
             areaName() {
-                return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`
+                if (this.area) {
+                    let name = `${this.area.name} ${this.area.type}`;
+
+                    return Voca.titleCase(name);
+                }
+
+                return `All Regions`;
+            },
+            timeRange() {
+                if (this.timePeriod) {
+                    return `${this.toFormattedDate(this.timePeriod.start)} - ${this.toFormattedDate(this.timePeriod.stop)}`;
+                }
+                return "All The Time";
             }
         },
         mounted() {
-            this.fetchReport()
+            this.fetchReport();
+
+            EventBus.$on("filter:area", area => { this.area = area });
+            EventBus.$on("filter:period", period => { this.timePeriod = period });
         },
         methods: {
             async fetchReport() {
-                let response = await Axios.get(`api/latrine_construction_improvement`);
+                let { data } = await Axios.get(`api/latrine_construction_improvement`);
 
-                this.houses = response.data;
+                this.houses = data;
+            },
+            toFormattedDate(date) {
+                return moment(date).format("MMM DD, YYYY");
             }
         }
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ mix.js('resources/js/app.js', 'public/js')
     .webpackConfig({
         resolve: {
             alias: {
+                '@': path.resolve('resources/js'),
                 ziggy: path.resolve('vendor/tightenco/ziggy/dist/js/route.js'),
             },
         },
