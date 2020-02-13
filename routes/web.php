@@ -24,3 +24,9 @@ Route::get("api/handwashing_houses", "Api\HandwashingHousesController");
 Route::get("api/handwashing_characteristics", "Api\HandwashingCharacteristicsController");
 Route::get("api/household_visiting", "Api\HouseholdVisitingController");
 Route::get("api/villages/{village}/contacts", "Api\VillageContactsController");
+
+
+Route::get("api/number_of_u_reporters", "Api\NumberOfUReportersController");
+Route::get("api/number_of_villages", "Api\NumberOfVillagesController");
+Route::get("api/visited_household", "Api\VisitedHouseholdController");
+Route::get("api/total_number_of_households", "Api\TotalNumberOfHouseholdsController");

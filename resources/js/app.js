@@ -10,7 +10,6 @@ import VTooltip from 'v-tooltip';
 import route from 'ziggy';
 import { Ziggy } from './ziggy';
 
-
 Vue.use(InertiaApp);
 Vue.use(HighchartsVue);
 Vue.use(VTooltip);

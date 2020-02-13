@@ -4,77 +4,57 @@
             <header class="flex mb-8 w-full justify-between border-b pb-8">
                 <h1 class="text-2xl font-medium text-gray-700">Latrine Construction and Improvement</h1>
 
-                <DateRangePicker />
+                <DateRangePicker :period="period" />
             </header>
 
             <!-- Overview -->
             <div class="flex mb-8 bg-blue-600 rounded-lg shadow">
                 <div class="w-1/4">
-                    <div class="px-3 py-5 text-center">
-                        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Number of U-Reporters</h3>
-                        <div class="text-white text-5xl font-medium">
-                            {{ numberOfUReporters | toNumberFormat }}
-                        </div>
-                    </div>
+                    <NumberOfUReporters :period="period"/>
                 </div>
                 <div class="w-1/4">
-                    <div class="px-3 py-5 text-center">
-                        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Number of villages</h3>
-                        <div class="text-white text-5xl font-medium">
-                            {{ numberOfVillages | toNumberFormat }}
-                        </div>
-                    </div>
+                    <NumberOfVillages :period="period"/>
                 </div>
                 <div class="w-1/4">
-                    <div class="px-3 py-5 text-center">
-                        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Visited Household</h3>
-                        <div class="text-white text-5xl font-medium">
-                            {{ numberOfVisitedHouseholds | toNumberFormat }}
-                        </div>
-                    </div>
+                    <VisitedHousehold :period="period"/>
                 </div>
                 <div class="w-1/4">
-                    <div class="px-3 py-5 text-center">
-                        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Total Number Of Households</h3>
-                        <div class="text-white text-5xl font-medium">
-                            {{ totalNumberOfHouseholds | toNumberFormat }}
-                        </div>
-                    </div>
+                    <TotalNumberOfHouseholds :period="period" />
                 </div>
             </div>
 
             <!-- New Visit Widget -->
             <div class="flex mb-8 -mx-6">
                 <div class="w-full px-6">
-                    <HouseholdVisiting />
+                    <HouseholdVisiting :period="period" />
                 </div>
             </div>
 
             <!-- -->
             <div class="flex mb-8 -mx-6">
                 <section class="w-full px-6">
-                    <LatrineTypesDistribution />
+                    <LatrineTypesDistribution :period="period" />
                 </section>
             </div>
 
             <!-- -->
             <div class="flex mb-8 -mx-6">
                 <section class="w-full px-6">
-                    <LatrineCharacteristics />
+                    <LatrineCharacteristics :period="period" />
                 </section>
             </div>
 
             <!-- Latrine Characteristics Trend-->
             <div class="flex mb-8 -mx-6">
                 <section class="w-full px-6">
-                    <LatrineCharacteristicsTrend />
+                    <LatrineCharacteristicsTrend :period="period" />
                 </section>
             </div>
 
             <!-- Latrine Construction Improvement ScoreCard -->
             <div class="flex mb-8">
                 <section class="w-full">
-                    <LatrineScoreCard />
+                    <LatrineScoreCard :period="period" />
                 </section>
             </div>
         </div>
@@ -82,7 +62,6 @@
 </template>
 
 <script>
-
     import queryString from "query-string";
     import AppLayout from "@/Shared/Layout";
     import DateRangePicker from "./DateRangePicker";
@@ -91,16 +70,32 @@
     import LatrineCharacteristics from "./LatrineCharacteristics";
     import LatrineCharacteristicsTrend from "./LatrineCharacteristicsTrend";
     import LatrineScoreCard from "./LatrineConstructionImprovementScoreCard";
+    import NumberOfUReporters from "./NumberOfUReporters";
+    import NumberOfVillages from "./NumberOfVillages";
+    import VisitedHousehold from "./VisitedHousehold";
+    import TotalNumberOfHouseholds from './TotalNumberOfHouseholds';
 
     export default {
         components: {
             AppLayout,
+            NumberOfUReporters,
+            NumberOfVillages,
+            VisitedHousehold,
+            TotalNumberOfHouseholds,
             DateRangePicker,
             HouseholdVisiting,
             LatrineScoreCard,
             LatrineCharacteristics,
             LatrineTypesDistribution,
             LatrineCharacteristicsTrend,
+        },
+        data() {
+            return {
+                period: {
+                    start: '2019-12-01',
+                    stop: '2020-04-30'
+                }
+            }
         },
         props: {
             regions: {

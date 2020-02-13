@@ -81,7 +81,7 @@
 
             <div class="flex mb-16">
                 <section class="w-full">
-                    <HandwashingScoreCard :area="area" />
+                    <HandwashingScoreCard :area="area" :period="period" />
                 </section>
             </div>
         </div>
@@ -119,6 +119,10 @@
                 area: {
                     name: "",
                     type: ""
+                },
+                period: {
+                    start: '2019-12-01',
+                    stop: '2020-04-31'
                 },
                 date: {
                     start: '2019-12-01',

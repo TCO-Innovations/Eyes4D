@@ -1,7 +1,7 @@
 <template>
     <div class="mx-auto bg-white rounded-lg shadow overflow-hidden">
         <header class="px-6 bg-gray-100 border-b border-gray-100 flex justify-between items-center">
-            <button class="px-2 inline-flex items-center text-sm font-semibold text-gray-600" @click.prevent="toggle">
+            <button class="px-2 inline-flex items-center text-sm font-semibold text-gray-600" @click.prevent="isVisible = !isVisible">
                 {{ !isVisible ? 'Show' : 'Hide' }} Details
                 <template v-if="isVisible">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current ml-1 text-gray-500"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"/></svg>
@@ -129,10 +129,10 @@
         data() {
             return {
                 isVisible: false,
-                day: (new Date).getDate(),
-                month: (new Date).getMonth(),
-                year: (new Date).getFullYear(),
-                date: new Date,
+                day: (new Date('2019-12-01')).getDate(),
+                month: (new Date('2019-12-01')).getMonth(),
+                year: (new Date('2019-12-01')).getFullYear(),
+                date: new Date('2019-12-01'),
                 period: 'monthly',
                 statistics: [],
                 area: null,
@@ -141,8 +141,14 @@
         },
         mounted() {
             this.fetchReport();
-            EventBus.$on("filter:area", area => { this.area = area });
-            EventBus.$on("filter:period", period => { this.timePeriod = period });
+
+            EventBus.$on("filter:area", area => {
+                this.area = area;
+            });
+
+            EventBus.$on("filter:period", period => {
+                this.timePeriod = period;
+            });
         },
         watch: {
             day() {
@@ -229,9 +235,6 @@
             }
         },
         methods: {
-            toggle() {
-                return this.isVisible = !this.isVisible;
-            },
             getMonthName(month) {
                 return (new Date(this.year, month, this.day)).toLocaleString('default', {
                     month: 'long'

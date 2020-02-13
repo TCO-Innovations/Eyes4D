@@ -164,7 +164,6 @@
             isRoute(name) {
                 return route().current(name);
             },
-
             async handleSignOut() {
                 await axios.post("/logout");
 
@@ -180,7 +179,6 @@
 
                 this.villages = data;
             },
-
             selectRegion(region) {
                 this.selectedRegion = region;
 

@@ -129,9 +129,9 @@
         data() {
             return {
                 period: "monthly",
-                year: (new Date).getFullYear(),
-                month: (new Date).getMonth(),
-                day: (new Date).getDate(),
+                year: (new Date('2019-12-01')).getFullYear(),
+                month: (new Date('2019-12-01')).getMonth(),
+                day: (new Date('2019-12-01')).getDate(),
                 isVisible: false,
                 statistics: [],
                 categories: [],
