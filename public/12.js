@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -144,15 +144,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      period: "monthly",
-      year: new Date('2019-12-01').getFullYear(),
-      month: new Date('2019-12-01').getMonth(),
-      day: new Date('2019-12-01').getDate(),
       isVisible: false,
+      day: new Date('2019-12-01').getDate(),
+      month: new Date('2019-12-01').getMonth(),
+      year: new Date('2019-12-01').getFullYear(),
+      date: new Date('2019-12-01'),
+      period: 'monthly',
       statistics: [],
-      categories: [],
-      area: '',
-      timePeriod: ''
+      area: null,
+      timePeriod: null
     };
   },
   mounted: function mounted() {
@@ -188,8 +188,11 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     chartOptions: function chartOptions() {
       return {
+        chart: {
+          type: 'column'
+        },
         title: {
-          text: 'Latrine Type by Month of Reporting',
+          text: 'Latrine Characteristics',
           margin: 36,
           style: {
             "color": "#333333",
@@ -199,18 +202,33 @@ __webpack_require__.r(__webpack_exports__);
         subtitle: {
           text: "".concat(this.areaName, ": ").concat(this.timeRange)
         },
-        yAxis: {
-          title: {
-            text: 'Number of Households'
+        accessibility: {
+          announceNewData: {
+            enabled: true
           }
         },
         xAxis: {
-          categories: this.categories
+          type: 'category'
         },
-        series: this.statistics,
+        yAxis: {
+          title: {
+            text: 'Household With Latrines'
+          }
+        },
+        legend: {
+          enabled: false
+        },
+        tooltip: {
+          headerFormat: '<span style="font-size:11px">{point.name}</span><br>',
+          pointFormat: '<span>{point.name}</span>: <b>{point.y}</b><br/>'
+        },
         credits: {
           enabled: false
-        }
+        },
+        series: [{
+          colorByPoint: true,
+          data: this.statistics
+        }]
       };
     },
     areaName: function areaName() {
@@ -230,17 +248,16 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    toggle: function toggle() {
-      this.isVisible = !this.isVisible;
-    },
     getMonthName: function getMonthName(month) {
       return new Date(this.year, month, this.day).toLocaleString('default', {
         month: 'long'
       });
     },
-    aggregateAttribute: function aggregateAttribute(response, type) {
+    aggregateAttribute: function aggregateAttribute(response, name) {
       return response.data.map(function (item) {
-        return item[type] == null ? 0 : item[type];
+        return item[name];
+      }).reduce(function (accumulator, currentValue) {
+        return accumulator + currentValue;
       });
     },
     dailyReport: function dailyReport() {
@@ -258,52 +275,34 @@ __webpack_require__.r(__webpack_exports__);
     fetchReport: function fetchReport() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/latrine_characteristics_trend', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/latrine_characteristics', {
         params: {
           period: this.period,
           date: this.date
         }
       }).then(function (response) {
-        if (_this2.period === 'daily') {
-          _this2.categories = response.data.map(function (item) {
-            return item['hour'];
-          });
-        }
-
-        if (_this2.period === 'monthly') {
-          _this2.categories = response.data.map(function (item) {
-            return item['day'];
-          });
-        }
-
-        if (_this2.period === 'annually') {
-          _this2.categories = response.data.map(function (item) {
-            return item['month'];
-          });
-        }
-
         _this2.statistics = _this2.transformResult(response);
       });
     },
     transformResult: function transformResult(response) {
       return [{
         name: "Has Latrine",
-        data: this.aggregateAttribute(response, 'has_latrine')
+        y: this.aggregateAttribute(response, 'has_latrine')
       }, {
         name: "Lockable Door",
-        data: this.aggregateAttribute(response, 'has_lockable_door')
+        y: this.aggregateAttribute(response, 'has_lockable_door')
       }, {
         name: "Brick Wall",
-        data: this.aggregateAttribute(response, 'has_brick_wall')
+        y: this.aggregateAttribute(response, 'has_brick_wall')
       }, {
         name: "Cemented Floor",
-        data: this.aggregateAttribute(response, 'has_cemented_floor')
+        y: this.aggregateAttribute(response, 'has_cemented_floor')
       }, {
         name: "Iron Sheet Roof",
-        data: this.aggregateAttribute(response, 'has_iron_sheet_roof')
+        y: this.aggregateAttribute(response, 'has_iron_sheet_roof')
       }, {
         name: "Adjacent bathroom",
-        data: this.aggregateAttribute(response, 'has_adjacent_bathroom')
+        y: this.aggregateAttribute(response, 'has_adjacent_bathroom')
       }];
     },
     toFormattedDate: function toFormattedDate(date) {
@@ -314,10 +313,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0&":
-/*!*********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0& ***!
-  \*********************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -348,7 +347,7 @@ var render = function() {
               on: {
                 click: function($event) {
                   $event.preventDefault()
-                  return _vm.toggle($event)
+                  _vm.isVisible = !_vm.isVisible
                 }
               }
             },
@@ -484,7 +483,7 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _c("form", { staticClass: "flex items-center" }, [
+            _c("form", { staticClass: "flex items-center flex-shrink-0" }, [
               _vm.period === "daily"
                 ? _c(
                     "select",
@@ -636,7 +635,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "px-6 py-8", class: { "border-b": _vm.isVisible } },
+        { staticClass: "px-6 py-8" },
         [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
         1
       ),
@@ -666,9 +665,7 @@ var staticRenderFns = [
                 _c("span", {
                   staticClass: "block h-4 w-4 rounded bg-blue-500 mr-2"
                 }),
-                _vm._v(
-                  " Easy Washable Cemented Floor\n                        "
-                )
+                _vm._v(" Easy Washable Cemented Floor\n                    ")
               ]
             )
           ]),
@@ -694,7 +691,7 @@ var staticRenderFns = [
                 _c("span", {
                   staticClass: "block h-4 w-4 rounded bg-green-500 mr-2"
                 }),
-                _vm._v(" Iron Sheet Roof\n                        ")
+                _vm._v(" Iron Sheet Roof\n                    ")
               ]
             )
           ]),
@@ -720,7 +717,7 @@ var staticRenderFns = [
                 _c("span", {
                   staticClass: "block h-4 w-4 rounded bg-yellow-500 mr-2"
                 }),
-                _vm._v(" Adjacent Bathroom\n                        ")
+                _vm._v(" Adjacent Bathroom\n                    ")
               ]
             )
           ]),
@@ -746,7 +743,7 @@ var staticRenderFns = [
                 _c("span", {
                   staticClass: "block h-4 w-4 rounded bg-red-500 mr-2"
                 }),
-                _vm._v(" Lockable Door\n                        ")
+                _vm._v(" Lockable Door\n                    ")
               ]
             )
           ]),
@@ -772,7 +769,7 @@ var staticRenderFns = [
                 _c("span", {
                   staticClass: "block h-4 w-4 rounded bg-purple-500 mr-2"
                 }),
-                _vm._v(" Wall With Bricks\n                        ")
+                _vm._v(" Wall With Bricks\n                    ")
               ]
             )
           ]),
@@ -795,17 +792,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue":
-/*!********************************************************************************!*\
-  !*** ./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue ***!
-  \********************************************************************************/
+/***/ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue ***!
+  \***************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _LatrineCharacteristicsTrend_vue_vue_type_template_id_ec8ac3b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0& */ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0&");
-/* harmony import */ var _LatrineCharacteristicsTrend_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LatrineCharacteristicsTrend.vue?vue&type=script&lang=js& */ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=script&lang=js&");
+/* harmony import */ var _LatrineCharacteristics_vue_vue_type_template_id_3a84fbb6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6& */ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6&");
+/* harmony import */ var _LatrineCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LatrineCharacteristics.vue?vue&type=script&lang=js& */ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -815,9 +812,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _LatrineCharacteristicsTrend_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _LatrineCharacteristicsTrend_vue_vue_type_template_id_ec8ac3b0___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _LatrineCharacteristicsTrend_vue_vue_type_template_id_ec8ac3b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _LatrineCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LatrineCharacteristics_vue_vue_type_template_id_3a84fbb6___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LatrineCharacteristics_vue_vue_type_template_id_3a84fbb6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -827,38 +824,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue"
+component.options.__file = "resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************!*\
-  !*** ./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************/
+/***/ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristicsTrend_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LatrineCharacteristicsTrend.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristicsTrend_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LatrineCharacteristics.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0&":
-/*!***************************************************************************************************************!*\
-  !*** ./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0& ***!
-  \***************************************************************************************************************/
+/***/ "./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6& ***!
+  \**********************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristicsTrend_vue_vue_type_template_id_ec8ac3b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue?vue&type=template&id=ec8ac3b0&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristicsTrend_vue_vue_type_template_id_ec8ac3b0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristics_vue_vue_type_template_id_3a84fbb6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue?vue&type=template&id=3a84fbb6&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristics_vue_vue_type_template_id_3a84fbb6___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristicsTrend_vue_vue_type_template_id_ec8ac3b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LatrineCharacteristics_vue_vue_type_template_id_3a84fbb6___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

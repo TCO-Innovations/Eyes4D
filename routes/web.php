@@ -30,3 +30,4 @@ Route::get("api/number_of_u_reporters", "Api\NumberOfUReportersController");
 Route::get("api/number_of_villages", "Api\NumberOfVillagesController");
 Route::get("api/visited_household", "Api\VisitedHouseholdController");
 Route::get("api/total_number_of_households", "Api\TotalNumberOfHouseholdsController");
+Route::get("api/gender_demography", "Api\GenderDemographyController");

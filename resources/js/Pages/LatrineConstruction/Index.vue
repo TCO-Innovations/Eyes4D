@@ -23,6 +23,15 @@
                 </div>
             </div>
 
+            <div class="flex mb-8 -mx-6">
+                <div class="w-1/2 px-6">
+                    <GenderDemography :period="period" />
+                </div>
+                <div class="w-1/2 px-6">
+                    <AgeDemography :period="period" />
+                </div>
+            </div>
+
             <!-- New Visit Widget -->
             <div class="flex mb-8 -mx-6">
                 <div class="w-full px-6">
@@ -62,7 +71,6 @@
 </template>
 
 <script>
-    import queryString from "query-string";
     import AppLayout from "@/Shared/Layout";
     import DateRangePicker from "./DateRangePicker";
     import HouseholdVisiting from './HouseholdVisiting'
@@ -74,6 +82,8 @@
     import NumberOfVillages from "./NumberOfVillages";
     import VisitedHousehold from "./VisitedHousehold";
     import TotalNumberOfHouseholds from './TotalNumberOfHouseholds';
+    import GenderDemography from './GenderDemography';
+    import AgeDemography from './AgeDemography';
 
     export default {
         components: {
@@ -81,7 +91,9 @@
             NumberOfUReporters,
             NumberOfVillages,
             VisitedHousehold,
+            AgeDemography,
             TotalNumberOfHouseholds,
+            GenderDemography,
             DateRangePicker,
             HouseholdVisiting,
             LatrineScoreCard,
@@ -114,13 +126,5 @@
                 required: true
             }
         },
-        watch: {
-            selectedPeriod(value) {
-                history.pushState(null, null, queryString.stringifyUrl({
-                    url: window.location.href,
-                    query: { period: value }
-                }));
-            }
-        }
     }
 </script>

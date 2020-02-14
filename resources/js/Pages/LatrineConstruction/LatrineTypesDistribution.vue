@@ -102,63 +102,72 @@
         computed: {
             chartOptions() {
                 return {
-                    chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
-                    },
+                    chart: { type: 'pie' },
+                    credits: { enabled: false },
                     title: {
+                        align: 'left',
                         text: 'Latrine Type Distribution',
                         margin: 36,
                         style: { "color": "#333333", "fontSize": "14px" }
                     },
                     subtitle: {
+                        align: 'left',
                         text: `${this.areaName}: ${this.timeRange}`
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                     },
                     plotOptions: {
                         pie: {
                             allowPointSelect: true,
                             cursor: 'pointer',
-                            dataLabels: {
-                                enabled: false
-                            },
                             showInLegend: true
                         }
                     },
-                    credits: {
-                        enabled: false
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        itemMarginTop: 10,
+                        itemMarginBottom: 10
                     },
                     series: [{
-                        name: 'Brands',
+                        name: 'Total latrines:',
                         colorByPoint: true,
-                        data: [{
-                            name: 'Pour Flush Latrine',
-                            y: 23.41,
-                            sliced: true,
-                            selected: true
-                        }, {
-                            name: 'VIP Latrine',
-                            y: 11.84
-                        }, {
-                            name: 'Traditional Pit Latrine',
-                            y: 10.85
-                        }, {
-                            name: 'EcoSan Latrine',
-                            y: 4.67
-                        }, {
-                            name: 'FLush Latrine',
-                            y: 4.18
-                        }, {
-                            name: 'Improved Traditional Pit Flush',
-                            y: 7.05
-                        }, {
-                            name: 'Improved Shared Latrine',
-                            y: 17.05
-                        }]
+                        data: [
+                            {
+                                name: 'Pour Flush Latrine',
+                                y: 23.41,
+                                color: "#4299E1"
+                            },
+                            {
+                                name: 'VIP Latrine',
+                                y: 11.84,
+                                color: "#2D3748"
+                            },
+                            {
+                                name: 'Traditional Pit Latrine',
+                                y: 10.85,
+                                color: "#48BB78"
+                            },
+                            {
+                                name: 'EcoSan Latrine',
+                                y: 4.67,
+                                color: "#ED8936"
+                            },
+                            {
+                                name: 'FLush Latrine',
+                                y: 4.18,
+                                color: "#9F7AEA"
+                            },
+                            {
+                                name: 'Improved Traditional Pit Flush',
+                                y: 7.05,
+                                color: "#ED64A6"
+                            },
+                            {
+                                name: 'Improved Shared Latrine',
+                                y: 17.05,
+                                color: "#ECC94B"
+                            }
+                        ]
                     }]
                 };
             },

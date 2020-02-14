@@ -122,8 +122,8 @@
         </div>
 
         <footer class="flex items-center justify-between px-6 py-4 bg-gray-100">
-            <button class="text-blue-500 text-sm" @click.prevent="viewMore">Load More</button>
-            <button class="text-blue-500 text-sm" @click.prevent="viewLess" v-if="filters.limit > 5">Load Less</button>
+            <button class="text-blue-500 text-sm" @click.prevent="viewMore">Load more</button>
+            <button class="text-blue-500 text-sm" @click.prevent="viewLess" v-if="filters.limit > 5">Load less</button>
         </footer>
     </div>
 </template>
