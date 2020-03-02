@@ -2,6 +2,7 @@ import Vue from 'vue';
 import './filters';
 import { InertiaApp } from '@inertiajs/inertia-vue';
 import VueApexCharts from 'vue-apexcharts';
+import VModal from 'vue-js-modal';
 import Highcharts from 'highcharts';
 import HighchartsVue from 'highcharts-vue';
 import highchartsMore from 'highcharts/highcharts-more';
@@ -15,6 +16,13 @@ Vue.use(HighchartsVue);
 Vue.use(VTooltip);
 highchartsMore(Highcharts);
 solidGauge(Highcharts);
+Vue.use(VModal, {
+    dynamic: true,
+    injectModalsContainer: true,
+    dynamicDefaults: {
+        clickToClose: false,
+    },
+});
 
 Vue.mixin({
     methods: {

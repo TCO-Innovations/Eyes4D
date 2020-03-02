@@ -6,7 +6,7 @@
             </div>
 
             <div class="flex-shrink-0 px-10 py-4">
-                <v-popover offset="16" placement="bottom-start">
+                <v-popover offset="12" placement="bottom-start">
                     <button class="hidden sm:flex sm:items-center sm:w-full">
                         <img
                             src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=144&amp;h=144&amp;q=80"
@@ -24,22 +24,19 @@
                     </button>
 
                     <template #popover>
-                        <div class="bg-white shadow-xl rounded-lg px-3">
-                            <header class="text-sm px-2 py-4 border-b-2">
-                                <p class="text-gray-700">{{ $page.auth.user.email }}</p>
-                            </header>
-                            <nav class="text-sm font-medium text-gray-600 pt-2 pb-4">
-                                <a class="block mt-1 px-3 py-2 rounded-lg hover:bg-gray-200" href="#">Profile</a>
-                                <a class="block mt-1 px-3 py-2 rounded-lg hover:bg-gray-200" href="#">Changes Password</a>
-                                <a class="block mt-1 px-3 py-2 rounded-lg hover:bg-gray-200" :href="`/logout`" @click.prevent="handleSignOut">Sign out</a>
-                            </nav>
+                        <div class="w-48 rounded-md shadow-lg">
+                            <div class="py-1 rounded-md bg-white shadow-xs">
+                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150" href="#">Your Profile</a>
+                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150" href="#">Change password</a>
+                                <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150" :href="`/logout`" @click.prevent="handleSignOut">Sign out</a>
+                            </div>
                         </div>
                     </template>
                 </v-popover>
             </div>
         </header>
         <div class="flex w-full">
-            <div class="w-1/4 pt-8 border-r bg-gray-100">
+            <div class="w-1/4 pt-8 border-r bg-gray-100 min-h-screen">
                 <div class="px-6">
                     <h3 class="text-xs font-semibold text-gray-600 uppercase tracking-wide">Dashboards</h3>
                     <nav class="text-sm font-semibold text-gray-600 mt-4">
@@ -147,7 +144,8 @@
     export default {
         props: {
             regions: {
-                required: true
+                required: true,
+                type: Array
             }
         },
         data() {

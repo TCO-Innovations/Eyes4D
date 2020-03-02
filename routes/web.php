@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
@@ -31,3 +31,8 @@ Route::get("api/number_of_villages", "Api\NumberOfVillagesController");
 Route::get("api/visited_household", "Api\VisitedHouseholdController");
 Route::get("api/total_number_of_households", "Api\TotalNumberOfHouseholdsController");
 Route::get("api/gender_demography", "Api\GenderDemographyController");
+
+Route::get("users", "UsersController@index");
+Route::post("users", "UsersController@store");
+Route::put("users/{user}", "UsersController@update");
+Route::delete("users/{user}", "UsersController@destroy");

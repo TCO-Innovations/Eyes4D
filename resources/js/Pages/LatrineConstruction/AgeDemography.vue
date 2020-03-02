@@ -40,7 +40,7 @@
                     credits: { enabled: false },
                     title: {
                         align: 'center',
-                        text: 'U-Reporters Gender Demography',
+                        text: 'U-Reporters Age Demography',
                         margin: 36,
                         style: { "color": "#333333", "fontSize": "14px" }
                     },

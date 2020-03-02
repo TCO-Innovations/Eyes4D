@@ -25,7 +25,7 @@ class GenderDemographyController extends Controller
         if ($request->has('areaType') && $request->has('areaName')) {
             $query->where($fields[$request->get('areaType')], "LIKE", "%{$request->areaName}%");
         }
-        
+
         return Response::json($query->get(), 200);
     }
 }

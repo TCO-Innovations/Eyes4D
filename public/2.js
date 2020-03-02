@@ -1,494 +1,906 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[2],{
 
-/***/ "./node_modules/decode-uri-component/index.js":
-/*!****************************************************!*\
-  !*** ./node_modules/decode-uri-component/index.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Shared/Layout.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Shared/Layout.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/events */ "./resources/js/events.js");
 
-var token = '%[a-f0-9]{2}';
-var singleMatcher = new RegExp(token, 'gi');
-var multiMatcher = new RegExp('(' + token + ')+', 'gi');
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-function decodeComponents(components, split) {
-	try {
-		// Try to decode the entire string first
-		return decodeURIComponent(components.join(''));
-	} catch (err) {
-		// Do nothing
-	}
 
-	if (components.length === 1) {
-		return components;
-	}
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    regions: {
+      required: true,
+      type: Array
+    }
+  },
+  data: function data() {
+    return {
+      districts: [],
+      villages: [],
+      selectedRegion: '',
+      selectedDistrict: '',
+      selectedVillage: '',
+      limit: 5
+    };
+  },
+  methods: {
+    isRoute: function isRoute(name) {
+      return route().current(name);
+    },
+    handleSignOut: function handleSignOut() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function handleSignOut$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/logout"));
 
-	split = split || 1;
+            case 2:
+              window.location.href = "/login";
 
-	// Split the array in 2 parts
-	var left = components.slice(0, split);
-	var right = components.slice(split);
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      });
+    },
+    fetchDistricts: function fetchDistricts(region) {
+      var _ref, data;
 
-	return Array.prototype.concat.call([], decodeComponents(left), decodeComponents(right));
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function fetchDistricts$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/regions/".concat(region, "/districts")));
+
+            case 2:
+              _ref = _context2.sent;
+              data = _ref.data;
+              this.districts = data;
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, null, this);
+    },
+    fetchVillages: function fetchVillages(district) {
+      var _ref2, data;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function fetchVillages$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/districts/".concat(district, "/villages")));
+
+            case 2:
+              _ref2 = _context3.sent;
+              data = _ref2.data;
+              this.villages = data;
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, null, this);
+    },
+    selectRegion: function selectRegion(region) {
+      this.selectedRegion = region;
+      this.fetchDistricts(region);
+      _events__WEBPACK_IMPORTED_MODULE_2__["default"].$emit("filter:area", {
+        name: region,
+        type: 'region'
+      });
+    },
+    selectDistrict: function selectDistrict(district) {
+      this.selectedDistrict = district;
+      this.fetchVillages(district);
+      _events__WEBPACK_IMPORTED_MODULE_2__["default"].$emit("filter:area", {
+        name: district,
+        type: 'district'
+      });
+    },
+    selectVillage: function selectVillage(village) {
+      this.selectedVillage = village;
+      _events__WEBPACK_IMPORTED_MODULE_2__["default"].$emit("filter:area", {
+        name: village,
+        type: 'village'
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Shared/Layout.vue?vue&type=template&id=6bf30086&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Shared/Layout.vue?vue&type=template&id=6bf30086& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "header",
+      { staticClass: "flex items-center justify-between bg-blue-600 border-b" },
+      [
+        _c("div", { staticClass: "px-6 font-bold text-white" }, [
+          _vm._v("\n            " + _vm._s(_vm.$page.app.name) + "\n        ")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "flex-shrink-0 px-10 py-4" },
+          [
+            _c(
+              "v-popover",
+              {
+                attrs: { offset: "12", placement: "bottom-start" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "popover",
+                    fn: function() {
+                      return [
+                        _c(
+                          "div",
+                          { staticClass: "w-48 rounded-md shadow-lg" },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "py-1 rounded-md bg-white shadow-xs"
+                              },
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass:
+                                      "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150",
+                                    attrs: { href: "#" }
+                                  },
+                                  [_vm._v("Your Profile")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass:
+                                      "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150",
+                                    attrs: { href: "#" }
+                                  },
+                                  [_vm._v("Change password")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass:
+                                      "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition ease-in-out duration-150",
+                                    attrs: { href: "/logout" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.handleSignOut($event)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Sign out")]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ]
+                    },
+                    proxy: true
+                  }
+                ])
+              },
+              [
+                _c(
+                  "button",
+                  { staticClass: "hidden sm:flex sm:items-center sm:w-full" },
+                  [
+                    _c("img", {
+                      staticClass: "h-8 w-8 rounded-full object-cover",
+                      attrs: {
+                        src:
+                          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=144&h=144&q=80",
+                        alt: ""
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass:
+                          "hidden lg:inline ml-4 mr-2 text-sm font-semibold tracking-wide text-white"
+                      },
+                      [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.$page.auth.user.name) +
+                            "\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "svg",
+                      {
+                        staticClass:
+                          "ml-2 h-6 w-6 fill-current text-gray-400 lg:ml-auto",
+                        attrs: { viewBox: "0 0 24 24" }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M7.293 9.293a1 1 0 011.414 0L12 12.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ]
+            )
+          ],
+          1
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "flex w-full" }, [
+      _c(
+        "div",
+        { staticClass: "w-1/4 pt-8 border-r bg-gray-100 min-h-screen" },
+        [
+          _c("div", { staticClass: "px-6" }, [
+            _c(
+              "h3",
+              {
+                staticClass:
+                  "text-xs font-semibold text-gray-600 uppercase tracking-wide"
+              },
+              [_vm._v("Dashboards")]
+            ),
+            _vm._v(" "),
+            _c(
+              "nav",
+              { staticClass: "text-sm font-semibold text-gray-600 mt-4" },
+              [
+                _c(
+                  "inertia-link",
+                  {
+                    staticClass:
+                      "-mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium bg-gray-200 rounded-lg",
+                    class: { "text-gray-700": _vm.isRoute("latrine") },
+                    attrs: { href: "/home" }
+                  },
+                  [_vm._v("Latrine Construction And Practise")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "inertia-link",
+                  {
+                    staticClass:
+                      "mt-2 -mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg",
+                    class: {
+                      "text-gray-700": _vm.isRoute("handwash_practise")
+                    },
+                    attrs: { href: "/handwash_practise" }
+                  },
+                  [_vm._v("Handwashing Infrastructure")]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-10" }, [
+            _c("div", { staticClass: "px-6" }, [
+              _c(
+                "h3",
+                {
+                  staticClass:
+                    "text-xs font-semibold text-gray-600 uppercase tracking-wide"
+                },
+                [_vm._v("Region")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "mt-3" },
+                _vm._l(_vm.regions, function(region) {
+                  return _c(
+                    "div",
+                    { staticClass: "text-sm mt-4 block" },
+                    [
+                      _c(
+                        "a",
+                        {
+                          staticClass:
+                            "block flex items-center justify-between",
+                          class: {
+                            "text-blue-500 font-medium":
+                              region.name === _vm.selectedRegion
+                          },
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.selectRegion(region.name)
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "span",
+                            { staticClass: "inline-flex items-center" },
+                            [
+                              region.name === _vm.selectedRegion
+                                ? [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "h-4 w-4 fill-current text-gray-600 mr-2",
+                                        attrs: {
+                                          xmlns: "http://www.w3.org/2000/svg",
+                                          viewBox: "0 0 24 24"
+                                        }
+                                      },
+                                      [
+                                        _c("path", {
+                                          attrs: {
+                                            fill: "none",
+                                            d: "M0 0h24v24H0z"
+                                          }
+                                        }),
+                                        _c("path", {
+                                          attrs: {
+                                            d:
+                                              "M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ]
+                                : [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "h-4 w-4 fill-current text-gray-600 mr-2",
+                                        attrs: {
+                                          xmlns: "http://www.w3.org/2000/svg",
+                                          viewBox: "0 0 24 24"
+                                        }
+                                      },
+                                      [
+                                        _c("path", {
+                                          attrs: {
+                                            fill: "none",
+                                            d: "M0 0h24v24H0z"
+                                          }
+                                        }),
+                                        _c("path", {
+                                          attrs: {
+                                            d:
+                                              "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ],
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(region.name) +
+                                  "\n                                "
+                              )
+                            ],
+                            2
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.districts, function(district) {
+                        return _c("div", { staticClass: "block mt-3 ml-4" }, [
+                          _c(
+                            "a",
+                            {
+                              key: district.name,
+                              staticClass: "block flex items-center mt-2",
+                              class: {
+                                "text-blue-500 font-medium":
+                                  district.name === _vm.selectedDistrict
+                              },
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.selectDistrict(district.name)
+                                }
+                              }
+                            },
+                            [
+                              district.name === _vm.selectedDistrict
+                                ? [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "h-4 w-4 fill-current text-gray-600 mr-2",
+                                        attrs: {
+                                          xmlns: "http://www.w3.org/2000/svg",
+                                          viewBox: "0 0 24 24"
+                                        }
+                                      },
+                                      [
+                                        _c("path", {
+                                          attrs: {
+                                            fill: "none",
+                                            d: "M0 0h24v24H0z"
+                                          }
+                                        }),
+                                        _c("path", {
+                                          attrs: {
+                                            d:
+                                              "M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ]
+                                : [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass:
+                                          "h-4 w-4 fill-current text-gray-600 mr-2",
+                                        attrs: {
+                                          xmlns: "http://www.w3.org/2000/svg",
+                                          viewBox: "0 0 24 24"
+                                        }
+                                      },
+                                      [
+                                        _c("path", {
+                                          attrs: {
+                                            fill: "none",
+                                            d: "M0 0h24v24H0z"
+                                          }
+                                        }),
+                                        _c("path", {
+                                          attrs: {
+                                            d:
+                                              "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ],
+                              _vm._v(
+                                "\n                                    " +
+                                  _vm._s(_vm._f("toTitleCase")(district.name)) +
+                                  "\n                                "
+                              )
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          district.name === _vm.selectedDistrict
+                            ? _c(
+                                "div",
+                                {
+                                  key: district.name,
+                                  staticClass:
+                                    "block mt-3 ml-4 transition duration-500 ease-in-out"
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    _vm._l(
+                                      _vm.villages.slice(0, _vm.limit),
+                                      function(village) {
+                                        return _c(
+                                          "a",
+                                          {
+                                            staticClass:
+                                              "block flex items-center mt-2 transition duration-500 ease-in-out",
+                                            class: {
+                                              "text-blue-500 font-medium":
+                                                village.name ===
+                                                _vm.selectedVillage
+                                            },
+                                            attrs: { href: "#" },
+                                            on: {
+                                              click: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.selectVillage(
+                                                  village.name
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "svg",
+                                              {
+                                                staticClass:
+                                                  "h-4 w-4 fill-current text-gray-600 mr-2",
+                                                attrs: {
+                                                  xmlns:
+                                                    "http://www.w3.org/2000/svg",
+                                                  viewBox: "0 0 24 24"
+                                                }
+                                              },
+                                              [
+                                                _c("path", {
+                                                  attrs: {
+                                                    fill: "none",
+                                                    d: "M0 0h24v24H0z"
+                                                  }
+                                                }),
+                                                _c("path", {
+                                                  attrs: { d: "M5 11h14v2H5z" }
+                                                })
+                                              ]
+                                            ),
+                                            _vm._v(
+                                              "\n                                            " +
+                                                _vm._s(
+                                                  _vm._f("toTitleCase")(
+                                                    village.name
+                                                  )
+                                                ) +
+                                                "\n                                        "
+                                            )
+                                          ]
+                                        )
+                                      }
+                                    ),
+                                    0
+                                  ),
+                                  _vm._v(" "),
+                                  _vm.limit < _vm.villages.length
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "block flex items-center mt-2 text-blue-500 leading-loose text-sm",
+                                          attrs: { href: "#" },
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              _vm.limit = _vm.limit + 5
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "svg",
+                                            {
+                                              staticClass:
+                                                "h-4 w-4 fill-current mr-2",
+                                              attrs: {
+                                                xmlns:
+                                                  "http://www.w3.org/2000/svg",
+                                                viewBox: "0 0 24 24"
+                                              }
+                                            },
+                                            [
+                                              _c("path", {
+                                                attrs: {
+                                                  fill: "none",
+                                                  d: "M0 0h24v24H0z"
+                                                }
+                                              }),
+                                              _c("path", {
+                                                attrs: {
+                                                  d:
+                                                    "M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"
+                                                }
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(
+                                            "\n                                        Show more...\n                                    "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.limit > _vm.villages.length
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "block mt-2 text-blue-500 leading-loose text-sm",
+                                          attrs: { href: "#" },
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              _vm.limit = 5
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Show less...")]
+                                      )
+                                    : _vm._e()
+                                ]
+                              )
+                            : _vm._e()
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                }),
+                0
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-3/4 pt-8" }, [_vm._t("default")], 2)
+    ])
+  ])
 }
+var staticRenderFns = []
+render._withStripped = true
 
-function decode(input) {
-	try {
-		return decodeURIComponent(input);
-	} catch (err) {
-		var tokens = input.match(singleMatcher);
-
-		for (var i = 1; i < tokens.length; i++) {
-			input = decodeComponents(tokens, i).join('');
-
-			tokens = input.match(singleMatcher);
-		}
-
-		return input;
-	}
-}
-
-function customDecodeURIComponent(input) {
-	// Keep track of all the replacements and prefill the map with the `BOM`
-	var replaceMap = {
-		'%FE%FF': '\uFFFD\uFFFD',
-		'%FF%FE': '\uFFFD\uFFFD'
-	};
-
-	var match = multiMatcher.exec(input);
-	while (match) {
-		try {
-			// Decode as big chunks as possible
-			replaceMap[match[0]] = decodeURIComponent(match[0]);
-		} catch (err) {
-			var result = decode(match[0]);
-
-			if (result !== match[0]) {
-				replaceMap[match[0]] = result;
-			}
-		}
-
-		match = multiMatcher.exec(input);
-	}
-
-	// Add `%C2` at the end of the map to make sure it does not replace the combinator before everything else
-	replaceMap['%C2'] = '\uFFFD';
-
-	var entries = Object.keys(replaceMap);
-
-	for (var i = 0; i < entries.length; i++) {
-		// Replace all decoded components
-		var key = entries[i];
-		input = input.replace(new RegExp(key, 'g'), replaceMap[key]);
-	}
-
-	return input;
-}
-
-module.exports = function (encodedURI) {
-	if (typeof encodedURI !== 'string') {
-		throw new TypeError('Expected `encodedURI` to be of type `string`, got `' + typeof encodedURI + '`');
-	}
-
-	try {
-		encodedURI = encodedURI.replace(/\+/g, ' ');
-
-		// Try the built in decoder first
-		return decodeURIComponent(encodedURI);
-	} catch (err) {
-		// Fallback to a more advanced decoder
-		return customDecodeURIComponent(encodedURI);
-	}
-};
 
 
 /***/ }),
 
-/***/ "./node_modules/query-string/index.js":
-/*!********************************************!*\
-  !*** ./node_modules/query-string/index.js ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./resources/js/Shared/Layout.vue":
+/*!****************************************!*\
+  !*** ./resources/js/Shared/Layout.vue ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Layout_vue_vue_type_template_id_6bf30086___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Layout.vue?vue&type=template&id=6bf30086& */ "./resources/js/Shared/Layout.vue?vue&type=template&id=6bf30086&");
+/* harmony import */ var _Layout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Layout.vue?vue&type=script&lang=js& */ "./resources/js/Shared/Layout.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-const strictUriEncode = __webpack_require__(/*! strict-uri-encode */ "./node_modules/strict-uri-encode/index.js");
-const decodeComponent = __webpack_require__(/*! decode-uri-component */ "./node_modules/decode-uri-component/index.js");
-const splitOnFirst = __webpack_require__(/*! split-on-first */ "./node_modules/split-on-first/index.js");
 
-function encoderForArrayFormat(options) {
-	switch (options.arrayFormat) {
-		case 'index':
-			return key => (result, value) => {
-				const index = result.length;
-				if (value === undefined || (options.skipNull && value === null)) {
-					return result;
-				}
 
-				if (value === null) {
-					return [...result, [encode(key, options), '[', index, ']'].join('')];
-				}
 
-				return [
-					...result,
-					[encode(key, options), '[', encode(index, options), ']=', encode(value, options)].join('')
-				];
-			};
 
-		case 'bracket':
-			return key => (result, value) => {
-				if (value === undefined || (options.skipNull && value === null)) {
-					return result;
-				}
+/* normalize component */
 
-				if (value === null) {
-					return [...result, [encode(key, options), '[]'].join('')];
-				}
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Layout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Layout_vue_vue_type_template_id_6bf30086___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Layout_vue_vue_type_template_id_6bf30086___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
 
-				return [...result, [encode(key, options), '[]=', encode(value, options)].join('')];
-			};
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Shared/Layout.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
-		case 'comma':
-			return key => (result, value) => {
-				if (value === null || value === undefined || value.length === 0) {
-					return result;
-				}
+/***/ }),
 
-				if (result.length === 0) {
-					return [[encode(key, options), '=', encode(value, options)].join('')];
-				}
+/***/ "./resources/js/Shared/Layout.vue?vue&type=script&lang=js&":
+/*!*****************************************************************!*\
+  !*** ./resources/js/Shared/Layout.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-				return [[result, encode(value, options)].join(',')];
-			};
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Layout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Layout.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Shared/Layout.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Layout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
-		default:
-			return key => (result, value) => {
-				if (value === undefined || (options.skipNull && value === null)) {
-					return result;
-				}
+/***/ }),
 
-				if (value === null) {
-					return [...result, encode(key, options)];
-				}
+/***/ "./resources/js/Shared/Layout.vue?vue&type=template&id=6bf30086&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/Shared/Layout.vue?vue&type=template&id=6bf30086& ***!
+  \***********************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-				return [...result, [encode(key, options), '=', encode(value, options)].join('')];
-			};
-	}
-}
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Layout_vue_vue_type_template_id_6bf30086___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Layout.vue?vue&type=template&id=6bf30086& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Shared/Layout.vue?vue&type=template&id=6bf30086&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Layout_vue_vue_type_template_id_6bf30086___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-function parserForArrayFormat(options) {
-	let result;
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Layout_vue_vue_type_template_id_6bf30086___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
-	switch (options.arrayFormat) {
-		case 'index':
-			return (key, value, accumulator) => {
-				result = /\[(\d*)\]$/.exec(key);
-
-				key = key.replace(/\[\d*\]$/, '');
-
-				if (!result) {
-					accumulator[key] = value;
-					return;
-				}
-
-				if (accumulator[key] === undefined) {
-					accumulator[key] = {};
-				}
-
-				accumulator[key][result[1]] = value;
-			};
-
-		case 'bracket':
-			return (key, value, accumulator) => {
-				result = /(\[\])$/.exec(key);
-				key = key.replace(/\[\]$/, '');
-
-				if (!result) {
-					accumulator[key] = value;
-					return;
-				}
-
-				if (accumulator[key] === undefined) {
-					accumulator[key] = [value];
-					return;
-				}
-
-				accumulator[key] = [].concat(accumulator[key], value);
-			};
-
-		case 'comma':
-			return (key, value, accumulator) => {
-				const isArray = typeof value === 'string' && value.split('').indexOf(',') > -1;
-				const newValue = isArray ? value.split(',') : value;
-				accumulator[key] = newValue;
-			};
-
-		default:
-			return (key, value, accumulator) => {
-				if (accumulator[key] === undefined) {
-					accumulator[key] = value;
-					return;
-				}
-
-				accumulator[key] = [].concat(accumulator[key], value);
-			};
-	}
-}
-
-function encode(value, options) {
-	if (options.encode) {
-		return options.strict ? strictUriEncode(value) : encodeURIComponent(value);
-	}
-
-	return value;
-}
-
-function decode(value, options) {
-	if (options.decode) {
-		return decodeComponent(value);
-	}
-
-	return value;
-}
-
-function keysSorter(input) {
-	if (Array.isArray(input)) {
-		return input.sort();
-	}
-
-	if (typeof input === 'object') {
-		return keysSorter(Object.keys(input))
-			.sort((a, b) => Number(a) - Number(b))
-			.map(key => input[key]);
-	}
-
-	return input;
-}
-
-function removeHash(input) {
-	const hashStart = input.indexOf('#');
-	if (hashStart !== -1) {
-		input = input.slice(0, hashStart);
-	}
-
-	return input;
-}
-
-function getHash(url) {
-	let hash = '';
-	const hashStart = url.indexOf('#');
-	if (hashStart !== -1) {
-		hash = url.slice(hashStart);
-	}
-
-	return hash;
-}
-
-function extract(input) {
-	input = removeHash(input);
-	const queryStart = input.indexOf('?');
-	if (queryStart === -1) {
-		return '';
-	}
-
-	return input.slice(queryStart + 1);
-}
-
-function parseValue(value, options) {
-	if (options.parseNumbers && !Number.isNaN(Number(value)) && (typeof value === 'string' && value.trim() !== '')) {
-		value = Number(value);
-	} else if (options.parseBooleans && value !== null && (value.toLowerCase() === 'true' || value.toLowerCase() === 'false')) {
-		value = value.toLowerCase() === 'true';
-	}
-
-	return value;
-}
-
-function parse(input, options) {
-	options = Object.assign({
-		decode: true,
-		sort: true,
-		arrayFormat: 'none',
-		parseNumbers: false,
-		parseBooleans: false
-	}, options);
-
-	const formatter = parserForArrayFormat(options);
-
-	// Create an object with no prototype
-	const ret = Object.create(null);
-
-	if (typeof input !== 'string') {
-		return ret;
-	}
-
-	input = input.trim().replace(/^[?#&]/, '');
-
-	if (!input) {
-		return ret;
-	}
-
-	for (const param of input.split('&')) {
-		let [key, value] = splitOnFirst(options.decode ? param.replace(/\+/g, ' ') : param, '=');
-
-		// Missing `=` should be `null`:
-		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
-		value = value === undefined ? null : decode(value, options);
-		formatter(decode(key, options), value, ret);
-	}
-
-	for (const key of Object.keys(ret)) {
-		const value = ret[key];
-		if (typeof value === 'object' && value !== null) {
-			for (const k of Object.keys(value)) {
-				value[k] = parseValue(value[k], options);
-			}
-		} else {
-			ret[key] = parseValue(value, options);
-		}
-	}
-
-	if (options.sort === false) {
-		return ret;
-	}
-
-	return (options.sort === true ? Object.keys(ret).sort() : Object.keys(ret).sort(options.sort)).reduce((result, key) => {
-		const value = ret[key];
-		if (Boolean(value) && typeof value === 'object' && !Array.isArray(value)) {
-			// Sort object keys, not values
-			result[key] = keysSorter(value);
-		} else {
-			result[key] = value;
-		}
-
-		return result;
-	}, Object.create(null));
-}
-
-exports.extract = extract;
-exports.parse = parse;
-
-exports.stringify = (object, options) => {
-	if (!object) {
-		return '';
-	}
-
-	options = Object.assign({
-		encode: true,
-		strict: true,
-		arrayFormat: 'none'
-	}, options);
-
-	const formatter = encoderForArrayFormat(options);
-
-	const objectCopy = Object.assign({}, object);
-	if (options.skipNull) {
-		for (const key of Object.keys(objectCopy)) {
-			if (objectCopy[key] === undefined || objectCopy[key] === null) {
-				delete objectCopy[key];
-			}
-		}
-	}
-
-	const keys = Object.keys(objectCopy);
-
-	if (options.sort !== false) {
-		keys.sort(options.sort);
-	}
-
-	return keys.map(key => {
-		const value = object[key];
-
-		if (value === undefined) {
-			return '';
-		}
-
-		if (value === null) {
-			return encode(key, options);
-		}
-
-		if (Array.isArray(value)) {
-			return value
-				.reduce(formatter(key), [])
-				.join('&');
-		}
-
-		return encode(key, options) + '=' + encode(value, options);
-	}).filter(x => x.length > 0).join('&');
-};
-
-exports.parseUrl = (input, options) => {
-	return {
-		url: removeHash(input).split('?')[0] || '',
-		query: parse(extract(input), options)
-	};
-};
-
-exports.stringifyUrl = (input, options) => {
-	const url = removeHash(input.url).split('?')[0] || '';
-	const queryFromUrl = exports.extract(input.url);
-	const parsedQueryFromUrl = exports.parse(queryFromUrl);
-	const hash = getHash(input.url);
-	const query = Object.assign(parsedQueryFromUrl, input.query);
-	let queryString = exports.stringify(query, options);
-	if (queryString) {
-		queryString = `?${queryString}`;
-	}
-
-	return `${url}${queryString}${hash}`;
-};
 
 
 /***/ }),
 
-/***/ "./node_modules/split-on-first/index.js":
-/*!**********************************************!*\
-  !*** ./node_modules/split-on-first/index.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./resources/js/events.js":
+/*!********************************!*\
+  !*** ./resources/js/events.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 
-
-module.exports = (string, separator) => {
-	if (!(typeof string === 'string' && typeof separator === 'string')) {
-		throw new TypeError('Expected the arguments to be of type `string`');
-	}
-
-	if (separator === '') {
-		return [string];
-	}
-
-	const separatorIndex = string.indexOf(separator);
-
-	if (separatorIndex === -1) {
-		return [string];
-	}
-
-	return [
-		string.slice(0, separatorIndex),
-		string.slice(separatorIndex + separator.length)
-	];
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/strict-uri-encode/index.js":
-/*!*************************************************!*\
-  !*** ./node_modules/strict-uri-encode/index.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-module.exports = str => encodeURIComponent(str).replace(/[!'()*]/g, x => `%${x.charCodeAt(0).toString(16).toUpperCase()}`);
-
+/* harmony default export */ __webpack_exports__["default"] = (new vue__WEBPACK_IMPORTED_MODULE_0___default.a());
 
 /***/ })
 

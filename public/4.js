@@ -63,11 +63,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _Components_AppPagination__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Components/AppPagination */ "./resources/js/Components/AppPagination.vue");
 
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 //
 //
 //
@@ -204,45 +199,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     });
   },
   methods: {
-    fetchReport: function () {
-      var _fetchReport = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var page,
-            _ref,
-            data,
-            links,
-            _args = arguments;
+    fetchReport: function fetchReport() {
+      var page,
+          _ref,
+          data,
+          links,
+          _args = arguments;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                page = _args.length > 0 && _args[0] !== undefined ? _args[0] : 1;
-                _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/latrine_construction_improvement?page=".concat(page));
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function fetchReport$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              page = _args.length > 0 && _args[0] !== undefined ? _args[0] : 1;
+              _context.next = 3;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/latrine_construction_improvement?page=".concat(page)));
 
-              case 3:
-                _ref = _context.sent;
-                data = _ref.data;
-                links = _ref.links;
-                this.houses = data.data;
-                this.links = data.links;
+            case 3:
+              _ref = _context.sent;
+              data = _ref.data;
+              links = _ref.links;
+              this.houses = data.data;
+              this.links = data.links;
 
-              case 8:
-              case "end":
-                return _context.stop();
-            }
+            case 8:
+            case "end":
+              return _context.stop();
           }
-        }, _callee, this);
-      }));
-
-      function fetchReport() {
-        return _fetchReport.apply(this, arguments);
-      }
-
-      return fetchReport;
-    }(),
+        }
+      }, null, this);
+    },
     toFormattedDate: function toFormattedDate(date) {
       return moment__WEBPACK_IMPORTED_MODULE_4___default()(date).format("MMM DD, YYYY");
     },

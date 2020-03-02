@@ -1,28 +1,14 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! query-string */ "./node_modules/query-string/index.js");
-/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_2__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -99,252 +85,174 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    area: {
-      required: true,
-      type: Object
-    },
-    duration: {
-      required: true
-    }
-  },
   data: function data() {
     return {
-      apiEndPoint: "",
-      report: {},
-      period: 'monthly',
-      date: new Date(),
-      isVisible: false,
-      selectedDate: new Date().getDate(),
-      selectedMonth: new Date().getMonth(),
-      selectedYear: new Date().getFullYear()
+      houses: [{
+        id: 1,
+        name: "IPHH01",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 2,
+        name: "IPHH02",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 3,
+        name: "IPHH03",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 4,
+        name: "IPHH04",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 5,
+        name: "IPHH05",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 6,
+        name: "IPHH06",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 7,
+        name: "IPHH07",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 8,
+        name: "IPHH08",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 9,
+        name: "IPHH09",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 10,
+        name: "IPHH10",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 11,
+        name: "IPHH11",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 12,
+        name: "IPHH12",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 13,
+        name: "IPHH13",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 14,
+        name: "IPHH14",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }, {
+        id: 15,
+        name: "IPHH15",
+        has_latrine: this.random(0, 10),
+        easy_washable_cemented_floor: this.random(0, 10),
+        lockable_door: this.random(0, 10),
+        iron_sheet_roof: this.random(0, 10),
+        wall_with_bricks: this.random(0, 10),
+        adjacent_bathroom: this.random(0, 10),
+        clean_latrine: this.random(0, 10)
+      }]
     };
   },
-  mounted: function mounted() {
-    var query = Object.assign({
-      period: this.period,
-      date: this.date.toJSON().slice(0, 10)
-    }, query_string__WEBPACK_IMPORTED_MODULE_2___default.a.parse(window.location.search));
-    this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-      url: "".concat(window.location.origin, "/api/handwashing_characteristics"),
-      query: query
-    });
-  },
-  watch: {
-    area: {
-      deep: true,
-      handler: function handler() {
-        this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-          url: this.apiEndPoint,
-          query: _defineProperty({}, this.area.type.toLowerCase(), this.area.name)
-        });
-      }
-    },
-    apiEndPoint: function apiEndPoint() {
-      this.fetchReport();
-    },
-    selectedDate: function selectedDate(date) {
-      this.date.setDate(date);
-      this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-        url: this.apiEndPoint,
-        query: {
-          date: this.date.toJSON().slice(0, 10)
-        }
-      });
-    },
-    selectedMonth: function selectedMonth(month) {
-      this.date.setMonth(month);
-      this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-        url: this.apiEndPoint,
-        query: {
-          date: this.date.toJSON().slice(0, 10)
-        }
-      });
-    },
-    selectedYear: function selectedYear(year) {
-      this.date.setFullYear(year);
-      this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-        url: this.apiEndPoint,
-        query: {
-          date: this.date.toJSON().slice(0, 10)
-        }
-      });
-    },
-    duration: function duration(year) {
-      this.selectedYear = year;
-      this.date.setFullYear(year);
-      this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-        url: this.apiEndPoint,
-        query: {
-          date: this.date.toJSON().slice(0, 10)
-        }
-      });
-    }
-  },
-  computed: {
-    chartOptions: function chartOptions() {
-      return {
-        chart: {
-          type: 'column'
-        },
-        title: {
-          text: 'Hand Washing Characteristics',
-          margin: 36,
-          style: {
-            "color": "#333333",
-            "fontSize": "14px"
-          }
-        },
-        subtitle: {
-          text: "".concat(this.areaName, ": Jul 2019 - Sep 2019")
-        },
-        accessibility: {
-          announceNewData: {
-            enabled: true
-          }
-        },
-        xAxis: {
-          type: 'category'
-        },
-        yAxis: {
-          title: {
-            text: 'Household With Handwash Place'
-          }
-        },
-        legend: {
-          enabled: false
-        },
-        tooltip: {
-          headerFormat: '<span style="font-size:11px">{point.name}</span><br>',
-          pointFormat: '<span>{point.name}</span>: <b>{point.y}</b><br/>'
-        },
-        credits: {
-          enabled: false
-        },
-        series: [{
-          colorByPoint: true,
-          data: [{
-            name: "Hand wash place",
-            y: this.report.has_handwash_place
-          }, {
-            name: "Hand wash container",
-            y: this.report.has_handwash_container
-          }, {
-            name: "Has Soap",
-            y: this.report.has_soap
-          }]
-        }]
-      };
-    },
-    areaName: function areaName() {
-      return "".concat(this.area.name ? this.area.name : "All", " ").concat(this.area.type ? this.area.type : "Regions");
-    }
-  },
   methods: {
-    getMonthName: function getMonthName(month) {
-      return new Date(this.selectedYear, month, this.selectedDate).toLocaleString('default', {
-        month: 'long'
-      });
-    },
-    getReportBy: function getReportBy(period) {
-      this.period = period;
-      this.apiEndPoint = query_string__WEBPACK_IMPORTED_MODULE_2___default.a.stringifyUrl({
-        url: this.apiEndPoint,
-        query: {
-          period: period
-        }
-      });
-    },
-    fetchReport: function () {
-      var _fetchReport = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(this.apiEndPoint);
-
-              case 2:
-                response = _context.sent;
-                this.report = response.data[0];
-
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function fetchReport() {
-        return _fetchReport.apply(this, arguments);
-      }
-
-      return fetchReport;
-    }()
+    random: function random(max, min) {
+      return (Math.floor(Math.random() * (max - min + 1)) + min) * 0.1;
+    }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue?vue&type=template&id=16d6ae0a&scoped=true&":
 /*!***************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue?vue&type=template&id=16d6ae0a&scoped=true& ***!
   \***************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -357,399 +265,283 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "mx-auto bg-white shadow rounded-lg overflow-hidden" },
-    [
-      _c(
-        "header",
-        {
-          staticClass:
-            "px-6 bg-blue-100 border-b border-blue-100 flex justify-between items-center"
-        },
-        [
-          _c("div", { staticClass: "text-sm text-gray-600" }, [
-            _c(
-              "button",
-              {
-                staticClass: "px-2",
-                on: {
-                  click: function($event) {
-                    $event.preventDefault()
-                    _vm.isVisible = !_vm.isVisible
-                  }
-                }
-              },
-              [
+  return _c("div", { staticClass: "shadow-xl rounded-lg overflow-hidden" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "overflow-x-scroll" }, [
+      _c("table", { staticClass: "whitespace-no-wrap" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.houses, function(house) {
+            return _c("tr", { key: house.id }, [
+              _c("td", { staticClass: "border-b text-left  py-4 px-4" }, [
                 _vm._v(
-                  "\n                " +
-                    _vm._s(!_vm.isVisible ? "Show" : "Hide") +
-                    " Details\n            "
-                )
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "flex" }, [
-            _c("ul", { staticClass: "flex items-center mx-6" }, [
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500",
-                    class: { "border-blue-500": _vm.period === "daily" },
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.getReportBy("daily")
-                      }
-                    }
-                  },
-                  [_vm._v("Daily")]
+                  "\n                        " +
+                    _vm._s(house.name) +
+                    "\n                    "
                 )
               ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500",
-                    class: { "border-blue-500": _vm.period === "monthly" },
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.getReportBy("monthly")
-                      }
-                    }
-                  },
-                  [_vm._v("Monthly")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500",
-                    class: { "border-blue-500": _vm.period === "annually" },
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.getReportBy("annually")
-                      }
-                    }
-                  },
-                  [_vm._v("Annually")]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("form", { staticClass: "flex items-center" }, [
-              _vm.period === "daily"
-                ? _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.selectedDate,
-                          expression: "selectedDate"
-                        }
-                      ],
-                      staticClass: "bg-blue-100",
-                      attrs: { id: "day" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.selectedDate = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    _vm._l(
-                      new Date(
-                        _vm.selectedYear,
-                        _vm.selectedMonth + 1,
-                        0
-                      ).getDate(),
-                      function(dayNumber) {
-                        return _c(
-                          "option",
-                          { domProps: { value: dayNumber } },
-                          [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(dayNumber) +
-                                "\n                    "
-                            )
-                          ]
-                        )
-                      }
-                    ),
-                    0
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.period === "daily" || _vm.period === "monthly"
-                ? _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.selectedMonth,
-                          expression: "selectedMonth"
-                        }
-                      ],
-                      staticClass: "bg-blue-100",
-                      attrs: { id: "month" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.selectedMonth = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    _vm._l(Array(12).keys(), function(monthNumber) {
-                      return _c(
-                        "option",
-                        { domProps: { value: monthNumber } },
-                        [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(_vm.getMonthName(monthNumber)) +
-                              "\n                    "
-                          )
-                        ]
-                      )
-                    }),
-                    0
-                  )
-                : _vm._e(),
               _vm._v(" "),
               _c(
-                "select",
+                "td",
                 {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selectedYear,
-                      expression: "selectedYear"
-                    }
-                  ],
-                  staticClass: "bg-blue-100",
-                  attrs: { id: "year" },
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.selectedYear = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
+                  staticClass: "border-b text-right py-4 px-4",
+                  class: {
+                    "bg-green-200": Math.round(house.has_latrine),
+                    "bg-red-200": !Math.round(house.has_latrine)
                   }
                 },
-                _vm._l(Array(5).keys(), function(yearNumber) {
-                  return _c(
-                    "option",
-                    { domProps: { value: _vm.selectedYear - yearNumber } },
-                    [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(_vm.selectedYear - yearNumber) +
-                          "\n                    "
-                      )
-                    ]
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(Math.round(house.has_latrine)) +
+                      "\n                    "
                   )
-                }),
-                0
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass: "border-b text-right py-4 px-4",
+                  class: {
+                    "bg-green-200": Math.round(
+                      house.easy_washable_cemented_floor
+                    ),
+                    "bg-red-200": !Math.round(
+                      house.easy_washable_cemented_floor
+                    )
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(Math.round(house.easy_washable_cemented_floor)) +
+                      "\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass: "border-b text-right py-4 px-4",
+                  class: {
+                    "bg-green-200": Math.round(house.lockable_door),
+                    "bg-red-200": !Math.round(house.lockable_door)
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(Math.round(house.lockable_door)) +
+                      "\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass: "border-b text-right py-4 px-4",
+                  class: {
+                    "bg-green-200": Math.round(house.iron_sheet_roof),
+                    "bg-red-200": !Math.round(house.iron_sheet_roof)
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(Math.round(house.iron_sheet_roof)) +
+                      "\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass: "border-b text-right py-4 px-4",
+                  class: {
+                    "bg-green-200": Math.round(house.wall_with_bricks),
+                    "bg-red-200": !Math.round(house.wall_with_bricks)
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(Math.round(house.wall_with_bricks)) +
+                      "\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass: "border-b text-right py-4 px-4",
+                  class: {
+                    "bg-green-200": Math.round(house.adjacent_bathroom),
+                    "bg-red-200": !Math.round(house.adjacent_bathroom)
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(Math.round(house.adjacent_bathroom)) +
+                      "\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass: "border-b text-right py-4 px-4",
+                  class: {
+                    "bg-green-200": Math.round(house.clean_latrine),
+                    "bg-red-200": !Math.round(house.clean_latrine)
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(Math.round(house.clean_latrine)) +
+                      "\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                { staticClass: "border-b text-right py-4 px-4 bg-yellow-200" },
+                [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(Math.random().toFixed(2)) +
+                      "\n                    "
+                  )
+                ]
               )
             ])
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "px-6 py-8" },
-        [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
-        1
-      ),
-      _vm._v(" "),
-      _vm.isVisible
-        ? _c("div", { staticClass: "px-6 py-6 bg-gray-100" }, [_vm._m(0)])
-        : _vm._e()
-    ]
-  )
+          }),
+          0
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "w-full" }, [
-      _c("tbody", [
-        _c("tr", [
-          _c("th", { staticClass: "py-1" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "flex items-center text-sm font-semibold text-gray-700"
-              },
-              [
-                _c("span", {
-                  staticClass: "block h-4 w-4 rounded bg-blue-500 mr-2"
-                }),
-                _vm._v(" Easy Washable Cemented Floor\n                    ")
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
-            _vm._v("12")
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
-            _vm._v("20%")
-          ])
-        ]),
+    return _c("header", { staticClass: "px-6 bg-gray-100 py-4 border-b" }, [
+      _c("h2", { staticClass: "text-lg mb-2" }, [
+        _vm._v("Latrine Construction and Improvement Scorecard")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "text-sm text-gray-700" }, [
+        _vm._v("Ipinda Village - July 2019 to September 2019")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c(
+          "th",
+          {
+            staticClass:
+              "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left"
+          },
+          [_vm._v("\n                    Village\n                ")]
+        ),
         _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "py-1" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "flex items-center text-sm font-semibold text-gray-700"
-              },
-              [
-                _c("span", {
-                  staticClass: "block h-4 w-4 rounded bg-green-500 mr-2"
-                }),
-                _vm._v(" Iron Sheet Roof\n                    ")
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
-            _vm._v("12")
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
-            _vm._v("20%")
-          ])
-        ]),
+        _c(
+          "th",
+          {
+            staticClass:
+              "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"
+          },
+          [_vm._v("\n                    Has latrine\n                ")]
+        ),
         _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "py-1" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "flex items-center text-sm font-semibold text-gray-700"
-              },
-              [
-                _c("span", {
-                  staticClass: "block h-4 w-4 rounded bg-yellow-500 mr-2"
-                }),
-                _vm._v(" Adjacent Bathroom\n                    ")
-              ]
+        _c(
+          "th",
+          {
+            staticClass:
+              "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"
+          },
+          [
+            _vm._v(
+              "\n                    Easy washable cemented floor\n                "
             )
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
-            _vm._v("12")
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
-            _vm._v("20%")
-          ])
-        ]),
+          ]
+        ),
         _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "py-1" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "flex items-center text-sm font-semibold text-gray-700"
-              },
-              [
-                _c("span", {
-                  staticClass: "block h-4 w-4 rounded bg-red-500 mr-2"
-                }),
-                _vm._v(" Lockable Door\n                    ")
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
-            _vm._v("12")
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
-            _vm._v("20%")
-          ])
-        ]),
+        _c(
+          "th",
+          {
+            staticClass:
+              "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"
+          },
+          [_vm._v("\n                    Lockable door\n                ")]
+        ),
         _vm._v(" "),
-        _c("tr", [
-          _c("th", { staticClass: "py-1" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "flex items-center text-sm font-semibold text-gray-700"
-              },
-              [
-                _c("span", {
-                  staticClass: "block h-4 w-4 rounded bg-purple-500 mr-2"
-                }),
-                _vm._v(" Wall With Bricks\n                    ")
-              ]
+        _c(
+          "th",
+          {
+            staticClass:
+              "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"
+          },
+          [_vm._v("\n                    Iron sheet roof\n                ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"
+          },
+          [_vm._v("\n                    Wall with bricks\n                ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"
+          },
+          [_vm._v("\n                    Adjacent bathroom\n                ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"
+          },
+          [_vm._v("\n                    Clean latrine\n                ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass:
+              "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"
+          },
+          [
+            _vm._v(
+              "\n                    Latrine construction and improvement average\n                "
             )
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
-            _vm._v("12")
-          ]),
-          _vm._v(" "),
-          _c("td", { staticClass: "py-2 px-2 font-normal text-sm" }, [
-            _vm._v("20%")
-          ])
-        ])
+          ]
+        )
       ])
     ])
   }
@@ -760,17 +552,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue ***!
-  \**************************************************************************************/
+/***/ "./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue":
+/*!**************************************************************************!*\
+  !*** ./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue ***!
+  \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _HandwashingStationCharacteristics_vue_vue_type_template_id_2c8d5802___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802& */ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802&");
-/* harmony import */ var _HandwashingStationCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HandwashingStationCharacteristics.vue?vue&type=script&lang=js& */ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=script&lang=js&");
+/* harmony import */ var _HandwashingScorecard_vue_vue_type_template_id_16d6ae0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HandwashingScorecard.vue?vue&type=template&id=16d6ae0a&scoped=true& */ "./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue?vue&type=template&id=16d6ae0a&scoped=true&");
+/* harmony import */ var _HandwashingScorecard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HandwashingScorecard.vue?vue&type=script&lang=js& */ "./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -780,50 +572,50 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _HandwashingStationCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _HandwashingStationCharacteristics_vue_vue_type_template_id_2c8d5802___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _HandwashingStationCharacteristics_vue_vue_type_template_id_2c8d5802___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _HandwashingScorecard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _HandwashingScorecard_vue_vue_type_template_id_16d6ae0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _HandwashingScorecard_vue_vue_type_template_id_16d6ae0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "16d6ae0a",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue"
+component.options.__file = "resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************!*\
-  !*** ./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************/
+/***/ "./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./HandwashingStationCharacteristics.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristics_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingScorecard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./HandwashingScorecard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingScorecard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802&":
+/***/ "./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue?vue&type=template&id=16d6ae0a&scoped=true&":
 /*!*********************************************************************************************************************!*\
-  !*** ./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802& ***!
+  !*** ./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue?vue&type=template&id=16d6ae0a&scoped=true& ***!
   \*********************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristics_vue_vue_type_template_id_2c8d5802___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue?vue&type=template&id=2c8d5802&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristics_vue_vue_type_template_id_2c8d5802___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingScorecard_vue_vue_type_template_id_16d6ae0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./HandwashingScorecard.vue?vue&type=template&id=16d6ae0a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue?vue&type=template&id=16d6ae0a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingScorecard_vue_vue_type_template_id_16d6ae0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingStationCharacteristics_vue_vue_type_template_id_2c8d5802___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HandwashingScorecard_vue_vue_type_template_id_16d6ae0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

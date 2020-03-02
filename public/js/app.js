@@ -1515,6 +1515,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
+var isValidXss = __webpack_require__(/*! ./isValidXss */ "./node_modules/axios/lib/helpers/isValidXss.js");
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -1534,6 +1535,10 @@ module.exports = (
     */
       function resolveURL(url) {
         var href = url;
+
+        if (isValidXss(url)) {
+          throw new Error('URL contains XSS injection attempt');
+        }
 
         if (msie) {
         // IE needs attribute set twice to normalize properties
@@ -1580,6 +1585,25 @@ module.exports = (
       };
     })()
 );
+
+
+/***/ }),
+
+/***/ "./node_modules/axios/lib/helpers/isValidXss.js":
+/*!******************************************************!*\
+  !*** ./node_modules/axios/lib/helpers/isValidXss.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function isValidXss(requestURL) {
+  var xssRegex = /(\b)(on\w+)=|javascript|(<\s*)(\/*)script/gi;
+  return xssRegex.test(requestURL);
+};
+
 
 
 /***/ }),
@@ -3258,7 +3282,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/* NProgress, 
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
- * @version 1.16.1
+ * @version 1.16.0
  * @license
  * Copyright (c) 2016 Federico Zivolo and contributors
  *
@@ -3604,7 +3628,7 @@ function getBordersSize(styles, axis) {
   var sideA = axis === 'x' ? 'Left' : 'Top';
   var sideB = sideA === 'Left' ? 'Right' : 'Bottom';
 
-  return parseFloat(styles['border' + sideA + 'Width']) + parseFloat(styles['border' + sideB + 'Width']);
+  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);
 }
 
 function getSize(axis, body, html, computedStyle) {
@@ -3759,8 +3783,8 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   var scrollParent = getScrollParent(children);
 
   var styles = getStyleComputedProperty(parent);
-  var borderTopWidth = parseFloat(styles.borderTopWidth);
-  var borderLeftWidth = parseFloat(styles.borderLeftWidth);
+  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
+  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
 
   // In cases where the parent is fixed, we must ignore negative scroll in offset calc
   if (fixedPosition && isHTML) {
@@ -3781,8 +3805,8 @@ function getOffsetRectRelativeToArbitraryNode(children, parent) {
   // differently when margins are applied to it. The margins are included in
   // the box of the documentElement, in the other cases not.
   if (!isIE10 && isHTML) {
-    var marginTop = parseFloat(styles.marginTop);
-    var marginLeft = parseFloat(styles.marginLeft);
+    var marginTop = parseFloat(styles.marginTop, 10);
+    var marginLeft = parseFloat(styles.marginLeft, 10);
 
     offsets.top -= borderTopWidth - marginTop;
     offsets.bottom -= borderTopWidth - marginTop;
@@ -4721,8 +4745,8 @@ function arrow(data, options) {
   // Compute the sideValue using the updated popper offsets
   // take popper margin in account because we don't have this info available
   var css = getStyleComputedProperty(data.instance.popper);
-  var popperMarginSide = parseFloat(css['margin' + sideCapitalized]);
-  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width']);
+  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
+  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
   var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
 
   // prevent arrowElement from being placed not contiguously to its popper
@@ -6416,35 +6440,20 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
-
-  return keys;
-}
-
-function _objectSpread2(target) {
+function _objectSpread(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i] != null ? arguments[i] : {};
+    var ownKeys = Object.keys(source);
 
-    if (i % 2) {
-      ownKeys(Object(source), true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
     }
+
+    ownKeys.forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    });
   }
 
   return target;
@@ -6539,6 +6548,1852 @@ if (typeof window !== 'undefined') {
     window.addEventListener('test', null, opts);
   } catch (e) {}
 }
+
+var DEFAULT_OPTIONS = {
+  container: false,
+  delay: 0,
+  html: false,
+  placement: 'top',
+  title: '',
+  template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+  trigger: 'hover focus',
+  offset: 0
+};
+var openTooltips = [];
+
+var Tooltip =
+/*#__PURE__*/
+function () {
+  /**
+   * Create a new Tooltip.js instance
+   * @class Tooltip
+   * @param {HTMLElement} reference - The DOM node used as reference of the tooltip (it can be a jQuery element).
+   * @param {Object} options
+   * @param {String} options.placement=bottom
+   *      Placement of the popper accepted values: `top(-start, -end), right(-start, -end), bottom(-start, -end),
+   *      left(-start, -end)`
+   * @param {HTMLElement|String|false} options.container=false - Append the tooltip to a specific element.
+   * @param {Number|Object} options.delay=0
+   *      Delay showing and hiding the tooltip (ms) - does not apply to manual trigger type.
+   *      If a number is supplied, delay is applied to both hide/show.
+   *      Object structure is: `{ show: 500, hide: 100 }`
+   * @param {Boolean} options.html=false - Insert HTML into the tooltip. If false, the content will inserted with `innerText`.
+   * @param {String|PlacementFunction} options.placement='top' - One of the allowed placements, or a function returning one of them.
+   * @param {String} [options.template='<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>']
+   *      Base HTML to used when creating the tooltip.
+   *      The tooltip's `title` will be injected into the `.tooltip-inner` or `.tooltip__inner`.
+   *      `.tooltip-arrow` or `.tooltip__arrow` will become the tooltip's arrow.
+   *      The outermost wrapper element should have the `.tooltip` class.
+   * @param {String|HTMLElement|TitleFunction} options.title='' - Default title value if `title` attribute isn't present.
+   * @param {String} [options.trigger='hover focus']
+   *      How tooltip is triggered - click, hover, focus, manual.
+   *      You may pass multiple triggers; separate them with a space. `manual` cannot be combined with any other trigger.
+   * @param {HTMLElement} options.boundariesElement
+   *      The element used as boundaries for the tooltip. For more information refer to Popper.js'
+   *      [boundariesElement docs](https://popper.js.org/popper-documentation.html)
+   * @param {Number|String} options.offset=0 - Offset of the tooltip relative to its reference. For more information refer to Popper.js'
+   *      [offset docs](https://popper.js.org/popper-documentation.html)
+   * @param {Object} options.popperOptions={} - Popper options, will be passed directly to popper instance. For more information refer to Popper.js'
+   *      [options docs](https://popper.js.org/popper-documentation.html)
+   * @return {Object} instance - The generated tooltip instance
+   */
+  function Tooltip(_reference, _options) {
+    var _this = this;
+
+    _classCallCheck(this, Tooltip);
+
+    _defineProperty(this, "_events", []);
+
+    _defineProperty(this, "_setTooltipNodeEvent", function (evt, reference, delay, options) {
+      var relatedreference = evt.relatedreference || evt.toElement || evt.relatedTarget;
+
+      var callback = function callback(evt2) {
+        var relatedreference2 = evt2.relatedreference || evt2.toElement || evt2.relatedTarget; // Remove event listener after call
+
+        _this._tooltipNode.removeEventListener(evt.type, callback); // If the new reference is not the reference element
+
+
+        if (!reference.contains(relatedreference2)) {
+          // Schedule to hide tooltip
+          _this._scheduleHide(reference, options.delay, options, evt2);
+        }
+      };
+
+      if (_this._tooltipNode.contains(relatedreference)) {
+        // listen to mouseleave on the tooltip element to be able to hide the tooltip
+        _this._tooltipNode.addEventListener(evt.type, callback);
+
+        return true;
+      }
+
+      return false;
+    });
+
+    // apply user options over default ones
+    _options = _objectSpread({}, DEFAULT_OPTIONS, _options);
+    _reference.jquery && (_reference = _reference[0]);
+    this.show = this.show.bind(this);
+    this.hide = this.hide.bind(this); // cache reference and options
+
+    this.reference = _reference;
+    this.options = _options; // set initial state
+
+    this._isOpen = false;
+
+    this._init();
+  } //
+  // Public methods
+  //
+
+  /**
+   * Reveals an element's tooltip. This is considered a "manual" triggering of the tooltip.
+   * Tooltips with zero-length titles are never displayed.
+   * @method Tooltip#show
+   * @memberof Tooltip
+   */
+
+
+  _createClass(Tooltip, [{
+    key: "show",
+    value: function show() {
+      this._show(this.reference, this.options);
+    }
+    /**
+     * Hides an element’s tooltip. This is considered a “manual” triggering of the tooltip.
+     * @method Tooltip#hide
+     * @memberof Tooltip
+     */
+
+  }, {
+    key: "hide",
+    value: function hide() {
+      this._hide();
+    }
+    /**
+     * Hides and destroys an element’s tooltip.
+     * @method Tooltip#dispose
+     * @memberof Tooltip
+     */
+
+  }, {
+    key: "dispose",
+    value: function dispose() {
+      this._dispose();
+    }
+    /**
+     * Toggles an element’s tooltip. This is considered a “manual” triggering of the tooltip.
+     * @method Tooltip#toggle
+     * @memberof Tooltip
+     */
+
+  }, {
+    key: "toggle",
+    value: function toggle() {
+      if (this._isOpen) {
+        return this.hide();
+      } else {
+        return this.show();
+      }
+    }
+  }, {
+    key: "setClasses",
+    value: function setClasses(classes) {
+      this._classes = classes;
+    }
+  }, {
+    key: "setContent",
+    value: function setContent(content) {
+      this.options.title = content;
+
+      if (this._tooltipNode) {
+        this._setContent(content, this.options);
+      }
+    }
+  }, {
+    key: "setOptions",
+    value: function setOptions(options) {
+      var classesUpdated = false;
+      var classes = options && options.classes || directive.options.defaultClass;
+
+      if (this._classes !== classes) {
+        this.setClasses(classes);
+        classesUpdated = true;
+      }
+
+      options = getOptions(options);
+      var needPopperUpdate = false;
+      var needRestart = false;
+
+      if (this.options.offset !== options.offset || this.options.placement !== options.placement) {
+        needPopperUpdate = true;
+      }
+
+      if (this.options.template !== options.template || this.options.trigger !== options.trigger || this.options.container !== options.container || classesUpdated) {
+        needRestart = true;
+      }
+
+      for (var key in options) {
+        this.options[key] = options[key];
+      }
+
+      if (this._tooltipNode) {
+        if (needRestart) {
+          var isOpen = this._isOpen;
+          this.dispose();
+
+          this._init();
+
+          if (isOpen) {
+            this.show();
+          }
+        } else if (needPopperUpdate) {
+          this.popperInstance.update();
+        }
+      }
+    } //
+    // Private methods
+    //
+
+  }, {
+    key: "_init",
+    value: function _init() {
+      // get events list
+      var events = typeof this.options.trigger === 'string' ? this.options.trigger.split(' ') : [];
+      this._isDisposed = false;
+      this._enableDocumentTouch = events.indexOf('manual') === -1;
+      events = events.filter(function (trigger) {
+        return ['click', 'hover', 'focus'].indexOf(trigger) !== -1;
+      }); // set event listeners
+
+      this._setEventListeners(this.reference, events, this.options); // title attribute
+
+
+      this.$_originalTitle = this.reference.getAttribute('title');
+      this.reference.removeAttribute('title');
+      this.reference.setAttribute('data-original-title', this.$_originalTitle);
+    }
+    /**
+     * Creates a new tooltip node
+     * @memberof Tooltip
+     * @private
+     * @param {HTMLElement} reference
+     * @param {String} template
+     * @param {String|HTMLElement|TitleFunction} title
+     * @param {Boolean} allowHtml
+     * @return {HTMLelement} tooltipNode
+     */
+
+  }, {
+    key: "_create",
+    value: function _create(reference, template) {
+      // create tooltip element
+      var tooltipGenerator = window.document.createElement('div');
+      tooltipGenerator.innerHTML = template.trim();
+      var tooltipNode = tooltipGenerator.childNodes[0]; // add unique ID to our tooltip (needed for accessibility reasons)
+
+      tooltipNode.id = "tooltip_".concat(Math.random().toString(36).substr(2, 10)); // Initially hide the tooltip
+      // The attribute will be switched in a next frame so
+      // CSS transitions can play
+
+      tooltipNode.setAttribute('aria-hidden', 'true');
+
+      if (this.options.autoHide && this.options.trigger.indexOf('hover') !== -1) {
+        tooltipNode.addEventListener('mouseenter', this.hide);
+        tooltipNode.addEventListener('click', this.hide);
+      } // return the generated tooltip node
+
+
+      return tooltipNode;
+    }
+  }, {
+    key: "_setContent",
+    value: function _setContent(content, options) {
+      var _this2 = this;
+
+      this.asyncContent = false;
+
+      this._applyContent(content, options).then(function () {
+        _this2.popperInstance.update();
+      });
+    }
+  }, {
+    key: "_applyContent",
+    value: function _applyContent(title, options) {
+      var _this3 = this;
+
+      return new Promise(function (resolve, reject) {
+        var allowHtml = options.html;
+        var rootNode = _this3._tooltipNode;
+        if (!rootNode) return;
+        var titleNode = rootNode.querySelector(_this3.options.innerSelector);
+
+        if (title.nodeType === 1) {
+          // if title is a node, append it only if allowHtml is true
+          if (allowHtml) {
+            while (titleNode.firstChild) {
+              titleNode.removeChild(titleNode.firstChild);
+            }
+
+            titleNode.appendChild(title);
+          }
+        } else if (typeof title === 'function') {
+          // if title is a function, call it and set innerText or innerHtml depending by `allowHtml` value
+          var result = title();
+
+          if (result && typeof result.then === 'function') {
+            _this3.asyncContent = true;
+            options.loadingClass && addClasses(rootNode, options.loadingClass);
+
+            if (options.loadingContent) {
+              _this3._applyContent(options.loadingContent, options);
+            }
+
+            result.then(function (asyncResult) {
+              options.loadingClass && removeClasses(rootNode, options.loadingClass);
+              return _this3._applyContent(asyncResult, options);
+            }).then(resolve).catch(reject);
+          } else {
+            _this3._applyContent(result, options).then(resolve).catch(reject);
+          }
+
+          return;
+        } else {
+          // if it's just a simple text, set innerText or innerHtml depending by `allowHtml` value
+          allowHtml ? titleNode.innerHTML = title : titleNode.innerText = title;
+        }
+
+        resolve();
+      });
+    }
+  }, {
+    key: "_show",
+    value: function _show(reference, options) {
+      if (options && typeof options.container === 'string') {
+        var container = document.querySelector(options.container);
+        if (!container) return;
+      }
+
+      clearTimeout(this._disposeTimer);
+      options = Object.assign({}, options);
+      delete options.offset;
+      var updateClasses = true;
+
+      if (this._tooltipNode) {
+        addClasses(this._tooltipNode, this._classes);
+        updateClasses = false;
+      }
+
+      var result = this._ensureShown(reference, options);
+
+      if (updateClasses && this._tooltipNode) {
+        addClasses(this._tooltipNode, this._classes);
+      }
+
+      addClasses(reference, ['v-tooltip-open']);
+      return result;
+    }
+  }, {
+    key: "_ensureShown",
+    value: function _ensureShown(reference, options) {
+      var _this4 = this;
+
+      // don't show if it's already visible
+      if (this._isOpen) {
+        return this;
+      }
+
+      this._isOpen = true;
+      openTooltips.push(this); // if the tooltipNode already exists, just show it
+
+      if (this._tooltipNode) {
+        this._tooltipNode.style.display = '';
+
+        this._tooltipNode.setAttribute('aria-hidden', 'false');
+
+        this.popperInstance.enableEventListeners();
+        this.popperInstance.update();
+
+        if (this.asyncContent) {
+          this._setContent(options.title, options);
+        }
+
+        return this;
+      } // get title
+
+
+      var title = reference.getAttribute('title') || options.title; // don't show tooltip if no title is defined
+
+      if (!title) {
+        return this;
+      } // create tooltip node
+
+
+      var tooltipNode = this._create(reference, options.template);
+
+      this._tooltipNode = tooltipNode; // Add `aria-describedby` to our reference element for accessibility reasons
+
+      reference.setAttribute('aria-describedby', tooltipNode.id); // append tooltip to container
+
+      var container = this._findContainer(options.container, reference);
+
+      this._append(tooltipNode, container);
+
+      var popperOptions = _objectSpread({}, options.popperOptions, {
+        placement: options.placement
+      });
+
+      popperOptions.modifiers = _objectSpread({}, popperOptions.modifiers, {
+        arrow: {
+          element: this.options.arrowSelector
+        }
+      });
+
+      if (options.boundariesElement) {
+        popperOptions.modifiers.preventOverflow = {
+          boundariesElement: options.boundariesElement
+        };
+      }
+
+      this.popperInstance = new popper_js__WEBPACK_IMPORTED_MODULE_0__["default"](reference, tooltipNode, popperOptions);
+
+      this._setContent(title, options); // Fix position
+
+
+      requestAnimationFrame(function () {
+        if (!_this4._isDisposed && _this4.popperInstance) {
+          _this4.popperInstance.update(); // Show the tooltip
+
+
+          requestAnimationFrame(function () {
+            if (!_this4._isDisposed) {
+              _this4._isOpen && tooltipNode.setAttribute('aria-hidden', 'false');
+            } else {
+              _this4.dispose();
+            }
+          });
+        } else {
+          _this4.dispose();
+        }
+      });
+      return this;
+    }
+  }, {
+    key: "_noLongerOpen",
+    value: function _noLongerOpen() {
+      var index = openTooltips.indexOf(this);
+
+      if (index !== -1) {
+        openTooltips.splice(index, 1);
+      }
+    }
+  }, {
+    key: "_hide",
+    value: function _hide()
+    /* reference, options */
+    {
+      var _this5 = this;
+
+      // don't hide if it's already hidden
+      if (!this._isOpen) {
+        return this;
+      }
+
+      this._isOpen = false;
+
+      this._noLongerOpen(); // hide tooltipNode
+
+
+      this._tooltipNode.style.display = 'none';
+
+      this._tooltipNode.setAttribute('aria-hidden', 'true');
+
+      this.popperInstance.disableEventListeners();
+      clearTimeout(this._disposeTimer);
+      var disposeTime = directive.options.disposeTimeout;
+
+      if (disposeTime !== null) {
+        this._disposeTimer = setTimeout(function () {
+          if (_this5._tooltipNode) {
+            _this5._tooltipNode.removeEventListener('mouseenter', _this5.hide);
+
+            _this5._tooltipNode.removeEventListener('click', _this5.hide); // Don't remove popper instance, just the HTML element
+
+
+            _this5._removeTooltipNode();
+          }
+        }, disposeTime);
+      }
+
+      removeClasses(this.reference, ['v-tooltip-open']);
+      return this;
+    }
+  }, {
+    key: "_removeTooltipNode",
+    value: function _removeTooltipNode() {
+      if (!this._tooltipNode) return;
+      var parentNode = this._tooltipNode.parentNode;
+
+      if (parentNode) {
+        parentNode.removeChild(this._tooltipNode);
+        this.reference.removeAttribute('aria-describedby');
+      }
+
+      this._tooltipNode = null;
+    }
+  }, {
+    key: "_dispose",
+    value: function _dispose() {
+      var _this6 = this;
+
+      this._isDisposed = true;
+      this.reference.removeAttribute('data-original-title');
+
+      if (this.$_originalTitle) {
+        this.reference.setAttribute('title', this.$_originalTitle);
+      } // remove event listeners first to prevent any unexpected behaviour
+
+
+      this._events.forEach(function (_ref) {
+        var func = _ref.func,
+            event = _ref.event;
+
+        _this6.reference.removeEventListener(event, func);
+      });
+
+      this._events = [];
+
+      if (this._tooltipNode) {
+        this._hide();
+
+        this._tooltipNode.removeEventListener('mouseenter', this.hide);
+
+        this._tooltipNode.removeEventListener('click', this.hide); // destroy instance
+
+
+        this.popperInstance.destroy(); // destroy tooltipNode if removeOnDestroy is not set, as popperInstance.destroy() already removes the element
+
+        if (!this.popperInstance.options.removeOnDestroy) {
+          this._removeTooltipNode();
+        }
+      } else {
+        this._noLongerOpen();
+      }
+
+      return this;
+    }
+  }, {
+    key: "_findContainer",
+    value: function _findContainer(container, reference) {
+      // if container is a query, get the relative element
+      if (typeof container === 'string') {
+        container = window.document.querySelector(container);
+      } else if (container === false) {
+        // if container is `false`, set it to reference parent
+        container = reference.parentNode;
+      }
+
+      return container;
+    }
+    /**
+     * Append tooltip to container
+     * @memberof Tooltip
+     * @private
+     * @param {HTMLElement} tooltip
+     * @param {HTMLElement|String|false} container
+     */
+
+  }, {
+    key: "_append",
+    value: function _append(tooltipNode, container) {
+      container.appendChild(tooltipNode);
+    }
+  }, {
+    key: "_setEventListeners",
+    value: function _setEventListeners(reference, events, options) {
+      var _this7 = this;
+
+      var directEvents = [];
+      var oppositeEvents = [];
+      events.forEach(function (event) {
+        switch (event) {
+          case 'hover':
+            directEvents.push('mouseenter');
+            oppositeEvents.push('mouseleave');
+            if (_this7.options.hideOnTargetClick) oppositeEvents.push('click');
+            break;
+
+          case 'focus':
+            directEvents.push('focus');
+            oppositeEvents.push('blur');
+            if (_this7.options.hideOnTargetClick) oppositeEvents.push('click');
+            break;
+
+          case 'click':
+            directEvents.push('click');
+            oppositeEvents.push('click');
+            break;
+        }
+      }); // schedule show tooltip
+
+      directEvents.forEach(function (event) {
+        var func = function func(evt) {
+          if (_this7._isOpen === true) {
+            return;
+          }
+
+          evt.usedByTooltip = true;
+
+          _this7._scheduleShow(reference, options.delay, options, evt);
+        };
+
+        _this7._events.push({
+          event: event,
+          func: func
+        });
+
+        reference.addEventListener(event, func);
+      }); // schedule hide tooltip
+
+      oppositeEvents.forEach(function (event) {
+        var func = function func(evt) {
+          if (evt.usedByTooltip === true) {
+            return;
+          }
+
+          _this7._scheduleHide(reference, options.delay, options, evt);
+        };
+
+        _this7._events.push({
+          event: event,
+          func: func
+        });
+
+        reference.addEventListener(event, func);
+      });
+    }
+  }, {
+    key: "_onDocumentTouch",
+    value: function _onDocumentTouch(event) {
+      if (this._enableDocumentTouch) {
+        this._scheduleHide(this.reference, this.options.delay, this.options, event);
+      }
+    }
+  }, {
+    key: "_scheduleShow",
+    value: function _scheduleShow(reference, delay, options
+    /*, evt */
+    ) {
+      var _this8 = this;
+
+      // defaults to 0
+      var computedDelay = delay && delay.show || delay || 0;
+      clearTimeout(this._scheduleTimer);
+      this._scheduleTimer = window.setTimeout(function () {
+        return _this8._show(reference, options);
+      }, computedDelay);
+    }
+  }, {
+    key: "_scheduleHide",
+    value: function _scheduleHide(reference, delay, options, evt) {
+      var _this9 = this;
+
+      // defaults to 0
+      var computedDelay = delay && delay.hide || delay || 0;
+      clearTimeout(this._scheduleTimer);
+      this._scheduleTimer = window.setTimeout(function () {
+        if (_this9._isOpen === false) {
+          return;
+        }
+
+        if (!document.body.contains(_this9._tooltipNode)) {
+          return;
+        } // if we are hiding because of a mouseleave, we must check that the new
+        // reference isn't the tooltip, because in this case we don't want to hide it
+
+
+        if (evt.type === 'mouseleave') {
+          var isSet = _this9._setTooltipNodeEvent(evt, reference, delay, options); // if we set the new event, don't hide the tooltip yet
+          // the new event will take care to hide it if necessary
+
+
+          if (isSet) {
+            return;
+          }
+        }
+
+        _this9._hide(reference, options);
+      }, computedDelay);
+    }
+  }]);
+
+  return Tooltip;
+}(); // Hide tooltips on touch devices
+
+if (typeof document !== 'undefined') {
+  document.addEventListener('touchstart', function (event) {
+    for (var i = 0; i < openTooltips.length; i++) {
+      openTooltips[i]._onDocumentTouch(event);
+    }
+  }, supportsPassive ? {
+    passive: true,
+    capture: true
+  } : true);
+}
+/**
+ * Placement function, its context is the Tooltip instance.
+ * @memberof Tooltip
+ * @callback PlacementFunction
+ * @param {HTMLElement} tooltip - tooltip DOM node.
+ * @param {HTMLElement} reference - reference DOM node.
+ * @return {String} placement - One of the allowed placement options.
+ */
+
+/**
+ * Title function, its context is the Tooltip instance.
+ * @memberof Tooltip
+ * @callback TitleFunction
+ * @return {String} placement - The desired title.
+ */
+
+var state = {
+  enabled: true
+};
+var positions = ['top', 'top-start', 'top-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end'];
+var defaultOptions = {
+  // Default tooltip placement relative to target element
+  defaultPlacement: 'top',
+  // Default CSS classes applied to the tooltip element
+  defaultClass: 'vue-tooltip-theme',
+  // Default CSS classes applied to the target element of the tooltip
+  defaultTargetClass: 'has-tooltip',
+  // Is the content HTML by default?
+  defaultHtml: true,
+  // Default HTML template of the tooltip element
+  // It must include `tooltip-arrow` & `tooltip-inner` CSS classes (can be configured, see below)
+  // Change if the classes conflict with other libraries (for example bootstrap)
+  defaultTemplate: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+  // Selector used to get the arrow element in the tooltip template
+  defaultArrowSelector: '.tooltip-arrow, .tooltip__arrow',
+  // Selector used to get the inner content element in the tooltip template
+  defaultInnerSelector: '.tooltip-inner, .tooltip__inner',
+  // Delay (ms)
+  defaultDelay: 0,
+  // Default events that trigger the tooltip
+  defaultTrigger: 'hover focus',
+  // Default position offset (px)
+  defaultOffset: 0,
+  // Default container where the tooltip will be appended
+  defaultContainer: 'body',
+  defaultBoundariesElement: undefined,
+  defaultPopperOptions: {},
+  // Class added when content is loading
+  defaultLoadingClass: 'tooltip-loading',
+  // Displayed when tooltip content is loading
+  defaultLoadingContent: '...',
+  // Hide on mouseover tooltip
+  autoHide: true,
+  // Close tooltip on click on tooltip target?
+  defaultHideOnTargetClick: true,
+  // Auto destroy tooltip DOM nodes (ms)
+  disposeTimeout: 5000,
+  // Options for popover
+  popover: {
+    defaultPlacement: 'bottom',
+    // Use the `popoverClass` prop for theming
+    defaultClass: 'vue-popover-theme',
+    // Base class (change if conflicts with other libraries)
+    defaultBaseClass: 'tooltip popover',
+    // Wrapper class (contains arrow and inner)
+    defaultWrapperClass: 'wrapper',
+    // Inner content class
+    defaultInnerClass: 'tooltip-inner popover-inner',
+    // Arrow class
+    defaultArrowClass: 'tooltip-arrow popover-arrow',
+    // Class added when popover is open
+    defaultOpenClass: 'open',
+    defaultDelay: 0,
+    defaultTrigger: 'click',
+    defaultOffset: 0,
+    defaultContainer: 'body',
+    defaultBoundariesElement: undefined,
+    defaultPopperOptions: {},
+    // Hides if clicked outside of popover
+    defaultAutoHide: true,
+    // Update popper on content resize
+    defaultHandleResize: true
+  }
+};
+function getOptions(options) {
+  var result = {
+    placement: typeof options.placement !== 'undefined' ? options.placement : directive.options.defaultPlacement,
+    delay: typeof options.delay !== 'undefined' ? options.delay : directive.options.defaultDelay,
+    html: typeof options.html !== 'undefined' ? options.html : directive.options.defaultHtml,
+    template: typeof options.template !== 'undefined' ? options.template : directive.options.defaultTemplate,
+    arrowSelector: typeof options.arrowSelector !== 'undefined' ? options.arrowSelector : directive.options.defaultArrowSelector,
+    innerSelector: typeof options.innerSelector !== 'undefined' ? options.innerSelector : directive.options.defaultInnerSelector,
+    trigger: typeof options.trigger !== 'undefined' ? options.trigger : directive.options.defaultTrigger,
+    offset: typeof options.offset !== 'undefined' ? options.offset : directive.options.defaultOffset,
+    container: typeof options.container !== 'undefined' ? options.container : directive.options.defaultContainer,
+    boundariesElement: typeof options.boundariesElement !== 'undefined' ? options.boundariesElement : directive.options.defaultBoundariesElement,
+    autoHide: typeof options.autoHide !== 'undefined' ? options.autoHide : directive.options.autoHide,
+    hideOnTargetClick: typeof options.hideOnTargetClick !== 'undefined' ? options.hideOnTargetClick : directive.options.defaultHideOnTargetClick,
+    loadingClass: typeof options.loadingClass !== 'undefined' ? options.loadingClass : directive.options.defaultLoadingClass,
+    loadingContent: typeof options.loadingContent !== 'undefined' ? options.loadingContent : directive.options.defaultLoadingContent,
+    popperOptions: _objectSpread({}, typeof options.popperOptions !== 'undefined' ? options.popperOptions : directive.options.defaultPopperOptions)
+  };
+
+  if (result.offset) {
+    var typeofOffset = _typeof(result.offset);
+
+    var offset = result.offset; // One value -> switch
+
+    if (typeofOffset === 'number' || typeofOffset === 'string' && offset.indexOf(',') === -1) {
+      offset = "0, ".concat(offset);
+    }
+
+    if (!result.popperOptions.modifiers) {
+      result.popperOptions.modifiers = {};
+    }
+
+    result.popperOptions.modifiers.offset = {
+      offset: offset
+    };
+  }
+
+  if (result.trigger && result.trigger.indexOf('click') !== -1) {
+    result.hideOnTargetClick = false;
+  }
+
+  return result;
+}
+function getPlacement(value, modifiers) {
+  var placement = value.placement;
+
+  for (var i = 0; i < positions.length; i++) {
+    var pos = positions[i];
+
+    if (modifiers[pos]) {
+      placement = pos;
+    }
+  }
+
+  return placement;
+}
+function getContent(value) {
+  var type = _typeof(value);
+
+  if (type === 'string') {
+    return value;
+  } else if (value && type === 'object') {
+    return value.content;
+  } else {
+    return false;
+  }
+}
+function createTooltip(el, value) {
+  var modifiers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var content = getContent(value);
+  var classes = typeof value.classes !== 'undefined' ? value.classes : directive.options.defaultClass;
+
+  var opts = _objectSpread({
+    title: content
+  }, getOptions(_objectSpread({}, value, {
+    placement: getPlacement(value, modifiers)
+  })));
+
+  var tooltip = el._tooltip = new Tooltip(el, opts);
+  tooltip.setClasses(classes);
+  tooltip._vueEl = el; // Class on target
+
+  var targetClasses = typeof value.targetClasses !== 'undefined' ? value.targetClasses : directive.options.defaultTargetClass;
+  el._tooltipTargetClasses = targetClasses;
+  addClasses(el, targetClasses);
+  return tooltip;
+}
+function destroyTooltip(el) {
+  if (el._tooltip) {
+    el._tooltip.dispose();
+
+    delete el._tooltip;
+    delete el._tooltipOldShow;
+  }
+
+  if (el._tooltipTargetClasses) {
+    removeClasses(el, el._tooltipTargetClasses);
+    delete el._tooltipTargetClasses;
+  }
+}
+function bind(el, _ref) {
+  var value = _ref.value,
+      oldValue = _ref.oldValue,
+      modifiers = _ref.modifiers;
+  var content = getContent(value);
+
+  if (!content || !state.enabled) {
+    destroyTooltip(el);
+  } else {
+    var tooltip;
+
+    if (el._tooltip) {
+      tooltip = el._tooltip; // Content
+
+      tooltip.setContent(content); // Options
+
+      tooltip.setOptions(_objectSpread({}, value, {
+        placement: getPlacement(value, modifiers)
+      }));
+    } else {
+      tooltip = createTooltip(el, value, modifiers);
+    } // Manual show
+
+
+    if (typeof value.show !== 'undefined' && value.show !== el._tooltipOldShow) {
+      el._tooltipOldShow = value.show;
+      value.show ? tooltip.show() : tooltip.hide();
+    }
+  }
+}
+var directive = {
+  options: defaultOptions,
+  bind: bind,
+  update: bind,
+  unbind: function unbind(el) {
+    destroyTooltip(el);
+  }
+};
+
+function addListeners(el) {
+  el.addEventListener('click', onClick);
+  el.addEventListener('touchstart', onTouchStart, supportsPassive ? {
+    passive: true
+  } : false);
+}
+
+function removeListeners(el) {
+  el.removeEventListener('click', onClick);
+  el.removeEventListener('touchstart', onTouchStart);
+  el.removeEventListener('touchend', onTouchEnd);
+  el.removeEventListener('touchcancel', onTouchCancel);
+}
+
+function onClick(event) {
+  var el = event.currentTarget;
+  event.closePopover = !el.$_vclosepopover_touch;
+  event.closeAllPopover = el.$_closePopoverModifiers && !!el.$_closePopoverModifiers.all;
+}
+
+function onTouchStart(event) {
+  if (event.changedTouches.length === 1) {
+    var el = event.currentTarget;
+    el.$_vclosepopover_touch = true;
+    var touch = event.changedTouches[0];
+    el.$_vclosepopover_touchPoint = touch;
+    el.addEventListener('touchend', onTouchEnd);
+    el.addEventListener('touchcancel', onTouchCancel);
+  }
+}
+
+function onTouchEnd(event) {
+  var el = event.currentTarget;
+  el.$_vclosepopover_touch = false;
+
+  if (event.changedTouches.length === 1) {
+    var touch = event.changedTouches[0];
+    var firstTouch = el.$_vclosepopover_touchPoint;
+    event.closePopover = Math.abs(touch.screenY - firstTouch.screenY) < 20 && Math.abs(touch.screenX - firstTouch.screenX) < 20;
+    event.closeAllPopover = el.$_closePopoverModifiers && !!el.$_closePopoverModifiers.all;
+  }
+}
+
+function onTouchCancel(event) {
+  var el = event.currentTarget;
+  el.$_vclosepopover_touch = false;
+}
+
+var vclosepopover = {
+  bind: function bind(el, _ref) {
+    var value = _ref.value,
+        modifiers = _ref.modifiers;
+    el.$_closePopoverModifiers = modifiers;
+
+    if (typeof value === 'undefined' || value) {
+      addListeners(el);
+    }
+  },
+  update: function update(el, _ref2) {
+    var value = _ref2.value,
+        oldValue = _ref2.oldValue,
+        modifiers = _ref2.modifiers;
+    el.$_closePopoverModifiers = modifiers;
+
+    if (value !== oldValue) {
+      if (typeof value === 'undefined' || value) {
+        addListeners(el);
+      } else {
+        removeListeners(el);
+      }
+    }
+  },
+  unbind: function unbind(el) {
+    removeListeners(el);
+  }
+};
+
+function getDefault(key) {
+  var value = directive.options.popover[key];
+
+  if (typeof value === 'undefined') {
+    return directive.options[key];
+  }
+
+  return value;
+}
+
+var isIOS = false;
+
+if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
+  isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+}
+
+var openPopovers = [];
+
+var Element = function Element() {};
+
+if (typeof window !== 'undefined') {
+  Element = window.Element;
+}
+
+var script = {
+  name: 'VPopover',
+  components: {
+    ResizeObserver: vue_resize__WEBPACK_IMPORTED_MODULE_1__["ResizeObserver"]
+  },
+  props: {
+    open: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    placement: {
+      type: String,
+      default: function _default() {
+        return getDefault('defaultPlacement');
+      }
+    },
+    delay: {
+      type: [String, Number, Object],
+      default: function _default() {
+        return getDefault('defaultDelay');
+      }
+    },
+    offset: {
+      type: [String, Number],
+      default: function _default() {
+        return getDefault('defaultOffset');
+      }
+    },
+    trigger: {
+      type: String,
+      default: function _default() {
+        return getDefault('defaultTrigger');
+      }
+    },
+    container: {
+      type: [String, Object, Element, Boolean],
+      default: function _default() {
+        return getDefault('defaultContainer');
+      }
+    },
+    boundariesElement: {
+      type: [String, Element],
+      default: function _default() {
+        return getDefault('defaultBoundariesElement');
+      }
+    },
+    popperOptions: {
+      type: Object,
+      default: function _default() {
+        return getDefault('defaultPopperOptions');
+      }
+    },
+    popoverClass: {
+      type: [String, Array],
+      default: function _default() {
+        return getDefault('defaultClass');
+      }
+    },
+    popoverBaseClass: {
+      type: [String, Array],
+      default: function _default() {
+        return directive.options.popover.defaultBaseClass;
+      }
+    },
+    popoverInnerClass: {
+      type: [String, Array],
+      default: function _default() {
+        return directive.options.popover.defaultInnerClass;
+      }
+    },
+    popoverWrapperClass: {
+      type: [String, Array],
+      default: function _default() {
+        return directive.options.popover.defaultWrapperClass;
+      }
+    },
+    popoverArrowClass: {
+      type: [String, Array],
+      default: function _default() {
+        return directive.options.popover.defaultArrowClass;
+      }
+    },
+    autoHide: {
+      type: Boolean,
+      default: function _default() {
+        return directive.options.popover.defaultAutoHide;
+      }
+    },
+    handleResize: {
+      type: Boolean,
+      default: function _default() {
+        return directive.options.popover.defaultHandleResize;
+      }
+    },
+    openGroup: {
+      type: String,
+      default: null
+    },
+    openClass: {
+      type: [String, Array],
+      default: function _default() {
+        return directive.options.popover.defaultOpenClass;
+      }
+    }
+  },
+  data: function data() {
+    return {
+      isOpen: false,
+      id: Math.random().toString(36).substr(2, 10)
+    };
+  },
+  computed: {
+    cssClass: function cssClass() {
+      return _defineProperty({}, this.openClass, this.isOpen);
+    },
+    popoverId: function popoverId() {
+      return "popover_".concat(this.id);
+    }
+  },
+  watch: {
+    open: function open(val) {
+      if (val) {
+        this.show();
+      } else {
+        this.hide();
+      }
+    },
+    disabled: function disabled(val, oldVal) {
+      if (val !== oldVal) {
+        if (val) {
+          this.hide();
+        } else if (this.open) {
+          this.show();
+        }
+      }
+    },
+    container: function container(val) {
+      if (this.isOpen && this.popperInstance) {
+        var popoverNode = this.$refs.popover;
+        var reference = this.$refs.trigger;
+        var container = this.$_findContainer(this.container, reference);
+
+        if (!container) {
+          console.warn('No container for popover', this);
+          return;
+        }
+
+        container.appendChild(popoverNode);
+        this.popperInstance.scheduleUpdate();
+      }
+    },
+    trigger: function trigger(val) {
+      this.$_removeEventListeners();
+      this.$_addEventListeners();
+    },
+    placement: function placement(val) {
+      var _this = this;
+
+      this.$_updatePopper(function () {
+        _this.popperInstance.options.placement = val;
+      });
+    },
+    offset: '$_restartPopper',
+    boundariesElement: '$_restartPopper',
+    popperOptions: {
+      handler: '$_restartPopper',
+      deep: true
+    }
+  },
+  created: function created() {
+    this.$_isDisposed = false;
+    this.$_mounted = false;
+    this.$_events = [];
+    this.$_preventOpen = false;
+  },
+  mounted: function mounted() {
+    var popoverNode = this.$refs.popover;
+    popoverNode.parentNode && popoverNode.parentNode.removeChild(popoverNode);
+    this.$_init();
+
+    if (this.open) {
+      this.show();
+    }
+  },
+  deactivated: function deactivated() {
+    this.hide();
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.dispose();
+  },
+  methods: {
+    show: function show() {
+      var _this2 = this;
+
+      var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+          event = _ref2.event,
+          _ref2$skipDelay = _ref2.skipDelay,
+          _ref2$force = _ref2.force,
+          force = _ref2$force === void 0 ? false : _ref2$force;
+
+      if (force || !this.disabled) {
+        this.$_scheduleShow(event);
+        this.$emit('show');
+      }
+
+      this.$emit('update:open', true);
+      this.$_beingShowed = true;
+      requestAnimationFrame(function () {
+        _this2.$_beingShowed = false;
+      });
+    },
+    hide: function hide() {
+      var _ref3 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+          event = _ref3.event,
+          _ref3$skipDelay = _ref3.skipDelay;
+
+      this.$_scheduleHide(event);
+      this.$emit('hide');
+      this.$emit('update:open', false);
+    },
+    dispose: function dispose() {
+      this.$_isDisposed = true;
+      this.$_removeEventListeners();
+      this.hide({
+        skipDelay: true
+      });
+
+      if (this.popperInstance) {
+        this.popperInstance.destroy(); // destroy tooltipNode if removeOnDestroy is not set, as popperInstance.destroy() already removes the element
+
+        if (!this.popperInstance.options.removeOnDestroy) {
+          var popoverNode = this.$refs.popover;
+          popoverNode.parentNode && popoverNode.parentNode.removeChild(popoverNode);
+        }
+      }
+
+      this.$_mounted = false;
+      this.popperInstance = null;
+      this.isOpen = false;
+      this.$emit('dispose');
+    },
+    $_init: function $_init() {
+      if (this.trigger.indexOf('manual') === -1) {
+        this.$_addEventListeners();
+      }
+    },
+    $_show: function $_show() {
+      var _this3 = this;
+
+      var reference = this.$refs.trigger;
+      var popoverNode = this.$refs.popover;
+      clearTimeout(this.$_disposeTimer); // Already open
+
+      if (this.isOpen) {
+        return;
+      } // Popper is already initialized
+
+
+      if (this.popperInstance) {
+        this.isOpen = true;
+        this.popperInstance.enableEventListeners();
+        this.popperInstance.scheduleUpdate();
+      }
+
+      if (!this.$_mounted) {
+        var container = this.$_findContainer(this.container, reference);
+
+        if (!container) {
+          console.warn('No container for popover', this);
+          return;
+        }
+
+        container.appendChild(popoverNode);
+        this.$_mounted = true;
+      }
+
+      if (!this.popperInstance) {
+        var popperOptions = _objectSpread({}, this.popperOptions, {
+          placement: this.placement
+        });
+
+        popperOptions.modifiers = _objectSpread({}, popperOptions.modifiers, {
+          arrow: _objectSpread({}, popperOptions.modifiers && popperOptions.modifiers.arrow, {
+            element: this.$refs.arrow
+          })
+        });
+
+        if (this.offset) {
+          var offset = this.$_getOffset();
+          popperOptions.modifiers.offset = _objectSpread({}, popperOptions.modifiers && popperOptions.modifiers.offset, {
+            offset: offset
+          });
+        }
+
+        if (this.boundariesElement) {
+          popperOptions.modifiers.preventOverflow = _objectSpread({}, popperOptions.modifiers && popperOptions.modifiers.preventOverflow, {
+            boundariesElement: this.boundariesElement
+          });
+        }
+
+        this.popperInstance = new popper_js__WEBPACK_IMPORTED_MODULE_0__["default"](reference, popoverNode, popperOptions); // Fix position
+
+        requestAnimationFrame(function () {
+          if (_this3.hidden) {
+            _this3.hidden = false;
+
+            _this3.$_hide();
+
+            return;
+          }
+
+          if (!_this3.$_isDisposed && _this3.popperInstance) {
+            _this3.popperInstance.scheduleUpdate(); // Show the tooltip
+
+
+            requestAnimationFrame(function () {
+              if (_this3.hidden) {
+                _this3.hidden = false;
+
+                _this3.$_hide();
+
+                return;
+              }
+
+              if (!_this3.$_isDisposed) {
+                _this3.isOpen = true;
+              } else {
+                _this3.dispose();
+              }
+            });
+          } else {
+            _this3.dispose();
+          }
+        });
+      }
+
+      var openGroup = this.openGroup;
+
+      if (openGroup) {
+        var popover;
+
+        for (var i = 0; i < openPopovers.length; i++) {
+          popover = openPopovers[i];
+
+          if (popover.openGroup !== openGroup) {
+            popover.hide();
+            popover.$emit('close-group');
+          }
+        }
+      }
+
+      openPopovers.push(this);
+      this.$emit('apply-show');
+    },
+    $_hide: function $_hide() {
+      var _this4 = this;
+
+      // Already hidden
+      if (!this.isOpen) {
+        return;
+      }
+
+      var index = openPopovers.indexOf(this);
+
+      if (index !== -1) {
+        openPopovers.splice(index, 1);
+      }
+
+      this.isOpen = false;
+
+      if (this.popperInstance) {
+        this.popperInstance.disableEventListeners();
+      }
+
+      clearTimeout(this.$_disposeTimer);
+      var disposeTime = directive.options.popover.disposeTimeout || directive.options.disposeTimeout;
+
+      if (disposeTime !== null) {
+        this.$_disposeTimer = setTimeout(function () {
+          var popoverNode = _this4.$refs.popover;
+
+          if (popoverNode) {
+            // Don't remove popper instance, just the HTML element
+            popoverNode.parentNode && popoverNode.parentNode.removeChild(popoverNode);
+            _this4.$_mounted = false;
+          }
+        }, disposeTime);
+      }
+
+      this.$emit('apply-hide');
+    },
+    $_findContainer: function $_findContainer(container, reference) {
+      // if container is a query, get the relative element
+      if (typeof container === 'string') {
+        container = window.document.querySelector(container);
+      } else if (container === false) {
+        // if container is `false`, set it to reference parent
+        container = reference.parentNode;
+      }
+
+      return container;
+    },
+    $_getOffset: function $_getOffset() {
+      var typeofOffset = _typeof(this.offset);
+
+      var offset = this.offset; // One value -> switch
+
+      if (typeofOffset === 'number' || typeofOffset === 'string' && offset.indexOf(',') === -1) {
+        offset = "0, ".concat(offset);
+      }
+
+      return offset;
+    },
+    $_addEventListeners: function $_addEventListeners() {
+      var _this5 = this;
+
+      var reference = this.$refs.trigger;
+      var directEvents = [];
+      var oppositeEvents = [];
+      var events = typeof this.trigger === 'string' ? this.trigger.split(' ').filter(function (trigger) {
+        return ['click', 'hover', 'focus'].indexOf(trigger) !== -1;
+      }) : [];
+      events.forEach(function (event) {
+        switch (event) {
+          case 'hover':
+            directEvents.push('mouseenter');
+            oppositeEvents.push('mouseleave');
+            break;
+
+          case 'focus':
+            directEvents.push('focus');
+            oppositeEvents.push('blur');
+            break;
+
+          case 'click':
+            directEvents.push('click');
+            oppositeEvents.push('click');
+            break;
+        }
+      }); // schedule show tooltip
+
+      directEvents.forEach(function (event) {
+        var func = function func(event) {
+          if (_this5.isOpen) {
+            return;
+          }
+
+          event.usedByTooltip = true;
+          !_this5.$_preventOpen && _this5.show({
+            event: event
+          });
+          _this5.hidden = false;
+        };
+
+        _this5.$_events.push({
+          event: event,
+          func: func
+        });
+
+        reference.addEventListener(event, func);
+      }); // schedule hide tooltip
+
+      oppositeEvents.forEach(function (event) {
+        var func = function func(event) {
+          if (event.usedByTooltip) {
+            return;
+          }
+
+          _this5.hide({
+            event: event
+          });
+
+          _this5.hidden = true;
+        };
+
+        _this5.$_events.push({
+          event: event,
+          func: func
+        });
+
+        reference.addEventListener(event, func);
+      });
+    },
+    $_scheduleShow: function $_scheduleShow() {
+      var skipDelay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      clearTimeout(this.$_scheduleTimer);
+
+      if (skipDelay) {
+        this.$_show();
+      } else {
+        // defaults to 0
+        var computedDelay = parseInt(this.delay && this.delay.show || this.delay || 0);
+        this.$_scheduleTimer = setTimeout(this.$_show.bind(this), computedDelay);
+      }
+    },
+    $_scheduleHide: function $_scheduleHide() {
+      var _this6 = this;
+
+      var event = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var skipDelay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      clearTimeout(this.$_scheduleTimer);
+
+      if (skipDelay) {
+        this.$_hide();
+      } else {
+        // defaults to 0
+        var computedDelay = parseInt(this.delay && this.delay.hide || this.delay || 0);
+        this.$_scheduleTimer = setTimeout(function () {
+          if (!_this6.isOpen) {
+            return;
+          } // if we are hiding because of a mouseleave, we must check that the new
+          // reference isn't the tooltip, because in this case we don't want to hide it
+
+
+          if (event && event.type === 'mouseleave') {
+            var isSet = _this6.$_setTooltipNodeEvent(event); // if we set the new event, don't hide the tooltip yet
+            // the new event will take care to hide it if necessary
+
+
+            if (isSet) {
+              return;
+            }
+          }
+
+          _this6.$_hide();
+        }, computedDelay);
+      }
+    },
+    $_setTooltipNodeEvent: function $_setTooltipNodeEvent(event) {
+      var _this7 = this;
+
+      var reference = this.$refs.trigger;
+      var popoverNode = this.$refs.popover;
+      var relatedreference = event.relatedreference || event.toElement || event.relatedTarget;
+
+      var callback = function callback(event2) {
+        var relatedreference2 = event2.relatedreference || event2.toElement || event2.relatedTarget; // Remove event listener after call
+
+        popoverNode.removeEventListener(event.type, callback); // If the new reference is not the reference element
+
+        if (!reference.contains(relatedreference2)) {
+          // Schedule to hide tooltip
+          _this7.hide({
+            event: event2
+          });
+        }
+      };
+
+      if (popoverNode.contains(relatedreference)) {
+        // listen to mouseleave on the tooltip element to be able to hide the tooltip
+        popoverNode.addEventListener(event.type, callback);
+        return true;
+      }
+
+      return false;
+    },
+    $_removeEventListeners: function $_removeEventListeners() {
+      var reference = this.$refs.trigger;
+      this.$_events.forEach(function (_ref4) {
+        var func = _ref4.func,
+            event = _ref4.event;
+        reference.removeEventListener(event, func);
+      });
+      this.$_events = [];
+    },
+    $_updatePopper: function $_updatePopper(cb) {
+      if (this.popperInstance) {
+        cb();
+        if (this.isOpen) this.popperInstance.scheduleUpdate();
+      }
+    },
+    $_restartPopper: function $_restartPopper() {
+      if (this.popperInstance) {
+        var isOpen = this.isOpen;
+        this.dispose();
+        this.$_isDisposed = false;
+        this.$_init();
+
+        if (isOpen) {
+          this.show({
+            skipDelay: true,
+            force: true
+          });
+        }
+      }
+    },
+    $_handleGlobalClose: function $_handleGlobalClose(event) {
+      var _this8 = this;
+
+      var touch = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      if (this.$_beingShowed) return;
+      this.hide({
+        event: event
+      });
+
+      if (event.closePopover) {
+        this.$emit('close-directive');
+      } else {
+        this.$emit('auto-hide');
+      }
+
+      if (touch) {
+        this.$_preventOpen = true;
+        setTimeout(function () {
+          _this8.$_preventOpen = false;
+        }, 300);
+      }
+    },
+    $_handleResize: function $_handleResize() {
+      if (this.isOpen && this.popperInstance) {
+        this.popperInstance.scheduleUpdate();
+        this.$emit('resize');
+      }
+    }
+  }
+};
+
+if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+  if (isIOS) {
+    document.addEventListener('touchend', handleGlobalTouchend, supportsPassive ? {
+      passive: true,
+      capture: true
+    } : true);
+  } else {
+    window.addEventListener('click', handleGlobalClick, true);
+  }
+}
+
+function handleGlobalClick(event) {
+  handleGlobalClose(event);
+}
+
+function handleGlobalTouchend(event) {
+  handleGlobalClose(event, true);
+}
+
+function handleGlobalClose(event) {
+  var touch = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  var _loop = function _loop(i) {
+    var popover = openPopovers[i];
+
+    if (popover.$refs.popover) {
+      var contains = popover.$refs.popover.contains(event.target);
+      requestAnimationFrame(function () {
+        if (event.closeAllPopover || event.closePopover && contains || popover.autoHide && !contains) {
+          popover.$_handleGlobalClose(event, touch);
+        }
+      });
+    }
+  };
+
+  // Delay so that close directive has time to set values
+  for (var i = 0; i < openPopovers.length; i++) {
+    _loop(i);
+  }
+}
+
+function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
+/* server only */
+, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+  if (typeof shadowMode !== 'boolean') {
+    createInjectorSSR = createInjector;
+    createInjector = shadowMode;
+    shadowMode = false;
+  } // Vue.extend constructor export interop.
+
+
+  var options = typeof script === 'function' ? script.options : script; // render functions
+
+  if (template && template.render) {
+    options.render = template.render;
+    options.staticRenderFns = template.staticRenderFns;
+    options._compiled = true; // functional template
+
+    if (isFunctionalTemplate) {
+      options.functional = true;
+    }
+  } // scopedId
+
+
+  if (scopeId) {
+    options._scopeId = scopeId;
+  }
+
+  var hook;
+
+  if (moduleIdentifier) {
+    // server build
+    hook = function hook(context) {
+      // 2.3 injection
+      context = context || // cached call
+      this.$vnode && this.$vnode.ssrContext || // stateful
+      this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
+      // 2.2 with runInNewContext: true
+
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__;
+      } // inject component styles
+
+
+      if (style) {
+        style.call(this, createInjectorSSR(context));
+      } // register component module identifier for async chunk inference
+
+
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier);
+      }
+    }; // used by ssr in case component is cached and beforeCreate
+    // never gets called
+
+
+    options._ssrRegister = hook;
+  } else if (style) {
+    hook = shadowMode ? function () {
+      style.call(this, createInjectorShadow(this.$root.$options.shadowRoot));
+    } : function (context) {
+      style.call(this, createInjector(context));
+    };
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // register for functional component in vue file
+      var originalRender = options.render;
+
+      options.render = function renderWithStyleInjection(h, context) {
+        hook.call(context);
+        return originalRender(h, context);
+      };
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate;
+      options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+    }
+  }
+
+  return script;
+}
+
+var normalizeComponent_1 = normalizeComponent;
+
+/* script */
+var __vue_script__ = script;
+/* template */
+
+var __vue_render__ = function __vue_render__() {
+  var _vm = this;
+
+  var _h = _vm.$createElement;
+
+  var _c = _vm._self._c || _h;
+
+  return _c("div", {
+    staticClass: "v-popover",
+    class: _vm.cssClass
+  }, [_c("div", {
+    ref: "trigger",
+    staticClass: "trigger",
+    staticStyle: {
+      display: "inline-block"
+    },
+    attrs: {
+      "aria-describedby": _vm.popoverId,
+      tabindex: _vm.trigger.indexOf("focus") !== -1 ? 0 : undefined
+    }
+  }, [_vm._t("default")], 2), _vm._v(" "), _c("div", {
+    ref: "popover",
+    class: [_vm.popoverBaseClass, _vm.popoverClass, _vm.cssClass],
+    style: {
+      visibility: _vm.isOpen ? "visible" : "hidden"
+    },
+    attrs: {
+      id: _vm.popoverId,
+      "aria-hidden": _vm.isOpen ? "false" : "true",
+      tabindex: _vm.autoHide ? 0 : undefined
+    },
+    on: {
+      keyup: function keyup($event) {
+        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])) {
+          return null;
+        }
+
+        _vm.autoHide && _vm.hide();
+      }
+    }
+  }, [_c("div", {
+    class: _vm.popoverWrapperClass
+  }, [_c("div", {
+    ref: "inner",
+    class: _vm.popoverInnerClass,
+    staticStyle: {
+      position: "relative"
+    }
+  }, [_c("div", [_vm._t("popover")], 2), _vm._v(" "), _vm.handleResize ? _c("ResizeObserver", {
+    on: {
+      notify: _vm.$_handleResize
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c("div", {
+    ref: "arrow",
+    class: _vm.popoverArrowClass
+  })])])]);
+};
+
+var __vue_staticRenderFns__ = [];
+__vue_render__._withStripped = true;
+/* style */
+
+var __vue_inject_styles__ = undefined;
+/* scoped */
+
+var __vue_scope_id__ = undefined;
+/* module identifier */
+
+var __vue_module_identifier__ = undefined;
+/* functional template */
+
+var __vue_is_functional_template__ = false;
+/* style inject */
+
+/* style inject SSR */
+
+var Popover = normalizeComponent_1({
+  render: __vue_render__,
+  staticRenderFns: __vue_staticRenderFns__
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, undefined, undefined);
 
 /**
  * Removes all key-value entries from the list cache.
@@ -7441,3144 +9296,6 @@ Stack.prototype.set = _stackSet;
 
 var _Stack = Stack;
 
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED$2 = '__lodash_hash_undefined__';
-
-/**
- * Adds `value` to the array cache.
- *
- * @private
- * @name add
- * @memberOf SetCache
- * @alias push
- * @param {*} value The value to cache.
- * @returns {Object} Returns the cache instance.
- */
-function setCacheAdd(value) {
-  this.__data__.set(value, HASH_UNDEFINED$2);
-  return this;
-}
-
-var _setCacheAdd = setCacheAdd;
-
-/**
- * Checks if `value` is in the array cache.
- *
- * @private
- * @name has
- * @memberOf SetCache
- * @param {*} value The value to search for.
- * @returns {number} Returns `true` if `value` is found, else `false`.
- */
-function setCacheHas(value) {
-  return this.__data__.has(value);
-}
-
-var _setCacheHas = setCacheHas;
-
-/**
- *
- * Creates an array cache object to store unique values.
- *
- * @private
- * @constructor
- * @param {Array} [values] The values to cache.
- */
-function SetCache(values) {
-  var index = -1,
-      length = values == null ? 0 : values.length;
-
-  this.__data__ = new _MapCache;
-  while (++index < length) {
-    this.add(values[index]);
-  }
-}
-
-// Add methods to `SetCache`.
-SetCache.prototype.add = SetCache.prototype.push = _setCacheAdd;
-SetCache.prototype.has = _setCacheHas;
-
-var _SetCache = SetCache;
-
-/**
- * A specialized version of `_.some` for arrays without support for iteratee
- * shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} predicate The function invoked per iteration.
- * @returns {boolean} Returns `true` if any element passes the predicate check,
- *  else `false`.
- */
-function arraySome(array, predicate) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  while (++index < length) {
-    if (predicate(array[index], index, array)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-var _arraySome = arraySome;
-
-/**
- * Checks if a `cache` value for `key` exists.
- *
- * @private
- * @param {Object} cache The cache to query.
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function cacheHas(cache, key) {
-  return cache.has(key);
-}
-
-var _cacheHas = cacheHas;
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1,
-    COMPARE_UNORDERED_FLAG = 2;
-
-/**
- * A specialized version of `baseIsEqualDeep` for arrays with support for
- * partial deep comparisons.
- *
- * @private
- * @param {Array} array The array to compare.
- * @param {Array} other The other array to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} stack Tracks traversed `array` and `other` objects.
- * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
- */
-function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
-  var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
-      arrLength = array.length,
-      othLength = other.length;
-
-  if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
-    return false;
-  }
-  // Assume cyclic values are equal.
-  var stacked = stack.get(array);
-  if (stacked && stack.get(other)) {
-    return stacked == other;
-  }
-  var index = -1,
-      result = true,
-      seen = (bitmask & COMPARE_UNORDERED_FLAG) ? new _SetCache : undefined;
-
-  stack.set(array, other);
-  stack.set(other, array);
-
-  // Ignore non-index properties.
-  while (++index < arrLength) {
-    var arrValue = array[index],
-        othValue = other[index];
-
-    if (customizer) {
-      var compared = isPartial
-        ? customizer(othValue, arrValue, index, other, array, stack)
-        : customizer(arrValue, othValue, index, array, other, stack);
-    }
-    if (compared !== undefined) {
-      if (compared) {
-        continue;
-      }
-      result = false;
-      break;
-    }
-    // Recursively compare arrays (susceptible to call stack limits).
-    if (seen) {
-      if (!_arraySome(other, function(othValue, othIndex) {
-            if (!_cacheHas(seen, othIndex) &&
-                (arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
-              return seen.push(othIndex);
-            }
-          })) {
-        result = false;
-        break;
-      }
-    } else if (!(
-          arrValue === othValue ||
-            equalFunc(arrValue, othValue, bitmask, customizer, stack)
-        )) {
-      result = false;
-      break;
-    }
-  }
-  stack['delete'](array);
-  stack['delete'](other);
-  return result;
-}
-
-var _equalArrays = equalArrays;
-
-/** Built-in value references. */
-var Uint8Array = _root.Uint8Array;
-
-var _Uint8Array = Uint8Array;
-
-/**
- * Converts `map` to its key-value pairs.
- *
- * @private
- * @param {Object} map The map to convert.
- * @returns {Array} Returns the key-value pairs.
- */
-function mapToArray(map) {
-  var index = -1,
-      result = Array(map.size);
-
-  map.forEach(function(value, key) {
-    result[++index] = [key, value];
-  });
-  return result;
-}
-
-var _mapToArray = mapToArray;
-
-/**
- * Converts `set` to an array of its values.
- *
- * @private
- * @param {Object} set The set to convert.
- * @returns {Array} Returns the values.
- */
-function setToArray(set) {
-  var index = -1,
-      result = Array(set.size);
-
-  set.forEach(function(value) {
-    result[++index] = value;
-  });
-  return result;
-}
-
-var _setToArray = setToArray;
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG$1 = 1,
-    COMPARE_UNORDERED_FLAG$1 = 2;
-
-/** `Object#toString` result references. */
-var boolTag = '[object Boolean]',
-    dateTag = '[object Date]',
-    errorTag = '[object Error]',
-    mapTag = '[object Map]',
-    numberTag = '[object Number]',
-    regexpTag = '[object RegExp]',
-    setTag = '[object Set]',
-    stringTag = '[object String]',
-    symbolTag = '[object Symbol]';
-
-var arrayBufferTag = '[object ArrayBuffer]',
-    dataViewTag = '[object DataView]';
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = _Symbol ? _Symbol.prototype : undefined,
-    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
-
-/**
- * A specialized version of `baseIsEqualDeep` for comparing objects of
- * the same `toStringTag`.
- *
- * **Note:** This function only supports comparing values with tags of
- * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {string} tag The `toStringTag` of the objects to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} stack Tracks traversed `object` and `other` objects.
- * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
- */
-function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
-  switch (tag) {
-    case dataViewTag:
-      if ((object.byteLength != other.byteLength) ||
-          (object.byteOffset != other.byteOffset)) {
-        return false;
-      }
-      object = object.buffer;
-      other = other.buffer;
-
-    case arrayBufferTag:
-      if ((object.byteLength != other.byteLength) ||
-          !equalFunc(new _Uint8Array(object), new _Uint8Array(other))) {
-        return false;
-      }
-      return true;
-
-    case boolTag:
-    case dateTag:
-    case numberTag:
-      // Coerce booleans to `1` or `0` and dates to milliseconds.
-      // Invalid dates are coerced to `NaN`.
-      return eq_1(+object, +other);
-
-    case errorTag:
-      return object.name == other.name && object.message == other.message;
-
-    case regexpTag:
-    case stringTag:
-      // Coerce regexes to strings and treat strings, primitives and objects,
-      // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
-      // for more details.
-      return object == (other + '');
-
-    case mapTag:
-      var convert = _mapToArray;
-
-    case setTag:
-      var isPartial = bitmask & COMPARE_PARTIAL_FLAG$1;
-      convert || (convert = _setToArray);
-
-      if (object.size != other.size && !isPartial) {
-        return false;
-      }
-      // Assume cyclic values are equal.
-      var stacked = stack.get(object);
-      if (stacked) {
-        return stacked == other;
-      }
-      bitmask |= COMPARE_UNORDERED_FLAG$1;
-
-      // Recursively compare objects (susceptible to call stack limits).
-      stack.set(object, other);
-      var result = _equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
-      stack['delete'](object);
-      return result;
-
-    case symbolTag:
-      if (symbolValueOf) {
-        return symbolValueOf.call(object) == symbolValueOf.call(other);
-      }
-  }
-  return false;
-}
-
-var _equalByTag = equalByTag;
-
-/**
- * Appends the elements of `values` to `array`.
- *
- * @private
- * @param {Array} array The array to modify.
- * @param {Array} values The values to append.
- * @returns {Array} Returns `array`.
- */
-function arrayPush(array, values) {
-  var index = -1,
-      length = values.length,
-      offset = array.length;
-
-  while (++index < length) {
-    array[offset + index] = values[index];
-  }
-  return array;
-}
-
-var _arrayPush = arrayPush;
-
-/**
- * Checks if `value` is classified as an `Array` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an array, else `false`.
- * @example
- *
- * _.isArray([1, 2, 3]);
- * // => true
- *
- * _.isArray(document.body.children);
- * // => false
- *
- * _.isArray('abc');
- * // => false
- *
- * _.isArray(_.noop);
- * // => false
- */
-var isArray = Array.isArray;
-
-var isArray_1 = isArray;
-
-/**
- * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
- * `keysFunc` and `symbolsFunc` to get the enumerable property names and
- * symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @param {Function} symbolsFunc The function to get the symbols of `object`.
- * @returns {Array} Returns the array of property names and symbols.
- */
-function baseGetAllKeys(object, keysFunc, symbolsFunc) {
-  var result = keysFunc(object);
-  return isArray_1(object) ? result : _arrayPush(result, symbolsFunc(object));
-}
-
-var _baseGetAllKeys = baseGetAllKeys;
-
-/**
- * A specialized version of `_.filter` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} predicate The function invoked per iteration.
- * @returns {Array} Returns the new filtered array.
- */
-function arrayFilter(array, predicate) {
-  var index = -1,
-      length = array == null ? 0 : array.length,
-      resIndex = 0,
-      result = [];
-
-  while (++index < length) {
-    var value = array[index];
-    if (predicate(value, index, array)) {
-      result[resIndex++] = value;
-    }
-  }
-  return result;
-}
-
-var _arrayFilter = arrayFilter;
-
-/**
- * This method returns a new empty array.
- *
- * @static
- * @memberOf _
- * @since 4.13.0
- * @category Util
- * @returns {Array} Returns the new empty array.
- * @example
- *
- * var arrays = _.times(2, _.stubArray);
- *
- * console.log(arrays);
- * // => [[], []]
- *
- * console.log(arrays[0] === arrays[1]);
- * // => false
- */
-function stubArray() {
-  return [];
-}
-
-var stubArray_1 = stubArray;
-
-/** Used for built-in method references. */
-var objectProto$5 = Object.prototype;
-
-/** Built-in value references. */
-var propertyIsEnumerable = objectProto$5.propertyIsEnumerable;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeGetSymbols = Object.getOwnPropertySymbols;
-
-/**
- * Creates an array of the own enumerable symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of symbols.
- */
-var getSymbols = !nativeGetSymbols ? stubArray_1 : function(object) {
-  if (object == null) {
-    return [];
-  }
-  object = Object(object);
-  return _arrayFilter(nativeGetSymbols(object), function(symbol) {
-    return propertyIsEnumerable.call(object, symbol);
-  });
-};
-
-var _getSymbols = getSymbols;
-
-/**
- * The base implementation of `_.times` without support for iteratee shorthands
- * or max array length checks.
- *
- * @private
- * @param {number} n The number of times to invoke `iteratee`.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the array of results.
- */
-function baseTimes(n, iteratee) {
-  var index = -1,
-      result = Array(n);
-
-  while (++index < n) {
-    result[index] = iteratee(index);
-  }
-  return result;
-}
-
-var _baseTimes = baseTimes;
-
-/**
- * Checks if `value` is object-like. A value is object-like if it's not `null`
- * and has a `typeof` result of "object".
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
- * @example
- *
- * _.isObjectLike({});
- * // => true
- *
- * _.isObjectLike([1, 2, 3]);
- * // => true
- *
- * _.isObjectLike(_.noop);
- * // => false
- *
- * _.isObjectLike(null);
- * // => false
- */
-function isObjectLike(value) {
-  return value != null && typeof value == 'object';
-}
-
-var isObjectLike_1 = isObjectLike;
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]';
-
-/**
- * The base implementation of `_.isArguments`.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- */
-function baseIsArguments(value) {
-  return isObjectLike_1(value) && _baseGetTag(value) == argsTag;
-}
-
-var _baseIsArguments = baseIsArguments;
-
-/** Used for built-in method references. */
-var objectProto$6 = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$4 = objectProto$6.hasOwnProperty;
-
-/** Built-in value references. */
-var propertyIsEnumerable$1 = objectProto$6.propertyIsEnumerable;
-
-/**
- * Checks if `value` is likely an `arguments` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- *  else `false`.
- * @example
- *
- * _.isArguments(function() { return arguments; }());
- * // => true
- *
- * _.isArguments([1, 2, 3]);
- * // => false
- */
-var isArguments = _baseIsArguments(function() { return arguments; }()) ? _baseIsArguments : function(value) {
-  return isObjectLike_1(value) && hasOwnProperty$4.call(value, 'callee') &&
-    !propertyIsEnumerable$1.call(value, 'callee');
-};
-
-var isArguments_1 = isArguments;
-
-/**
- * This method returns `false`.
- *
- * @static
- * @memberOf _
- * @since 4.13.0
- * @category Util
- * @returns {boolean} Returns `false`.
- * @example
- *
- * _.times(2, _.stubFalse);
- * // => [false, false]
- */
-function stubFalse() {
-  return false;
-}
-
-var stubFalse_1 = stubFalse;
-
-var isBuffer_1 = createCommonjsModule(function (module, exports) {
-/** Detect free variable `exports`. */
-var freeExports =  exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
-
-/** Built-in value references. */
-var Buffer = moduleExports ? _root.Buffer : undefined;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
-
-/**
- * Checks if `value` is a buffer.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
- * @example
- *
- * _.isBuffer(new Buffer(2));
- * // => true
- *
- * _.isBuffer(new Uint8Array(2));
- * // => false
- */
-var isBuffer = nativeIsBuffer || stubFalse_1;
-
-module.exports = isBuffer;
-});
-
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER = 9007199254740991;
-
-/** Used to detect unsigned integer values. */
-var reIsUint = /^(?:0|[1-9]\d*)$/;
-
-/**
- * Checks if `value` is a valid array-like index.
- *
- * @private
- * @param {*} value The value to check.
- * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
- * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
- */
-function isIndex(value, length) {
-  var type = typeof value;
-  length = length == null ? MAX_SAFE_INTEGER : length;
-
-  return !!length &&
-    (type == 'number' ||
-      (type != 'symbol' && reIsUint.test(value))) &&
-        (value > -1 && value % 1 == 0 && value < length);
-}
-
-var _isIndex = isIndex;
-
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER$1 = 9007199254740991;
-
-/**
- * Checks if `value` is a valid array-like length.
- *
- * **Note:** This method is loosely based on
- * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
- * @example
- *
- * _.isLength(3);
- * // => true
- *
- * _.isLength(Number.MIN_VALUE);
- * // => false
- *
- * _.isLength(Infinity);
- * // => false
- *
- * _.isLength('3');
- * // => false
- */
-function isLength(value) {
-  return typeof value == 'number' &&
-    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER$1;
-}
-
-var isLength_1 = isLength;
-
-/** `Object#toString` result references. */
-var argsTag$1 = '[object Arguments]',
-    arrayTag = '[object Array]',
-    boolTag$1 = '[object Boolean]',
-    dateTag$1 = '[object Date]',
-    errorTag$1 = '[object Error]',
-    funcTag$1 = '[object Function]',
-    mapTag$1 = '[object Map]',
-    numberTag$1 = '[object Number]',
-    objectTag = '[object Object]',
-    regexpTag$1 = '[object RegExp]',
-    setTag$1 = '[object Set]',
-    stringTag$1 = '[object String]',
-    weakMapTag = '[object WeakMap]';
-
-var arrayBufferTag$1 = '[object ArrayBuffer]',
-    dataViewTag$1 = '[object DataView]',
-    float32Tag = '[object Float32Array]',
-    float64Tag = '[object Float64Array]',
-    int8Tag = '[object Int8Array]',
-    int16Tag = '[object Int16Array]',
-    int32Tag = '[object Int32Array]',
-    uint8Tag = '[object Uint8Array]',
-    uint8ClampedTag = '[object Uint8ClampedArray]',
-    uint16Tag = '[object Uint16Array]',
-    uint32Tag = '[object Uint32Array]';
-
-/** Used to identify `toStringTag` values of typed arrays. */
-var typedArrayTags = {};
-typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
-typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
-typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
-typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
-typedArrayTags[uint32Tag] = true;
-typedArrayTags[argsTag$1] = typedArrayTags[arrayTag] =
-typedArrayTags[arrayBufferTag$1] = typedArrayTags[boolTag$1] =
-typedArrayTags[dataViewTag$1] = typedArrayTags[dateTag$1] =
-typedArrayTags[errorTag$1] = typedArrayTags[funcTag$1] =
-typedArrayTags[mapTag$1] = typedArrayTags[numberTag$1] =
-typedArrayTags[objectTag] = typedArrayTags[regexpTag$1] =
-typedArrayTags[setTag$1] = typedArrayTags[stringTag$1] =
-typedArrayTags[weakMapTag] = false;
-
-/**
- * The base implementation of `_.isTypedArray` without Node.js optimizations.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
- */
-function baseIsTypedArray(value) {
-  return isObjectLike_1(value) &&
-    isLength_1(value.length) && !!typedArrayTags[_baseGetTag(value)];
-}
-
-var _baseIsTypedArray = baseIsTypedArray;
-
-/**
- * The base implementation of `_.unary` without support for storing metadata.
- *
- * @private
- * @param {Function} func The function to cap arguments for.
- * @returns {Function} Returns the new capped function.
- */
-function baseUnary(func) {
-  return function(value) {
-    return func(value);
-  };
-}
-
-var _baseUnary = baseUnary;
-
-var _nodeUtil = createCommonjsModule(function (module, exports) {
-/** Detect free variable `exports`. */
-var freeExports =  exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
-
-/** Detect free variable `process` from Node.js. */
-var freeProcess = moduleExports && _freeGlobal.process;
-
-/** Used to access faster Node.js helpers. */
-var nodeUtil = (function() {
-  try {
-    // Use `util.types` for Node.js 10+.
-    var types = freeModule && freeModule.require && freeModule.require('util').types;
-
-    if (types) {
-      return types;
-    }
-
-    // Legacy `process.binding('util')` for Node.js < 10.
-    return freeProcess && freeProcess.binding && freeProcess.binding('util');
-  } catch (e) {}
-}());
-
-module.exports = nodeUtil;
-});
-
-/* Node.js helper references. */
-var nodeIsTypedArray = _nodeUtil && _nodeUtil.isTypedArray;
-
-/**
- * Checks if `value` is classified as a typed array.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
- * @example
- *
- * _.isTypedArray(new Uint8Array);
- * // => true
- *
- * _.isTypedArray([]);
- * // => false
- */
-var isTypedArray = nodeIsTypedArray ? _baseUnary(nodeIsTypedArray) : _baseIsTypedArray;
-
-var isTypedArray_1 = isTypedArray;
-
-/** Used for built-in method references. */
-var objectProto$7 = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$5 = objectProto$7.hasOwnProperty;
-
-/**
- * Creates an array of the enumerable property names of the array-like `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @param {boolean} inherited Specify returning inherited property names.
- * @returns {Array} Returns the array of property names.
- */
-function arrayLikeKeys(value, inherited) {
-  var isArr = isArray_1(value),
-      isArg = !isArr && isArguments_1(value),
-      isBuff = !isArr && !isArg && isBuffer_1(value),
-      isType = !isArr && !isArg && !isBuff && isTypedArray_1(value),
-      skipIndexes = isArr || isArg || isBuff || isType,
-      result = skipIndexes ? _baseTimes(value.length, String) : [],
-      length = result.length;
-
-  for (var key in value) {
-    if ((inherited || hasOwnProperty$5.call(value, key)) &&
-        !(skipIndexes && (
-           // Safari 9 has enumerable `arguments.length` in strict mode.
-           key == 'length' ||
-           // Node.js 0.10 has enumerable non-index properties on buffers.
-           (isBuff && (key == 'offset' || key == 'parent')) ||
-           // PhantomJS 2 has enumerable non-index properties on typed arrays.
-           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
-           // Skip index properties.
-           _isIndex(key, length)
-        ))) {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-var _arrayLikeKeys = arrayLikeKeys;
-
-/** Used for built-in method references. */
-var objectProto$8 = Object.prototype;
-
-/**
- * Checks if `value` is likely a prototype object.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
- */
-function isPrototype(value) {
-  var Ctor = value && value.constructor,
-      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto$8;
-
-  return value === proto;
-}
-
-var _isPrototype = isPrototype;
-
-/**
- * Creates a unary function that invokes `func` with its argument transformed.
- *
- * @private
- * @param {Function} func The function to wrap.
- * @param {Function} transform The argument transform.
- * @returns {Function} Returns the new function.
- */
-function overArg(func, transform) {
-  return function(arg) {
-    return func(transform(arg));
-  };
-}
-
-var _overArg = overArg;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeKeys = _overArg(Object.keys, Object);
-
-var _nativeKeys = nativeKeys;
-
-/** Used for built-in method references. */
-var objectProto$9 = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$6 = objectProto$9.hasOwnProperty;
-
-/**
- * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- */
-function baseKeys(object) {
-  if (!_isPrototype(object)) {
-    return _nativeKeys(object);
-  }
-  var result = [];
-  for (var key in Object(object)) {
-    if (hasOwnProperty$6.call(object, key) && key != 'constructor') {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-var _baseKeys = baseKeys;
-
-/**
- * Checks if `value` is array-like. A value is considered array-like if it's
- * not a function and has a `value.length` that's an integer greater than or
- * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
- * @example
- *
- * _.isArrayLike([1, 2, 3]);
- * // => true
- *
- * _.isArrayLike(document.body.children);
- * // => true
- *
- * _.isArrayLike('abc');
- * // => true
- *
- * _.isArrayLike(_.noop);
- * // => false
- */
-function isArrayLike(value) {
-  return value != null && isLength_1(value.length) && !isFunction_1(value);
-}
-
-var isArrayLike_1 = isArrayLike;
-
-/**
- * Creates an array of the own enumerable property names of `object`.
- *
- * **Note:** Non-object values are coerced to objects. See the
- * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
- * for more details.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.keys(new Foo);
- * // => ['a', 'b'] (iteration order is not guaranteed)
- *
- * _.keys('hi');
- * // => ['0', '1']
- */
-function keys(object) {
-  return isArrayLike_1(object) ? _arrayLikeKeys(object) : _baseKeys(object);
-}
-
-var keys_1 = keys;
-
-/**
- * Creates an array of own enumerable property names and symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names and symbols.
- */
-function getAllKeys(object) {
-  return _baseGetAllKeys(object, keys_1, _getSymbols);
-}
-
-var _getAllKeys = getAllKeys;
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG$2 = 1;
-
-/** Used for built-in method references. */
-var objectProto$a = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$7 = objectProto$a.hasOwnProperty;
-
-/**
- * A specialized version of `baseIsEqualDeep` for objects with support for
- * partial deep comparisons.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} stack Tracks traversed `object` and `other` objects.
- * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
- */
-function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
-  var isPartial = bitmask & COMPARE_PARTIAL_FLAG$2,
-      objProps = _getAllKeys(object),
-      objLength = objProps.length,
-      othProps = _getAllKeys(other),
-      othLength = othProps.length;
-
-  if (objLength != othLength && !isPartial) {
-    return false;
-  }
-  var index = objLength;
-  while (index--) {
-    var key = objProps[index];
-    if (!(isPartial ? key in other : hasOwnProperty$7.call(other, key))) {
-      return false;
-    }
-  }
-  // Assume cyclic values are equal.
-  var stacked = stack.get(object);
-  if (stacked && stack.get(other)) {
-    return stacked == other;
-  }
-  var result = true;
-  stack.set(object, other);
-  stack.set(other, object);
-
-  var skipCtor = isPartial;
-  while (++index < objLength) {
-    key = objProps[index];
-    var objValue = object[key],
-        othValue = other[key];
-
-    if (customizer) {
-      var compared = isPartial
-        ? customizer(othValue, objValue, key, other, object, stack)
-        : customizer(objValue, othValue, key, object, other, stack);
-    }
-    // Recursively compare objects (susceptible to call stack limits).
-    if (!(compared === undefined
-          ? (objValue === othValue || equalFunc(objValue, othValue, bitmask, customizer, stack))
-          : compared
-        )) {
-      result = false;
-      break;
-    }
-    skipCtor || (skipCtor = key == 'constructor');
-  }
-  if (result && !skipCtor) {
-    var objCtor = object.constructor,
-        othCtor = other.constructor;
-
-    // Non `Object` object instances with different constructors are not equal.
-    if (objCtor != othCtor &&
-        ('constructor' in object && 'constructor' in other) &&
-        !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
-          typeof othCtor == 'function' && othCtor instanceof othCtor)) {
-      result = false;
-    }
-  }
-  stack['delete'](object);
-  stack['delete'](other);
-  return result;
-}
-
-var _equalObjects = equalObjects;
-
-/* Built-in method references that are verified to be native. */
-var DataView = _getNative(_root, 'DataView');
-
-var _DataView = DataView;
-
-/* Built-in method references that are verified to be native. */
-var Promise$1 = _getNative(_root, 'Promise');
-
-var _Promise = Promise$1;
-
-/* Built-in method references that are verified to be native. */
-var Set = _getNative(_root, 'Set');
-
-var _Set = Set;
-
-/* Built-in method references that are verified to be native. */
-var WeakMap = _getNative(_root, 'WeakMap');
-
-var _WeakMap = WeakMap;
-
-/** `Object#toString` result references. */
-var mapTag$2 = '[object Map]',
-    objectTag$1 = '[object Object]',
-    promiseTag = '[object Promise]',
-    setTag$2 = '[object Set]',
-    weakMapTag$1 = '[object WeakMap]';
-
-var dataViewTag$2 = '[object DataView]';
-
-/** Used to detect maps, sets, and weakmaps. */
-var dataViewCtorString = _toSource(_DataView),
-    mapCtorString = _toSource(_Map),
-    promiseCtorString = _toSource(_Promise),
-    setCtorString = _toSource(_Set),
-    weakMapCtorString = _toSource(_WeakMap);
-
-/**
- * Gets the `toStringTag` of `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
-var getTag = _baseGetTag;
-
-// Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
-if ((_DataView && getTag(new _DataView(new ArrayBuffer(1))) != dataViewTag$2) ||
-    (_Map && getTag(new _Map) != mapTag$2) ||
-    (_Promise && getTag(_Promise.resolve()) != promiseTag) ||
-    (_Set && getTag(new _Set) != setTag$2) ||
-    (_WeakMap && getTag(new _WeakMap) != weakMapTag$1)) {
-  getTag = function(value) {
-    var result = _baseGetTag(value),
-        Ctor = result == objectTag$1 ? value.constructor : undefined,
-        ctorString = Ctor ? _toSource(Ctor) : '';
-
-    if (ctorString) {
-      switch (ctorString) {
-        case dataViewCtorString: return dataViewTag$2;
-        case mapCtorString: return mapTag$2;
-        case promiseCtorString: return promiseTag;
-        case setCtorString: return setTag$2;
-        case weakMapCtorString: return weakMapTag$1;
-      }
-    }
-    return result;
-  };
-}
-
-var _getTag = getTag;
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG$3 = 1;
-
-/** `Object#toString` result references. */
-var argsTag$2 = '[object Arguments]',
-    arrayTag$1 = '[object Array]',
-    objectTag$2 = '[object Object]';
-
-/** Used for built-in method references. */
-var objectProto$b = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$8 = objectProto$b.hasOwnProperty;
-
-/**
- * A specialized version of `baseIsEqual` for arrays and objects which performs
- * deep comparisons and tracks traversed objects enabling objects with circular
- * references to be compared.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} [stack] Tracks traversed `object` and `other` objects.
- * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
- */
-function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
-  var objIsArr = isArray_1(object),
-      othIsArr = isArray_1(other),
-      objTag = objIsArr ? arrayTag$1 : _getTag(object),
-      othTag = othIsArr ? arrayTag$1 : _getTag(other);
-
-  objTag = objTag == argsTag$2 ? objectTag$2 : objTag;
-  othTag = othTag == argsTag$2 ? objectTag$2 : othTag;
-
-  var objIsObj = objTag == objectTag$2,
-      othIsObj = othTag == objectTag$2,
-      isSameTag = objTag == othTag;
-
-  if (isSameTag && isBuffer_1(object)) {
-    if (!isBuffer_1(other)) {
-      return false;
-    }
-    objIsArr = true;
-    objIsObj = false;
-  }
-  if (isSameTag && !objIsObj) {
-    stack || (stack = new _Stack);
-    return (objIsArr || isTypedArray_1(object))
-      ? _equalArrays(object, other, bitmask, customizer, equalFunc, stack)
-      : _equalByTag(object, other, objTag, bitmask, customizer, equalFunc, stack);
-  }
-  if (!(bitmask & COMPARE_PARTIAL_FLAG$3)) {
-    var objIsWrapped = objIsObj && hasOwnProperty$8.call(object, '__wrapped__'),
-        othIsWrapped = othIsObj && hasOwnProperty$8.call(other, '__wrapped__');
-
-    if (objIsWrapped || othIsWrapped) {
-      var objUnwrapped = objIsWrapped ? object.value() : object,
-          othUnwrapped = othIsWrapped ? other.value() : other;
-
-      stack || (stack = new _Stack);
-      return equalFunc(objUnwrapped, othUnwrapped, bitmask, customizer, stack);
-    }
-  }
-  if (!isSameTag) {
-    return false;
-  }
-  stack || (stack = new _Stack);
-  return _equalObjects(object, other, bitmask, customizer, equalFunc, stack);
-}
-
-var _baseIsEqualDeep = baseIsEqualDeep;
-
-/**
- * The base implementation of `_.isEqual` which supports partial comparisons
- * and tracks traversed objects.
- *
- * @private
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @param {boolean} bitmask The bitmask flags.
- *  1 - Unordered comparison
- *  2 - Partial comparison
- * @param {Function} [customizer] The function to customize comparisons.
- * @param {Object} [stack] Tracks traversed `value` and `other` objects.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- */
-function baseIsEqual(value, other, bitmask, customizer, stack) {
-  if (value === other) {
-    return true;
-  }
-  if (value == null || other == null || (!isObjectLike_1(value) && !isObjectLike_1(other))) {
-    return value !== value && other !== other;
-  }
-  return _baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
-}
-
-var _baseIsEqual = baseIsEqual;
-
-/**
- * Performs a deep comparison between two values to determine if they are
- * equivalent.
- *
- * **Note:** This method supports comparing arrays, array buffers, booleans,
- * date objects, error objects, maps, numbers, `Object` objects, regexes,
- * sets, strings, symbols, and typed arrays. `Object` objects are compared
- * by their own, not inherited, enumerable properties. Functions and DOM
- * nodes are compared by strict equality, i.e. `===`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * var object = { 'a': 1 };
- * var other = { 'a': 1 };
- *
- * _.isEqual(object, other);
- * // => true
- *
- * object === other;
- * // => false
- */
-function isEqual(value, other) {
-  return _baseIsEqual(value, other);
-}
-
-var isEqual_1 = isEqual;
-
-var DEFAULT_OPTIONS = {
-  container: false,
-  delay: 0,
-  html: false,
-  placement: 'top',
-  title: '',
-  template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
-  trigger: 'hover focus',
-  offset: 0
-};
-var openTooltips = [];
-
-var Tooltip =
-/*#__PURE__*/
-function () {
-  /**
-   * Create a new Tooltip.js instance
-   * @class Tooltip
-   * @param {HTMLElement} reference - The DOM node used as reference of the tooltip (it can be a jQuery element).
-   * @param {Object} options
-   * @param {String} options.placement=bottom
-   *      Placement of the popper accepted values: `top(-start, -end), right(-start, -end), bottom(-start, -end),
-   *      left(-start, -end)`
-   * @param {HTMLElement|String|false} options.container=false - Append the tooltip to a specific element.
-   * @param {Number|Object} options.delay=0
-   *      Delay showing and hiding the tooltip (ms) - does not apply to manual trigger type.
-   *      If a number is supplied, delay is applied to both hide/show.
-   *      Object structure is: `{ show: 500, hide: 100 }`
-   * @param {Boolean} options.html=false - Insert HTML into the tooltip. If false, the content will inserted with `innerText`.
-   * @param {String|PlacementFunction} options.placement='top' - One of the allowed placements, or a function returning one of them.
-   * @param {String} [options.template='<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>']
-   *      Base HTML to used when creating the tooltip.
-   *      The tooltip's `title` will be injected into the `.tooltip-inner` or `.tooltip__inner`.
-   *      `.tooltip-arrow` or `.tooltip__arrow` will become the tooltip's arrow.
-   *      The outermost wrapper element should have the `.tooltip` class.
-   * @param {String|HTMLElement|TitleFunction} options.title='' - Default title value if `title` attribute isn't present.
-   * @param {String} [options.trigger='hover focus']
-   *      How tooltip is triggered - click, hover, focus, manual.
-   *      You may pass multiple triggers; separate them with a space. `manual` cannot be combined with any other trigger.
-   * @param {HTMLElement} options.boundariesElement
-   *      The element used as boundaries for the tooltip. For more information refer to Popper.js'
-   *      [boundariesElement docs](https://popper.js.org/popper-documentation.html)
-   * @param {Number|String} options.offset=0 - Offset of the tooltip relative to its reference. For more information refer to Popper.js'
-   *      [offset docs](https://popper.js.org/popper-documentation.html)
-   * @param {Object} options.popperOptions={} - Popper options, will be passed directly to popper instance. For more information refer to Popper.js'
-   *      [options docs](https://popper.js.org/popper-documentation.html)
-   * @return {Object} instance - The generated tooltip instance
-   */
-  function Tooltip(_reference, _options) {
-    var _this = this;
-
-    _classCallCheck(this, Tooltip);
-
-    _defineProperty(this, "_events", []);
-
-    _defineProperty(this, "_setTooltipNodeEvent", function (evt, reference, delay, options) {
-      var relatedreference = evt.relatedreference || evt.toElement || evt.relatedTarget;
-
-      var callback = function callback(evt2) {
-        var relatedreference2 = evt2.relatedreference || evt2.toElement || evt2.relatedTarget; // Remove event listener after call
-
-        _this._tooltipNode.removeEventListener(evt.type, callback); // If the new reference is not the reference element
-
-
-        if (!reference.contains(relatedreference2)) {
-          // Schedule to hide tooltip
-          _this._scheduleHide(reference, options.delay, options, evt2);
-        }
-      };
-
-      if (_this._tooltipNode.contains(relatedreference)) {
-        // listen to mouseleave on the tooltip element to be able to hide the tooltip
-        _this._tooltipNode.addEventListener(evt.type, callback);
-
-        return true;
-      }
-
-      return false;
-    });
-
-    // apply user options over default ones
-    _options = _objectSpread2({}, DEFAULT_OPTIONS, {}, _options);
-    _reference.jquery && (_reference = _reference[0]);
-    this.show = this.show.bind(this);
-    this.hide = this.hide.bind(this); // cache reference and options
-
-    this.reference = _reference;
-    this.options = _options; // set initial state
-
-    this._isOpen = false;
-
-    this._init();
-  } //
-  // Public methods
-  //
-
-  /**
-   * Reveals an element's tooltip. This is considered a "manual" triggering of the tooltip.
-   * Tooltips with zero-length titles are never displayed.
-   * @method Tooltip#show
-   * @memberof Tooltip
-   */
-
-
-  _createClass(Tooltip, [{
-    key: "show",
-    value: function show() {
-      this._show(this.reference, this.options);
-    }
-    /**
-     * Hides an element’s tooltip. This is considered a “manual” triggering of the tooltip.
-     * @method Tooltip#hide
-     * @memberof Tooltip
-     */
-
-  }, {
-    key: "hide",
-    value: function hide() {
-      this._hide();
-    }
-    /**
-     * Hides and destroys an element’s tooltip.
-     * @method Tooltip#dispose
-     * @memberof Tooltip
-     */
-
-  }, {
-    key: "dispose",
-    value: function dispose() {
-      this._dispose();
-    }
-    /**
-     * Toggles an element’s tooltip. This is considered a “manual” triggering of the tooltip.
-     * @method Tooltip#toggle
-     * @memberof Tooltip
-     */
-
-  }, {
-    key: "toggle",
-    value: function toggle() {
-      if (this._isOpen) {
-        return this.hide();
-      } else {
-        return this.show();
-      }
-    }
-  }, {
-    key: "setClasses",
-    value: function setClasses(classes) {
-      this._classes = classes;
-    }
-  }, {
-    key: "setContent",
-    value: function setContent(content) {
-      this.options.title = content;
-
-      if (this._tooltipNode) {
-        this._setContent(content, this.options);
-      }
-    }
-  }, {
-    key: "setOptions",
-    value: function setOptions(options) {
-      var classesUpdated = false;
-      var classes = options && options.classes || directive.options.defaultClass;
-
-      if (!isEqual_1(this._classes, classes)) {
-        this.setClasses(classes);
-        classesUpdated = true;
-      }
-
-      options = getOptions(options);
-      var needPopperUpdate = false;
-      var needRestart = false;
-
-      if (this.options.offset !== options.offset || this.options.placement !== options.placement) {
-        needPopperUpdate = true;
-      }
-
-      if (this.options.template !== options.template || this.options.trigger !== options.trigger || this.options.container !== options.container || classesUpdated) {
-        needRestart = true;
-      }
-
-      for (var key in options) {
-        this.options[key] = options[key];
-      }
-
-      if (this._tooltipNode) {
-        if (needRestart) {
-          var isOpen = this._isOpen;
-          this.dispose();
-
-          this._init();
-
-          if (isOpen) {
-            this.show();
-          }
-        } else if (needPopperUpdate) {
-          this.popperInstance.update();
-        }
-      }
-    } //
-    // Private methods
-    //
-
-  }, {
-    key: "_init",
-    value: function _init() {
-      // get events list
-      var events = typeof this.options.trigger === 'string' ? this.options.trigger.split(' ') : [];
-      this._isDisposed = false;
-      this._enableDocumentTouch = events.indexOf('manual') === -1;
-      events = events.filter(function (trigger) {
-        return ['click', 'hover', 'focus'].indexOf(trigger) !== -1;
-      }); // set event listeners
-
-      this._setEventListeners(this.reference, events, this.options); // title attribute
-
-
-      this.$_originalTitle = this.reference.getAttribute('title');
-      this.reference.removeAttribute('title');
-      this.reference.setAttribute('data-original-title', this.$_originalTitle);
-    }
-    /**
-     * Creates a new tooltip node
-     * @memberof Tooltip
-     * @private
-     * @param {HTMLElement} reference
-     * @param {String} template
-     * @param {String|HTMLElement|TitleFunction} title
-     * @param {Boolean} allowHtml
-     * @return {HTMLelement} tooltipNode
-     */
-
-  }, {
-    key: "_create",
-    value: function _create(reference, template) {
-      // create tooltip element
-      var tooltipGenerator = window.document.createElement('div');
-      tooltipGenerator.innerHTML = template.trim();
-      var tooltipNode = tooltipGenerator.childNodes[0]; // add unique ID to our tooltip (needed for accessibility reasons)
-
-      tooltipNode.id = "tooltip_".concat(Math.random().toString(36).substr(2, 10)); // Initially hide the tooltip
-      // The attribute will be switched in a next frame so
-      // CSS transitions can play
-
-      tooltipNode.setAttribute('aria-hidden', 'true');
-
-      if (this.options.autoHide && this.options.trigger.indexOf('hover') !== -1) {
-        tooltipNode.addEventListener('mouseenter', this.hide);
-        tooltipNode.addEventListener('click', this.hide);
-      } // return the generated tooltip node
-
-
-      return tooltipNode;
-    }
-  }, {
-    key: "_setContent",
-    value: function _setContent(content, options) {
-      var _this2 = this;
-
-      this.asyncContent = false;
-
-      this._applyContent(content, options).then(function () {
-        _this2.popperInstance.update();
-      });
-    }
-  }, {
-    key: "_applyContent",
-    value: function _applyContent(title, options) {
-      var _this3 = this;
-
-      return new Promise(function (resolve, reject) {
-        var allowHtml = options.html;
-        var rootNode = _this3._tooltipNode;
-        if (!rootNode) return;
-        var titleNode = rootNode.querySelector(_this3.options.innerSelector);
-
-        if (title.nodeType === 1) {
-          // if title is a node, append it only if allowHtml is true
-          if (allowHtml) {
-            while (titleNode.firstChild) {
-              titleNode.removeChild(titleNode.firstChild);
-            }
-
-            titleNode.appendChild(title);
-          }
-        } else if (typeof title === 'function') {
-          // if title is a function, call it and set innerText or innerHtml depending by `allowHtml` value
-          var result = title();
-
-          if (result && typeof result.then === 'function') {
-            _this3.asyncContent = true;
-            options.loadingClass && addClasses(rootNode, options.loadingClass);
-
-            if (options.loadingContent) {
-              _this3._applyContent(options.loadingContent, options);
-            }
-
-            result.then(function (asyncResult) {
-              options.loadingClass && removeClasses(rootNode, options.loadingClass);
-              return _this3._applyContent(asyncResult, options);
-            }).then(resolve).catch(reject);
-          } else {
-            _this3._applyContent(result, options).then(resolve).catch(reject);
-          }
-
-          return;
-        } else {
-          // if it's just a simple text, set innerText or innerHtml depending by `allowHtml` value
-          allowHtml ? titleNode.innerHTML = title : titleNode.innerText = title;
-        }
-
-        resolve();
-      });
-    }
-  }, {
-    key: "_show",
-    value: function _show(reference, options) {
-      if (options && typeof options.container === 'string') {
-        var container = document.querySelector(options.container);
-        if (!container) return;
-      }
-
-      clearTimeout(this._disposeTimer);
-      options = Object.assign({}, options);
-      delete options.offset;
-      var updateClasses = true;
-
-      if (this._tooltipNode) {
-        addClasses(this._tooltipNode, this._classes);
-        updateClasses = false;
-      }
-
-      var result = this._ensureShown(reference, options);
-
-      if (updateClasses && this._tooltipNode) {
-        addClasses(this._tooltipNode, this._classes);
-      }
-
-      addClasses(reference, ['v-tooltip-open']);
-      return result;
-    }
-  }, {
-    key: "_ensureShown",
-    value: function _ensureShown(reference, options) {
-      var _this4 = this;
-
-      // don't show if it's already visible
-      if (this._isOpen) {
-        return this;
-      }
-
-      this._isOpen = true;
-      openTooltips.push(this); // if the tooltipNode already exists, just show it
-
-      if (this._tooltipNode) {
-        this._tooltipNode.style.display = '';
-
-        this._tooltipNode.setAttribute('aria-hidden', 'false');
-
-        this.popperInstance.enableEventListeners();
-        this.popperInstance.update();
-
-        if (this.asyncContent) {
-          this._setContent(options.title, options);
-        }
-
-        return this;
-      } // get title
-
-
-      var title = reference.getAttribute('title') || options.title; // don't show tooltip if no title is defined
-
-      if (!title) {
-        return this;
-      } // create tooltip node
-
-
-      var tooltipNode = this._create(reference, options.template);
-
-      this._tooltipNode = tooltipNode; // Add `aria-describedby` to our reference element for accessibility reasons
-
-      reference.setAttribute('aria-describedby', tooltipNode.id); // append tooltip to container
-
-      var container = this._findContainer(options.container, reference);
-
-      this._append(tooltipNode, container);
-
-      var popperOptions = _objectSpread2({}, options.popperOptions, {
-        placement: options.placement
-      });
-
-      popperOptions.modifiers = _objectSpread2({}, popperOptions.modifiers, {
-        arrow: {
-          element: this.options.arrowSelector
-        }
-      });
-
-      if (options.boundariesElement) {
-        popperOptions.modifiers.preventOverflow = {
-          boundariesElement: options.boundariesElement
-        };
-      }
-
-      this.popperInstance = new popper_js__WEBPACK_IMPORTED_MODULE_0__["default"](reference, tooltipNode, popperOptions);
-
-      this._setContent(title, options); // Fix position
-
-
-      requestAnimationFrame(function () {
-        if (!_this4._isDisposed && _this4.popperInstance) {
-          _this4.popperInstance.update(); // Show the tooltip
-
-
-          requestAnimationFrame(function () {
-            if (!_this4._isDisposed) {
-              _this4._isOpen && tooltipNode.setAttribute('aria-hidden', 'false');
-            } else {
-              _this4.dispose();
-            }
-          });
-        } else {
-          _this4.dispose();
-        }
-      });
-      return this;
-    }
-  }, {
-    key: "_noLongerOpen",
-    value: function _noLongerOpen() {
-      var index = openTooltips.indexOf(this);
-
-      if (index !== -1) {
-        openTooltips.splice(index, 1);
-      }
-    }
-  }, {
-    key: "_hide",
-    value: function _hide()
-    /* reference, options */
-    {
-      var _this5 = this;
-
-      // don't hide if it's already hidden
-      if (!this._isOpen) {
-        return this;
-      }
-
-      this._isOpen = false;
-
-      this._noLongerOpen(); // hide tooltipNode
-
-
-      this._tooltipNode.style.display = 'none';
-
-      this._tooltipNode.setAttribute('aria-hidden', 'true');
-
-      this.popperInstance.disableEventListeners();
-      clearTimeout(this._disposeTimer);
-      var disposeTime = directive.options.disposeTimeout;
-
-      if (disposeTime !== null) {
-        this._disposeTimer = setTimeout(function () {
-          if (_this5._tooltipNode) {
-            _this5._tooltipNode.removeEventListener('mouseenter', _this5.hide);
-
-            _this5._tooltipNode.removeEventListener('click', _this5.hide); // Don't remove popper instance, just the HTML element
-
-
-            _this5._removeTooltipNode();
-          }
-        }, disposeTime);
-      }
-
-      removeClasses(this.reference, ['v-tooltip-open']);
-      return this;
-    }
-  }, {
-    key: "_removeTooltipNode",
-    value: function _removeTooltipNode() {
-      if (!this._tooltipNode) return;
-      var parentNode = this._tooltipNode.parentNode;
-
-      if (parentNode) {
-        parentNode.removeChild(this._tooltipNode);
-        this.reference.removeAttribute('aria-describedby');
-      }
-
-      this._tooltipNode = null;
-    }
-  }, {
-    key: "_dispose",
-    value: function _dispose() {
-      var _this6 = this;
-
-      this._isDisposed = true;
-      this.reference.removeAttribute('data-original-title');
-
-      if (this.$_originalTitle) {
-        this.reference.setAttribute('title', this.$_originalTitle);
-      } // remove event listeners first to prevent any unexpected behaviour
-
-
-      this._events.forEach(function (_ref) {
-        var func = _ref.func,
-            event = _ref.event;
-
-        _this6.reference.removeEventListener(event, func);
-      });
-
-      this._events = [];
-
-      if (this._tooltipNode) {
-        this._hide();
-
-        this._tooltipNode.removeEventListener('mouseenter', this.hide);
-
-        this._tooltipNode.removeEventListener('click', this.hide); // destroy instance
-
-
-        this.popperInstance.destroy(); // destroy tooltipNode if removeOnDestroy is not set, as popperInstance.destroy() already removes the element
-
-        if (!this.popperInstance.options.removeOnDestroy) {
-          this._removeTooltipNode();
-        }
-      } else {
-        this._noLongerOpen();
-      }
-
-      return this;
-    }
-  }, {
-    key: "_findContainer",
-    value: function _findContainer(container, reference) {
-      // if container is a query, get the relative element
-      if (typeof container === 'string') {
-        container = window.document.querySelector(container);
-      } else if (container === false) {
-        // if container is `false`, set it to reference parent
-        container = reference.parentNode;
-      }
-
-      return container;
-    }
-    /**
-     * Append tooltip to container
-     * @memberof Tooltip
-     * @private
-     * @param {HTMLElement} tooltip
-     * @param {HTMLElement|String|false} container
-     */
-
-  }, {
-    key: "_append",
-    value: function _append(tooltipNode, container) {
-      container.appendChild(tooltipNode);
-    }
-  }, {
-    key: "_setEventListeners",
-    value: function _setEventListeners(reference, events, options) {
-      var _this7 = this;
-
-      var directEvents = [];
-      var oppositeEvents = [];
-      events.forEach(function (event) {
-        switch (event) {
-          case 'hover':
-            directEvents.push('mouseenter');
-            oppositeEvents.push('mouseleave');
-            if (_this7.options.hideOnTargetClick) oppositeEvents.push('click');
-            break;
-
-          case 'focus':
-            directEvents.push('focus');
-            oppositeEvents.push('blur');
-            if (_this7.options.hideOnTargetClick) oppositeEvents.push('click');
-            break;
-
-          case 'click':
-            directEvents.push('click');
-            oppositeEvents.push('click');
-            break;
-        }
-      }); // schedule show tooltip
-
-      directEvents.forEach(function (event) {
-        var func = function func(evt) {
-          if (_this7._isOpen === true) {
-            return;
-          }
-
-          evt.usedByTooltip = true;
-
-          _this7._scheduleShow(reference, options.delay, options, evt);
-        };
-
-        _this7._events.push({
-          event: event,
-          func: func
-        });
-
-        reference.addEventListener(event, func);
-      }); // schedule hide tooltip
-
-      oppositeEvents.forEach(function (event) {
-        var func = function func(evt) {
-          if (evt.usedByTooltip === true) {
-            return;
-          }
-
-          _this7._scheduleHide(reference, options.delay, options, evt);
-        };
-
-        _this7._events.push({
-          event: event,
-          func: func
-        });
-
-        reference.addEventListener(event, func);
-      });
-    }
-  }, {
-    key: "_onDocumentTouch",
-    value: function _onDocumentTouch(event) {
-      if (this._enableDocumentTouch) {
-        this._scheduleHide(this.reference, this.options.delay, this.options, event);
-      }
-    }
-  }, {
-    key: "_scheduleShow",
-    value: function _scheduleShow(reference, delay, options
-    /*, evt */
-    ) {
-      var _this8 = this;
-
-      // defaults to 0
-      var computedDelay = delay && delay.show || delay || 0;
-      clearTimeout(this._scheduleTimer);
-      this._scheduleTimer = window.setTimeout(function () {
-        return _this8._show(reference, options);
-      }, computedDelay);
-    }
-  }, {
-    key: "_scheduleHide",
-    value: function _scheduleHide(reference, delay, options, evt) {
-      var _this9 = this;
-
-      // defaults to 0
-      var computedDelay = delay && delay.hide || delay || 0;
-      clearTimeout(this._scheduleTimer);
-      this._scheduleTimer = window.setTimeout(function () {
-        if (_this9._isOpen === false) {
-          return;
-        }
-
-        if (!_this9._tooltipNode.ownerDocument.body.contains(_this9._tooltipNode)) {
-          return;
-        } // if we are hiding because of a mouseleave, we must check that the new
-        // reference isn't the tooltip, because in this case we don't want to hide it
-
-
-        if (evt.type === 'mouseleave') {
-          var isSet = _this9._setTooltipNodeEvent(evt, reference, delay, options); // if we set the new event, don't hide the tooltip yet
-          // the new event will take care to hide it if necessary
-
-
-          if (isSet) {
-            return;
-          }
-        }
-
-        _this9._hide(reference, options);
-      }, computedDelay);
-    }
-  }]);
-
-  return Tooltip;
-}(); // Hide tooltips on touch devices
-
-if (typeof document !== 'undefined') {
-  document.addEventListener('touchstart', function (event) {
-    for (var i = 0; i < openTooltips.length; i++) {
-      openTooltips[i]._onDocumentTouch(event);
-    }
-  }, supportsPassive ? {
-    passive: true,
-    capture: true
-  } : true);
-}
-/**
- * Placement function, its context is the Tooltip instance.
- * @memberof Tooltip
- * @callback PlacementFunction
- * @param {HTMLElement} tooltip - tooltip DOM node.
- * @param {HTMLElement} reference - reference DOM node.
- * @return {String} placement - One of the allowed placement options.
- */
-
-/**
- * Title function, its context is the Tooltip instance.
- * @memberof Tooltip
- * @callback TitleFunction
- * @return {String} placement - The desired title.
- */
-
-var state = {
-  enabled: true
-};
-var positions = ['top', 'top-start', 'top-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end'];
-var defaultOptions = {
-  // Default tooltip placement relative to target element
-  defaultPlacement: 'top',
-  // Default CSS classes applied to the tooltip element
-  defaultClass: 'vue-tooltip-theme',
-  // Default CSS classes applied to the target element of the tooltip
-  defaultTargetClass: 'has-tooltip',
-  // Is the content HTML by default?
-  defaultHtml: true,
-  // Default HTML template of the tooltip element
-  // It must include `tooltip-arrow` & `tooltip-inner` CSS classes (can be configured, see below)
-  // Change if the classes conflict with other libraries (for example bootstrap)
-  defaultTemplate: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
-  // Selector used to get the arrow element in the tooltip template
-  defaultArrowSelector: '.tooltip-arrow, .tooltip__arrow',
-  // Selector used to get the inner content element in the tooltip template
-  defaultInnerSelector: '.tooltip-inner, .tooltip__inner',
-  // Delay (ms)
-  defaultDelay: 0,
-  // Default events that trigger the tooltip
-  defaultTrigger: 'hover focus',
-  // Default position offset (px)
-  defaultOffset: 0,
-  // Default container where the tooltip will be appended
-  defaultContainer: 'body',
-  defaultBoundariesElement: undefined,
-  defaultPopperOptions: {},
-  // Class added when content is loading
-  defaultLoadingClass: 'tooltip-loading',
-  // Displayed when tooltip content is loading
-  defaultLoadingContent: '...',
-  // Hide on mouseover tooltip
-  autoHide: true,
-  // Close tooltip on click on tooltip target?
-  defaultHideOnTargetClick: true,
-  // Auto destroy tooltip DOM nodes (ms)
-  disposeTimeout: 5000,
-  // Options for popover
-  popover: {
-    defaultPlacement: 'bottom',
-    // Use the `popoverClass` prop for theming
-    defaultClass: 'vue-popover-theme',
-    // Base class (change if conflicts with other libraries)
-    defaultBaseClass: 'tooltip popover',
-    // Wrapper class (contains arrow and inner)
-    defaultWrapperClass: 'wrapper',
-    // Inner content class
-    defaultInnerClass: 'tooltip-inner popover-inner',
-    // Arrow class
-    defaultArrowClass: 'tooltip-arrow popover-arrow',
-    // Class added when popover is open
-    defaultOpenClass: 'open',
-    defaultDelay: 0,
-    defaultTrigger: 'click',
-    defaultOffset: 0,
-    defaultContainer: 'body',
-    defaultBoundariesElement: undefined,
-    defaultPopperOptions: {},
-    // Hides if clicked outside of popover
-    defaultAutoHide: true,
-    // Update popper on content resize
-    defaultHandleResize: true
-  }
-};
-function getOptions(options) {
-  var result = {
-    placement: typeof options.placement !== 'undefined' ? options.placement : directive.options.defaultPlacement,
-    delay: typeof options.delay !== 'undefined' ? options.delay : directive.options.defaultDelay,
-    html: typeof options.html !== 'undefined' ? options.html : directive.options.defaultHtml,
-    template: typeof options.template !== 'undefined' ? options.template : directive.options.defaultTemplate,
-    arrowSelector: typeof options.arrowSelector !== 'undefined' ? options.arrowSelector : directive.options.defaultArrowSelector,
-    innerSelector: typeof options.innerSelector !== 'undefined' ? options.innerSelector : directive.options.defaultInnerSelector,
-    trigger: typeof options.trigger !== 'undefined' ? options.trigger : directive.options.defaultTrigger,
-    offset: typeof options.offset !== 'undefined' ? options.offset : directive.options.defaultOffset,
-    container: typeof options.container !== 'undefined' ? options.container : directive.options.defaultContainer,
-    boundariesElement: typeof options.boundariesElement !== 'undefined' ? options.boundariesElement : directive.options.defaultBoundariesElement,
-    autoHide: typeof options.autoHide !== 'undefined' ? options.autoHide : directive.options.autoHide,
-    hideOnTargetClick: typeof options.hideOnTargetClick !== 'undefined' ? options.hideOnTargetClick : directive.options.defaultHideOnTargetClick,
-    loadingClass: typeof options.loadingClass !== 'undefined' ? options.loadingClass : directive.options.defaultLoadingClass,
-    loadingContent: typeof options.loadingContent !== 'undefined' ? options.loadingContent : directive.options.defaultLoadingContent,
-    popperOptions: _objectSpread2({}, typeof options.popperOptions !== 'undefined' ? options.popperOptions : directive.options.defaultPopperOptions)
-  };
-
-  if (result.offset) {
-    var typeofOffset = _typeof(result.offset);
-
-    var offset = result.offset; // One value -> switch
-
-    if (typeofOffset === 'number' || typeofOffset === 'string' && offset.indexOf(',') === -1) {
-      offset = "0, ".concat(offset);
-    }
-
-    if (!result.popperOptions.modifiers) {
-      result.popperOptions.modifiers = {};
-    }
-
-    result.popperOptions.modifiers.offset = {
-      offset: offset
-    };
-  }
-
-  if (result.trigger && result.trigger.indexOf('click') !== -1) {
-    result.hideOnTargetClick = false;
-  }
-
-  return result;
-}
-function getPlacement(value, modifiers) {
-  var placement = value.placement;
-
-  for (var i = 0; i < positions.length; i++) {
-    var pos = positions[i];
-
-    if (modifiers[pos]) {
-      placement = pos;
-    }
-  }
-
-  return placement;
-}
-function getContent(value) {
-  var type = _typeof(value);
-
-  if (type === 'string') {
-    return value;
-  } else if (value && type === 'object') {
-    return value.content;
-  } else {
-    return false;
-  }
-}
-function createTooltip(el, value) {
-  var modifiers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  var content = getContent(value);
-  var classes = typeof value.classes !== 'undefined' ? value.classes : directive.options.defaultClass;
-
-  var opts = _objectSpread2({
-    title: content
-  }, getOptions(_objectSpread2({}, value, {
-    placement: getPlacement(value, modifiers)
-  })));
-
-  var tooltip = el._tooltip = new Tooltip(el, opts);
-  tooltip.setClasses(classes);
-  tooltip._vueEl = el; // Class on target
-
-  var targetClasses = typeof value.targetClasses !== 'undefined' ? value.targetClasses : directive.options.defaultTargetClass;
-  el._tooltipTargetClasses = targetClasses;
-  addClasses(el, targetClasses);
-  return tooltip;
-}
-function destroyTooltip(el) {
-  if (el._tooltip) {
-    el._tooltip.dispose();
-
-    delete el._tooltip;
-    delete el._tooltipOldShow;
-  }
-
-  if (el._tooltipTargetClasses) {
-    removeClasses(el, el._tooltipTargetClasses);
-    delete el._tooltipTargetClasses;
-  }
-}
-function bind(el, _ref) {
-  var value = _ref.value,
-      oldValue = _ref.oldValue,
-      modifiers = _ref.modifiers;
-  var content = getContent(value);
-
-  if (!content || !state.enabled) {
-    destroyTooltip(el);
-  } else {
-    var tooltip;
-
-    if (el._tooltip) {
-      tooltip = el._tooltip; // Content
-
-      tooltip.setContent(content); // Options
-
-      tooltip.setOptions(_objectSpread2({}, value, {
-        placement: getPlacement(value, modifiers)
-      }));
-    } else {
-      tooltip = createTooltip(el, value, modifiers);
-    } // Manual show
-
-
-    if (typeof value.show !== 'undefined' && value.show !== el._tooltipOldShow) {
-      el._tooltipOldShow = value.show;
-      value.show ? tooltip.show() : tooltip.hide();
-    }
-  }
-}
-var directive = {
-  options: defaultOptions,
-  bind: bind,
-  update: bind,
-  unbind: function unbind(el) {
-    destroyTooltip(el);
-  }
-};
-
-function addListeners(el) {
-  el.addEventListener('click', onClick);
-  el.addEventListener('touchstart', onTouchStart, supportsPassive ? {
-    passive: true
-  } : false);
-}
-
-function removeListeners(el) {
-  el.removeEventListener('click', onClick);
-  el.removeEventListener('touchstart', onTouchStart);
-  el.removeEventListener('touchend', onTouchEnd);
-  el.removeEventListener('touchcancel', onTouchCancel);
-}
-
-function onClick(event) {
-  var el = event.currentTarget;
-  event.closePopover = !el.$_vclosepopover_touch;
-  event.closeAllPopover = el.$_closePopoverModifiers && !!el.$_closePopoverModifiers.all;
-}
-
-function onTouchStart(event) {
-  if (event.changedTouches.length === 1) {
-    var el = event.currentTarget;
-    el.$_vclosepopover_touch = true;
-    var touch = event.changedTouches[0];
-    el.$_vclosepopover_touchPoint = touch;
-    el.addEventListener('touchend', onTouchEnd);
-    el.addEventListener('touchcancel', onTouchCancel);
-  }
-}
-
-function onTouchEnd(event) {
-  var el = event.currentTarget;
-  el.$_vclosepopover_touch = false;
-
-  if (event.changedTouches.length === 1) {
-    var touch = event.changedTouches[0];
-    var firstTouch = el.$_vclosepopover_touchPoint;
-    event.closePopover = Math.abs(touch.screenY - firstTouch.screenY) < 20 && Math.abs(touch.screenX - firstTouch.screenX) < 20;
-    event.closeAllPopover = el.$_closePopoverModifiers && !!el.$_closePopoverModifiers.all;
-  }
-}
-
-function onTouchCancel(event) {
-  var el = event.currentTarget;
-  el.$_vclosepopover_touch = false;
-}
-
-var vclosepopover = {
-  bind: function bind(el, _ref) {
-    var value = _ref.value,
-        modifiers = _ref.modifiers;
-    el.$_closePopoverModifiers = modifiers;
-
-    if (typeof value === 'undefined' || value) {
-      addListeners(el);
-    }
-  },
-  update: function update(el, _ref2) {
-    var value = _ref2.value,
-        oldValue = _ref2.oldValue,
-        modifiers = _ref2.modifiers;
-    el.$_closePopoverModifiers = modifiers;
-
-    if (value !== oldValue) {
-      if (typeof value === 'undefined' || value) {
-        addListeners(el);
-      } else {
-        removeListeners(el);
-      }
-    }
-  },
-  unbind: function unbind(el) {
-    removeListeners(el);
-  }
-};
-
-function getDefault(key) {
-  var value = directive.options.popover[key];
-
-  if (typeof value === 'undefined') {
-    return directive.options[key];
-  }
-
-  return value;
-}
-
-var isIOS = false;
-
-if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
-  isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-}
-
-var openPopovers = [];
-
-var Element = function Element() {};
-
-if (typeof window !== 'undefined') {
-  Element = window.Element;
-}
-
-var script = {
-  name: 'VPopover',
-  components: {
-    ResizeObserver: vue_resize__WEBPACK_IMPORTED_MODULE_1__["ResizeObserver"]
-  },
-  props: {
-    open: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    placement: {
-      type: String,
-      default: function _default() {
-        return getDefault('defaultPlacement');
-      }
-    },
-    delay: {
-      type: [String, Number, Object],
-      default: function _default() {
-        return getDefault('defaultDelay');
-      }
-    },
-    offset: {
-      type: [String, Number],
-      default: function _default() {
-        return getDefault('defaultOffset');
-      }
-    },
-    trigger: {
-      type: String,
-      default: function _default() {
-        return getDefault('defaultTrigger');
-      }
-    },
-    container: {
-      type: [String, Object, Element, Boolean],
-      default: function _default() {
-        return getDefault('defaultContainer');
-      }
-    },
-    boundariesElement: {
-      type: [String, Element],
-      default: function _default() {
-        return getDefault('defaultBoundariesElement');
-      }
-    },
-    popperOptions: {
-      type: Object,
-      default: function _default() {
-        return getDefault('defaultPopperOptions');
-      }
-    },
-    popoverClass: {
-      type: [String, Array],
-      default: function _default() {
-        return getDefault('defaultClass');
-      }
-    },
-    popoverBaseClass: {
-      type: [String, Array],
-      default: function _default() {
-        return directive.options.popover.defaultBaseClass;
-      }
-    },
-    popoverInnerClass: {
-      type: [String, Array],
-      default: function _default() {
-        return directive.options.popover.defaultInnerClass;
-      }
-    },
-    popoverWrapperClass: {
-      type: [String, Array],
-      default: function _default() {
-        return directive.options.popover.defaultWrapperClass;
-      }
-    },
-    popoverArrowClass: {
-      type: [String, Array],
-      default: function _default() {
-        return directive.options.popover.defaultArrowClass;
-      }
-    },
-    autoHide: {
-      type: Boolean,
-      default: function _default() {
-        return directive.options.popover.defaultAutoHide;
-      }
-    },
-    handleResize: {
-      type: Boolean,
-      default: function _default() {
-        return directive.options.popover.defaultHandleResize;
-      }
-    },
-    openGroup: {
-      type: String,
-      default: null
-    },
-    openClass: {
-      type: [String, Array],
-      default: function _default() {
-        return directive.options.popover.defaultOpenClass;
-      }
-    }
-  },
-  data: function data() {
-    return {
-      isOpen: false,
-      id: Math.random().toString(36).substr(2, 10)
-    };
-  },
-  computed: {
-    cssClass: function cssClass() {
-      return _defineProperty({}, this.openClass, this.isOpen);
-    },
-    popoverId: function popoverId() {
-      return "popover_".concat(this.id);
-    }
-  },
-  watch: {
-    open: function open(val) {
-      if (val) {
-        this.show();
-      } else {
-        this.hide();
-      }
-    },
-    disabled: function disabled(val, oldVal) {
-      if (val !== oldVal) {
-        if (val) {
-          this.hide();
-        } else if (this.open) {
-          this.show();
-        }
-      }
-    },
-    container: function container(val) {
-      if (this.isOpen && this.popperInstance) {
-        var popoverNode = this.$refs.popover;
-        var reference = this.$refs.trigger;
-        var container = this.$_findContainer(this.container, reference);
-
-        if (!container) {
-          console.warn('No container for popover', this);
-          return;
-        }
-
-        container.appendChild(popoverNode);
-        this.popperInstance.scheduleUpdate();
-      }
-    },
-    trigger: function trigger(val) {
-      this.$_removeEventListeners();
-      this.$_addEventListeners();
-    },
-    placement: function placement(val) {
-      var _this = this;
-
-      this.$_updatePopper(function () {
-        _this.popperInstance.options.placement = val;
-      });
-    },
-    offset: '$_restartPopper',
-    boundariesElement: '$_restartPopper',
-    popperOptions: {
-      handler: '$_restartPopper',
-      deep: true
-    }
-  },
-  created: function created() {
-    this.$_isDisposed = false;
-    this.$_mounted = false;
-    this.$_events = [];
-    this.$_preventOpen = false;
-  },
-  mounted: function mounted() {
-    var popoverNode = this.$refs.popover;
-    popoverNode.parentNode && popoverNode.parentNode.removeChild(popoverNode);
-    this.$_init();
-
-    if (this.open) {
-      this.show();
-    }
-  },
-  deactivated: function deactivated() {
-    this.hide();
-  },
-  beforeDestroy: function beforeDestroy() {
-    this.dispose();
-  },
-  methods: {
-    show: function show() {
-      var _this2 = this;
-
-      var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-          event = _ref2.event,
-          _ref2$skipDelay = _ref2.skipDelay,
-          _ref2$force = _ref2.force,
-          force = _ref2$force === void 0 ? false : _ref2$force;
-
-      if (force || !this.disabled) {
-        this.$_scheduleShow(event);
-        this.$emit('show');
-      }
-
-      this.$emit('update:open', true);
-      this.$_beingShowed = true;
-      requestAnimationFrame(function () {
-        _this2.$_beingShowed = false;
-      });
-    },
-    hide: function hide() {
-      var _ref3 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-          event = _ref3.event,
-          _ref3$skipDelay = _ref3.skipDelay;
-
-      this.$_scheduleHide(event);
-      this.$emit('hide');
-      this.$emit('update:open', false);
-    },
-    dispose: function dispose() {
-      this.$_isDisposed = true;
-      this.$_removeEventListeners();
-      this.hide({
-        skipDelay: true
-      });
-
-      if (this.popperInstance) {
-        this.popperInstance.destroy(); // destroy tooltipNode if removeOnDestroy is not set, as popperInstance.destroy() already removes the element
-
-        if (!this.popperInstance.options.removeOnDestroy) {
-          var popoverNode = this.$refs.popover;
-          popoverNode.parentNode && popoverNode.parentNode.removeChild(popoverNode);
-        }
-      }
-
-      this.$_mounted = false;
-      this.popperInstance = null;
-      this.isOpen = false;
-      this.$emit('dispose');
-    },
-    $_init: function $_init() {
-      if (this.trigger.indexOf('manual') === -1) {
-        this.$_addEventListeners();
-      }
-    },
-    $_show: function $_show() {
-      var _this3 = this;
-
-      var reference = this.$refs.trigger;
-      var popoverNode = this.$refs.popover;
-      clearTimeout(this.$_disposeTimer); // Already open
-
-      if (this.isOpen) {
-        return;
-      } // Popper is already initialized
-
-
-      if (this.popperInstance) {
-        this.isOpen = true;
-        this.popperInstance.enableEventListeners();
-        this.popperInstance.scheduleUpdate();
-      }
-
-      if (!this.$_mounted) {
-        var container = this.$_findContainer(this.container, reference);
-
-        if (!container) {
-          console.warn('No container for popover', this);
-          return;
-        }
-
-        container.appendChild(popoverNode);
-        this.$_mounted = true;
-      }
-
-      if (!this.popperInstance) {
-        var popperOptions = _objectSpread2({}, this.popperOptions, {
-          placement: this.placement
-        });
-
-        popperOptions.modifiers = _objectSpread2({}, popperOptions.modifiers, {
-          arrow: _objectSpread2({}, popperOptions.modifiers && popperOptions.modifiers.arrow, {
-            element: this.$refs.arrow
-          })
-        });
-
-        if (this.offset) {
-          var offset = this.$_getOffset();
-          popperOptions.modifiers.offset = _objectSpread2({}, popperOptions.modifiers && popperOptions.modifiers.offset, {
-            offset: offset
-          });
-        }
-
-        if (this.boundariesElement) {
-          popperOptions.modifiers.preventOverflow = _objectSpread2({}, popperOptions.modifiers && popperOptions.modifiers.preventOverflow, {
-            boundariesElement: this.boundariesElement
-          });
-        }
-
-        this.popperInstance = new popper_js__WEBPACK_IMPORTED_MODULE_0__["default"](reference, popoverNode, popperOptions); // Fix position
-
-        requestAnimationFrame(function () {
-          if (_this3.hidden) {
-            _this3.hidden = false;
-
-            _this3.$_hide();
-
-            return;
-          }
-
-          if (!_this3.$_isDisposed && _this3.popperInstance) {
-            _this3.popperInstance.scheduleUpdate(); // Show the tooltip
-
-
-            requestAnimationFrame(function () {
-              if (_this3.hidden) {
-                _this3.hidden = false;
-
-                _this3.$_hide();
-
-                return;
-              }
-
-              if (!_this3.$_isDisposed) {
-                _this3.isOpen = true;
-              } else {
-                _this3.dispose();
-              }
-            });
-          } else {
-            _this3.dispose();
-          }
-        });
-      }
-
-      var openGroup = this.openGroup;
-
-      if (openGroup) {
-        var popover;
-
-        for (var i = 0; i < openPopovers.length; i++) {
-          popover = openPopovers[i];
-
-          if (popover.openGroup !== openGroup) {
-            popover.hide();
-            popover.$emit('close-group');
-          }
-        }
-      }
-
-      openPopovers.push(this);
-      this.$emit('apply-show');
-    },
-    $_hide: function $_hide() {
-      var _this4 = this;
-
-      // Already hidden
-      if (!this.isOpen) {
-        return;
-      }
-
-      var index = openPopovers.indexOf(this);
-
-      if (index !== -1) {
-        openPopovers.splice(index, 1);
-      }
-
-      this.isOpen = false;
-
-      if (this.popperInstance) {
-        this.popperInstance.disableEventListeners();
-      }
-
-      clearTimeout(this.$_disposeTimer);
-      var disposeTime = directive.options.popover.disposeTimeout || directive.options.disposeTimeout;
-
-      if (disposeTime !== null) {
-        this.$_disposeTimer = setTimeout(function () {
-          var popoverNode = _this4.$refs.popover;
-
-          if (popoverNode) {
-            // Don't remove popper instance, just the HTML element
-            popoverNode.parentNode && popoverNode.parentNode.removeChild(popoverNode);
-            _this4.$_mounted = false;
-          }
-        }, disposeTime);
-      }
-
-      this.$emit('apply-hide');
-    },
-    $_findContainer: function $_findContainer(container, reference) {
-      // if container is a query, get the relative element
-      if (typeof container === 'string') {
-        container = window.document.querySelector(container);
-      } else if (container === false) {
-        // if container is `false`, set it to reference parent
-        container = reference.parentNode;
-      }
-
-      return container;
-    },
-    $_getOffset: function $_getOffset() {
-      var typeofOffset = _typeof(this.offset);
-
-      var offset = this.offset; // One value -> switch
-
-      if (typeofOffset === 'number' || typeofOffset === 'string' && offset.indexOf(',') === -1) {
-        offset = "0, ".concat(offset);
-      }
-
-      return offset;
-    },
-    $_addEventListeners: function $_addEventListeners() {
-      var _this5 = this;
-
-      var reference = this.$refs.trigger;
-      var directEvents = [];
-      var oppositeEvents = [];
-      var events = typeof this.trigger === 'string' ? this.trigger.split(' ').filter(function (trigger) {
-        return ['click', 'hover', 'focus'].indexOf(trigger) !== -1;
-      }) : [];
-      events.forEach(function (event) {
-        switch (event) {
-          case 'hover':
-            directEvents.push('mouseenter');
-            oppositeEvents.push('mouseleave');
-            break;
-
-          case 'focus':
-            directEvents.push('focus');
-            oppositeEvents.push('blur');
-            break;
-
-          case 'click':
-            directEvents.push('click');
-            oppositeEvents.push('click');
-            break;
-        }
-      }); // schedule show tooltip
-
-      directEvents.forEach(function (event) {
-        var func = function func(event) {
-          if (_this5.isOpen) {
-            return;
-          }
-
-          event.usedByTooltip = true;
-          !_this5.$_preventOpen && _this5.show({
-            event: event
-          });
-          _this5.hidden = false;
-        };
-
-        _this5.$_events.push({
-          event: event,
-          func: func
-        });
-
-        reference.addEventListener(event, func);
-      }); // schedule hide tooltip
-
-      oppositeEvents.forEach(function (event) {
-        var func = function func(event) {
-          if (event.usedByTooltip) {
-            return;
-          }
-
-          _this5.hide({
-            event: event
-          });
-
-          _this5.hidden = true;
-        };
-
-        _this5.$_events.push({
-          event: event,
-          func: func
-        });
-
-        reference.addEventListener(event, func);
-      });
-    },
-    $_scheduleShow: function $_scheduleShow() {
-      var skipDelay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      clearTimeout(this.$_scheduleTimer);
-
-      if (skipDelay) {
-        this.$_show();
-      } else {
-        // defaults to 0
-        var computedDelay = parseInt(this.delay && this.delay.show || this.delay || 0);
-        this.$_scheduleTimer = setTimeout(this.$_show.bind(this), computedDelay);
-      }
-    },
-    $_scheduleHide: function $_scheduleHide() {
-      var _this6 = this;
-
-      var event = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      var skipDelay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      clearTimeout(this.$_scheduleTimer);
-
-      if (skipDelay) {
-        this.$_hide();
-      } else {
-        // defaults to 0
-        var computedDelay = parseInt(this.delay && this.delay.hide || this.delay || 0);
-        this.$_scheduleTimer = setTimeout(function () {
-          if (!_this6.isOpen) {
-            return;
-          } // if we are hiding because of a mouseleave, we must check that the new
-          // reference isn't the tooltip, because in this case we don't want to hide it
-
-
-          if (event && event.type === 'mouseleave') {
-            var isSet = _this6.$_setTooltipNodeEvent(event); // if we set the new event, don't hide the tooltip yet
-            // the new event will take care to hide it if necessary
-
-
-            if (isSet) {
-              return;
-            }
-          }
-
-          _this6.$_hide();
-        }, computedDelay);
-      }
-    },
-    $_setTooltipNodeEvent: function $_setTooltipNodeEvent(event) {
-      var _this7 = this;
-
-      var reference = this.$refs.trigger;
-      var popoverNode = this.$refs.popover;
-      var relatedreference = event.relatedreference || event.toElement || event.relatedTarget;
-
-      var callback = function callback(event2) {
-        var relatedreference2 = event2.relatedreference || event2.toElement || event2.relatedTarget; // Remove event listener after call
-
-        popoverNode.removeEventListener(event.type, callback); // If the new reference is not the reference element
-
-        if (!reference.contains(relatedreference2)) {
-          // Schedule to hide tooltip
-          _this7.hide({
-            event: event2
-          });
-        }
-      };
-
-      if (popoverNode.contains(relatedreference)) {
-        // listen to mouseleave on the tooltip element to be able to hide the tooltip
-        popoverNode.addEventListener(event.type, callback);
-        return true;
-      }
-
-      return false;
-    },
-    $_removeEventListeners: function $_removeEventListeners() {
-      var reference = this.$refs.trigger;
-      this.$_events.forEach(function (_ref4) {
-        var func = _ref4.func,
-            event = _ref4.event;
-        reference.removeEventListener(event, func);
-      });
-      this.$_events = [];
-    },
-    $_updatePopper: function $_updatePopper(cb) {
-      if (this.popperInstance) {
-        cb();
-        if (this.isOpen) this.popperInstance.scheduleUpdate();
-      }
-    },
-    $_restartPopper: function $_restartPopper() {
-      if (this.popperInstance) {
-        var isOpen = this.isOpen;
-        this.dispose();
-        this.$_isDisposed = false;
-        this.$_init();
-
-        if (isOpen) {
-          this.show({
-            skipDelay: true,
-            force: true
-          });
-        }
-      }
-    },
-    $_handleGlobalClose: function $_handleGlobalClose(event) {
-      var _this8 = this;
-
-      var touch = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      if (this.$_beingShowed) return;
-      this.hide({
-        event: event
-      });
-
-      if (event.closePopover) {
-        this.$emit('close-directive');
-      } else {
-        this.$emit('auto-hide');
-      }
-
-      if (touch) {
-        this.$_preventOpen = true;
-        setTimeout(function () {
-          _this8.$_preventOpen = false;
-        }, 300);
-      }
-    },
-    $_handleResize: function $_handleResize() {
-      if (this.isOpen && this.popperInstance) {
-        this.popperInstance.scheduleUpdate();
-        this.$emit('resize');
-      }
-    }
-  }
-};
-
-if (typeof document !== 'undefined' && typeof window !== 'undefined') {
-  if (isIOS) {
-    document.addEventListener('touchend', handleGlobalTouchend, supportsPassive ? {
-      passive: true,
-      capture: true
-    } : true);
-  } else {
-    window.addEventListener('click', handleGlobalClick, true);
-  }
-}
-
-function handleGlobalClick(event) {
-  handleGlobalClose(event);
-}
-
-function handleGlobalTouchend(event) {
-  handleGlobalClose(event, true);
-}
-
-function handleGlobalClose(event) {
-  var touch = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-  var _loop = function _loop(i) {
-    var popover = openPopovers[i];
-
-    if (popover.$refs.popover) {
-      var contains = popover.$refs.popover.contains(event.target);
-      requestAnimationFrame(function () {
-        if (event.closeAllPopover || event.closePopover && contains || popover.autoHide && !contains) {
-          popover.$_handleGlobalClose(event, touch);
-        }
-      });
-    }
-  };
-
-  // Delay so that close directive has time to set values
-  for (var i = 0; i < openPopovers.length; i++) {
-    _loop(i);
-  }
-}
-
-function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
-    if (typeof shadowMode !== 'boolean') {
-        createInjectorSSR = createInjector;
-        createInjector = shadowMode;
-        shadowMode = false;
-    }
-    // Vue.extend constructor export interop.
-    const options = typeof script === 'function' ? script.options : script;
-    // render functions
-    if (template && template.render) {
-        options.render = template.render;
-        options.staticRenderFns = template.staticRenderFns;
-        options._compiled = true;
-        // functional template
-        if (isFunctionalTemplate) {
-            options.functional = true;
-        }
-    }
-    // scopedId
-    if (scopeId) {
-        options._scopeId = scopeId;
-    }
-    let hook;
-    if (moduleIdentifier) {
-        // server build
-        hook = function (context) {
-            // 2.3 injection
-            context =
-                context || // cached call
-                    (this.$vnode && this.$vnode.ssrContext) || // stateful
-                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
-            // 2.2 with runInNewContext: true
-            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-                context = __VUE_SSR_CONTEXT__;
-            }
-            // inject component styles
-            if (style) {
-                style.call(this, createInjectorSSR(context));
-            }
-            // register component module identifier for async chunk inference
-            if (context && context._registeredComponents) {
-                context._registeredComponents.add(moduleIdentifier);
-            }
-        };
-        // used by ssr in case component is cached and beforeCreate
-        // never gets called
-        options._ssrRegister = hook;
-    }
-    else if (style) {
-        hook = shadowMode
-            ? function (context) {
-                style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
-            }
-            : function (context) {
-                style.call(this, createInjector(context));
-            };
-    }
-    if (hook) {
-        if (options.functional) {
-            // register for functional component in vue file
-            const originalRender = options.render;
-            options.render = function renderWithStyleInjection(h, context) {
-                hook.call(context);
-                return originalRender(h, context);
-            };
-        }
-        else {
-            // inject component registration as beforeCreate hook
-            const existing = options.beforeCreate;
-            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-        }
-    }
-    return script;
-}
-
-/* script */
-var __vue_script__ = script;
-/* template */
-
-var __vue_render__ = function __vue_render__() {
-  var _vm = this;
-
-  var _h = _vm.$createElement;
-
-  var _c = _vm._self._c || _h;
-
-  return _c("div", {
-    staticClass: "v-popover",
-    class: _vm.cssClass
-  }, [_c("div", {
-    ref: "trigger",
-    staticClass: "trigger",
-    staticStyle: {
-      display: "inline-block"
-    },
-    attrs: {
-      "aria-describedby": _vm.popoverId,
-      tabindex: _vm.trigger.indexOf("focus") !== -1 ? 0 : undefined
-    }
-  }, [_vm._t("default")], 2), _vm._v(" "), _c("div", {
-    ref: "popover",
-    class: [_vm.popoverBaseClass, _vm.popoverClass, _vm.cssClass],
-    style: {
-      visibility: _vm.isOpen ? "visible" : "hidden"
-    },
-    attrs: {
-      id: _vm.popoverId,
-      "aria-hidden": _vm.isOpen ? "false" : "true",
-      tabindex: _vm.autoHide ? 0 : undefined
-    },
-    on: {
-      keyup: function keyup($event) {
-        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "esc", 27, $event.key, ["Esc", "Escape"])) {
-          return null;
-        }
-
-        _vm.autoHide && _vm.hide();
-      }
-    }
-  }, [_c("div", {
-    class: _vm.popoverWrapperClass
-  }, [_c("div", {
-    ref: "inner",
-    class: _vm.popoverInnerClass,
-    staticStyle: {
-      position: "relative"
-    }
-  }, [_c("div", [_vm._t("popover")], 2), _vm._v(" "), _vm.handleResize ? _c("ResizeObserver", {
-    on: {
-      notify: _vm.$_handleResize
-    }
-  }) : _vm._e()], 1), _vm._v(" "), _c("div", {
-    ref: "arrow",
-    class: _vm.popoverArrowClass
-  })])])]);
-};
-
-var __vue_staticRenderFns__ = [];
-__vue_render__._withStripped = true;
-/* style */
-
-var __vue_inject_styles__ = undefined;
-/* scoped */
-
-var __vue_scope_id__ = undefined;
-/* module identifier */
-
-var __vue_module_identifier__ = undefined;
-/* functional template */
-
-var __vue_is_functional_template__ = false;
-/* style inject */
-
-/* style inject SSR */
-
-/* style inject shadow dom */
-
-var __vue_component__ = normalizeComponent({
-  render: __vue_render__,
-  staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
-
 var defineProperty = (function() {
   try {
     var func = _getNative(Object, 'defineProperty');
@@ -10674,7 +9391,7 @@ var _baseFor = baseFor;
 
 var _cloneBuffer = createCommonjsModule(function (module, exports) {
 /** Detect free variable `exports`. */
-var freeExports =  exports && !exports.nodeType && exports;
+var freeExports = exports && !exports.nodeType && exports;
 
 /** Detect free variable `module`. */
 var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
@@ -10707,6 +9424,11 @@ function cloneBuffer(buffer, isDeep) {
 
 module.exports = cloneBuffer;
 });
+
+/** Built-in value references. */
+var Uint8Array = _root.Uint8Array;
+
+var _Uint8Array = Uint8Array;
 
 /**
  * Creates a clone of `arrayBuffer`.
@@ -10788,10 +9510,45 @@ var baseCreate = (function() {
 
 var _baseCreate = baseCreate;
 
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function(arg) {
+    return func(transform(arg));
+  };
+}
+
+var _overArg = overArg;
+
 /** Built-in value references. */
 var getPrototype = _overArg(Object.getPrototypeOf, Object);
 
 var _getPrototype = getPrototype;
+
+/** Used for built-in method references. */
+var objectProto$5 = Object.prototype;
+
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto$5;
+
+  return value === proto;
+}
+
+var _isPrototype = isPrototype;
 
 /**
  * Initializes an object clone.
@@ -10807,6 +9564,180 @@ function initCloneObject(object) {
 }
 
 var _initCloneObject = initCloneObject;
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+var isObjectLike_1 = isObjectLike;
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]';
+
+/**
+ * The base implementation of `_.isArguments`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ */
+function baseIsArguments(value) {
+  return isObjectLike_1(value) && _baseGetTag(value) == argsTag;
+}
+
+var _baseIsArguments = baseIsArguments;
+
+/** Used for built-in method references. */
+var objectProto$6 = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty$4 = objectProto$6.hasOwnProperty;
+
+/** Built-in value references. */
+var propertyIsEnumerable = objectProto$6.propertyIsEnumerable;
+
+/**
+ * Checks if `value` is likely an `arguments` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArguments(function() { return arguments; }());
+ * // => true
+ *
+ * _.isArguments([1, 2, 3]);
+ * // => false
+ */
+var isArguments = _baseIsArguments(function() { return arguments; }()) ? _baseIsArguments : function(value) {
+  return isObjectLike_1(value) && hasOwnProperty$4.call(value, 'callee') &&
+    !propertyIsEnumerable.call(value, 'callee');
+};
+
+var isArguments_1 = isArguments;
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+var isArray_1 = isArray;
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+function isLength(value) {
+  return typeof value == 'number' &&
+    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+
+var isLength_1 = isLength;
+
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && isLength_1(value.length) && !isFunction_1(value);
+}
+
+var isArrayLike_1 = isArrayLike;
 
 /**
  * This method is like `_.isArrayLike` except that it also checks if `value`
@@ -10839,18 +9770,75 @@ function isArrayLikeObject(value) {
 
 var isArrayLikeObject_1 = isArrayLikeObject;
 
+/**
+ * This method returns `false`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {boolean} Returns `false`.
+ * @example
+ *
+ * _.times(2, _.stubFalse);
+ * // => [false, false]
+ */
+function stubFalse() {
+  return false;
+}
+
+var stubFalse_1 = stubFalse;
+
+var isBuffer_1 = createCommonjsModule(function (module, exports) {
+/** Detect free variable `exports`. */
+var freeExports = exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Built-in value references. */
+var Buffer = moduleExports ? _root.Buffer : undefined;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
+
+/**
+ * Checks if `value` is a buffer.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+ * @example
+ *
+ * _.isBuffer(new Buffer(2));
+ * // => true
+ *
+ * _.isBuffer(new Uint8Array(2));
+ * // => false
+ */
+var isBuffer = nativeIsBuffer || stubFalse_1;
+
+module.exports = isBuffer;
+});
+
 /** `Object#toString` result references. */
-var objectTag$3 = '[object Object]';
+var objectTag = '[object Object]';
 
 /** Used for built-in method references. */
 var funcProto$2 = Function.prototype,
-    objectProto$c = Object.prototype;
+    objectProto$7 = Object.prototype;
 
 /** Used to resolve the decompiled source of functions. */
 var funcToString$2 = funcProto$2.toString;
 
 /** Used to check objects for own properties. */
-var hasOwnProperty$9 = objectProto$c.hasOwnProperty;
+var hasOwnProperty$5 = objectProto$7.hasOwnProperty;
 
 /** Used to infer the `Object` constructor. */
 var objectCtorString = funcToString$2.call(Object);
@@ -10884,22 +9872,149 @@ var objectCtorString = funcToString$2.call(Object);
  * // => true
  */
 function isPlainObject(value) {
-  if (!isObjectLike_1(value) || _baseGetTag(value) != objectTag$3) {
+  if (!isObjectLike_1(value) || _baseGetTag(value) != objectTag) {
     return false;
   }
   var proto = _getPrototype(value);
   if (proto === null) {
     return true;
   }
-  var Ctor = hasOwnProperty$9.call(proto, 'constructor') && proto.constructor;
+  var Ctor = hasOwnProperty$5.call(proto, 'constructor') && proto.constructor;
   return typeof Ctor == 'function' && Ctor instanceof Ctor &&
     funcToString$2.call(Ctor) == objectCtorString;
 }
 
 var isPlainObject_1 = isPlainObject;
 
+/** `Object#toString` result references. */
+var argsTag$1 = '[object Arguments]',
+    arrayTag = '[object Array]',
+    boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    funcTag$1 = '[object Function]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    objectTag$1 = '[object Object]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    weakMapTag = '[object WeakMap]';
+
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]',
+    float32Tag = '[object Float32Array]',
+    float64Tag = '[object Float64Array]',
+    int8Tag = '[object Int8Array]',
+    int16Tag = '[object Int16Array]',
+    int32Tag = '[object Int32Array]',
+    uint8Tag = '[object Uint8Array]',
+    uint8ClampedTag = '[object Uint8ClampedArray]',
+    uint16Tag = '[object Uint16Array]',
+    uint32Tag = '[object Uint32Array]';
+
+/** Used to identify `toStringTag` values of typed arrays. */
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag$1] = typedArrayTags[arrayTag] =
+typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+typedArrayTags[errorTag] = typedArrayTags[funcTag$1] =
+typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+typedArrayTags[objectTag$1] = typedArrayTags[regexpTag] =
+typedArrayTags[setTag] = typedArrayTags[stringTag] =
+typedArrayTags[weakMapTag] = false;
+
 /**
- * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
+ * The base implementation of `_.isTypedArray` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ */
+function baseIsTypedArray(value) {
+  return isObjectLike_1(value) &&
+    isLength_1(value.length) && !!typedArrayTags[_baseGetTag(value)];
+}
+
+var _baseIsTypedArray = baseIsTypedArray;
+
+/**
+ * The base implementation of `_.unary` without support for storing metadata.
+ *
+ * @private
+ * @param {Function} func The function to cap arguments for.
+ * @returns {Function} Returns the new capped function.
+ */
+function baseUnary(func) {
+  return function(value) {
+    return func(value);
+  };
+}
+
+var _baseUnary = baseUnary;
+
+var _nodeUtil = createCommonjsModule(function (module, exports) {
+/** Detect free variable `exports`. */
+var freeExports = exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Detect free variable `process` from Node.js. */
+var freeProcess = moduleExports && _freeGlobal.process;
+
+/** Used to access faster Node.js helpers. */
+var nodeUtil = (function() {
+  try {
+    // Use `util.types` for Node.js 10+.
+    var types = freeModule && freeModule.require && freeModule.require('util').types;
+
+    if (types) {
+      return types;
+    }
+
+    // Legacy `process.binding('util')` for Node.js < 10.
+    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+  } catch (e) {}
+}());
+
+module.exports = nodeUtil;
+});
+
+/* Node.js helper references. */
+var nodeIsTypedArray = _nodeUtil && _nodeUtil.isTypedArray;
+
+/**
+ * Checks if `value` is classified as a typed array.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ * @example
+ *
+ * _.isTypedArray(new Uint8Array);
+ * // => true
+ *
+ * _.isTypedArray([]);
+ * // => false
+ */
+var isTypedArray = nodeIsTypedArray ? _baseUnary(nodeIsTypedArray) : _baseIsTypedArray;
+
+var isTypedArray_1 = isTypedArray;
+
+/**
+ * Gets the value at `key`, unless `key` is "__proto__".
  *
  * @private
  * @param {Object} object The object to query.
@@ -10907,10 +10022,6 @@ var isPlainObject_1 = isPlainObject;
  * @returns {*} Returns the property value.
  */
 function safeGet(object, key) {
-  if (key === 'constructor' && typeof object[key] === 'function') {
-    return;
-  }
-
   if (key == '__proto__') {
     return;
   }
@@ -10921,10 +10032,10 @@ function safeGet(object, key) {
 var _safeGet = safeGet;
 
 /** Used for built-in method references. */
-var objectProto$d = Object.prototype;
+var objectProto$8 = Object.prototype;
 
 /** Used to check objects for own properties. */
-var hasOwnProperty$a = objectProto$d.hasOwnProperty;
+var hasOwnProperty$6 = objectProto$8.hasOwnProperty;
 
 /**
  * Assigns `value` to `key` of `object` if the existing value is not equivalent
@@ -10938,7 +10049,7 @@ var hasOwnProperty$a = objectProto$d.hasOwnProperty;
  */
 function assignValue(object, key, value) {
   var objValue = object[key];
-  if (!(hasOwnProperty$a.call(object, key) && eq_1(objValue, value)) ||
+  if (!(hasOwnProperty$6.call(object, key) && eq_1(objValue, value)) ||
       (value === undefined && !(key in object))) {
     _baseAssignValue(object, key, value);
   }
@@ -10985,6 +10096,96 @@ function copyObject(source, props, object, customizer) {
 var _copyObject = copyObject;
 
 /**
+ * The base implementation of `_.times` without support for iteratee shorthands
+ * or max array length checks.
+ *
+ * @private
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ */
+function baseTimes(n, iteratee) {
+  var index = -1,
+      result = Array(n);
+
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+
+var _baseTimes = baseTimes;
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER$1 = 9007199254740991;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER$1 : length;
+
+  return !!length &&
+    (type == 'number' ||
+      (type != 'symbol' && reIsUint.test(value))) &&
+        (value > -1 && value % 1 == 0 && value < length);
+}
+
+var _isIndex = isIndex;
+
+/** Used for built-in method references. */
+var objectProto$9 = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty$7 = objectProto$9.hasOwnProperty;
+
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+function arrayLikeKeys(value, inherited) {
+  var isArr = isArray_1(value),
+      isArg = !isArr && isArguments_1(value),
+      isBuff = !isArr && !isArg && isBuffer_1(value),
+      isType = !isArr && !isArg && !isBuff && isTypedArray_1(value),
+      skipIndexes = isArr || isArg || isBuff || isType,
+      result = skipIndexes ? _baseTimes(value.length, String) : [],
+      length = result.length;
+
+  for (var key in value) {
+    if ((inherited || hasOwnProperty$7.call(value, key)) &&
+        !(skipIndexes && (
+           // Safari 9 has enumerable `arguments.length` in strict mode.
+           key == 'length' ||
+           // Node.js 0.10 has enumerable non-index properties on buffers.
+           (isBuff && (key == 'offset' || key == 'parent')) ||
+           // PhantomJS 2 has enumerable non-index properties on typed arrays.
+           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
+           // Skip index properties.
+           _isIndex(key, length)
+        ))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+var _arrayLikeKeys = arrayLikeKeys;
+
+/**
  * This function is like
  * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
  * except that it includes inherited enumerable properties.
@@ -11006,10 +10207,10 @@ function nativeKeysIn(object) {
 var _nativeKeysIn = nativeKeysIn;
 
 /** Used for built-in method references. */
-var objectProto$e = Object.prototype;
+var objectProto$a = Object.prototype;
 
 /** Used to check objects for own properties. */
-var hasOwnProperty$b = objectProto$e.hasOwnProperty;
+var hasOwnProperty$8 = objectProto$a.hasOwnProperty;
 
 /**
  * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
@@ -11026,7 +10227,7 @@ function baseKeysIn(object) {
       result = [];
 
   for (var key in object) {
-    if (!(key == 'constructor' && (isProto || !hasOwnProperty$b.call(object, key)))) {
+    if (!(key == 'constructor' && (isProto || !hasOwnProperty$8.call(object, key)))) {
       result.push(key);
     }
   }
@@ -11189,8 +10390,8 @@ function baseMerge(object, source, srcIndex, customizer, stack) {
     return;
   }
   _baseFor(source, function(srcValue, key) {
-    stack || (stack = new _Stack);
     if (isObject_1(srcValue)) {
+      stack || (stack = new _Stack);
       _baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
     }
     else {
@@ -11535,11 +10736,11 @@ function install(Vue) {
   directive.options = finalOptions;
   Vue.directive('tooltip', directive);
   Vue.directive('close-popover', vclosepopover);
-  Vue.component('v-popover', __vue_component__);
+  Vue.component('v-popover', Popover);
 }
 var VTooltip = directive;
 var VClosePopover = vclosepopover;
-var VPopover = __vue_component__;
+var VPopover = Popover;
 var plugin = {
   install: install,
 
@@ -15835,6 +15036,17 @@ return Voca;
 
 })));
 
+
+/***/ }),
+
+/***/ "./node_modules/vue-js-modal/dist/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/vue-js-modal/dist/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(e,t){ true?module.exports=t():undefined}(window,function(){return function(n){var i={};function o(e){if(i[e])return i[e].exports;var t=i[e]={i:e,l:!1,exports:{}};return n[e].call(t.exports,t,t.exports,o),t.l=!0,t.exports}return o.m=n,o.c=i,o.d=function(e,t,n){o.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},o.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},o.t=function(t,e){if(1&e&&(t=o(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var n=Object.create(null);if(o.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var i in t)o.d(n,i,function(e){return t[e]}.bind(null,i));return n},o.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return o.d(t,"a",t),t},o.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},o.p="/dist/",o(o.s=11)}([function(e,t,n){var i=n(6);"string"==typeof i&&(i=[[e.i,i,""]]),i.locals&&(e.exports=i.locals);(0,n(4).default)("27d83796",i,!1,{})},function(e,t,n){var i=n(8);"string"==typeof i&&(i=[[e.i,i,""]]),i.locals&&(e.exports=i.locals);(0,n(4).default)("0e783494",i,!1,{})},function(e,t,n){var i=n(10);"string"==typeof i&&(i=[[e.i,i,""]]),i.locals&&(e.exports=i.locals);(0,n(4).default)("17757f60",i,!1,{})},function(e,t){e.exports=function(n){var a=[];return a.toString=function(){return this.map(function(e){var t=function(e,t){var n=e[1]||"",i=e[3];if(!i)return n;if(t&&"function"==typeof btoa){var o=(a=i,"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(a))))+" */"),r=i.sources.map(function(e){return"/*# sourceURL="+i.sourceRoot+e+" */"});return[n].concat(r).concat([o]).join("\n")}var a;return[n].join("\n")}(e,n);return e[2]?"@media "+e[2]+"{"+t+"}":t}).join("")},a.i=function(e,t){"string"==typeof e&&(e=[[null,e,""]]);for(var n={},i=0;i<this.length;i++){var o=this[i][0];"number"==typeof o&&(n[o]=!0)}for(i=0;i<e.length;i++){var r=e[i];"number"==typeof r[0]&&n[r[0]]||(t&&!r[2]?r[2]=t:t&&(r[2]="("+r[2]+") and ("+t+")"),a.push(r))}},a}},function(e,t,n){"use strict";function l(e,t){for(var n=[],i={},o=0;o<t.length;o++){var r=t[o],a=r[0],s={id:e+":"+o,css:r[1],media:r[2],sourceMap:r[3]};i[a]?i[a].parts.push(s):n.push(i[a]={id:a,parts:[s]})}return n}n.r(t),n.d(t,"default",function(){return p});var i="undefined"!=typeof document;if("undefined"!=typeof DEBUG&&DEBUG&&!i)throw new Error("vue-style-loader cannot be used in a non-browser environment. Use { target: 'node' } in your Webpack config to indicate a server-rendering environment.");var u={},o=i&&(document.head||document.getElementsByTagName("head")[0]),r=null,a=0,d=!1,s=function(){},c=null,h="data-vue-ssr-id",f="undefined"!=typeof navigator&&/msie [6-9]\b/.test(navigator.userAgent.toLowerCase());function p(a,e,t,n){d=t,c=n||{};var s=l(a,e);return m(s),function(e){for(var t=[],n=0;n<s.length;n++){var i=s[n];(o=u[i.id]).refs--,t.push(o)}e?m(s=l(a,e)):s=[];for(n=0;n<t.length;n++){var o;if(0===(o=t[n]).refs){for(var r=0;r<o.parts.length;r++)o.parts[r]();delete u[o.id]}}}}function m(e){for(var t=0;t<e.length;t++){var n=e[t],i=u[n.id];if(i){i.refs++;for(var o=0;o<i.parts.length;o++)i.parts[o](n.parts[o]);for(;o<n.parts.length;o++)i.parts.push(g(n.parts[o]));i.parts.length>n.parts.length&&(i.parts.length=n.parts.length)}else{var r=[];for(o=0;o<n.parts.length;o++)r.push(g(n.parts[o]));u[n.id]={id:n.id,refs:1,parts:r}}}}function v(){var e=document.createElement("style");return e.type="text/css",o.appendChild(e),e}function g(t){var n,i,e=document.querySelector("style["+h+'~="'+t.id+'"]');if(e){if(d)return s;e.parentNode.removeChild(e)}if(f){var o=a++;e=r||(r=v()),n=w.bind(null,e,o,!1),i=w.bind(null,e,o,!0)}else e=v(),n=function(e,t){var n=t.css,i=t.media,o=t.sourceMap;i&&e.setAttribute("media",i);c.ssrId&&e.setAttribute(h,t.id);o&&(n+="\n/*# sourceURL="+o.sources[0]+" */",n+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(o))))+" */");if(e.styleSheet)e.styleSheet.cssText=n;else{for(;e.firstChild;)e.removeChild(e.firstChild);e.appendChild(document.createTextNode(n))}}.bind(null,e),i=function(){e.parentNode.removeChild(e)};return n(t),function(e){if(e){if(e.css===t.css&&e.media===t.media&&e.sourceMap===t.sourceMap)return;n(t=e)}else i()}}var b,y=(b=[],function(e,t){return b[e]=t,b.filter(Boolean).join("\n")});function w(e,t,n,i){var o=n?"":i.css;if(e.styleSheet)e.styleSheet.cssText=y(t,o);else{var r=document.createTextNode(o),a=e.childNodes;a[t]&&e.removeChild(a[t]),a.length?e.insertBefore(r,a[t]):e.appendChild(r)}}},function(e,t,n){"use strict";var i=n(0);n.n(i).a},function(e,t,n){(e.exports=n(3)(!1)).push([e.i,"\n.vue-modal-resizer {\n  display: block;\n  overflow: hidden;\n  position: absolute;\n  width: 12px;\n  height: 12px;\n  right: 0;\n  bottom: 0;\n  z-index: 9999999;\n  background: transparent;\n  cursor: se-resize;\n}\n.vue-modal-resizer::after {\n  display: block;\n  position: absolute;\n  content: '';\n  background: transparent;\n  left: 0;\n  top: 0;\n  width: 0;\n  height: 0;\n  border-bottom: 10px solid #ddd;\n  border-left: 10px solid transparent;\n}\n.vue-modal-resizer.clicked::after {\n  border-bottom: 10px solid #369be9;\n}\n",""])},function(e,t,n){"use strict";var i=n(1);n.n(i).a},function(e,t,n){(e.exports=n(3)(!1)).push([e.i,"\n.v--modal-block-scroll {\n  overflow: hidden;\n  width: 100vw;\n}\n.v--modal-overlay {\n  position: fixed;\n  box-sizing: border-box;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100vh;\n  background: rgba(0, 0, 0, 0.2);\n  z-index: 999;\n  opacity: 1;\n}\n.v--modal-overlay.scrollable {\n  height: 100%;\n  min-height: 100vh;\n  overflow-y: auto;\n  -webkit-overflow-scrolling: touch;\n}\n.v--modal-overlay .v--modal-background-click {\n  width: 100%;\n  min-height: 100%;\n  height: auto;\n}\n.v--modal-overlay .v--modal-box {\n  position: relative;\n  overflow: hidden;\n  box-sizing: border-box;\n}\n.v--modal-overlay.scrollable .v--modal-box {\n  margin-bottom: 2px;\n}\n.v--modal {\n  background-color: white;\n  text-align: left;\n  border-radius: 3px;\n  box-shadow: 0 20px 60px -2px rgba(27, 33, 58, 0.4);\n  padding: 0;\n}\n.v--modal.v--modal-fullscreen {\n  width: 100vw;\n  height: 100vh;\n  margin: 0;\n  left: 0;\n  top: 0;\n}\n.v--modal-top-right {\n  display: block;\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n.overlay-fade-enter-active,\n.overlay-fade-leave-active {\n  transition: all 0.2s;\n}\n.overlay-fade-enter,\n.overlay-fade-leave-active {\n  opacity: 0;\n}\n.nice-modal-fade-enter-active,\n.nice-modal-fade-leave-active {\n  transition: all 0.4s;\n}\n.nice-modal-fade-enter,\n.nice-modal-fade-leave-active {\n  opacity: 0;\n  transform: translateY(-20px);\n}\n",""])},function(e,t,n){"use strict";var i=n(2);n.n(i).a},function(e,t,n){(e.exports=n(3)(!1)).push([e.i,"\n.vue-dialog div {\n  box-sizing: border-box;\n}\n.vue-dialog .dialog-flex {\n  width: 100%;\n  height: 100%;\n}\n.vue-dialog .dialog-content {\n  flex: 1 0 auto;\n  width: 100%;\n  padding: 15px;\n  font-size: 14px;\n}\n.vue-dialog .dialog-c-title {\n  font-weight: 600;\n  padding-bottom: 15px;\n}\n.vue-dialog .dialog-c-text {\n}\n.vue-dialog .vue-dialog-buttons {\n  display: flex;\n  flex: 0 1 auto;\n  width: 100%;\n  border-top: 1px solid #eee;\n}\n.vue-dialog .vue-dialog-buttons-none {\n  width: 100%;\n  padding-bottom: 15px;\n}\n.vue-dialog-button {\n  font-size: 12px !important;\n  background: transparent;\n  padding: 0;\n  margin: 0;\n  border: 0;\n  cursor: pointer;\n  box-sizing: border-box;\n  line-height: 40px;\n  height: 40px;\n  color: inherit;\n  font: inherit;\n  outline: none;\n}\n.vue-dialog-button:hover {\n  background: rgba(0, 0, 0, 0.01);\n}\n.vue-dialog-button:active {\n  background: rgba(0, 0, 0, 0.025);\n}\n.vue-dialog-button:not(:first-of-type) {\n  border-left: 1px solid #eee;\n}\n",""])},function(e,t,n){"use strict";n.r(t);var i=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("transition",{attrs:{name:t.overlayTransition}},[t.visibility.overlay?n("div",{ref:"overlay",class:t.overlayClass,attrs:{"aria-expanded":t.visibility.overlay.toString(),"data-modal":t.name}},[n("div",{staticClass:"v--modal-background-click",on:{mousedown:function(e){return e.target!==e.currentTarget?null:t.handleBackgroundClick(e)},touchstart:function(e){return e.target!==e.currentTarget?null:t.handleBackgroundClick(e)}}},[n("div",{staticClass:"v--modal-top-right"},[t._t("top-right")],2),t._v(" "),n("transition",{attrs:{name:t.transition},on:{"before-enter":t.beforeTransitionEnter,"after-enter":t.afterTransitionEnter,"after-leave":t.afterTransitionLeave}},[t.visibility.modal?n("div",{ref:"modal",class:t.modalClass,style:t.modalStyle},[t._t("default"),t._v(" "),t.resizable&&!t.isAutoHeight?n("resizer",{attrs:{"min-width":t.minWidth,"min-height":t.minHeight,"max-width":t.maxWidth,"max-height":t.maxHeight},on:{resize:t.handleModalResize}}):t._e()],2):t._e()])],1)]):t._e()])},o=function(){var e=this.$createElement;return(this._self._c||e)("div",{class:this.className})};function r(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){var n=[],i=!0,o=!1,r=void 0;try{for(var a,s=e[Symbol.iterator]();!(i=(a=s.next()).done)&&(n.push(a.value),!t||n.length!==t);i=!0);}catch(e){o=!0,r=e}finally{try{i||null==s.return||s.return()}finally{if(o)throw r}}return n}(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance")}()}function a(t){for(var e=1;e<arguments.length;e++){var n=null!=arguments[e]?arguments[e]:{},i=Object.keys(n);"function"==typeof Object.getOwnPropertySymbols&&(i=i.concat(Object.getOwnPropertySymbols(n).filter(function(e){return Object.getOwnPropertyDescriptor(n,e).enumerable}))),i.forEach(function(e){s(t,e,n[e])})}return t}function s(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}o._withStripped=i._withStripped=!0;var l=function(){var e=0<arguments.length&&void 0!==arguments[0]?arguments[0]:0;return function(){return(e++).toString()}}(),d=function(e,t,n){return n<e?e:t<n?t:n},u=function(){var e=window.innerWidth,t=document.documentElement.clientWidth;return e&&t?Math.min(e,t):t||e},c={name:"VueJsModalResizer",props:{minHeight:{type:Number,default:0},minWidth:{type:Number,default:0},maxWidth:{type:Number,default:Number.MAX_SAFE_INTEGER},maxHeight:{type:Number,default:Number.MAX_SAFE_INTEGER}},data:function(){return{clicked:!1,size:{}}},mounted:function(){this.$el.addEventListener("mousedown",this.start,!1)},computed:{className:function(){return{"vue-modal-resizer":!0,clicked:this.clicked}}},methods:{start:function(e){this.clicked=!0,window.addEventListener("mousemove",this.mousemove,!1),window.addEventListener("mouseup",this.stop,!1),e.stopPropagation(),e.preventDefault()},stop:function(){this.clicked=!1,window.removeEventListener("mousemove",this.mousemove,!1),window.removeEventListener("mouseup",this.stop,!1),this.$emit("resize-stop",{element:this.$el.parentElement,size:this.size})},mousemove:function(e){this.resize(e)},resize:function(e){var t=this.$el.parentElement;if(t){var n=e.clientX-t.offsetLeft,i=e.clientY-t.offsetTop,o=Math.min(u(),this.maxWidth),r=Math.min(window.innerHeight,this.maxHeight);n=d(this.minWidth,o,n),i=d(this.minHeight,r,i),this.size={width:n,height:i},t.style.width=n+"px",t.style.height=i+"px",this.$emit("resize",{element:t,size:this.size})}}}};n(5);function h(e,t,n,i,o,r,a,s){var l,u="function"==typeof e?e.options:e;if(t&&(u.render=t,u.staticRenderFns=n,u._compiled=!0),i&&(u.functional=!0),r&&(u._scopeId="data-v-"+r),a?(l=function(e){(e=e||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(e=__VUE_SSR_CONTEXT__),o&&o.call(this,e),e&&e._registeredComponents&&e._registeredComponents.add(a)},u._ssrRegister=l):o&&(l=s?function(){o.call(this,this.$root.$options.shadowRoot)}:o),l)if(u.functional){u._injectStyles=l;var d=u.render;u.render=function(e,t){return l.call(t),d(e,t)}}else{var c=u.beforeCreate;u.beforeCreate=c?[].concat(c,l):[l]}return{exports:e,options:u}}var f=h(c,o,[],!1,null,null,null);f.options.__file="src/Resizer.vue";var p=f.exports;function m(e){return(m="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}var v="[-+]?[0-9]*.?[0-9]+",g=[{name:"px",regexp:new RegExp("^".concat(v,"px$"))},{name:"%",regexp:new RegExp("^".concat(v,"%$"))},{name:"px",regexp:new RegExp("^".concat(v,"$"))}],b=function(e){switch(m(e)){case"number":return{type:"px",value:e};case"string":return function(e){if("auto"===e)return{type:e,value:0};for(var t=0;t<g.length;t++){var n=g[t];if(n.regexp.test(e))return{type:n.name,value:parseFloat(e)}}return{type:"",value:e}}(e);default:return{type:"",value:e}}},y=function(e){if("string"!=typeof e)return 0<=e;var t=b(e);return("%"===t.type||"px"===t.type)&&0<t.value};var w={name:"VueJsModal",props:{name:{required:!0,type:String},delay:{type:Number,default:0},resizable:{type:Boolean,default:!1},adaptive:{type:Boolean,default:!1},draggable:{type:[Boolean,String],default:!1},scrollable:{type:Boolean,default:!1},reset:{type:Boolean,default:!1},overlayTransition:{type:String,default:"overlay-fade"},transition:{type:String},clickToClose:{type:Boolean,default:!0},classes:{type:[String,Array],default:"v--modal"},styles:{type:[String,Array,Object]},minWidth:{type:Number,default:0,validator:function(e){return 0<=e}},minHeight:{type:Number,default:0,validator:function(e){return 0<=e}},maxWidth:{type:Number,default:Number.MAX_SAFE_INTEGER},maxHeight:{type:Number,default:Number.MAX_SAFE_INTEGER},width:{type:[Number,String],default:600,validator:y},height:{type:[Number,String],default:300,validator:function(e){return"auto"===e||y(e)}},pivotX:{type:Number,default:.5,validator:function(e){return 0<=e&&e<=1}},pivotY:{type:Number,default:.5,validator:function(e){return 0<=e&&e<=1}}},components:{Resizer:p},data:function(){return{visible:!1,visibility:{modal:!1,overlay:!1},shift:{left:0,top:0},modal:{width:0,widthType:"px",height:0,heightType:"px",renderedHeight:0},viewport:{width:0,height:0},mutationObserver:null}},created:function(){this.setInitialSize()},beforeMount:function(){var t=this;if(L.event.$on("toggle",this.handleToggleEvent),window.addEventListener("resize",this.handleWindowResize),this.handleWindowResize(),this.scrollable&&!this.isAutoHeight&&console.warn('Modal "'.concat(this.name,'" has scrollable flag set to true ')+'but height is not "auto" ('.concat(this.height,")")),this.isAutoHeight){var e=function(){if("undefined"!=typeof window)for(var e=["","WebKit","Moz","O","Ms"],t=0;t<e.length;t++){var n=e[t]+"MutationObserver";if(n in window)return window[n]}return!1}();e?this.mutationObserver=new e(function(e){t.updateRenderedHeight()}):console.warn("MutationObserver was not found. Vue-js-modal automatic resizing relies heavily on MutationObserver. Please make sure to provide shim for it.")}this.clickToClose&&window.addEventListener("keyup",this.handleEscapeKeyUp)},beforeDestroy:function(){L.event.$off("toggle",this.handleToggleEvent),window.removeEventListener("resize",this.handleWindowResize),this.clickToClose&&window.removeEventListener("keyup",this.handleEscapeKeyUp),this.scrollable&&document.body.classList.remove("v--modal-block-scroll")},computed:{isAutoHeight:function(){return"auto"===this.modal.heightType},position:function(){var e=this.viewport,t=this.shift,n=this.pivotX,i=this.pivotY,o=this.trueModalWidth,r=this.trueModalHeight,a=e.width-o,s=e.height-r,l=t.left+n*a,u=t.top+i*s;return{left:parseInt(d(0,a,l)),top:parseInt(d(0,s,u))}},trueModalWidth:function(){var e=this.viewport,t=this.modal,n=this.adaptive,i=this.minWidth,o=this.maxWidth,r="%"===t.widthType?e.width/100*t.width:t.width,a=Math.max(i,Math.min(e.width,o));return n?d(i,a,r):r},trueModalHeight:function(){var e=this.viewport,t=this.modal,n=this.isAutoHeight,i=this.adaptive,o=this.minHeight,r=this.maxHeight,a="%"===t.heightType?e.height/100*t.height:t.height;if(n)return this.modal.renderedHeight;var s=Math.max(o,Math.min(e.height,r));return i?d(o,s,a):a},overlayClass:function(){return{"v--modal-overlay":!0,scrollable:this.scrollable&&this.isAutoHeight}},modalClass:function(){return["v--modal-box",this.classes]},stylesProp:function(){return"string"==typeof this.styles?this.styles.split(";").map(function(e){return e.trim()}).filter(Boolean).map(function(e){return e.split(":")}).reduce(function(e,t){var n=r(t,2);return a({},e,s({},n[0],n[1]))},{}):this.styles},modalStyle:function(){return[this.stylesProp,{top:this.position.top+"px",left:this.position.left+"px",width:this.trueModalWidth+"px",height:this.isAutoHeight?"auto":this.trueModalHeight+"px"}]}},watch:{visible:function(e){var t=this;e?(this.visibility.overlay=!0,setTimeout(function(){t.visibility.modal=!0,t.$nextTick(function(){t.addDraggableListeners(),t.callAfterEvent(!0)})},this.delay)):(this.visibility.modal=!1,setTimeout(function(){t.visibility.overlay=!1,t.$nextTick(function(){t.removeDraggableListeners(),t.callAfterEvent(!1)})},this.delay))}},methods:{handleToggleEvent:function(e,t,n){if(this.name===e){var i=void 0===t?!this.visible:t;this.toggle(i,n)}},setInitialSize:function(){var e=this.modal,t=b(this.width),n=b(this.height);e.width=t.value,e.widthType=t.type,e.height=n.value,e.heightType=n.type},handleEscapeKeyUp:function(e){27===e.which&&this.visible&&this.$modal.hide(this.name)},handleWindowResize:function(){this.viewport.width=u(),this.viewport.height=window.innerHeight,this.ensureShiftInWindowBounds()},createModalEvent:function(){var e=0<arguments.length&&void 0!==arguments[0]?arguments[0]:{};return function(){var e=0<arguments.length&&void 0!==arguments[0]?arguments[0]:{};return a({id:l(),timestamp:Date.now(),canceled:!1},e)}(function(o){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{},t=Object.keys(r);"function"==typeof Object.getOwnPropertySymbols&&(t=t.concat(Object.getOwnPropertySymbols(r).filter(function(e){return Object.getOwnPropertyDescriptor(r,e).enumerable}))),t.forEach(function(e){var t,n,i;t=o,i=r[n=e],n in t?Object.defineProperty(t,n,{value:i,enumerable:!0,configurable:!0,writable:!0}):t[n]=i})}return o}({name:this.name,ref:this.$refs.modal},e))},handleModalResize:function(e){this.modal.widthType="px",this.modal.width=e.size.width,this.modal.heightType="px",this.modal.height=e.size.height;var t=this.modal.size;this.$emit("resize",this.createModalEvent({size:t}))},toggle:function(e,t){var n=this.reset,i=this.scrollable,o=this.visible;if(o!==e){var r=o?"before-close":"before-open";"before-open"===r?("undefined"!=typeof document&&document.activeElement&&"BODY"!==document.activeElement.tagName&&document.activeElement.blur&&document.activeElement.blur(),n&&(this.setInitialSize(),this.shift.left=0,this.shift.top=0),i&&document.body.classList.add("v--modal-block-scroll")):i&&document.body.classList.remove("v--modal-block-scroll");var a=!1,s=this.createModalEvent({stop:function(){a=!0},state:e,params:t});this.$emit(r,s),a||(this.visible=e)}},getDraggableElement:function(){var e="string"!=typeof this.draggable?".v--modal-box":this.draggable;return e?this.$refs.overlay.querySelector(e):null},handleBackgroundClick:function(){this.clickToClose&&this.toggle(!1)},callAfterEvent:function(e){e?this.connectObserver():this.disconnectObserver();var t=e?"opened":"closed",n=this.createModalEvent({state:e});this.$emit(t,n)},addDraggableListeners:function(){var r=this;if(this.draggable){var e=this.getDraggableElement();if(e){var a=0,s=0,l=0,u=0,d=function(e){return e.touches&&0<e.touches.length?e.touches[0]:e},t=function(e){var t=e.target;if(!t||"INPUT"!==t.nodeName&&"TEXTAREA"!==t.nodeName){var n=d(e),i=n.clientX,o=n.clientY;document.addEventListener("mousemove",c),document.addEventListener("touchmove",c),document.addEventListener("mouseup",h),document.addEventListener("touchend",h),a=i,s=o,l=r.shift.left,u=r.shift.top}},c=function(e){var t=d(e),n=t.clientX,i=t.clientY;r.shift.left=l+n-a,r.shift.top=u+i-s,e.preventDefault()},h=function e(t){r.ensureShiftInWindowBounds(),document.removeEventListener("mousemove",c),document.removeEventListener("touchmove",c),document.removeEventListener("mouseup",e),document.removeEventListener("touchend",e),t.preventDefault()};e.addEventListener("mousedown",t),e.addEventListener("touchstart",t)}}},removeDraggableListeners:function(){},updateRenderedHeight:function(){this.$refs.modal&&(this.modal.renderedHeight=this.$refs.modal.getBoundingClientRect().height)},connectObserver:function(){this.mutationObserver&&this.mutationObserver.observe(this.$refs.overlay,{childList:!0,attributes:!0,subtree:!0})},disconnectObserver:function(){this.mutationObserver&&this.mutationObserver.disconnect()},beforeTransitionEnter:function(){this.connectObserver()},afterTransitionEnter:function(){},afterTransitionLeave:function(){},ensureShiftInWindowBounds:function(){var e=this.viewport,t=this.shift,n=this.pivotX,i=this.pivotY,o=this.trueModalWidth,r=this.trueModalHeight,a=e.width-o,s=e.height-r,l=t.left+n*a,u=t.top+i*s;this.shift.left-=l-d(0,a,l),this.shift.top-=u-d(0,s,u)}}},x=(n(7),h(w,i,[],!1,null,null,null));x.options.__file="src/Modal.vue";var E=x.exports,_=function(){var n=this,e=n.$createElement,i=n._self._c||e;return i("modal",{attrs:{name:"dialog",height:"auto",classes:["v--modal","vue-dialog",this.params.class],width:n.width,"pivot-y":.3,adaptive:!0,clickToClose:n.clickToClose,transition:n.transition},on:{"before-open":n.beforeOpened,"before-close":n.beforeClosed,opened:function(e){n.$emit("opened",e)},closed:function(e){n.$emit("closed",e)}}},[i("div",{staticClass:"dialog-content"},[n.params.title?i("div",{staticClass:"dialog-c-title",domProps:{innerHTML:n._s(n.params.title||"")}}):n._e(),n._v(" "),n.params.component?i(n.params.component,n._b({tag:"component"},"component",n.params.props,!1)):i("div",{staticClass:"dialog-c-text",domProps:{innerHTML:n._s(n.params.text||"")}})],1),n._v(" "),n.buttons?i("div",{staticClass:"vue-dialog-buttons"},n._l(n.buttons,function(e,t){return i("button",{key:t,class:e.class||"vue-dialog-button",style:n.buttonStyle,attrs:{type:"button"},domProps:{innerHTML:n._s(e.title)},on:{click:function(e){e.stopPropagation(),n.click(t,e)}}},[n._v("\n      "+n._s(e.title)+"\n    ")])})):i("div",{staticClass:"vue-dialog-buttons-none"})])};_._withStripped=!0;var S={name:"VueJsDialog",props:{width:{type:[Number,String],default:400},clickToClose:{type:Boolean,default:!0},transition:{type:String,default:"fade"}},data:function(){return{params:{},defaultButtons:[{title:"CLOSE"}]}},computed:{buttons:function(){return this.params.buttons||this.defaultButtons},buttonStyle:function(){return{flex:"1 1 ".concat(100/this.buttons.length,"%")}}},methods:{beforeOpened:function(e){window.addEventListener("keyup",this.onKeyUp),this.params=e.params||{},this.$emit("before-opened",e)},beforeClosed:function(e){window.removeEventListener("keyup",this.onKeyUp),this.params={},this.$emit("before-closed",e)},click:function(e,t){var n=2<arguments.length&&void 0!==arguments[2]?arguments[2]:"click",i=this.buttons[e];i&&"function"==typeof i.handler?i.handler(e,t,{source:n}):this.$modal.hide("dialog")},onKeyUp:function(e){if(13===e.which&&0<this.buttons.length){var t=1===this.buttons.length?0:this.buttons.findIndex(function(e){return e.default});-1!==t&&this.click(t,e,"keypress")}}}},O=(n(9),h(S,_,[],!1,null,null,null));O.options.__file="src/Dialog.vue";var k=O.exports,T=function(){var n=this,e=n.$createElement,i=n._self._c||e;return i("div",{attrs:{id:"modals-container"}},n._l(n.modals,function(t){return i("modal",n._g(n._b({key:t.id,on:{closed:function(e){n.remove(t.id)}}},"modal",t.modalAttrs,!1),t.modalListeners),[i(t.component,n._g(n._b({tag:"component",on:{close:function(e){n.$modal.hide(t.modalAttrs.name)}}},"component",t.componentAttrs,!1),n.$listeners))],1)}))};T._withStripped=!0;var M=h({data:function(){return{modals:[]}},created:function(){this.$root._dynamicContainer=this},methods:{add:function(e){var t=this,n=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{},i=2<arguments.length&&void 0!==arguments[2]?arguments[2]:{},o=3<arguments.length&&void 0!==arguments[3]?arguments[3]:{},r=l(),a=i.name||"_dynamic_modal_"+r;this.modals.push({id:r,modalAttrs:function(o){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{},t=Object.keys(r);"function"==typeof Object.getOwnPropertySymbols&&(t=t.concat(Object.getOwnPropertySymbols(r).filter(function(e){return Object.getOwnPropertyDescriptor(r,e).enumerable}))),t.forEach(function(e){var t,n,i;t=o,i=r[n=e],n in t?Object.defineProperty(t,n,{value:i,enumerable:!0,configurable:!0,writable:!0}):t[n]=i})}return o}({},i,{name:a}),modalListeners:o,component:e,componentAttrs:n}),this.$nextTick(function(){t.$modal.show(a)})},remove:function(t){var e=this.modals.findIndex(function(e){return e.id===t});-1!==e&&this.modals.splice(e,1)}}},T,[],!1,null,null,null);M.options.__file="src/ModalsContainer.vue";var C=M.exports;function $(e){return($="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}n.d(t,"getModalsContainer",function(){return j});var j=function(e,t,n){if(!n._dynamicContainer&&t.injectModalsContainer){var i=(o=document.createElement("div"),document.body.appendChild(o),o);new e({parent:n,render:function(e){return e(C)}}).$mount(i)}var o;return n._dynamicContainer},z={install:function(a){var s=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{};if(!this.installed){this.installed=!0,this.event=new a,this.rootInstance=null;var e=s.componentName||"Modal",l=s.dynamicDefaults||{},o=function(e,t,n,i){var o=n&&n.root?n.root:z.rootInstance,r=j(a,s,o);r?r.add(e,t,function(o){for(var e=1;e<arguments.length;e++){var r=null!=arguments[e]?arguments[e]:{},t=Object.keys(r);"function"==typeof Object.getOwnPropertySymbols&&(t=t.concat(Object.getOwnPropertySymbols(r).filter(function(e){return Object.getOwnPropertyDescriptor(r,e).enumerable}))),t.forEach(function(e){var t,n,i;t=o,i=r[n=e],n in t?Object.defineProperty(t,n,{value:i,enumerable:!0,configurable:!0,writable:!0}):t[n]=i})}return o}({},l,n),i):console.warn("[vue-js-modal] In order to render dynamic modals, a <modals-container> component must be present on the page.")};a.prototype.$modal={show:function(e){for(var t=arguments.length,n=new Array(1<t?t-1:0),i=1;i<t;i++)n[i-1]=arguments[i];switch($(e)){case"string":return function(e,t){z.event.$emit("toggle",e,!0,t)}.apply(void 0,[e].concat(n));case"object":case"function":return s.dynamic?o.apply(void 0,[e].concat(n)):console.warn("[vue-js-modal] $modal() received object as a first argument, but dynamic modals are switched off. https://github.com/euvl/vue-js-modal/#dynamic-modals");default:console.warn("[vue-js-modal] $modal() received an unsupported argument as a first argument.",e)}},hide:function(e,t){z.event.$emit("toggle",e,!1,t)},toggle:function(e,t){z.event.$emit("toggle",e,void 0,t)}},a.component(e,E),s.dialog&&a.component("VDialog",k),s.dynamic&&(a.component("ModalsContainer",C),a.mixin({beforeMount:function(){null===z.rootInstance&&(z.rootInstance=this.$root)}}))}}},L=t.default=z}])});
 
 /***/ }),
 
@@ -28078,291 +27290,333 @@ module.exports = function(module) {
 var map = {
 	"./HandwashingBehaviour/HandwashingScorecard": [
 		"./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue",
-		7,
-		32
+		8,
+		36
 	],
 	"./HandwashingBehaviour/HandwashingScorecard.vue": [
 		"./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue",
-		7,
-		32
+		8,
+		36
 	],
 	"./HandwashingBehaviour/Index": [
 		"./resources/js/Pages/HandwashingBehaviour/Index.vue",
 		0,
-		3,
-		7,
-		22
+		2,
+		8,
+		25
 	],
 	"./HandwashingBehaviour/Index.vue": [
 		"./resources/js/Pages/HandwashingBehaviour/Index.vue",
 		0,
-		3,
-		7,
-		22
+		2,
+		8,
+		25
 	],
 	"./HandwashingPractice/HandwashingHouses": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingHouses.vue",
 		0,
-		23
+		26
 	],
 	"./HandwashingPractice/HandwashingHouses.vue": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingHouses.vue",
 		0,
-		23
+		26
 	],
 	"./HandwashingPractice/HandwashingScoreCard": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingScoreCard.vue",
 		0,
 		1,
 		4,
-		30
+		35
 	],
 	"./HandwashingPractice/HandwashingScoreCard.vue": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingScoreCard.vue",
 		0,
 		1,
 		4,
-		30
+		35
 	],
 	"./HandwashingPractice/HandwashingStationCharacteristics": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue",
 		0,
-		2,
-		8
+		3,
+		9
 	],
 	"./HandwashingPractice/HandwashingStationCharacteristics.vue": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue",
 		0,
-		2,
-		8
+		3,
+		9
 	],
 	"./HandwashingPractice/HandwashingStationCharacteristicsTrend": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue",
-		2,
-		9,
-		33
+		3,
+		10,
+		37
 	],
 	"./HandwashingPractice/HandwashingStationCharacteristicsTrend.vue": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue",
-		2,
-		9,
-		33
+		3,
+		10,
+		37
 	],
 	"./HandwashingPractice/Index": [
 		"./resources/js/Pages/HandwashingPractice/Index.vue",
 		0,
 		1,
-		2,
 		3,
-		8,
-		4,
+		2,
 		9,
+		10,
+		4,
 		16
 	],
 	"./HandwashingPractice/Index.vue": [
 		"./resources/js/Pages/HandwashingPractice/Index.vue",
 		0,
 		1,
-		2,
 		3,
-		8,
-		4,
+		2,
 		9,
+		10,
+		4,
 		16
 	],
 	"./LatrineConstruction/AgeDemography": [
 		"./resources/js/Pages/LatrineConstruction/AgeDemography.vue",
 		0,
 		1,
-		11
+		17
 	],
 	"./LatrineConstruction/AgeDemography.vue": [
 		"./resources/js/Pages/LatrineConstruction/AgeDemography.vue",
 		0,
 		1,
-		11
+		17
 	],
 	"./LatrineConstruction/DateRangePicker": [
 		"./resources/js/Pages/LatrineConstruction/DateRangePicker.vue",
 		1,
 		14,
 		6,
-		26
+		30
 	],
 	"./LatrineConstruction/DateRangePicker.vue": [
 		"./resources/js/Pages/LatrineConstruction/DateRangePicker.vue",
 		1,
 		14,
 		6,
-		26
+		30
 	],
 	"./LatrineConstruction/GenderDemography": [
 		"./resources/js/Pages/LatrineConstruction/GenderDemography.vue",
 		0,
 		1,
-		34
+		18
 	],
 	"./LatrineConstruction/GenderDemography.vue": [
 		"./resources/js/Pages/LatrineConstruction/GenderDemography.vue",
 		0,
 		1,
-		34
+		18
 	],
 	"./LatrineConstruction/HouseWithLatrines": [
 		"./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue",
 		0,
-		24
+		27
 	],
 	"./LatrineConstruction/HouseWithLatrines.vue": [
 		"./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue",
 		0,
-		24
+		27
 	],
 	"./LatrineConstruction/HouseholdVisiting": [
 		"./resources/js/Pages/LatrineConstruction/HouseholdVisiting.vue",
 		0,
-		36
+		11
 	],
 	"./LatrineConstruction/HouseholdVisiting.vue": [
 		"./resources/js/Pages/LatrineConstruction/HouseholdVisiting.vue",
 		0,
-		36
+		11
 	],
 	"./LatrineConstruction/Index": [
 		"./resources/js/Pages/LatrineConstruction/Index.vue",
 		0,
 		1,
 		14,
-		3,
-		36,
-		10,
-		5,
+		2,
+		11,
+		7,
 		12,
+		5,
 		6,
-		37,
-		13
+		13,
+		15
 	],
 	"./LatrineConstruction/Index.vue": [
 		"./resources/js/Pages/LatrineConstruction/Index.vue",
 		0,
 		1,
 		14,
-		3,
-		36,
-		10,
-		5,
+		2,
+		11,
+		7,
 		12,
+		5,
 		6,
-		37,
-		13
+		13,
+		15
 	],
 	"./LatrineConstruction/LatrineCharacteristics": [
 		"./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue",
 		1,
 		12,
-		27
+		31
 	],
 	"./LatrineConstruction/LatrineCharacteristics.vue": [
 		"./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue",
 		1,
 		12,
-		27
+		31
 	],
 	"./LatrineConstruction/LatrineCharacteristicsTrend": [
 		"./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue",
 		1,
-		5,
-		28
+		7,
+		34
 	],
 	"./LatrineConstruction/LatrineCharacteristicsTrend.vue": [
 		"./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue",
 		1,
-		5,
-		28
+		7,
+		34
 	],
 	"./LatrineConstruction/LatrineConstructionImprovementScoreCard": [
 		"./resources/js/Pages/LatrineConstruction/LatrineConstructionImprovementScoreCard.vue",
 		0,
 		1,
-		10,
-		31
+		5,
+		33
 	],
 	"./LatrineConstruction/LatrineConstructionImprovementScoreCard.vue": [
 		"./resources/js/Pages/LatrineConstruction/LatrineConstructionImprovementScoreCard.vue",
 		0,
 		1,
-		10,
-		31
+		5,
+		33
 	],
 	"./LatrineConstruction/LatrineTypesDistribution": [
 		"./resources/js/Pages/LatrineConstruction/LatrineTypesDistribution.vue",
 		1,
-		37,
-		29
+		13,
+		32
 	],
 	"./LatrineConstruction/LatrineTypesDistribution.vue": [
 		"./resources/js/Pages/LatrineConstruction/LatrineTypesDistribution.vue",
 		1,
-		37,
-		29
+		13,
+		32
 	],
 	"./LatrineConstruction/NumberOfUReporters": [
 		"./resources/js/Pages/LatrineConstruction/NumberOfUReporters.vue",
 		0,
-		17
+		19
 	],
 	"./LatrineConstruction/NumberOfUReporters.vue": [
 		"./resources/js/Pages/LatrineConstruction/NumberOfUReporters.vue",
 		0,
-		17
+		19
 	],
 	"./LatrineConstruction/NumberOfVillages": [
 		"./resources/js/Pages/LatrineConstruction/NumberOfVillages.vue",
 		0,
-		18
+		20
 	],
 	"./LatrineConstruction/NumberOfVillages.vue": [
 		"./resources/js/Pages/LatrineConstruction/NumberOfVillages.vue",
 		0,
-		18
+		20
 	],
 	"./LatrineConstruction/TotalNumberOfHouseholds": [
 		"./resources/js/Pages/LatrineConstruction/TotalNumberOfHouseholds.vue",
 		0,
-		19
+		21
 	],
 	"./LatrineConstruction/TotalNumberOfHouseholds.vue": [
 		"./resources/js/Pages/LatrineConstruction/TotalNumberOfHouseholds.vue",
 		0,
-		19
+		21
 	],
 	"./LatrineConstruction/VisitedHousehold": [
 		"./resources/js/Pages/LatrineConstruction/VisitedHousehold.vue",
 		0,
-		20
+		22
 	],
 	"./LatrineConstruction/VisitedHousehold.vue": [
 		"./resources/js/Pages/LatrineConstruction/VisitedHousehold.vue",
 		0,
-		20
+		22
 	],
 	"./LatrineConstruction/VisitingsPerContact": [
 		"./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue",
 		0,
-		25
+		28
 	],
 	"./LatrineConstruction/VisitingsPerContact.vue": [
 		"./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue",
 		0,
-		25
+		28
 	],
 	"./LatrineConstruction/VisitingsPerVillage": [
 		"./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue",
-		21
+		23
 	],
 	"./LatrineConstruction/VisitingsPerVillage.vue": [
 		"./resources/js/Pages/LatrineConstruction/VisitingsPerVillage.vue",
-		21
+		23
+	],
+	"./Users/Create": [
+		"./resources/js/Pages/Users/Create.vue",
+		0,
+		39,
+		40
+	],
+	"./Users/Create.vue": [
+		"./resources/js/Pages/Users/Create.vue",
+		0,
+		39,
+		40
+	],
+	"./Users/Edit": [
+		"./resources/js/Pages/Users/Edit.vue",
+		0,
+		39,
+		38
+	],
+	"./Users/Edit.vue": [
+		"./resources/js/Pages/Users/Edit.vue",
+		0,
+		39,
+		38
+	],
+	"./Users/Index": [
+		"./resources/js/Pages/Users/Index.vue",
+		0,
+		39,
+		2,
+		38,
+		40,
+		41
+	],
+	"./Users/Index.vue": [
+		"./resources/js/Pages/Users/Index.vue",
+		0,
+		39,
+		2,
+		38,
+		40,
+		41
 	]
 };
 function webpackAsyncContext(req) {
@@ -28403,18 +27657,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vue_apexcharts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-apexcharts */ "./node_modules/vue-apexcharts/dist/vue-apexcharts.js");
 /* harmony import */ var vue_apexcharts__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_apexcharts__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var highcharts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! highcharts */ "./node_modules/highcharts/highcharts.js");
-/* harmony import */ var highcharts__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(highcharts__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var highcharts_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! highcharts-vue */ "./node_modules/highcharts-vue/dist/highcharts-vue.min.js");
-/* harmony import */ var highcharts_vue__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(highcharts_vue__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var highcharts_highcharts_more__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! highcharts/highcharts-more */ "./node_modules/highcharts/highcharts-more.js");
-/* harmony import */ var highcharts_highcharts_more__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(highcharts_highcharts_more__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var highcharts_modules_solid_gauge__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! highcharts/modules/solid-gauge */ "./node_modules/highcharts/modules/solid-gauge.js");
-/* harmony import */ var highcharts_modules_solid_gauge__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(highcharts_modules_solid_gauge__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var v_tooltip__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! v-tooltip */ "./node_modules/v-tooltip/dist/v-tooltip.esm.js");
-/* harmony import */ var ziggy__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ziggy */ "./vendor/tightenco/ziggy/dist/js/route.js");
-/* harmony import */ var ziggy__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(ziggy__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _ziggy__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ziggy */ "./resources/js/ziggy.js");
+/* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-js-modal */ "./node_modules/vue-js-modal/dist/index.js");
+/* harmony import */ var vue_js_modal__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_js_modal__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var highcharts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! highcharts */ "./node_modules/highcharts/highcharts.js");
+/* harmony import */ var highcharts__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(highcharts__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var highcharts_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! highcharts-vue */ "./node_modules/highcharts-vue/dist/highcharts-vue.min.js");
+/* harmony import */ var highcharts_vue__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(highcharts_vue__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var highcharts_highcharts_more__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! highcharts/highcharts-more */ "./node_modules/highcharts/highcharts-more.js");
+/* harmony import */ var highcharts_highcharts_more__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(highcharts_highcharts_more__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var highcharts_modules_solid_gauge__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! highcharts/modules/solid-gauge */ "./node_modules/highcharts/modules/solid-gauge.js");
+/* harmony import */ var highcharts_modules_solid_gauge__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(highcharts_modules_solid_gauge__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var v_tooltip__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! v-tooltip */ "./node_modules/v-tooltip/dist/v-tooltip.esm.js");
+/* harmony import */ var ziggy__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ziggy */ "./vendor/tightenco/ziggy/dist/js/route.js");
+/* harmony import */ var ziggy__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(ziggy__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _ziggy__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ziggy */ "./resources/js/ziggy.js");
+
 
 
 
@@ -28427,14 +27684,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2__["InertiaApp"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(highcharts_vue__WEBPACK_IMPORTED_MODULE_5___default.a);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_tooltip__WEBPACK_IMPORTED_MODULE_8__["default"]);
-highcharts_highcharts_more__WEBPACK_IMPORTED_MODULE_6___default()(highcharts__WEBPACK_IMPORTED_MODULE_4___default.a);
-highcharts_modules_solid_gauge__WEBPACK_IMPORTED_MODULE_7___default()(highcharts__WEBPACK_IMPORTED_MODULE_4___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(highcharts_vue__WEBPACK_IMPORTED_MODULE_6___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_tooltip__WEBPACK_IMPORTED_MODULE_9__["default"]);
+highcharts_highcharts_more__WEBPACK_IMPORTED_MODULE_7___default()(highcharts__WEBPACK_IMPORTED_MODULE_5___default.a);
+highcharts_modules_solid_gauge__WEBPACK_IMPORTED_MODULE_8___default()(highcharts__WEBPACK_IMPORTED_MODULE_5___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MODULE_4___default.a, {
+  dynamic: true,
+  injectModalsContainer: true,
+  dynamicDefaults: {
+    clickToClose: false
+  }
+});
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   methods: {
     route: function route(name, params, absolute) {
-      return ziggy__WEBPACK_IMPORTED_MODULE_9___default()(name, params, absolute, _ziggy__WEBPACK_IMPORTED_MODULE_10__["Ziggy"]);
+      return ziggy__WEBPACK_IMPORTED_MODULE_10___default()(name, params, absolute, _ziggy__WEBPACK_IMPORTED_MODULE_11__["Ziggy"]);
     }
   }
 });
