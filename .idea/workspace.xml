@@ -2,19 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="74ddae7b-08d7-434a-b4aa-9fb811edd7c2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/Pages/Users/Edit.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/Pages/Users/Index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/Shared/PasswordChange.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/Shared/ProfileView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/apple.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/apple.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/GenderDemographyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/GenderDemographyController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/10.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/10.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/11.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/11.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/12.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/12.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/13.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/13.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/14.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/14.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/15.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/15.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/16.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/16.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/17.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/17.js" afterDir="false" />
@@ -34,26 +32,44 @@
       <change beforePath="$PROJECT_DIR$/public/3.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/3.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/30.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/30.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/31.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/31.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/32.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/32.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/33.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/33.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/34.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/34.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/35.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/35.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/36.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/36.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/37.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/37.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/38.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/38.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/39.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/39.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/4.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/40.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/40.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/41.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/41.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/42.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/42.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/5.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/6.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/6.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/7.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/7.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/8.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/8.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/9.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/9.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/HandwashingScoreCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/HandwashingScoreCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/Index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/AgeDemography.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/AgeDemography.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/GenderDemography.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/GenderDemography.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/HouseholdVisiting.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/HouseholdVisiting.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/LatrineConstructionImprovementScoreCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/LatrineConstructionImprovementScoreCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/LatrineTypesDistribution.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/LatrineTypesDistribution.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/NumberOfUReporters.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/NumberOfUReporters.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/NumberOfVillages.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/NumberOfVillages.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/TotalNumberOfHouseholds.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/TotalNumberOfHouseholds.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/VisitedHousehold.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/LatrineConstruction/VisitedHousehold.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Users/Create.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Users/Create.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/Pages/Users/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Pages/Users/Index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/Shared/Layout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Shared/Layout.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/reset.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/reset.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -319,7 +335,19 @@
       <workItem from="1583147504550" duration="2292000" />
       <workItem from="1583164542105" duration="1790000" />
       <workItem from="1583166382876" duration="1765000" />
-      <workItem from="1583168214073" duration="141000" />
+      <workItem from="1583168214073" duration="720000" />
+      <workItem from="1583210117978" duration="1001000" />
+      <workItem from="1583211951380" duration="1661000" />
+      <workItem from="1583213793156" duration="1741000" />
+      <workItem from="1583215683022" duration="1264000" />
+      <workItem from="1583217082809" duration="1764000" />
+      <workItem from="1583218916371" duration="1595000" />
+      <workItem from="1583220827846" duration="1781000" />
+      <workItem from="1583222823920" duration="1725000" />
+      <workItem from="1583229692737" duration="1572000" />
+      <workItem from="1583231509615" duration="1455000" />
+      <workItem from="1583233326058" duration="1309000" />
+      <workItem from="1583235153501" duration="1030000" />
     </task>
     <servers />
   </component>
@@ -327,36 +355,29 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="428" y="200" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1583216895977">
+      <screen x="0" y="23" width="1440" height="829" />
+    </state>
+    <state x="428" y="200" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.23.1440.829@0.23.1440.829" timestamp="1583216895977" />
     <state x="458" y="199" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1583138562789">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
     <state x="458" y="199" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.23.1440.829@0.23.1440.829" timestamp="1583138562789" />
-    <state x="341" y="95" key="#phpunit.xml" timestamp="1580887841705">
+    <state x="341" y="95" key="#phpunit.xml" timestamp="1583218192548">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
-    <state x="341" y="95" key="#phpunit.xml/0.23.1440.829@0.23.1440.829" timestamp="1580887841705" />
-    <state x="380" y="270" key="com.intellij.ide.util.TipDialog" timestamp="1583168213577">
+    <state x="341" y="95" key="#phpunit.xml/0.23.1440.829@0.23.1440.829" timestamp="1583218192548" />
+    <state x="380" y="270" key="com.intellij.ide.util.TipDialog" timestamp="1583235240536">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
-    <state x="380" y="270" key="com.intellij.ide.util.TipDialog/0.23.1440.829@0.23.1440.829" timestamp="1583168213577" />
-    <state x="385" y="176" width="670" height="676" key="search.everywhere.popup" timestamp="1583165712425">
+    <state x="380" y="270" key="com.intellij.ide.util.TipDialog/0.23.1440.829@0.23.1440.829" timestamp="1583235240536" />
+    <state x="385" y="176" width="670" height="676" key="search.everywhere.popup" timestamp="1583217180129">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
-    <state x="385" y="176" width="670" height="676" key="search.everywhere.popup/0.23.1440.829@0.23.1440.829" timestamp="1583165712425" />
+    <state x="385" y="176" width="670" height="676" key="search.everywhere.popup/0.23.1440.829@0.23.1440.829" timestamp="1583217180129" />
     <state x="450" y="276" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1583144560481">
       <screen x="0" y="23" width="1440" height="829" />
     </state>
     <state x="450" y="276" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.23.1440.829@0.23.1440.829" timestamp="1583144560481" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue</url>
-          <line>20</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

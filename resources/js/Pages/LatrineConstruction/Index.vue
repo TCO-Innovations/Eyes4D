@@ -2,7 +2,10 @@
     <AppLayout :regions="regions">
         <div class="px-12">
             <header class="flex mb-8 w-full justify-between border-b pb-8">
-                <h1 class="text-2xl font-medium text-gray-700">Latrine Construction and Improvement</h1>
+                <h1 class="text-2xl font-medium text-gray-700">
+                    <template v-if="currentLanguage === 'english'">Latrine Construction and Improvement</template>
+                    <template v-if="currentLanguage === 'kiswahili'">Matumizi ya vyoo</template>
+                </h1>
 
                 <DateRangePicker :period="period" />
             </header>

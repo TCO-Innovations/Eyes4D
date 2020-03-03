@@ -1,6 +1,9 @@
 <template>
     <div class="px-3 py-5 text-center">
-        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Total Number Of Households</h3>
+        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">
+            <template v-if="currentLanguage === 'english'">Total Number Of Households</template>
+            <template v-if="currentLanguage === 'kiswahili'">Idadi ya nyumba zote</template>
+        </h3>
         <div class="text-white text-5xl font-medium">{{ total | toNumberFormat }}</div>
     </div>
 </template>

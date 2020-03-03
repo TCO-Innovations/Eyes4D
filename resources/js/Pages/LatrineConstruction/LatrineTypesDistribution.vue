@@ -106,7 +106,7 @@
                     credits: { enabled: false },
                     title: {
                         align: 'left',
-                        text: 'Latrine Type Distribution',
+                        text: this.title,
                         margin: 36,
                         style: { "color": "#333333", "fontSize": "14px" }
                     },
@@ -185,6 +185,12 @@
                     return `${this.toFormattedDate(this.timePeriod.start)} - ${this.toFormattedDate(this.timePeriod.stop)}`;
                 }
                 return "All The Time";
+            },
+            title() {
+                return this.currentLanguage === 'english' ? 'Latrine Type Distribution' : 'Mgawanyiko wa aina za vyoo';
+            },
+            yAxisTitle() {
+                return this.currentLanguage === 'english' ? 'Number of Households' : 'Idadi ya nyumba';
             }
         },
         methods: {

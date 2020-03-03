@@ -17,17 +17,12 @@
                         <a
                             href="#"
                             class="px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500"
-                            :class="{ 'border-blue-500 text-gray-700' : period === 'daily' }"
-                            @click.prevent="dailyReport"
-                        >Daily</a>
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500"
                             :class="{ 'border-blue-500 text-gray-700' : period === 'monthly' }"
                             @click.prevent="monthlyReport"
-                        >Monthly</a>
+                        >
+                            <template v-if="currentLanguage === 'english'">Monthly</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Mwezi</template>
+                        </a>
                     </li>
                     <li>
                         <a
@@ -35,7 +30,10 @@
                             class="px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500"
                             :class="{ 'border-blue-500 text-gray-700' : period === 'annually' }"
                             @click.prevent="annuallyReport"
-                        >Annually</a>
+                        >
+                            <template v-if="currentLanguage === 'english'">Annually</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Mwaka</template>
+                        </a>
                     </li>
                 </ul>
 
@@ -146,11 +144,6 @@
             EventBus.$on("filter:period", period => { this.timePeriod = period });
         },
         watch: {
-            day() {
-                this.date = new Date(this.year, this.month, this.day);
-
-                this.fetchReport();
-            },
             month() {
 
                 this.date = new Date(this.year, this.month, this.day);
@@ -174,21 +167,13 @@
             chartOptions() {
                 return {
                     title: {
-                        text: 'Latrine Type by Month of Reporting',
+                        text: this.title,
                         margin: 36,
                         style: { "color": "#333333", "fontSize": "14px" }
                     },
-                    subtitle: {
-                        text: `${this.areaName}: ${this.timeRange}`
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Number of Households'
-                        },
-                    },
-                    xAxis: {
-                        categories: this.categories
-                    },
+                    subtitle: { text: `${this.areaName}: ${this.timeRange}` },
+                    yAxis: { title: { text: this.yAxisTitle } },
+                    xAxis: { categories: this.categories },
                     series: this.statistics,
                     credits: { enabled: false },
                 }
@@ -207,6 +192,12 @@
                     return `${this.toFormattedDate(this.timePeriod.start)} - ${this.toFormattedDate(this.timePeriod.stop)}`;
                 }
                 return "All The Time";
+            },
+            title() {
+                return this.currentLanguage === 'english' ? 'Latrine Type by Month of Reporting' : 'Repoti ya mwezi kwa aina za vyoo';
+            },
+            yAxisTitle() {
+                return this.currentLanguage === 'english' ? 'Number of Households' : 'Idadi ya nyumba';
             }
         },
         methods: {
@@ -270,27 +261,23 @@
             transformResult(response) {
                 return [
                     {
-                        name: "Has Latrine",
-                        data: this.aggregateAttribute(response, 'has_latrine')
-                    },
-                    {
-                        name: "Lockable Door",
+                        name: this.currentLanguage === 'english' ? 'Lockable Door' : 'Mlango unaofunga',
                         data: this.aggregateAttribute(response, 'has_lockable_door')
                     },
                     {
-                        name: "Brick Wall",
+                        name: this.currentLanguage === 'english' ? 'Brick Wall' : 'Ukuta wa tofari',
                         data: this.aggregateAttribute(response, 'has_brick_wall')
                     },
                     {
-                        name: "Cemented Floor",
+                        name: this.currentLanguage === 'english' ? 'Cemented Floor' : 'Sakafu ya saruji',
                         data: this.aggregateAttribute(response, 'has_cemented_floor')
                     },
                     {
-                        name: "Iron Sheet Roof",
+                        name: this.currentLanguage === 'english' ? 'Iron Sheet Roof' : 'Paa la bati',
                         data: this.aggregateAttribute(response, 'has_iron_sheet_roof')
                     },
                     {
-                        name: "Adjacent bathroom",
+                        name: this.currentLanguage === 'english' ? 'Adjacent bathroom' : 'Bafu mkabala na choo',
                         data: this.aggregateAttribute(response, 'has_adjacent_bathroom')
                     }
                 ]

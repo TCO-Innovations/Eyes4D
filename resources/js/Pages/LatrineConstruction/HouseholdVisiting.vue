@@ -1,7 +1,10 @@
 <template>
     <div class="bg-white shadow rounded-lg overflow-hidden">
         <header class="flex justify-between px-4 py-5 bg-gray-100">
-            <h3 class="text-xs uppercase tracking-wide font-semibold text-gray-700">Visiting Per Contact</h3>
+            <h3 class="text-xs uppercase tracking-wide font-semibold text-gray-700">
+                <template v-if="currentLanguage === 'english'">Visiting Per Contact</template>
+                <template v-if="currentLanguage === 'kiswahili'">Utendaji kwa kila mawasiliano</template>
+            </h3>
         </header>
 
         <div class="overflow-y-auto">
@@ -10,7 +13,8 @@
                 <tr>
                     <th class="py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-left">
                         <a href="#" class="inline-flex items-center" @click.prevent="sortBy('district')">
-                            District
+                            <template v-if="currentLanguage === 'english'">District</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Wilaya</template>
                             <template v-if="'district' in filters.sort">
                                 <template v-if="filters.sort['district'] === 'desc'">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current ml-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828z"/></svg>
@@ -23,7 +27,8 @@
                     </th>
                     <th class="py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-left">
                         <a href="#" class="inline-flex items-center" @click.prevent="sortBy('village')">
-                            Village
+                            <template v-if="currentLanguage === 'english'">Village</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Kijiji</template>
                             <template v-if="'village' in filters.sort">
                                 <template v-if="filters.sort['village'] === 'desc'">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current ml-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828z"/></svg>
@@ -36,7 +41,8 @@
                     </th>
                     <th class="py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-right">
                         <a href="#" class="inline-flex items-center" @click.prevent="sortBy('reporters')">
-                            Number of U-Reporters
+                            <template v-if="currentLanguage === 'english'">Number of U-Reporters</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Idadi ya U-Reporters</template>
                             <template v-if="'reporters' in filters.sort">
                                 <template v-if="filters.sort['reporters'] === 'desc'">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current ml-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828z"/></svg>
@@ -49,7 +55,8 @@
                     </th>
                     <th class="py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-right">
                         <a href="#" class="inline-flex items-center" @click.prevent="sortBy('houses')">
-                            Number of Households
+                            <template v-if="currentLanguage === 'english'"> Number of Households</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Idadi ya nyumba</template>
                             <template v-if="'houses' in filters.sort">
                                 <template v-if="filters.sort['houses'] === 'desc'">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current ml-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828z"/></svg>
@@ -62,7 +69,8 @@
                     </th>
                     <th class="py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-right">
                         <a href="#" class="inline-flex items-center" @click.prevent="sortBy('visited_houses')">
-                            Visited Households
+                            <template v-if="currentLanguage === 'english'">Visited Households</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Nyumba zilizotembelewa</template>
                             <template v-if="'visited_houses' in filters.sort">
                                 <template v-if="filters.sort['visited_houses'] === 'desc'">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current ml-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828z"/></svg>
@@ -73,7 +81,10 @@
                             </template>
                         </a>
                     </th>
-                    <th class="py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-right">Ratio</th> <!-- Total Number of Households / Total Number of Visited Houses -->
+                    <th class="py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-right">
+                        <template v-if="currentLanguage === 'english'">Ratio</template>
+                        <template v-if="currentLanguage === 'kiswahili'">Uwiano</template>
+                    </th> <!-- Total Number of Households / Total Number of Visited Houses -->
                 </tr>
                 </thead>
                 <tbody>
@@ -105,8 +116,22 @@
                                         </thead>
                                         <tbody>
                                             <tr v-for="contact in contacts" class="border-t">
-                                                <td class="py-3 px-4">{{ titleCase(contact.contact_name) }}</td>
-                                                <td class="py-3 px-4">{{ contact.contact_phone }}</td>
+                                                <td class="py-3 px-4">
+                                                    <template v-if="$page.auth.user.permissions.contacts_view">
+                                                        {{ titleCase(contact.contact_name) }}
+                                                    </template>
+                                                    <template v-else>
+                                                        <span class="text-transparent bg-gray-300 rounded">{{ titleCase(contact.contact_name) }}</span>
+                                                    </template>
+                                                </td>
+                                                <td class="py-3 px-4">
+                                                    <template v-if="$page.auth.user.permissions.contacts_view">
+                                                        {{ contact.contact_phone }}
+                                                    </template>
+                                                    <template v-else>
+                                                        <span class="text-transparent bg-gray-300 rounded">{{ contact.contact_phone }}</span>
+                                                    </template>
+                                                </td>
                                                 <td class="py-3 px-4">{{ titleCase(contact.contact_gender) }}</td>
                                                 <td class="py-3 px-4 text-right">{{ contact.households_visited }}</td>
                                                 <td class="py-3 px-4 text-right">{{ contact.last_household_visit }}</td>
@@ -122,8 +147,14 @@
         </div>
 
         <footer class="flex items-center justify-between px-6 py-4 bg-gray-100">
-            <button class="text-blue-500 text-sm" @click.prevent="viewMore">Load more</button>
-            <button class="text-blue-500 text-sm" @click.prevent="viewLess" v-if="filters.limit > 5">Load less</button>
+            <button class="text-blue-500 text-sm" @click.prevent="viewMore">
+                <template v-if="currentLanguage === 'english'">Load more</template>
+                <template v-if="currentLanguage === 'kiswahili'">Angalia zaidi</template>
+            </button>
+            <button class="text-blue-500 text-sm" @click.prevent="viewLess" v-if="filters.limit > 5">
+                <template v-if="currentLanguage === 'english'">Load less</template>
+                <template v-if="currentLanguage === 'kiswahili'">Angalia kiasi</template>
+            </button>
         </footer>
     </div>
 </template>

@@ -3,7 +3,10 @@
         <div class="mx-auto bg-white rounded-lg shadow overflow-hidden">
             <header class="flex justify-between px-6 bg-gray-100 py-4">
                 <div>
-                    <h2 class="text-lg mb-2">Latrine Construction and Improvement Scorecard</h2>
+                    <h2 class="text-lg mb-2">
+                        <template v-if="currentLanguage === 'english'">Latrine Construction and Improvement Scorecard</template>
+                        <template v-if="currentLanguage === 'kiswahili'">Ubora wa miundombinu ya choo</template>
+                    </h2>
                     <div class="text-sm text-gray-700">{{ areaName }}: {{ timeRange }}</div>
                 </div>
 
@@ -11,17 +14,20 @@
                     <div class="flex -mx-4">
                         <span class="px-4 flex items-center text-sm text-gray-600">
                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 fill-current text-green-600 mr-2"><rect width="24" height="24" rx="4" /></svg>
-                            Present
+                            <template v-if="currentLanguage === 'english'">Present</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Ipo</template>
                         </span>
                         <span class="px-4 flex items-center text-sm text-gray-600">
                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 fill-current text-red-600 mr-2"><rect width="24" height="24" rx="4" /></svg>
-                            Absent
+                            <template v-if="currentLanguage === 'english'">Absent</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Haipo</template>
                         </span>
                     </div>
 
                     <div class="flex items-start text-sm mt-3 text-gray-600">
                         <span class="inline-block text-center text-red-500 h-3 w-3 mr-2 text-base">*</span>
-                        Observation has no impact on latrine type
+                        <template v-if="currentLanguage === 'english'">Observation has no impact on latrine type</template>
+                        <template v-if="currentLanguage === 'kiswahili'">Uangalizi usiokuwa na madhara kiutendaji wa choo</template>
                     </div>
                 </div>
             </header>
@@ -30,31 +36,42 @@
                     <thead>
                         <tr class="text-xs uppercase tracking-wider text-gray-700 font-semibold">
                             <th class="py-4 px-4 border-b text-left whitespace-no-wrap">
-                                <div><span>Head Of House</span></div>
+                                <template v-if="currentLanguage === 'english'">Head Of House</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Mkuu wa familia</template>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <div><span>Has latrine</span></div>
+                                <template v-if="currentLanguage === 'english'">Has latrine</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Kuna choo</template>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <div><span>Easy washable cemented floor</span></div>
+                                <template v-if="currentLanguage === 'english'">Easy washable cemented floor</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Sakafu ya saruji</template>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <div><span>Lockable door</span></div>
+                                <template v-if="currentLanguage === 'english'">Lockable door</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Mlango unafungika</template>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <div><span>Iron sheet roof</span></div>
+                                <template v-if="currentLanguage === 'english'">Iron sheet roof</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Paa la bati</template>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <div><span>Wall with bricks</span></div>
+                                <template v-if="currentLanguage === 'english'"> Wall with bricks</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Ukuta wa tofari</template>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <div><span>Adjacent bathroom <sup class="text-base text-red-500">*</sup></span></div>
+                                <template v-if="currentLanguage === 'english'">Adjacent bathroom</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Kuna bafu mkabala na choo</template>
+                                <sup class="text-base text-red-500">*</sup>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <div><span>Clean latrine <sup class="text-base text-red-500">*</sup></span></div>
+                                <template v-if="currentLanguage === 'english'">Clean latrine</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Choo kisafi</template>
+                                <sup class="text-base text-red-500">*</sup>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <div><span>Latrine type</span></div>
+                                <template v-if="currentLanguage === 'english'">Latrine type</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Aina ya choo</template>
                             </th>
                         </tr>
                     </thead>

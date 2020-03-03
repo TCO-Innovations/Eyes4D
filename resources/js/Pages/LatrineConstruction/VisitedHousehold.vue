@@ -1,9 +1,10 @@
 <template>
     <div class="px-3 py-5 text-center">
-        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">Visited Household</h3>
-        <div class="text-white text-5xl font-medium">
-            {{ total | toNumberFormat }}
-        </div>
+        <h3 class="text-blue-200 text-xs uppercase tracking-wide font-semibold">
+            <template v-if="currentLanguage === 'english'">Visited Household</template>
+            <template v-if="currentLanguage === 'kiswahili'">Nyumba zilizotembelewa</template>
+        </h3>
+        <div class="text-white text-5xl font-medium">{{ total | toNumberFormat }}</div>
     </div>
 </template>
 

@@ -3,7 +3,10 @@
         <div class="px-12">
             <div class="flex mb-16">
                 <header class="w-full flex justify-between border-b pb-8">
-                    <h1 class="text-2xl font-medium text-gray-700">Handwashing Practice</h1>
+                    <h1 class="text-2xl font-medium text-gray-700">
+                        <template v-if="currentLanguage === 'english'">Handwashing Practice</template>
+                        <template v-if="currentLanguage === 'kiswahili'">Mazingira yakunawaia</template>
+                    </h1>
 
                     <nav class="flex items-center bg-white shadow rounded-lg px-3 text-sm">
                         <input

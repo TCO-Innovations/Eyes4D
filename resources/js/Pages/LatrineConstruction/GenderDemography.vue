@@ -56,7 +56,7 @@
                     credits: { enabled: false },
                     title: {
                         align: 'center',
-                        text: 'U-Reporters Gender Demography',
+                        text: this.title,
                         margin: 36,
                         style: { "color": "#333333", "fontSize": "14px" }
                     },
@@ -97,6 +97,9 @@
                 }
 
                 return "All The Time";
+            },
+            title() {
+                return this.currentLanguage === 'english' ? 'U-Reporters Gender Demography' : 'Demografia ya jinsia wa U-Reporters';
             }
         },
         methods: {

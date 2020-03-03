@@ -40,7 +40,7 @@
                     credits: { enabled: false },
                     title: {
                         align: 'center',
-                        text: 'U-Reporters Age Demography',
+                        text: this.title,
                         margin: 36,
                         style: { "color": "#333333", "fontSize": "14px" }
                     },
@@ -95,6 +95,9 @@
                     return `${this.toFormattedDate(this.period.start)} - ${this.toFormattedDate(this.period.stop)}`;
                 }
                 return "All The Time";
+            },
+            title() {
+                return this.currentLanguage === 'english' ? 'U-Reporters Age Demography' : 'Demografia ya umri wa U-Reporters';
             }
         },
         methods: {

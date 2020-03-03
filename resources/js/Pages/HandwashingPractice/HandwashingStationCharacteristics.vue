@@ -1,6 +1,6 @@
 <template>
     <div class="mx-auto bg-white shadow rounded-lg overflow-hidden">
-        <header class="px-6 bg-blue-100 border-b border-blue-100 flex justify-between items-center">
+        <header class="px-6 bg-gray-100 border-b border-blue-100 flex justify-between items-center">
             <div class="text-sm text-gray-600">
                 <button class="px-2" @click.prevent="isVisible = !isVisible">
                     {{ !isVisible ? 'Show' : 'Hide' }} Details
@@ -13,17 +13,12 @@
                         <a
                             href="#"
                             class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
-                            :class="{ 'border-blue-500' : period === 'daily' }"
-                            @click.prevent="getReportBy('daily')"
-                        >Daily</a>
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
                             :class="{ 'border-blue-500' : period === 'monthly' }"
                             @click.prevent="getReportBy('monthly')"
-                        >Monthly</a>
+                        >
+                            <template v-if="currentLanguage === 'english'">Monthly</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Mwezi</template>
+                        </a>
                     </li>
                     <li>
                         <a
@@ -31,23 +26,16 @@
                             class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
                             :class="{ 'border-blue-500' : period === 'annually' }"
                             @click.prevent="getReportBy('annually')"
-                        >Annually</a>
+                        >
+                            <template v-if="currentLanguage === 'english'">Annually</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Mwaka</template>
+                        </a>
                     </li>
                 </ul>
 
                 <form class="flex items-center">
-                    <select id="day" class="bg-blue-100" v-model="selectedDate" v-if="period === 'daily'">
-                        <option
-                            v-for="dayNumber in (new Date(selectedYear, selectedMonth + 1, 0)).getDate()"
-                            :value="dayNumber"
-                        >
-                            {{ dayNumber }}
-                        </option>
-                    </select>
-
                     <select
-                        id="month"
-                        class="bg-blue-100"
+                        class="bg-transparent"
                         v-model="selectedMonth"
                         v-if="period === 'daily' || period === 'monthly'"
                     >
@@ -56,7 +44,7 @@
                         </option>
                     </select>
 
-                    <select id="year" class="bg-blue-100" v-model="selectedYear">
+                    <select class="bg-transparent" v-model="selectedYear">
                         <option v-for="yearNumber in Array(5).keys()" :value="selectedYear - yearNumber">
                             {{ selectedYear - yearNumber }}
                         </option>
@@ -211,52 +199,32 @@
         computed: {
             chartOptions() {
                 return {
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: 'Hand Washing Characteristics',
-                        margin: 36,
-                        style: { "color": "#333333", "fontSize": "14px" }
-                    },
-                    subtitle: {
-                        text: `${this.areaName}: Jul 2019 - Sep 2019`
-                    },
-                    accessibility: {
-                        announceNewData: { enabled: true }
-                    },
-                    xAxis: {
-                        type: 'category'
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Household With Handwash Place'
-                        },
-                    },
-                    legend: {
-                        enabled: false
-                    },
+                    chart: { type: 'column' },
+                    title: { text: this.title, margin: 36, style: { "color": "#333333", "fontSize": "14px" } },
+                    subtitle: { text: `${this.areaName}: Jul 2019 - Sep 2019` },
+                    accessibility: { announceNewData: { enabled: true } },
+                    xAxis: { type: 'category' },
+                    yAxis: { title: { text: this.yAxisTitle } },
+                    legend: { enabled: false },
                     tooltip: {
                         headerFormat: '<span style="font-size:11px">{point.name}</span><br>',
                         pointFormat:  '<span>{point.name}</span>: <b>{point.y}</b><br/>'
                     },
-                    credits: {
-                        enabled: false
-                    },
+                    credits: { enabled: false },
                     series: [
                         {
                             colorByPoint: true,
                             data: [
                                 {
-                                    name: "Hand wash place",
+                                    name: this.currentLanguage === 'english' ? 'Hand wash place' : 'Kuna sehemu yakuoshea mikono',
                                     y: this.report.has_handwash_place
                                 },
                                 {
-                                    name: "Hand wash container",
+                                    name: this.currentLanguage === 'english' ? 'Hand wash container' : 'Kuna chombo chakuoshea mikono',
                                     y: this.report.has_handwash_container
                                 },
                                 {
-                                    name: "Has Soap",
+                                    name: this.currentLanguage === 'english' ? 'Has Soap' : 'Kuna sabuni',
                                     y: this.report.has_soap
                                 },
                             ]
@@ -266,6 +234,12 @@
             },
             areaName() {
                 return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`;
+            },
+            title() {
+                return this.currentLanguage === 'english' ? 'Hand Washing Characteristics' : 'Tabia uoshaji mikono';
+            },
+            yAxisTitle() {
+                return this.currentLanguage === 'english' ? 'Household With Handwash Place' : 'Nyumba zenye sehemu yakuoshea mikono';
             }
         },
         methods: {

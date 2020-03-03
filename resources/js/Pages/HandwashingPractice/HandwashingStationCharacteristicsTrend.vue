@@ -1,6 +1,6 @@
 <template>
     <div class="mx-auto bg-white rounded-lg shadow overflow-hidden">
-        <header class="px-6 bg-blue-100 flex justify-between items-center">
+        <header class="px-6 bg-gray-100 flex justify-between items-center">
             <div class="text-sm text-gray-600">
                 <button class="px-2" @click.prevent="toggle">
                     {{ !isVisible ? 'Show' : 'Hide' }} Details
@@ -13,17 +13,12 @@
                         <a
                             href="#"
                             class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
-                            :class="{ 'border-blue-500' : period === 'daily' }"
-                            @click.prevent="dailyReport"
-                        >Daily</a>
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
                             :class="{ 'border-blue-500' : period === 'monthly' }"
                             @click.prevent="monthlyReport"
-                        >Monthly</a>
+                        >
+                            <template v-if="currentLanguage === 'english'">Monthly</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Mwezi</template>
+                        </a>
                     </li>
                     <li>
                         <a
@@ -31,24 +26,21 @@
                             class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
                             :class="{ 'border-blue-500' : period === 'annually' }"
                             @click.prevent="annuallyReport"
-                        >Annually</a>
+                        >
+                            <template v-if="currentLanguage === 'english'">Annually</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Mwaka</template>
+                        </a>
                     </li>
                 </ul>
 
                 <form class="flex items-center">
-                    <select id="day" class="bg-blue-100" v-model="day" v-if="period === 'daily'">
-                        <option v-for="dayNumber in (new Date(year, month + 1, 0)).getDate()" :value="dayNumber">
-                            {{ dayNumber }}
-                        </option>
-                    </select>
-
-                    <select id="month" class="bg-blue-100" v-model="month" v-if="period === 'daily' || period === 'monthly'">
+                    <select id="month" class="bg-transparent" v-model="month" v-if="period === 'daily' || period === 'monthly'">
                         <option :value="monthNumber" v-for="monthNumber in Array(12).keys()">
                             {{ getMonthName(monthNumber) }}
                         </option>
                     </select>
 
-                    <select id="year" class="bg-blue-100" v-model="year">
+                    <select id="year" class="bg-transparent" v-model="year">
                         <option v-for="yearNumber in Array(5).keys()" :value="year - yearNumber">
                             {{ year - yearNumber }}
                         </option>
@@ -131,7 +123,7 @@
         },
         data() {
             return {
-                period: "daily",
+                period: "monthly",
                 year: (new Date).getFullYear(),
                 month: (new Date).getMonth(),
                 day: (new Date).getDate(),
@@ -144,11 +136,6 @@
             this.fetchReport();
         },
         watch: {
-            day() {
-                this.date = new Date(this.year, this.month, this.day);
-
-                this.fetchReport();
-            },
             month() {
 
                 this.date = new Date(this.year, this.month, this.day);
@@ -171,28 +158,22 @@
         computed: {
             chartOptions() {
                 return {
-                    title: {
-                        text: 'Hand Washing Characteristics Trend',
-                        margin: 36,
-                        style: { "color": "#333333", "fontSize": "14px" }
-                    },
-                    subtitle: {
-                        text: `${this.areaName}: Jul 2019 - Sep 2019`
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Number of Households'
-                        },
-                    },
-                    xAxis: {
-                        categories: this.categories
-                    },
+                    title: { text: this.title, margin: 36, style: { "color": "#333333", "fontSize": "14px" } },
+                    subtitle: { text: `${this.areaName}: Jul 2019 - Sep 2019`},
+                    yAxis: { title: { text: this.yAxisTitle } },
+                    xAxis: { categories: this.categories },
                     series: this.statistics,
                     credits: { enabled: false },
                 }
             },
             areaName() {
                 return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`
+            },
+            title() {
+                return this.currentLanguage === 'english' ? 'Hand Washing Characteristics Trend' : 'Tabia za unawaji mikono';
+            },
+            yAxisTitle() {
+                return this.currentLanguage === 'english' ? 'Number of Households' : 'Idadi ya nyumba';
             }
         },
         methods: {
@@ -256,15 +237,15 @@
             transformResult(response) {
                 return [
                     {
-                        name: "Hand wash place",
+                        name: this.currentLanguage === 'english' ? 'Hand wash place' : 'Kuna sehemu yakuoshea mikono',
                         data: this.aggregateAttribute(response, 'has_latrine')
                     },
                     {
-                        name: "Hand wash container",
+                        name: this.currentLanguage === 'english' ? 'Hand wash container' : 'Kuna chombo chakuoshea mikono',
                         data: this.aggregateAttribute(response, 'has_lockable_door')
                     },
                     {
-                        name: "Soap",
+                        name: this.currentLanguage === 'english' ? 'Has Soap' : 'Kuna sabuni',
                         data: this.aggregateAttribute(response, 'has_brick_wall')
                     },
                 ]

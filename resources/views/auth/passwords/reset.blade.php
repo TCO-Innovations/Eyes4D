@@ -6,53 +6,40 @@
 
             @csrf
 
-            <header class="card-header">{{ __('Reset Password') }}</header>
+            <header class="px-6 mb-6 py-4 bg-white">
+                <h1>{{ __('Reset Password') }}</h1>
+            </header>
 
-            <input type="hidden" name="token" value="{{ $token }}">
+            <div class="px-6">
+                <input type="hidden" name="token" value="{{ $token }}">
 
-            <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                <div class="col-md-6">
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
+                <section class="mt-6">
+                    <label for="email">{{ __('Email address') }}</label>
+                    <input id="email" type="email" class="form-input w-full rounded-lg mt-2 @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
                     @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    <span class="inline-block mt-2 text-sm text-red-500" role="alert">{{ $message }}</span>
                     @enderror
-                </div>
+                </section>
+
+                <section class="mt-6">
+                    <label for="password">{{ __('Password') }}</label>
+                    <div class="col-md-6">
+                        <input id="password" type="password" class="form-input w-full rounded-lg mt-2 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                        @error('password')
+                        <span class="inline-block mt-2 text-sm text-red-500" role="alert">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </section>
+
+                <section class="mt-6">
+                    <label for="password-confirm">{{ __('Confirm Password') }}</label>
+                    <input id="password-confirm" type="password" class="form-input w-full rounded-lg mt-2" name="password_confirmation" required autocomplete="new-password">
+                </section>
             </div>
 
-            <div class="form-group row">
-                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                <div class="col-md-6">
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                <div class="col-md-6">
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                </div>
-            </div>
-
-            <div class="form-group row mb-0">
-                <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('Reset Password') }}
-                    </button>
-                </div>
-            </div>
+            <footer class="px-6 mt-6 mb-6">
+                <button type="submit" class="bg-blue-700 text-white py-3 px-5 rounded-lg font-medium">{{ __('Reset Password') }}</button>
+            </footer>
         </form>
     </div>
 @endsection

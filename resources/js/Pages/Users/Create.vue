@@ -13,7 +13,7 @@
             <section>
                 <div>
                     <label for="name" class="text-sm font-medium">Name</label>
-                    <input type="text" name="name" id="name" class="form-input w-full mt-2" v-model="form.name">
+                    <input type="text" id="name" class="form-input w-full mt-2" v-model="form.name">
                     <span class="inline-block text-sm text-red-500 mt-1" v-if="form.hasError('name')">
                         {{ form.errors.first('name') }}
                     </span>
@@ -23,7 +23,7 @@
             <section class="mt-6">
                 <div>
                     <label for="email" class="text-sm font-medium">Email address</label>
-                    <input type="text" name="email" id="email" class="form-input w-full mt-2" v-model="form.email">
+                    <input type="email" id="email" class="form-input w-full mt-2" v-model="form.email">
                     <span class="inline-block text-sm text-red-500 mt-1" v-if="form.hasError('email')">
                         {{ form.errors.first('email') }}
                     </span>

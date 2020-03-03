@@ -3,27 +3,29 @@
         <div class="shadow bg-white rounded-lg overflow-hidden">
             <header class="flex justify-between px-6 bg-gray-100 py-4">
                 <div>
-                    <h2 class="text-lg mb-2">Handwashing Practice Scorecard</h2>
-                    <div class="text-sm text-gray-700">
-                        {{ areaName }} - July 2019 to September 2019
-                    </div>
+                    <h2 class="text-lg mb-2">Alama katika unawaji mikono</h2>
+                    <div class="text-sm text-gray-700">{{ areaName }} - July 2019 to September 2019</div>
                 </div>
 
                 <div class="flex flex-col">
                     <div class="flex -mx-4">
-                    <span class="px-4 flex items-center text-sm text-gray-600">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 fill-current text-green-600 mr-2"><rect width="24" height="24" rx="4" /></svg>
-                        Present
-                    </span>
                         <span class="px-4 flex items-center text-sm text-gray-600">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 fill-current text-red-600 mr-2"><rect width="24" height="24" rx="4" /></svg>
-                        Absent
-                    </span>
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 fill-current text-green-600 mr-2"><rect width="24" height="24" rx="4" /></svg>
+
+                            <template v-if="currentLanguage === 'english'">Present</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Ipo</template>
+                        </span>
+                        <span class="px-4 flex items-center text-sm text-gray-600">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 fill-current text-red-600 mr-2"><rect width="24" height="24" rx="4" /></svg>
+                            <template v-if="currentLanguage === 'english'">Absent</template>
+                            <template v-if="currentLanguage === 'kiswahili'">Haipo</template>
+                        </span>
                     </div>
 
                     <div class="flex items-start text-sm mt-3 text-gray-600">
                         <span class="inline-block text-center text-red-500 h-3 w-3 mr-2 text-base">*</span>
-                        Observation has no impact on latrine type
+                        <template v-if="currentLanguage === 'english'">Observation has no impact on latrine type</template>
+                        <template v-if="currentLanguage === 'kiswahili'">Uangalizi usiokuwa na madhara kiutendaji wa sehemu ya kunawa</template>
                     </div>
                 </div>
             </header>
@@ -32,25 +34,27 @@
                     <thead>
                         <tr>
                             <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left">
-                                Head Of House
+                                <template v-if="currentLanguage === 'english'">Head Of House</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Mkuu wa familia</template>
                             </th>
                             <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                                Has handwash place
+                                <template v-if="currentLanguage === 'english'">Has handwash place</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Kuna sehemu ya kunawa mikono</template>
                             </th>
                             <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                                Has soap
+                                <template v-if="currentLanguage === 'english'">Has soap</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Kuna sabuni</template>
                             </th>
                             <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                                Has handwash container
+                                <template v-if="currentLanguage === 'english'">Has handwash container</template>
+                                <template v-if="currentLanguage === 'kiswahili'">Kuna chombo chakunawia</template>
                             </th>
                         </tr>
                     </thead>
 
                     <tbody>
                     <tr v-for="house in houses" :key="house.id">
-                        <td class="border-b text-left  py-4 px-4">
-                            {{ house.head_of_house | toTitleCase }}
-                        </td>
+                        <td class="border-b text-left  py-4 px-4">{{ house.head_of_house | toTitleCase }}</td>
                         <td
                             class="border text-left py-4 px-4 text-transparent"
                             :class="{

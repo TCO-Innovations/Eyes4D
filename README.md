@@ -1,185 +1,73 @@
-# Eyes4D
-Repository for eyes4D dashboard project
+# Steps to deploy eyes4d project
 
+## Reference Material
+- [Nginx Configuration](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-laravel-with-lemp-on-ubuntu-18-04#step-5-%E2%80%94-setting-up-nginx)
+- [Postgres Configuration](https://computingforgeeks.com/install-postgresql-12-on-ubuntu/)
+- [PHP Configuration](https://www.rosehosting.com/blog/how-to-install-php-7-3-on-ubuntu-16-04/)
 
-## Step 1: Connect to your server via SSH
-The first thing to do is to connect to your VPS via SSH as a user with root privileges or a root user. 
-    `ssh root@SERVER_IP_ADDRESS -p PORT_NUMBER`
+##### Update OS
+- `apt update && apt upgrade`
 
-## Step 2: Update your server OS packages
-Once logged in, you can update your Ubuntu OS packages to the latest version using: 
-    `sudo apt update && sudo apt upgrade`
+##### Install Nginx
+- `apt install nginx`
 
-## Step 3: Install a Web Server
-To install Nginx web server, run the following command on your server: 
-    `sudo apt install nginx`
+##### Create virtual host at sites-available
+- `sudo nano /etc/nginx/sites-available/eyes4d`
 
-## Step 4: Start Web Server
-After installing nginx, use the command below to start the Apache service: 
-    `systemctl start nginx`
+##### Activate the new virtual host configuration file, create a symbolic link to 
+- `sudo ln -s /etc/nginx/sites-available/eyes4d /etc/nginx/sites-enabled/`
 
-## Step 5: Enable Web Server
-You can enable Apache server to always startup when the server boots up:
-    `systemctl enable nginx`
+##### To confirm that the configuration doesnt contain any syntax errors, you can use:
+- `sudo nginx -t`
 
-## Step 6: Check the status of the web server service
-You can always check the status of the Apache web service with this command: 
-    `systemctl status nginx`
+##### Then go to /etc/nginx/sites-available/default file remove (comment out) default flag and add it to new virtual host file
+- [Laravel Nginx configurations stub](https://laravel.com/docs/6.x/deployment)
 
-## Step 7: Install Ondřej Surý’s PPA repository
-Run the following command 
-    `LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php`
+##### To apply the changes, reload Nginx with:
+- `sudo systemctl reload nginx`
 
-## Step 8: Install PHP 7.3
-Run the following command
-    `sudo apt install php7.3 php7.3-cli php7.3-common`
+##### Install PHP
+- `LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php`
+- `apt install php7.3 php7.3-cli php7.3-common`
+- `apt install php7.3-bcmath php7.3-curl php7.3-fpm php7.3-gd php7.3-mbstring php7.3-xml php7.3-zip php7.3-pgsql`
 
-## Step 9: To check if PHP 7.3 is installed on your server
-Use the command below to check if php have been installed successfully
-    `php -v`
+##### Install GIT
+- `apt install git`
 
-## Step 10: Install the most frequently used PHP modules
-User the following command:
-    `sudo apt install php7.3-fpm php7.3-json php7.3-pdo php7.3-zip php7.3-gd php7.3-mbstring php7.3-curl php7.3-xml php7.3-bcmath php7.3-json`
+##### Install Composer
+- `apt install composer`
 
-## Step 11: Install git
-Use the following command: 
-    `sudo apt install git`
+##### Install Postgres
+- `sudo apt update`
+- `sudo apt -y install vim bash-completion wget`
+- `sudo apt -y upgrade`
+- `wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -`
+- `echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list`
+- `apt -y install postgresql-12 postgresql-client-12`
 
-## Step 12: Download Composer
-Run the following command to download composer 
-    `curl -sS https://getcomposer.org/installer |php`
+##### The PostgreSQL service is started and set to come up after every system reboot.
+- `systemctl status postgresql.service` 
 
-## Step 13: Configure composer to work globally
-Move the Composer file to /usr/local/bin directory: 
-    `sudo mv composer.phar /usr/local/bin/composer`
+##### Clone project
+- `git clone https://github.com/TCO-Innovations/Eyes4D.git eyes4d`
+- `cd eyes4d`
 
-## Step 14: Install Postgres Database
-Run the following command 
-    `sudo apt install postgresql postgresql-contrib`
+##### Install laravel project dependencies
+- `composer install`
 
-## Step 15: Putting the code to the repository
+##### Setup configuration environment variables
+- `cp .env.example .env`
 
-## Step 16: Cloning repository to the server
-We need to SSH into our server, navigate to the folder prepared for the project, and launch git clone command.
+##### Give permission
+- `sudo chown -R www-data.www-data /var/www/eyes4d/storage`
+- `sudo chown -R www-data.www-data /var/www/eyes4d/bootstrap/cache`
 
-## Step 17: Create .env file
-Create new .env file under root directory of the project by using the following command: 
-    `touch .env`
+##### Database creation and Configurations 
+- `postgres=# CREATE DATABASE eyes4d;`
+- `postgres=# CREATE USER {user_name} WITH ENCRYPTED PASSWORD ‘{password}’`;
+- `postgres=# GRANT ALL PRIVILEGES ON DATABASE {database_name} TO {user_name}`;
 
-## Step 18: Writeable folders.
-After installing project, you may need to configure some permissions. Directories within the storage and the bootstrap/cache directories should be writable by your web server or Laravel will not run. 
-    `chmod -R 755 storage `
-    `chmod -R 755 bootstrap/cache`
-
-## Step 19: Composer install.
-Let’s run this “magic” command under root directory of the project. 
-    `composer install`
-
-## Step 20: Initialize configuration 
-The open .env file then paste the following code to it.
-```dotenv
-    APP_NAME=Eyes4D
-    APP_ENV=production
-    APP_KEY=
-    APP_DEBUG=false
-    APP_URL=http://eyes4D.co.tz
-    
-    LOG_CHANNEL=stack
-    
-    DB_CONNECTION=postgres
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=
-    DB_USERNAME=
-    DB_PASSWORD=
-    
-    BROADCAST_DRIVER=log
-    CACHE_DRIVER=file
-    QUEUE_CONNECTION=sync
-    SESSION_DRIVER=file
-    SESSION_LIFETIME=120
-    
-    REDIS_HOST=127.0.0.1
-    REDIS_PASSWORD=null
-    REDIS_PORT=6379
-    
-    MAIL_DRIVER=smtp
-    MAIL_HOST=smtp.mailtrap.io
-    MAIL_PORT=2525
-    MAIL_USERNAME=null
-    MAIL_PASSWORD=null
-    MAIL_ENCRYPTION=null
-    
-    AWS_ACCESS_KEY_ID=
-    AWS_SECRET_ACCESS_KEY=
-    AWS_DEFAULT_REGION=us-east-1
-    AWS_BUCKET=
-    
-    PUSHER_APP_ID=
-    PUSHER_APP_KEY=
-    PUSHER_APP_SECRET=
-    PUSHER_APP_CLUSTER=mt1
-    
-    MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
-    MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
-```
-
-## Step 21: Generate application key.
-We need to run this command under project root directory
-    `php artisan key:generate`
-
-## Step 22: Configure Nginx
-Under site-enable/default file put the following code
-```nginx
-server {
-
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    root /var/www/eyes4d/public;
-
-    index index.html index.php index.htm index.nginx-debian.html;
-
-    charset utf-8;
-
-    server_name _;
-
-    location / {
-
-        try_files $uri $uri/ /index.php?$query_string;
-    }
-
-    location = /favicon.ico { access_log off; log_not_found off; }
-    location = /robots.txt  { access_log off; log_not_found off; }
-
-    error_page 404 /index.php;
-
-    location ~ \.php$ {
-
-        include snippets/fastcgi-php.conf;
-
-        fastcgi_index index.php;
-
-        fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
-
-        fastcgi_pass 127.0.0.1:9000;
-
-        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
-    }
-
-    location ~ /\.ht {
-        deny all;
-    }
-
-    location ~ /.well-known {
-        allow all;
-    }
-
-    location ~ /\.(?!well-known).* {
-        deny all;
-    }
-}
-```
-## Step 23: Import Database
-Import database that come with with project eyes4d_postgres.sql located under the root directory
+##### Remote Connection 
+- https://computingforgeeks.com/install-postgresql-12-on-ubuntu/
+- https://blog.bigbinary.com/2016/01/23/configure-postgresql-to-allow-remote-connection.html
+- https://dba.stackexchange.com/questions/83984/connect-to-postgresql-server-fatal-no-pg-hba-conf-entry-for-host

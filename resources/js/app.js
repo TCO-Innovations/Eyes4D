@@ -25,9 +25,14 @@ Vue.use(VModal, {
 });
 
 Vue.mixin({
+    computed: {
+        currentLanguage() {
+            return window.localStorage.getItem('language');
+        },
+    },
     methods: {
         route: (name, params, absolute) => route(name, params, absolute, Ziggy),
-    }
+    },
 });
 
 Vue.component('apexchart', VueApexCharts);
