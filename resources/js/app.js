@@ -27,7 +27,10 @@ Vue.use(VModal, {
 Vue.mixin({
     computed: {
         currentLanguage() {
-            return window.localStorage.getItem('language');
+            if(window.localStorage.getItem('language')) {
+                return window.localStorage.getItem('language');
+            }
+            return 'english';
         },
     },
     methods: {

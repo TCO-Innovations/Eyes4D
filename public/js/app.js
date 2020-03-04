@@ -27704,7 +27704,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_js_modal__WEBPACK_IMPORTED_MO
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   computed: {
     currentLanguage: function currentLanguage() {
-      return window.localStorage.getItem('language');
+      if (window.localStorage.getItem('language')) {
+        return window.localStorage.getItem('language');
+      }
+
+      return 'english';
     }
   },
   methods: {
