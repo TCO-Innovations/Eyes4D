@@ -306,6 +306,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -515,9 +518,20 @@ var render = function() {
           "header",
           { staticClass: "w-full flex justify-between border-b pb-8" },
           [
-            _c("h1", { staticClass: "text-2xl font-medium text-gray-700" }, [
-              _vm._v("Handwashing Practice")
-            ]),
+            _c(
+              "h1",
+              { staticClass: "text-2xl font-medium text-gray-700" },
+              [
+                _vm.currentLanguage === "english"
+                  ? [_vm._v("Handwashing Practice")]
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.currentLanguage === "kiswahili"
+                  ? [_vm._v("Mazingira yakunawaia")]
+                  : _vm._e()
+              ],
+              2
+            ),
             _vm._v(" "),
             _c(
               "nav",

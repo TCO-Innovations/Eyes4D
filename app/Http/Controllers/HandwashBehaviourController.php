@@ -8,6 +8,11 @@ use Inertia\Inertia;
 
 class HandwashBehaviourController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function __invoke(Request $request)
     {
         return Inertia::render("HandwashingBehaviour/Index", [

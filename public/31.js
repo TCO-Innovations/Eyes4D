@@ -394,7 +394,7 @@ var render = function() {
                                                           }
                                                         }
                                                       },
-                                                      [_vm._v("Delete")]
+                                                      [_vm._v("Confirm")]
                                                     )
                                                   ]
                                                 )

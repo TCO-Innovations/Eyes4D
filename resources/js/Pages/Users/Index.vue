@@ -69,7 +69,7 @@
 
                                                     <footer class="flex mt-6">
                                                         <button class="inline-flex font-medium rounded-lg py-1 px-3 bg-gray-300 leading-5 text-sm text-gray-800 mr-2">Cancel</button>
-                                                        <button class="inline-flex font-medium rounded-lg py-1 px-3 bg-red-500 leading-5 text-sm text-white" @click.prevent="handleDeleting(user)">Delete</button>
+                                                        <button class="inline-flex font-medium rounded-lg py-1 px-3 bg-red-500 leading-5 text-sm text-white" @click.prevent="handleDeleting(user)">Confirm</button>
                                                     </footer>
                                                 </div>
                                             </template>

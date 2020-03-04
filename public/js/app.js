@@ -27290,29 +27290,29 @@ module.exports = function(module) {
 var map = {
 	"./HandwashingBehaviour/HandwashingScorecard": [
 		"./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue",
-		27,
+		8,
 		38
 	],
 	"./HandwashingBehaviour/HandwashingScorecard.vue": [
 		"./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue",
-		27,
+		8,
 		38
 	],
 	"./HandwashingBehaviour/Index": [
 		"./resources/js/Pages/HandwashingBehaviour/Index.vue",
 		0,
 		2,
-		9,
-		27,
-		42
+		3,
+		8,
+		27
 	],
 	"./HandwashingBehaviour/Index.vue": [
 		"./resources/js/Pages/HandwashingBehaviour/Index.vue",
 		0,
 		2,
-		9,
-		27,
-		42
+		3,
+		8,
+		27
 	],
 	"./HandwashingPractice/HandwashingHouses": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingHouses.vue",
@@ -27329,37 +27329,37 @@ var map = {
 		0,
 		1,
 		5,
-		37
+		36
 	],
 	"./HandwashingPractice/HandwashingScoreCard.vue": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingScoreCard.vue",
 		0,
 		1,
 		5,
-		37
+		36
 	],
 	"./HandwashingPractice/HandwashingStationCharacteristics": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue",
 		0,
 		4,
-		10
+		9
 	],
 	"./HandwashingPractice/HandwashingStationCharacteristics.vue": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue",
 		0,
 		4,
-		10
+		9
 	],
 	"./HandwashingPractice/HandwashingStationCharacteristicsTrend": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue",
 		4,
-		11,
+		10,
 		39
 	],
 	"./HandwashingPractice/HandwashingStationCharacteristicsTrend.vue": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue",
 		4,
-		11,
+		10,
 		39
 	],
 	"./HandwashingPractice/Index": [
@@ -27368,11 +27368,11 @@ var map = {
 		1,
 		2,
 		4,
-		9,
+		3,
 		5,
+		9,
 		10,
-		11,
-		41
+		19
 	],
 	"./HandwashingPractice/Index.vue": [
 		"./resources/js/Pages/HandwashingPractice/Index.vue",
@@ -27380,11 +27380,11 @@ var map = {
 		1,
 		2,
 		4,
-		9,
+		3,
 		5,
+		9,
 		10,
-		11,
-		41
+		19
 	],
 	"./LatrineConstruction/AgeDemography": [
 		"./resources/js/Pages/LatrineConstruction/AgeDemography.vue",
@@ -27402,14 +27402,14 @@ var map = {
 		"./resources/js/Pages/LatrineConstruction/DateRangePicker.vue",
 		1,
 		17,
-		14,
+		7,
 		32
 	],
 	"./LatrineConstruction/DateRangePicker.vue": [
 		"./resources/js/Pages/LatrineConstruction/DateRangePicker.vue",
 		1,
 		17,
-		14,
+		7,
 		32
 	],
 	"./LatrineConstruction/GenderDemography": [
@@ -27437,12 +27437,12 @@ var map = {
 	"./LatrineConstruction/HouseholdVisiting": [
 		"./resources/js/Pages/LatrineConstruction/HouseholdVisiting.vue",
 		0,
-		12
+		11
 	],
 	"./LatrineConstruction/HouseholdVisiting.vue": [
 		"./resources/js/Pages/LatrineConstruction/HouseholdVisiting.vue",
 		0,
-		12
+		11
 	],
 	"./LatrineConstruction/Index": [
 		"./resources/js/Pages/LatrineConstruction/Index.vue",
@@ -27450,14 +27450,14 @@ var map = {
 		1,
 		2,
 		17,
-		9,
-		12,
-		13,
+		3,
+		11,
 		6,
+		13,
+		12,
 		7,
 		14,
-		18,
-		40
+		18
 	],
 	"./LatrineConstruction/Index.vue": [
 		"./resources/js/Pages/LatrineConstruction/Index.vue",
@@ -27465,64 +27465,64 @@ var map = {
 		1,
 		2,
 		17,
-		9,
-		12,
-		13,
+		3,
+		11,
 		6,
+		13,
+		12,
 		7,
 		14,
-		18,
-		40
+		18
 	],
 	"./LatrineConstruction/LatrineCharacteristics": [
 		"./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue",
 		1,
-		7,
+		12,
 		33
 	],
 	"./LatrineConstruction/LatrineCharacteristics.vue": [
 		"./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue",
 		1,
-		7,
+		12,
 		33
 	],
 	"./LatrineConstruction/LatrineCharacteristicsTrend": [
 		"./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue",
 		1,
-		6,
-		36
+		13,
+		34
 	],
 	"./LatrineConstruction/LatrineCharacteristicsTrend.vue": [
 		"./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue",
 		1,
-		6,
-		36
+		13,
+		34
 	],
 	"./LatrineConstruction/LatrineConstructionImprovementScoreCard": [
 		"./resources/js/Pages/LatrineConstruction/LatrineConstructionImprovementScoreCard.vue",
 		0,
 		1,
-		13,
-		35
+		6,
+		37
 	],
 	"./LatrineConstruction/LatrineConstructionImprovementScoreCard.vue": [
 		"./resources/js/Pages/LatrineConstruction/LatrineConstructionImprovementScoreCard.vue",
 		0,
 		1,
-		13,
-		35
+		6,
+		37
 	],
 	"./LatrineConstruction/LatrineTypesDistribution": [
 		"./resources/js/Pages/LatrineConstruction/LatrineTypesDistribution.vue",
 		1,
-		18,
-		34
+		14,
+		35
 	],
 	"./LatrineConstruction/LatrineTypesDistribution.vue": [
 		"./resources/js/Pages/LatrineConstruction/LatrineTypesDistribution.vue",
 		1,
-		18,
-		34
+		14,
+		35
 	],
 	"./LatrineConstruction/NumberOfUReporters": [
 		"./resources/js/Pages/LatrineConstruction/NumberOfUReporters.vue",
@@ -27610,7 +27610,7 @@ var map = {
 		"./resources/js/Pages/Users/Index.vue",
 		0,
 		2,
-		9,
+		3,
 		16,
 		15,
 		31
@@ -27619,7 +27619,7 @@ var map = {
 		"./resources/js/Pages/Users/Index.vue",
 		0,
 		2,
-		9,
+		3,
 		16,
 		15,
 		31
