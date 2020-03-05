@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[20],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/AgeDemography.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/AgeDemography.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/GenderDemography.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/GenderDemography.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -11,13 +11,9 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/events */ "./resources/js/events.js");
-/* harmony import */ var voca__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! voca */ "./node_modules/voca/index.js");
-/* harmony import */ var voca__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(voca__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ReportComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/ReportComponent */ "./resources/js/ReportComponent.vue");
 
 //
 //
@@ -25,39 +21,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    period: {
-      required: true,
-      type: Object
-    }
-  },
-  data: function data() {
-    return {
-      filters: {
-        areaName: null,
-        areaType: null
-      }
-    };
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.fetchReport();
-    _events__WEBPACK_IMPORTED_MODULE_1__["default"].$on("filter:area", function (area) {
-      _this.filters.areaName = area.name;
-      _this.filters.areaType = area.type;
-    });
-  },
+  "extends": _ReportComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
   computed: {
-    options: function options() {
+    title: function title() {
+      return this.currentLanguage === 'english' ? 'U-Reporters gender demography' : 'Demografia ya jinsia wa U-Reporters';
+    },
+    chartOptions: function chartOptions() {
       return {
         chart: {
-          type: 'column'
+          type: 'pie'
         },
         credits: {
           enabled: false
@@ -73,56 +48,161 @@ __webpack_require__.r(__webpack_exports__);
         },
         subtitle: {
           align: 'center',
-          text: "".concat(this.areaName, ": ").concat(this.timeRange) //text: `All regions: All the time`
-
-        },
-        xAxis: {
-          type: 'category'
-        },
-        yAxis: {
-          title: {
-            text: 'Number of U-Reporters'
-          }
+          text: this.subTitle
         },
         series: [{
           name: 'Total',
-          colorByPoint: true,
-          data: [{
-            name: 'Age < 20',
-            y: 34,
-            color: '#4299E1'
-          }, {
-            name: 'Age 20 - 24',
-            y: 65,
-            color: '#48BB78'
-          }, {
-            name: 'Age > 25',
-            y: 26,
-            color: '#F56565'
-          }]
+          data: this.data
         }],
+        plotOptions: {
+          pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            showInLegend: true,
+            dataLabels: {
+              enabled: false
+            }
+          }
+        },
         legend: {
-          enabled: false
+          layout: 'horizontal',
+          align: 'center',
+          verticalAlign: 'bottom',
+          itemMarginTop: 10,
+          itemMarginBottom: 10
         }
       };
+    }
+  },
+  methods: {
+    fetchReport: function fetchReport() {
+      var _ref, data, colors;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function fetchReport$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/gender_demography", {
+                params: this.filters
+              }));
+
+            case 2:
+              _ref = _context.sent;
+              data = _ref.data;
+              colors = {
+                Male: "#4299E1",
+                Female: "#48BB78"
+              };
+              this.data = data.map(function (item) {
+                return {
+                  y: item.total,
+                  name: item.gender,
+                  color: colors[item.gender]
+                };
+              });
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, null, this);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/ReportComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/ReportComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var voca__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! voca */ "./node_modules/voca/index.js");
+/* harmony import */ var voca__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(voca__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./events */ "./resources/js/events.js");
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    period: {
+      required: true,
+      type: Object
+    }
+  },
+  data: function data() {
+    return {
+      data: null,
+      requestPath: '',
+      filters: {
+        start: this.period.start,
+        stop: this.period.stop,
+        areaName: null,
+        areaType: null
+      }
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.fetchReport();
+    _events__WEBPACK_IMPORTED_MODULE_4__["default"].$on("filter:area", function (area) {
+      _this.filters.areaType = area.type;
+      _this.filters.areaName = area.name;
+    });
+  },
+  computed: {
+    startDate: function startDate() {
+      return moment__WEBPACK_IMPORTED_MODULE_1___default()(this.period.start).format("MMM DD, YYYY");
     },
-    areaName: function areaName() {
-      if (this.filters.areaName && this.filters.areaType) {
-        var name = "".concat(this.filters.areaName, " ").concat(this.filters.areaType);
-        return voca__WEBPACK_IMPORTED_MODULE_2___default.a.titleCase(name);
+    stopDate: function stopDate() {
+      return moment__WEBPACK_IMPORTED_MODULE_1___default()(this.period.start).format("MMM DD, YYYY");
+    },
+    subTitle: function subTitle() {
+      return "".concat(this.areaPresenter, ": ").concat(this.timePresenter);
+    },
+    areaPresenter: function areaPresenter() {
+      if (!(this.filters.areaName && this.filters.areaType)) {
+        return "All regions";
       }
 
-      return "All Regions";
+      return voca__WEBPACK_IMPORTED_MODULE_2___default.a.titleCase("".concat(this.filters.areaName, " ").concat(this.filters.areaType));
     },
-    timeRange: function timeRange() {
-      if (this.period) {
-        return "".concat(this.toFormattedDate(this.period.start), " - ").concat(this.toFormattedDate(this.period.stop));
+    timePresenter: function timePresenter() {
+      if (!(this.period.start && this.period.stop)) {
+        return "All the time";
       }
 
-      return "All The Time";
+      return "".concat(this.startDate, " - ").concat(this.stopDate);
+    }
+  },
+  watch: {
+    filters: {
+      deep: true,
+      handler: function handler() {
+        this.fetchReport();
+      }
     },
-    title: function title() {
-      return this.currentLanguage === 'english' ? 'U-Reporters Age Demography' : 'Demografia ya umri wa U-Reporters';
+    period: {
+      deep: true,
+      handler: function handler(value) {
+        this.filters.start = value.start;
+        this.filters.stop = value.stop;
+      }
     }
   },
   methods: {
@@ -134,25 +214,21 @@ __webpack_require__.r(__webpack_exports__);
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("/api/latrine_construction_improvement", {
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_3___default.a.get(this.requestPath, {
                 params: this.filters
               }));
 
             case 2:
               _ref = _context.sent;
               data = _ref.data;
-              this.houses = data.data;
-              this.links = data.links;
+              this.data = data;
 
-            case 6:
+            case 5:
             case "end":
               return _context.stop();
           }
         }
       }, null, this);
-    },
-    toFormattedDate: function toFormattedDate(date) {
-      return moment__WEBPACK_IMPORTED_MODULE_4___default()(date).format("MMM DD, YYYY");
     }
   }
 });
@@ -445,10 +521,10 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/AgeDemography.vue?vue&type=template&id=71d585e3&":
-/*!*******************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/AgeDemography.vue?vue&type=template&id=71d585e3& ***!
-  \*******************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/GenderDemography.vue?vue&type=template&id=774c1cae&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/GenderDemography.vue?vue&type=template&id=774c1cae& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -463,7 +539,7 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "bg-white shadow overflow-hidden rounded-lg py-6 px-4" },
-    [_c("highcharts", { attrs: { options: _vm.options } })],
+    [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
     1
   )
 }
@@ -474,17 +550,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/Pages/LatrineConstruction/AgeDemography.vue":
-/*!******************************************************************!*\
-  !*** ./resources/js/Pages/LatrineConstruction/AgeDemography.vue ***!
-  \******************************************************************/
+/***/ "./resources/js/Pages/LatrineConstruction/GenderDemography.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/GenderDemography.vue ***!
+  \*********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AgeDemography_vue_vue_type_template_id_71d585e3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AgeDemography.vue?vue&type=template&id=71d585e3& */ "./resources/js/Pages/LatrineConstruction/AgeDemography.vue?vue&type=template&id=71d585e3&");
-/* harmony import */ var _AgeDemography_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AgeDemography.vue?vue&type=script&lang=js& */ "./resources/js/Pages/LatrineConstruction/AgeDemography.vue?vue&type=script&lang=js&");
+/* harmony import */ var _GenderDemography_vue_vue_type_template_id_774c1cae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GenderDemography.vue?vue&type=template&id=774c1cae& */ "./resources/js/Pages/LatrineConstruction/GenderDemography.vue?vue&type=template&id=774c1cae&");
+/* harmony import */ var _GenderDemography_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GenderDemography.vue?vue&type=script&lang=js& */ "./resources/js/Pages/LatrineConstruction/GenderDemography.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -494,9 +570,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AgeDemography_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AgeDemography_vue_vue_type_template_id_71d585e3___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AgeDemography_vue_vue_type_template_id_71d585e3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _GenderDemography_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _GenderDemography_vue_vue_type_template_id_774c1cae___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _GenderDemography_vue_vue_type_template_id_774c1cae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -506,40 +582,90 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/Pages/LatrineConstruction/AgeDemography.vue"
+component.options.__file = "resources/js/Pages/LatrineConstruction/GenderDemography.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/Pages/LatrineConstruction/AgeDemography.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************!*\
-  !*** ./resources/js/Pages/LatrineConstruction/AgeDemography.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************/
+/***/ "./resources/js/Pages/LatrineConstruction/GenderDemography.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/GenderDemography.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AgeDemography_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AgeDemography.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/AgeDemography.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AgeDemography_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GenderDemography_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./GenderDemography.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/GenderDemography.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GenderDemography_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/Pages/LatrineConstruction/AgeDemography.vue?vue&type=template&id=71d585e3&":
-/*!*************************************************************************************************!*\
-  !*** ./resources/js/Pages/LatrineConstruction/AgeDemography.vue?vue&type=template&id=71d585e3& ***!
-  \*************************************************************************************************/
+/***/ "./resources/js/Pages/LatrineConstruction/GenderDemography.vue?vue&type=template&id=774c1cae&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/Pages/LatrineConstruction/GenderDemography.vue?vue&type=template&id=774c1cae& ***!
+  \****************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AgeDemography_vue_vue_type_template_id_71d585e3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AgeDemography.vue?vue&type=template&id=71d585e3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/AgeDemography.vue?vue&type=template&id=71d585e3&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AgeDemography_vue_vue_type_template_id_71d585e3___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GenderDemography_vue_vue_type_template_id_774c1cae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./GenderDemography.vue?vue&type=template&id=774c1cae& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/GenderDemography.vue?vue&type=template&id=774c1cae&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GenderDemography_vue_vue_type_template_id_774c1cae___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AgeDemography_vue_vue_type_template_id_71d585e3___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GenderDemography_vue_vue_type_template_id_774c1cae___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/ReportComponent.vue":
+/*!******************************************!*\
+  !*** ./resources/js/ReportComponent.vue ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ReportComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReportComponent.vue?vue&type=script&lang=js& */ "./resources/js/ReportComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _ReportComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/ReportComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/ReportComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************!*\
+  !*** ./resources/js/ReportComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib??ref--4-0!../../node_modules/vue-loader/lib??vue-loader-options!./ReportComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/ReportComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

@@ -1,10 +1,20 @@
 <template>
-    <input type="text" id="date" ref="date" :placeholder="placeholder">
+    <label :for="uniqueId">
+        <input
+            type="text"
+            :id="uniqueId"
+            ref="date"
+            class="focus:outline-none"
+            :placeholder="placeholder"
+            :value="formattedValue"
+        >
+    </label>
 </template>
 
 <script>
     import Pikaday from "pikaday";
     import moment from "moment";
+    import { v4 as uuidv4 } from 'uuid';
 
     export default {
         props: {
@@ -23,7 +33,7 @@
             let vm = this;
 
             new Pikaday({
-                field: this.$el,
+                field: this.$refs.date,
                 format: this.format,
                 defaultDate: moment(this.value).toDate(),
                 setDefaultDate: true,
@@ -31,6 +41,14 @@
                     vm.$emit('input', moment(date).format('YYYY-MM-DD'));
                 }
             });
+        },
+        computed: {
+            uniqueId() {
+                return uuidv4();
+            },
+            formattedValue() {
+                return moment(this.value).format('MMM DD, YYYY');
+            }
         }
     }
 </script>

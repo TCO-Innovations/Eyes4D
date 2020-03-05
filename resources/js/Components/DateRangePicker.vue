@@ -3,7 +3,7 @@
         <nav class="flex items-center bg-white shadow rounded-lg px-3 text-sm py-1">
             <div class="flex items-center justify-between">
                 <DatePicker
-                    v-model="periodRange.start"
+                    v-model="period.start"
                     placeholder="From.."
                     class="bg-transparent w-24 focus:outline-none focus:text-blue-500 text-center"
                 />
@@ -11,7 +11,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 fill-current text-gray-600"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></svg>
                 </span>
                 <DatePicker
-                    v-model="periodRange.stop"
+                    v-model="period.stop"
                     placeholder="To.."
                     class="bg-transparent w-24 focus:outline-none focus:text-blue-500 text-center"
                 />
@@ -23,14 +23,35 @@
 
                 <template #popover>
                     <div class="bg-white rounded-lg overflow-hidden">
-                        <CustomDateItem
-                            :dateItem="customDateItem"
-                            :period="period"
-                            v-for='customDateItem in customDateItems'
-                            :key="customDateItem.name"
-                            @stop="appendStop"
-                            @start="appendStart"
-                        />
+                        <CustomDateItem />
+                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
+                            <span class="mr-3 font-medium text-blue-500">Last 30 Days</span>
+                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                        </a>
+                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
+                            <span class="mr-3 font-medium text-blue-500">This month</span>
+                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                        </a>
+                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
+                            <span class="mr-3 font-medium text-blue-500">Last month</span>
+                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                        </a>
+                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
+                            <span class="mr-3 font-medium text-blue-500">Last 3 months</span>
+                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                        </a>
+                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
+                            <span class="mr-3 font-medium text-blue-500">Last 6 Months</span>
+                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                        </a>
+                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
+                            <span class="mr-3 font-medium text-blue-500">Last year</span>
+                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                        </a>
+                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm">
+                            <span class="mr-3 font-medium text-blue-500">All time</span>
+                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
+                        </a>
                     </div>
                 </template>
             </v-popover>
@@ -39,6 +60,7 @@
 </template>
 
 <script>
+    import moment from 'moment';
     import EventBus from '@/events';
     import DatePicker from "@/Components/DatePicker";
     import CustomDateItem from "@/Components/CustomDateItem";
@@ -80,13 +102,8 @@
             }
         },
         methods: {
-            appendStart(date) {
-                //alert(date);
-                this.periodRange.start = date;
-            },
-            appendStop(date) {
-                //alert(date);
-                this.periodRange.stop = date;
+            last30Days() {
+
             }
         }
     }

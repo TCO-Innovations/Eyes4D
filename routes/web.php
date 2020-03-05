@@ -19,6 +19,7 @@ Route::get("api/visiting_per_contact", "Api\VisitingPerContactController");
 Route::get("api/visiting_per_village", "Api\VisitingPerVillageController");
 Route::get("api/regions/{region}/districts", "Api\RegionDistrictsController@index");
 Route::get("api/districts/{district}/villages", "Api\DistrictVillagesController@index");
+Route::get("/api/latrine_type_distribution", "Api\LatrineTypeDistributionController");
 
 Route::get("api/handwashing_houses", "Api\HandwashingHousesController");
 Route::get("api/handwashing_characteristics", "Api\HandwashingCharacteristicsController");
@@ -31,11 +32,12 @@ Route::get("api/number_of_villages", "Api\NumberOfVillagesController");
 Route::get("api/visited_household", "Api\VisitedHouseholdController");
 Route::get("api/total_number_of_households", "Api\TotalNumberOfHouseholdsController");
 Route::get("api/gender_demography", "Api\GenderDemographyController");
+Route::get("api/age_demography", "Api\AgeDemographyController");
 
-Route::get("users", "UsersController@index");
-Route::post("users", "UsersController@store");
-Route::put("users/{user}", "UsersController@update");
-Route::delete("users/{user}", "UsersController@destroy");
+Route::get("users", "UsersController@index")->name('users.index');
+Route::post("users", "UsersController@store")->name('users.store');
+Route::put("users/{user}", "UsersController@update")->name('users.update');
+Route::delete("users/{user}", "UsersController@destroy")->name('users.destroy');
 
 Route::put("self/password", "PasswordController");
 Route::put("self/profile", "ProfileController");

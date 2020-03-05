@@ -1,40 +1,26 @@
 <template>
     <div class="bg-white shadow overflow-hidden rounded-lg py-6 px-4">
-        <highcharts :options="options"></highcharts>
+        <highcharts :options="chartOptions"></highcharts>
     </div>
 </template>
 
 <script>
-    import EventBus from '@/events';
-    import Voca from "voca";
     import Axios from "axios";
-    import moment from "moment";
+    import ReportComponent from "@/ReportComponent";
 
     export default  {
-        props: {
-            period: {
-                required: true,
-                type: Object,
-            }
-        },
+        extends: ReportComponent,
         data() {
             return {
-                filters: {
-                    areaName: null,
-                    areaType: null
-                }
+                data: []
             }
         },
-        mounted() {
-            this.fetchReport();
 
-            EventBus.$on("filter:area", area => {
-                this.filters.areaName = area.name;
-                this.filters.areaType = area.type;
-            });
-        },
         computed: {
-            options() {
+            title() {
+                return this.currentLanguage === 'english' ? 'U-Reporters age demography' : 'Demografia ya umri wa U-Reporters';
+            },
+            chartOptions() {
                 return {
                     chart: { type: 'column' },
                     credits: { enabled: false },
@@ -46,72 +32,49 @@
                     },
                     subtitle: {
                         align: 'center',
-                        text: `${this.areaName}: ${this.timeRange}`,
-                        //text: `All regions: All the time`
+                        text: this.subTitle,
                     },
-                    xAxis: {
-                        type: 'category'
-                    },
-                    yAxis: {
-                        title: {
-                            text: 'Number of U-Reporters'
-                        },
-                    },
+                    xAxis: { type: 'category' },
+                    yAxis: { title: { text: 'Number of U-Reporters' } },
                     series: [{
                         name: 'Total',
                         colorByPoint: true,
-                        data: [
-                            {
-                                name: 'Age < 20',
-                                y: 34,
-                                color: '#4299E1'
-                            },
-                            {
-                                name: 'Age 20 - 24',
-                                y: 65,
-                                color: '#48BB78'
-                            },
-                            {
-                                name: 'Age > 25',
-                                y: 26,
-                                color: '#F56565'
-                            }
-                        ]
+                        data: this.data
                     }],
                     legend: { enabled: false },
                 }
             },
-            areaName() {
-                if (this.filters.areaName && this.filters.areaType) {
-                    let name = `${this.filters.areaName} ${this.filters.areaType}`;
-
-                    return Voca.titleCase(name);
-                }
-
-                return `All Regions`;
-            },
-            timeRange() {
-                if (this.period) {
-                    return `${this.toFormattedDate(this.period.start)} - ${this.toFormattedDate(this.period.stop)}`;
-                }
-                return "All The Time";
-            },
-            title() {
-                return this.currentLanguage === 'english' ? 'U-Reporters Age Demography' : 'Demografia ya umri wa U-Reporters';
-            }
         },
         methods: {
             async fetchReport() {
-                let { data } = await Axios.get(`/api/latrine_construction_improvement`, {
+                let { data } = await Axios.get(`/api/age_demography`, {
                     params: this.filters
                 });
 
-                this.houses = data.data;
-                this.links  = data.links
-            },
-            toFormattedDate(date) {
-                return moment(date).format("MMM DD, YYYY");
-            },
+                this.data = [
+                    {
+                        name: 'Age < 20',
+                        y: data.filter(contact => {
+                            return contact.contact_age_in_years < 20;
+                        }).length,
+                        color: '#4299E1'
+                    },
+                    {
+                        name: 'Age 20 - 24',
+                        y: data.filter(contact => {
+                            return contact.contact_age_in_years >= 20 && contact.contact_age_in_years <= 24;
+                        }).length,
+                        color: '#48BB78'
+                    },
+                    {
+                        name: 'Age > 25',
+                        y: data.filter(contact => {
+                            return contact.contact_age_in_years > 25;
+                        }).length,
+                        color: '#F56565'
+                    }
+                ]
+            }
         }
     }
 </script>

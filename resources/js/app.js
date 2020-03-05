@@ -34,7 +34,9 @@ Vue.mixin({
         },
     },
     methods: {
-        route: (name, params, absolute) => route(name, params, absolute, Ziggy),
+        route(name, params, absolute) {
+            return route(name, params, absolute, Ziggy);
+        },
     },
 });
 

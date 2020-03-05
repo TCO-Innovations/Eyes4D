@@ -71,16 +71,16 @@
                     <nav class="text-sm font-semibold text-gray-600 mt-4">
                         <inertia-link
                             :href="`/home`"
-                            class="-mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium bg-gray-200 rounded-lg"
-                            :class="{ 'text-gray-700' : isRoute('latrine') }"
+                            class="-mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg"
+                            :class="{ 'text-gray-700 bg-gray-200' : isRoute('latrine') }"
                         >
                             <template v-if="currentLanguage === 'english'">Latrine Construction And Practise</template>
                             <template v-if="currentLanguage === 'kiswahili'">Matumizi ya vyoo</template>
                         </inertia-link>
                         <inertia-link
                             :href="`/handwash_practise`"
-                            class="mt-2 -mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg"
-                            :class="{ 'text-gray-700' : isRoute('handwash_practise') }"
+                            class="-mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg mt-2"
+                            :class="{ 'text-gray-700 bg-gray-200' : isRoute('handwash_practise') }"
                         >
                             <template v-if="currentLanguage === 'english'">Handwashing Infrastructure</template>
                             <template v-if="currentLanguage === 'kiswahili'">Mazingira ya kunawia</template>
@@ -99,6 +99,7 @@
                             <inertia-link
                                 :href="`/users`"
                                 class="-mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg"
+                                :class="{ 'text-gray-700 bg-gray-200' : isRoute('users.*') }"
                             >
                                 <template v-if="currentLanguage === 'english'">Users list</template>
                                 <template v-if="currentLanguage === 'kiswahili'">Listi ya watumiaji</template>

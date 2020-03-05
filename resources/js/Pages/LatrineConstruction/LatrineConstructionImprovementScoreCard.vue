@@ -120,25 +120,25 @@
                             >{{ (house.clean_latrine) }}</td>
 
                             <template v-if="house.has_latrine === 'No'">
-                                <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-red-500">
+                                <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-yellow-500">
                                     <span>No Latrine</span>
                                 </td>
                             </template>
 
                             <template v-else-if="house.has_latrine === 'Yes' && house.has_cemented_floor === 'No'">
-                                <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-green-500">
+                                <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-purple-500">
                                     <span>Traditional Pit latrine</span>
                                 </td>
                             </template>
 
                             <template v-else-if="house.has_latrine === 1 && house.has_cemented_floor === 1 && (house.has_lockable_door === 1 || house.has_brick_wall || house.has_iron_sheet_roof)">
-                                <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-gray-800 text-white">
+                                <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-gray-900 text-white">
                                     <span>Ventilated Improved Pit (VIP) Latrine</span>
                                 </td>
                             </template>
 
                             <template v-else-if="house.has_latrine === 'Yes' && house.has_cemented_floor === 'Yes'">
-                                <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-pink-500">
+                                <td class="border border-r-0 border-gray-400 text-right py-4 px-4 bg-yellow-900 text-white">
                                     <span>Improved Traditional Pit latrine</span>
                                 </td>
                             </template>

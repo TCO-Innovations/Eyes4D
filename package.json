@@ -39,6 +39,7 @@
         "pikaday": "^1.8.0",
         "query-string": "^6.10.1",
         "tailwindcss": "^1.2.0-canary.5",
+        "uuid": "^7.0.2",
         "v-tooltip": "^2.0.2",
         "voca": "^1.4.0",
         "vue-apexcharts": "^1.5.2",

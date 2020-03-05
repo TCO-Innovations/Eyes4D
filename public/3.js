@@ -229,6 +229,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -882,8 +883,10 @@ var render = function() {
                   "inertia-link",
                   {
                     staticClass:
-                      "-mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium bg-gray-200 rounded-lg",
-                    class: { "text-gray-700": _vm.isRoute("latrine") },
+                      "-mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg",
+                    class: {
+                      "text-gray-700 bg-gray-200": _vm.isRoute("latrine")
+                    },
                     attrs: { href: "/home" }
                   },
                   [
@@ -902,9 +905,11 @@ var render = function() {
                   "inertia-link",
                   {
                     staticClass:
-                      "mt-2 -mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg",
+                      "-mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg mt-2",
                     class: {
-                      "text-gray-700": _vm.isRoute("handwash_practise")
+                      "text-gray-700 bg-gray-200": _vm.isRoute(
+                        "handwash_practise"
+                      )
                     },
                     attrs: { href: "/handwash_practise" }
                   },
@@ -975,6 +980,9 @@ var render = function() {
                     {
                       staticClass:
                         "-mx-3 px-3 py-2 flex items-center justify-between text-sm font-medium hover:bg-gray-200 rounded-lg",
+                      class: {
+                        "text-gray-700 bg-gray-200": _vm.isRoute("users.*")
+                      },
                       attrs: { href: "/users" }
                     },
                     [
