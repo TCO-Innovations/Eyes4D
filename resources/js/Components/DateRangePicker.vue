@@ -23,35 +23,14 @@
 
                 <template #popover>
                     <div class="bg-white rounded-lg overflow-hidden">
-                        <CustomDateItem />
-                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
-                            <span class="mr-3 font-medium text-blue-500">Last 30 Days</span>
-                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
-                        </a>
-                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
-                            <span class="mr-3 font-medium text-blue-500">This month</span>
-                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
-                        </a>
-                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
-                            <span class="mr-3 font-medium text-blue-500">Last month</span>
-                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
-                        </a>
-                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
-                            <span class="mr-3 font-medium text-blue-500">Last 3 months</span>
-                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
-                        </a>
-                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
-                            <span class="mr-3 font-medium text-blue-500">Last 6 Months</span>
-                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
-                        </a>
-                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm border-b">
-                            <span class="mr-3 font-medium text-blue-500">Last year</span>
-                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
-                        </a>
-                        <a href="#" class="block flex items-center justify-between px-4 py-3 text-sm">
-                            <span class="mr-3 font-medium text-blue-500">All time</span>
-                            <span class="text-gray-600">Dec 28 2019 - Jan 28 2020</span>
-                        </a>
+                        <CustomDateItem
+                            :dateItem="customDateItem"
+                            :period="period"
+                            v-for='customDateItem in customDateItems'
+                            :key="customDateItem.name"
+                            @stop="appendStop"
+                            @start="appendStart"
+                        />
                     </div>
                 </template>
             </v-popover>
@@ -102,8 +81,11 @@
             }
         },
         methods: {
-            last30Days() {
-
+            appendStart(date) {
+                this.periodRange.start = date;
+            },
+            appendStop(date) {
+                this.periodRange.stop = date;
             }
         }
     }

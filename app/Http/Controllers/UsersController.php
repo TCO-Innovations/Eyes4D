@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Surveys;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,11 @@ class UsersController extends Controller
     {
         return Inertia::render("Users/Index", [
             "users" => User::query()->latest()->get(),
-            "regions" => $this->regions()
+            "regions" => Surveys::query()
+                ->select("region as name")
+                ->distinct('region')
+                ->whereNotNull("region")
+                ->get()
         ]);
     }
 

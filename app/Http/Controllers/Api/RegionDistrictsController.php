@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Surveys;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,10 +14,8 @@ class RegionDistrictsController extends Controller
         $this->middleware("auth");
     }
 
-    public function index($region)
+    public function __invoke(Request $request, $region)
     {
-        $query = "SELECT DISTINCT district AS name FROM contacts WHERE region <> '' AND district <> '' AND region LIKE '%{$region}%'";
-
-        return collect(DB::select($query));
+        return Surveys::query()->select("district as name")->distinct("district")->where("region", $region)->whereNotNull("district")->get();
     }
 }

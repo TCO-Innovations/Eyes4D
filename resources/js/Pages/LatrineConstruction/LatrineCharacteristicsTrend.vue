@@ -1,7 +1,7 @@
 <template>
     <div class="mx-auto bg-white rounded-lg shadow overflow-hidden">
         <header class="px-6 bg-gray-100 border-b border-gray-100 flex justify-between items-center">
-            <button class="px-2 inline-flex items-center text-sm font-semibold text-gray-600" @click.prevent="toggle">
+            <button class="px-2 inline-flex items-center text-sm font-semibold text-gray-600" @click.prevent>
                 {{ !isVisible ? 'Show' : 'Hide' }} Details
                 <template v-if="isVisible">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current ml-1 text-gray-500"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"/></svg>
@@ -18,44 +18,13 @@
                             href="#"
                             class="px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500"
                             :class="{ 'border-blue-500 text-gray-700' : period === 'monthly' }"
-                            @click.prevent="monthlyReport"
+                            @click.prevent
                         >
                             <template v-if="currentLanguage === 'english'">Monthly</template>
                             <template v-if="currentLanguage === 'kiswahili'">Mwezi</template>
                         </a>
                     </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="px-3 py-5 inline-block border-b-2 border-transparent hover:border-blue-500"
-                            :class="{ 'border-blue-500 text-gray-700' : period === 'annually' }"
-                            @click.prevent="annuallyReport"
-                        >
-                            <template v-if="currentLanguage === 'english'">Annually</template>
-                            <template v-if="currentLanguage === 'kiswahili'">Mwaka</template>
-                        </a>
-                    </li>
                 </ul>
-
-                <form class="flex items-center">
-                    <select id="day" class="form-select form-select-sm border-0 bg-transparent w-16" v-model="day" v-if="period === 'daily'">
-                        <option v-for="dayNumber in (new Date(year, month + 1, 0)).getDate()" :value="dayNumber">
-                            {{ dayNumber }}
-                        </option>
-                    </select>
-
-                    <select id="month" class="form-select form-select-sm border-0 bg-transparent w-24" v-model="month" v-if="period === 'daily' || period === 'monthly'">
-                        <option :value="monthNumber" v-for="monthNumber in Array(12).keys()">
-                            {{ getMonthName(monthNumber) }}
-                        </option>
-                    </select>
-
-                    <select id="year" class="form-select form-select-sm border-0 bg-transparent w-20" v-model="year">
-                        <option v-for="yearNumber in Array(5).keys()" :value="year - yearNumber">
-                            {{ year - yearNumber }}
-                        </option>
-                    </select>
-                </form>
             </div>
         </header>
 
@@ -118,80 +87,28 @@
 </template>
 
 <script>
-    import axios from 'axios';
-    import Voca from "voca";
-    import EventBus from "@/events";
-    import moment from "moment";
+    import moment from 'moment';
+    import Axios from 'axios';
+    import ReportComponent from "@/ReportComponent";
 
     export default {
+        extends: ReportComponent,
         data() {
             return {
-                period: "monthly",
-                year: (new Date('2019-12-01')).getFullYear(),
-                month: (new Date('2019-12-01')).getMonth(),
-                day: (new Date('2019-12-01')).getDate(),
                 isVisible: false,
-                statistics: [],
                 categories: [],
-                area: '',
-                timePeriod: '',
-            }
-        },
-        mounted() {
-            this.fetchReport();
-
-            EventBus.$on("filter:area", area => { this.area = area });
-            EventBus.$on("filter:period", period => { this.timePeriod = period });
-        },
-        watch: {
-            month() {
-
-                this.date = new Date(this.year, this.month, this.day);
-
-                this.fetchReport();
-            },
-            year() {
-                this.date = new Date(this.year, this.month, this.day);
-
-                this.fetchReport();
-            },
-            duration(value) {
-                this.year = value;
-
-                this.date = new Date(value, this.month, this.day);
-
-                this.fetchReport();
             }
         },
         computed: {
             chartOptions() {
                 return {
-                    title: {
-                        text: this.title,
-                        margin: 36,
-                        style: { "color": "#333333", "fontSize": "14px" }
-                    },
-                    subtitle: { text: `${this.areaName}: ${this.timeRange}` },
+                    title: { text: this.title,  margin: 36,  style: { "color": "#333333", "fontSize": "14px" } },
+                    subtitle: { text: this.subTitle },
                     yAxis: { title: { text: this.yAxisTitle } },
                     xAxis: { categories: this.categories },
-                    series: this.statistics,
+                    series: this.data,
                     credits: { enabled: false },
                 }
-            },
-            areaName() {
-                if (this.area) {
-                    let name = `${this.area.name} ${this.area.type}`;
-
-                    return Voca.titleCase(name);
-                }
-
-                return `All Regions`;
-            },
-            timeRange() {
-                if (this.timePeriod) {
-                    return `${this.toFormattedDate(this.timePeriod.start)} - ${this.toFormattedDate(this.timePeriod.stop)}`;
-                }
-                return "All The Time";
             },
             title() {
                 return this.currentLanguage === 'english' ? 'Latrine Type by Month of Reporting' : 'Repoti ya mwezi kwa aina za vyoo';
@@ -201,89 +118,67 @@
             }
         },
         methods: {
-            toggle() {
-                this.isVisible = !this.isVisible;
-            },
-            getMonthName(month) {
-                return (new Date(this.year, month, this.day)).toLocaleString('default', {
-                    month: 'long'
+            async fetchReport() {
+                const { data } = await Axios.get('/api/latrine_characteristics_trend', {
+                    params: this.filters
                 });
-            },
-            aggregateAttribute(response, type) {
-                return response.data.map(item => {
-                    return item[type] == null ? 0 : item[type] ;
-                });
-            },
-            dailyReport() {
-                this.period = "daily";
 
-                this.fetchReport();
-            },
-            monthlyReport() {
-                this.period = "monthly";
-
-                this.fetchReport();
-            },
-            annuallyReport() {
-                this.period = "annually";
-
-                this.fetchReport();
-            },
-            fetchReport() {
-                axios.get('/api/latrine_characteristics_trend', {
-                    params: {
-                        period: this.period,
-                        date: this.date
-                    }
-                }).then((response) => {
-                    if(this.period === 'daily') {
-                        this.categories = response.data.map(item => {
-                            return item['hour'];
-                        });
-                    }
-
-                    if (this.period === 'monthly') {
-                        this.categories = response.data.map(item => {
-                            return item['day'];
-                        });
-                    }
-
-                    if (this.period === 'annually') {
-                        this.categories = response.data.map(item => {
-                            return item['month'];
-                        });
-                    }
-
-
-                    this.statistics = this.transformResult(response)
-                })
-            },
-            transformResult(response) {
-                return [
+                this.data = [
                     {
                         name: this.currentLanguage === 'english' ? 'Lockable Door' : 'Mlango unaofunga',
-                        data: this.aggregateAttribute(response, 'has_lockable_door')
+                        data: data.map(house => {
+                            if (house.has_lockable_door) {
+                                return house.has_lockable_door;
+                            } else {
+                                return 0;
+                            }
+                        })
                     },
                     {
                         name: this.currentLanguage === 'english' ? 'Brick Wall' : 'Ukuta wa tofari',
-                        data: this.aggregateAttribute(response, 'has_brick_wall')
+                        data: data.map(house => {
+                            if (house.has_brick_wall) {
+                                return house.has_brick_wall;
+                            } else {
+                                return 0;
+                            }
+                        })
                     },
                     {
                         name: this.currentLanguage === 'english' ? 'Cemented Floor' : 'Sakafu ya saruji',
-                        data: this.aggregateAttribute(response, 'has_cemented_floor')
+                        data: data.map(house => {
+                            if (house.has_cemented_floor) {
+                                return house.has_cemented_floor;
+                            } else {
+                                return 0;
+                            }
+                        })
                     },
                     {
                         name: this.currentLanguage === 'english' ? 'Iron Sheet Roof' : 'Paa la bati',
-                        data: this.aggregateAttribute(response, 'has_iron_sheet_roof')
+                        data: data.map(house => {
+                            if (house.has_iron_sheet_roof) {
+                                return house.has_iron_sheet_roof;
+                            } else {
+                                return 0;
+                            }
+                        })
                     },
                     {
                         name: this.currentLanguage === 'english' ? 'Adjacent bathroom' : 'Bafu mkabala na choo',
-                        data: this.aggregateAttribute(response, 'has_adjacent_bathroom')
+                        data: data.map(house => {
+                            if (house.has_adjacent_bathroom) {
+                                return house.has_adjacent_bathroom;
+                            } else {
+                                return 0;
+                            }
+                        })
                     }
-                ]
-            },
-            toFormattedDate(date) {
-                return moment(date).format("MMM DD, YYYY");
+                ];
+
+                this.categories = data.map(house => {
+                    return moment(house.benchmark_date).format('MMM YYYY');
+                });
             }
         },
     }

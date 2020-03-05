@@ -1002,322 +1002,179 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "mt-10" }, [
-            _c("div", { staticClass: "px-6" }, [
-              _c(
-                "h3",
-                {
-                  staticClass:
-                    "text-xs flex items-center font-semibold text-gray-600 uppercase tracking-wide"
-                },
-                [
+          _vm.isRoute("latrine") || _vm.isRoute("handwash_practise")
+            ? _c("div", { staticClass: "mt-10" }, [
+                _c("div", { staticClass: "px-6" }, [
                   _c(
-                    "svg",
+                    "h3",
                     {
-                      staticClass: "h-4 w-4 fill-current mr-2",
-                      attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
-                        viewBox: "0 0 24 24"
-                      }
+                      staticClass:
+                        "text-xs flex items-center font-semibold text-gray-600 uppercase tracking-wide"
                     },
                     [
-                      _c("path", {
-                        attrs: { fill: "none", d: "M0 0h24v24H0z" }
-                      }),
-                      _c("path", {
-                        attrs: {
-                          d:
-                            "M21 18v3h-2v-3h-2v-2h6v2h-2zM5 18v3H3v-3H1v-2h6v2H5zm6-12V3h2v3h2v2H9V6h2zm0 4h2v11h-2V10zm-8 4V3h2v11H3zm16 0V3h2v11h-2z"
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.currentLanguage === "english"
-                    ? [_vm._v("Region")]
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.currentLanguage === "kiswahili"
-                    ? [_vm._v("Mikoa")]
-                    : _vm._e()
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "mt-3" },
-                _vm._l(_vm.regions, function(region) {
-                  return _c(
-                    "div",
-                    { staticClass: "text-sm mt-4 block" },
-                    [
                       _c(
-                        "a",
+                        "svg",
                         {
-                          staticClass:
-                            "block flex items-center justify-between",
-                          class: {
-                            "text-blue-500 font-medium":
-                              region.name === _vm.selectedRegion
-                          },
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              $event.preventDefault()
-                              return _vm.selectRegion(region.name)
-                            }
+                          staticClass: "h-4 w-4 fill-current mr-2",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            viewBox: "0 0 24 24"
                           }
                         },
                         [
-                          _c(
-                            "span",
-                            { staticClass: "inline-flex items-center" },
-                            [
-                              region.name === _vm.selectedRegion
-                                ? [
-                                    _c(
-                                      "svg",
-                                      {
-                                        staticClass:
-                                          "h-4 w-4 fill-current text-gray-600 mr-2",
-                                        attrs: {
-                                          xmlns: "http://www.w3.org/2000/svg",
-                                          viewBox: "0 0 24 24"
-                                        }
-                                      },
-                                      [
-                                        _c("path", {
-                                          attrs: {
-                                            fill: "none",
-                                            d: "M0 0h24v24H0z"
-                                          }
-                                        }),
-                                        _c("path", {
-                                          attrs: {
-                                            d:
-                                              "M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"
-                                          }
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                : [
-                                    _c(
-                                      "svg",
-                                      {
-                                        staticClass:
-                                          "h-4 w-4 fill-current text-gray-600 mr-2",
-                                        attrs: {
-                                          xmlns: "http://www.w3.org/2000/svg",
-                                          viewBox: "0 0 24 24"
-                                        }
-                                      },
-                                      [
-                                        _c("path", {
-                                          attrs: {
-                                            fill: "none",
-                                            d: "M0 0h24v24H0z"
-                                          }
-                                        }),
-                                        _c("path", {
-                                          attrs: {
-                                            d:
-                                              "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
-                                          }
-                                        })
-                                      ]
-                                    )
-                                  ],
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(region.name) +
-                                  "\n                                "
-                              )
-                            ],
-                            2
-                          )
+                          _c("path", {
+                            attrs: { fill: "none", d: "M0 0h24v24H0z" }
+                          }),
+                          _c("path", {
+                            attrs: {
+                              d:
+                                "M21 18v3h-2v-3h-2v-2h6v2h-2zM5 18v3H3v-3H1v-2h6v2H5zm6-12V3h2v3h2v2H9V6h2zm0 4h2v11h-2V10zm-8 4V3h2v11H3zm16 0V3h2v11h-2z"
+                            }
+                          })
                         ]
                       ),
                       _vm._v(" "),
-                      _vm._l(_vm.districts, function(district) {
-                        return _c("div", { staticClass: "block mt-3 ml-4" }, [
+                      _vm.currentLanguage === "english"
+                        ? [_vm._v("Region")]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.currentLanguage === "kiswahili"
+                        ? [_vm._v("Mikoa")]
+                        : _vm._e()
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "mt-3" },
+                    _vm._l(_vm.regions, function(region) {
+                      return _c(
+                        "div",
+                        { staticClass: "text-sm mt-4 block" },
+                        [
                           _c(
                             "a",
                             {
-                              key: district.name,
-                              staticClass: "block flex items-center mt-2",
+                              staticClass:
+                                "block flex items-center justify-between",
                               class: {
                                 "text-blue-500 font-medium":
-                                  district.name === _vm.selectedDistrict
+                                  region.name === _vm.selectedRegion
                               },
                               attrs: { href: "#" },
                               on: {
                                 click: function($event) {
                                   $event.preventDefault()
-                                  return _vm.selectDistrict(district.name)
+                                  return _vm.selectRegion(region.name)
                                 }
                               }
                             },
                             [
-                              district.name === _vm.selectedDistrict
-                                ? [
-                                    _c(
-                                      "svg",
-                                      {
-                                        staticClass:
-                                          "h-4 w-4 fill-current text-gray-600 mr-2",
-                                        attrs: {
-                                          xmlns: "http://www.w3.org/2000/svg",
-                                          viewBox: "0 0 24 24"
-                                        }
-                                      },
-                                      [
-                                        _c("path", {
-                                          attrs: {
-                                            fill: "none",
-                                            d: "M0 0h24v24H0z"
-                                          }
-                                        }),
-                                        _c("path", {
-                                          attrs: {
-                                            d:
-                                              "M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"
-                                          }
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                : [
-                                    _c(
-                                      "svg",
-                                      {
-                                        staticClass:
-                                          "h-4 w-4 fill-current text-gray-600 mr-2",
-                                        attrs: {
-                                          xmlns: "http://www.w3.org/2000/svg",
-                                          viewBox: "0 0 24 24"
-                                        }
-                                      },
-                                      [
-                                        _c("path", {
-                                          attrs: {
-                                            fill: "none",
-                                            d: "M0 0h24v24H0z"
-                                          }
-                                        }),
-                                        _c("path", {
-                                          attrs: {
-                                            d:
-                                              "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
-                                          }
-                                        })
-                                      ]
-                                    )
-                                  ],
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(_vm._f("toTitleCase")(district.name)) +
-                                  "\n                                "
-                              )
-                            ],
-                            2
-                          ),
-                          _vm._v(" "),
-                          district.name === _vm.selectedDistrict
-                            ? _c(
-                                "div",
-                                {
-                                  key: district.name,
-                                  staticClass:
-                                    "block mt-3 ml-4 transition duration-500 ease-in-out"
-                                },
+                              _c(
+                                "span",
+                                { staticClass: "inline-flex items-center" },
                                 [
-                                  _c(
-                                    "div",
-                                    _vm._l(
-                                      _vm.villages.slice(0, _vm.limit),
-                                      function(village) {
-                                        return _c(
-                                          "a",
+                                  region.name === _vm.selectedRegion
+                                    ? [
+                                        _c(
+                                          "svg",
                                           {
                                             staticClass:
-                                              "block flex items-center mt-2 transition duration-500 ease-in-out",
-                                            class: {
-                                              "text-blue-500 font-medium":
-                                                village.name ===
-                                                _vm.selectedVillage
-                                            },
-                                            attrs: { href: "#" },
-                                            on: {
-                                              click: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.selectVillage(
-                                                  village.name
-                                                )
-                                              }
+                                              "h-4 w-4 fill-current text-gray-600 mr-2",
+                                            attrs: {
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg",
+                                              viewBox: "0 0 24 24"
                                             }
                                           },
                                           [
-                                            _c(
-                                              "svg",
-                                              {
-                                                staticClass:
-                                                  "h-4 w-4 fill-current text-gray-600 mr-2",
-                                                attrs: {
-                                                  xmlns:
-                                                    "http://www.w3.org/2000/svg",
-                                                  viewBox: "0 0 24 24"
-                                                }
-                                              },
-                                              [
-                                                _c("path", {
-                                                  attrs: {
-                                                    fill: "none",
-                                                    d: "M0 0h24v24H0z"
-                                                  }
-                                                }),
-                                                _c("path", {
-                                                  attrs: { d: "M5 11h14v2H5z" }
-                                                })
-                                              ]
-                                            ),
-                                            _vm._v(
-                                              "\n                                            " +
-                                                _vm._s(
-                                                  _vm._f("toTitleCase")(
-                                                    village.name
-                                                  )
-                                                ) +
-                                                "\n                                        "
-                                            )
+                                            _c("path", {
+                                              attrs: {
+                                                fill: "none",
+                                                d: "M0 0h24v24H0z"
+                                              }
+                                            }),
+                                            _c("path", {
+                                              attrs: {
+                                                d:
+                                                  "M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"
+                                              }
+                                            })
                                           ]
                                         )
-                                      }
-                                    ),
-                                    0
-                                  ),
-                                  _vm._v(" "),
-                                  _vm.limit < _vm.villages.length
-                                    ? _c(
-                                        "a",
-                                        {
-                                          staticClass:
-                                            "block flex items-center mt-2 text-blue-500 leading-loose text-sm",
-                                          attrs: { href: "#" },
-                                          on: {
-                                            click: function($event) {
-                                              $event.preventDefault()
-                                              _vm.limit = _vm.limit + 5
+                                      ]
+                                    : [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass:
+                                              "h-4 w-4 fill-current text-gray-600 mr-2",
+                                            attrs: {
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg",
+                                              viewBox: "0 0 24 24"
                                             }
-                                          }
-                                        },
-                                        [
+                                          },
+                                          [
+                                            _c("path", {
+                                              attrs: {
+                                                fill: "none",
+                                                d: "M0 0h24v24H0z"
+                                              }
+                                            }),
+                                            _c("path", {
+                                              attrs: {
+                                                d:
+                                                  "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
+                                              }
+                                            })
+                                          ]
+                                        )
+                                      ],
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(
+                                        _vm._f("toTitleCase")(region.name)
+                                      ) +
+                                      " Region\n                                "
+                                  )
+                                ],
+                                2
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.districts, function(district) {
+                            return _c(
+                              "div",
+                              { staticClass: "block mt-3 ml-4" },
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    key: district.name,
+                                    staticClass: "block flex items-center mt-2",
+                                    class: {
+                                      "text-blue-500 font-medium":
+                                        district.name === _vm.selectedDistrict
+                                    },
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.selectDistrict(district.name)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    district.name === _vm.selectedDistrict
+                                      ? [
                                           _c(
                                             "svg",
                                             {
                                               staticClass:
-                                                "h-4 w-4 fill-current mr-2",
+                                                "h-4 w-4 fill-current text-gray-600 mr-2",
                                               attrs: {
                                                 xmlns:
                                                   "http://www.w3.org/2000/svg",
@@ -1334,48 +1191,207 @@ var render = function() {
                                               _c("path", {
                                                 attrs: {
                                                   d:
-                                                    "M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"
+                                                    "M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z"
                                                 }
                                               })
                                             ]
-                                          ),
-                                          _vm._v(
-                                            "\n                                        Show more...\n                                    "
                                           )
                                         ]
-                                      )
-                                    : _vm._e(),
-                                  _vm._v(" "),
-                                  _vm.limit > _vm.villages.length
-                                    ? _c(
-                                        "a",
-                                        {
-                                          staticClass:
-                                            "block mt-2 text-blue-500 leading-loose text-sm",
-                                          attrs: { href: "#" },
-                                          on: {
-                                            click: function($event) {
-                                              $event.preventDefault()
-                                              _vm.limit = 5
+                                      : [
+                                          _c(
+                                            "svg",
+                                            {
+                                              staticClass:
+                                                "h-4 w-4 fill-current text-gray-600 mr-2",
+                                              attrs: {
+                                                xmlns:
+                                                  "http://www.w3.org/2000/svg",
+                                                viewBox: "0 0 24 24"
+                                              }
+                                            },
+                                            [
+                                              _c("path", {
+                                                attrs: {
+                                                  fill: "none",
+                                                  d: "M0 0h24v24H0z"
+                                                }
+                                              }),
+                                              _c("path", {
+                                                attrs: {
+                                                  d:
+                                                    "M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ],
+                                    _vm._v(
+                                      "\n                                    " +
+                                        _vm._s(
+                                          _vm._f("toTitleCase")(district.name)
+                                        ) +
+                                        " District\n                                "
+                                    )
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                district.name === _vm.selectedDistrict
+                                  ? _c(
+                                      "div",
+                                      {
+                                        key: district.name,
+                                        staticClass:
+                                          "block mt-3 ml-4 transition duration-500 ease-in-out"
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          _vm._l(
+                                            _vm.villages.slice(0, _vm.limit),
+                                            function(village) {
+                                              return _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "block flex items-center mt-2 transition duration-500 ease-in-out",
+                                                  class: {
+                                                    "text-blue-500 font-medium":
+                                                      village.name ===
+                                                      _vm.selectedVillage
+                                                  },
+                                                  attrs: { href: "#" },
+                                                  on: {
+                                                    click: function($event) {
+                                                      $event.preventDefault()
+                                                      return _vm.selectVillage(
+                                                        village.name
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c(
+                                                    "svg",
+                                                    {
+                                                      staticClass:
+                                                        "h-4 w-4 fill-current text-gray-600 mr-2",
+                                                      attrs: {
+                                                        xmlns:
+                                                          "http://www.w3.org/2000/svg",
+                                                        viewBox: "0 0 24 24"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("path", {
+                                                        attrs: {
+                                                          fill: "none",
+                                                          d: "M0 0h24v24H0z"
+                                                        }
+                                                      }),
+                                                      _c("path", {
+                                                        attrs: {
+                                                          d: "M5 11h14v2H5z"
+                                                        }
+                                                      })
+                                                    ]
+                                                  ),
+                                                  _vm._v(
+                                                    "\n                                            " +
+                                                      _vm._s(
+                                                        _vm._f("toTitleCase")(
+                                                          village.name
+                                                        )
+                                                      ) +
+                                                      "\n                                        "
+                                                  )
+                                                ]
+                                              )
                                             }
-                                          }
-                                        },
-                                        [_vm._v("Show less...")]
-                                      )
-                                    : _vm._e()
-                                ]
-                              )
-                            : _vm._e()
-                        ])
-                      })
-                    ],
-                    2
+                                          ),
+                                          0
+                                        ),
+                                        _vm._v(" "),
+                                        _vm.limit < _vm.villages.length
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "block flex items-center mt-2 text-blue-500 leading-loose text-sm",
+                                                attrs: { href: "#" },
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.preventDefault()
+                                                    _vm.limit = _vm.limit + 5
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _c(
+                                                  "svg",
+                                                  {
+                                                    staticClass:
+                                                      "h-4 w-4 fill-current mr-2",
+                                                    attrs: {
+                                                      xmlns:
+                                                        "http://www.w3.org/2000/svg",
+                                                      viewBox: "0 0 24 24"
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("path", {
+                                                      attrs: {
+                                                        fill: "none",
+                                                        d: "M0 0h24v24H0z"
+                                                      }
+                                                    }),
+                                                    _c("path", {
+                                                      attrs: {
+                                                        d:
+                                                          "M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"
+                                                      }
+                                                    })
+                                                  ]
+                                                ),
+                                                _vm._v(
+                                                  "\n                                        Show more...\n                                    "
+                                                )
+                                              ]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _vm.limit > _vm.villages.length
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "block mt-2 text-blue-500 leading-loose text-sm",
+                                                attrs: { href: "#" },
+                                                on: {
+                                                  click: function($event) {
+                                                    $event.preventDefault()
+                                                    _vm.limit = 5
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Show less...")]
+                                            )
+                                          : _vm._e()
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    }),
+                    0
                   )
-                }),
-                0
-              )
-            ])
-          ])
+                ])
+              ])
+            : _vm._e()
         ]
       ),
       _vm._v(" "),

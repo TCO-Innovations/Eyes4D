@@ -17,8 +17,8 @@ Route::get("api/latrine_characteristics_trend", "Api\LatrineCharacteristicsTrend
 Route::get("api/latrine_construction_improvement", "Api\LatrineConstructionImprovementController");
 Route::get("api/visiting_per_contact", "Api\VisitingPerContactController");
 Route::get("api/visiting_per_village", "Api\VisitingPerVillageController");
-Route::get("api/regions/{region}/districts", "Api\RegionDistrictsController@index");
-Route::get("api/districts/{district}/villages", "Api\DistrictVillagesController@index");
+Route::get("api/regions/{region}/districts", "Api\RegionDistrictsController");
+Route::get("api/districts/{district}/villages", "Api\DistrictVillagesController");
 Route::get("/api/latrine_type_distribution", "Api\LatrineTypeDistributionController");
 
 Route::get("api/handwashing_houses", "Api\HandwashingHousesController");

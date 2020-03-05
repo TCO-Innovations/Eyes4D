@@ -81,11 +81,9 @@
         },
         methods: {
             appendStart(date) {
-                //alert(date);
                 this.periodRange.start = date;
             },
             appendStop(date) {
-                //alert(date);
                 this.periodRange.stop = date;
             }
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Surveys;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -17,7 +18,11 @@ class LatrineConstructionController extends Controller
     public function __invoke(Request $request)
     {
         return Inertia::render("LatrineConstruction/Index", [
-            "regions" => $this->regions(),
+            "regions" => Surveys::query()
+                ->select("region as name")
+                ->distinct('region')
+                ->whereNotNull("region")
+                ->get(),
             "totalHouseholds" => $this->totalHouseholds(),
             "visitedHouseholds" => $this->visitedHouseholds(),
             "houseWithLatrine" => $this->houseWithLatrine(),

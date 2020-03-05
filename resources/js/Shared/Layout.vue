@@ -109,7 +109,7 @@
                 </div>
 
                 <!-- Filters -->
-                <div class="mt-10">
+                <div class="mt-10" v-if="isRoute('latrine') || isRoute('handwash_practise')">
                     <div class="px-6">
                         <h3 class="text-xs flex items-center font-semibold text-gray-600 uppercase tracking-wide">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current mr-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M21 18v3h-2v-3h-2v-2h6v2h-2zM5 18v3H3v-3H1v-2h6v2H5zm6-12V3h2v3h2v2H9V6h2zm0 4h2v11h-2V10zm-8 4V3h2v11H3zm16 0V3h2v11h-2z"/></svg>
@@ -132,7 +132,7 @@
                                         <template v-else>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-600 mr-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/></svg>
                                         </template>
-                                        {{ region.name }}
+                                        {{ region.name | toTitleCase }} Region
                                     </span>
                                 </a>
 
@@ -150,7 +150,7 @@
                                         <template v-else>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-600 mr-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/></svg>
                                         </template>
-                                        {{ district.name | toTitleCase }}
+                                        {{ district.name | toTitleCase }} District
                                     </a>
 
                                     <div class="block mt-3 ml-4 transition duration-500 ease-in-out" :key="district.name" v-if="district.name === selectedDistrict">
