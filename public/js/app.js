@@ -27290,119 +27290,119 @@ module.exports = function(module) {
 var map = {
 	"./HandwashingBehaviour/HandwashingScorecard": [
 		"./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue",
-		10,
-		37
+		7,
+		40
 	],
 	"./HandwashingBehaviour/HandwashingScorecard.vue": [
 		"./resources/js/Pages/HandwashingBehaviour/HandwashingScorecard.vue",
-		10,
-		37
+		7,
+		40
 	],
 	"./HandwashingBehaviour/Index": [
 		"./resources/js/Pages/HandwashingBehaviour/Index.vue",
-		6,
+		0,
 		2,
 		3,
-		10,
+		7,
 		28
 	],
 	"./HandwashingBehaviour/Index.vue": [
 		"./resources/js/Pages/HandwashingBehaviour/Index.vue",
-		6,
+		0,
 		2,
 		3,
-		10,
+		7,
 		28
 	],
 	"./HandwashingPractice/HandwashingHouses": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingHouses.vue",
-		6,
+		0,
 		29
 	],
 	"./HandwashingPractice/HandwashingHouses.vue": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingHouses.vue",
-		6,
+		0,
 		29
 	],
 	"./HandwashingPractice/HandwashingScoreCard": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingScoreCard.vue",
-		6,
+		0,
 		1,
-		7,
-		34,
-		43
+		4,
+		8,
+		38
 	],
 	"./HandwashingPractice/HandwashingScoreCard.vue": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingScoreCard.vue",
-		6,
+		0,
 		1,
-		7,
-		34,
-		43
+		4,
+		8,
+		38
 	],
 	"./HandwashingPractice/HandwashingStationCharacteristics": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue",
-		6,
+		0,
 		1,
-		0
+		18
 	],
 	"./HandwashingPractice/HandwashingStationCharacteristics.vue": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristics.vue",
-		6,
+		0,
 		1,
-		0
+		18
 	],
 	"./HandwashingPractice/HandwashingStationCharacteristicsTrend": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue",
-		6,
+		0,
 		1,
-		38,
-		26
+		9,
+		33
 	],
 	"./HandwashingPractice/HandwashingStationCharacteristicsTrend.vue": [
 		"./resources/js/Pages/HandwashingPractice/HandwashingStationCharacteristicsTrend.vue",
-		6,
+		0,
 		1,
-		38,
-		26
+		9,
+		33
 	],
 	"./HandwashingPractice/Index": [
 		"./resources/js/Pages/HandwashingPractice/Index.vue",
-		6,
+		0,
 		1,
 		2,
 		5,
-		4,
+		37,
 		3,
-		7,
-		11,
-		34,
-		38,
-		12
+		4,
+		6,
+		8,
+		9,
+		17
 	],
 	"./HandwashingPractice/Index.vue": [
 		"./resources/js/Pages/HandwashingPractice/Index.vue",
-		6,
+		0,
 		1,
 		2,
 		5,
-		4,
+		37,
 		3,
-		7,
-		11,
-		34,
-		38,
-		12
+		4,
+		6,
+		8,
+		9,
+		17
 	],
 	"./LatrineConstruction/AgeDemography": [
 		"./resources/js/Pages/LatrineConstruction/AgeDemography.vue",
-		6,
+		0,
 		1,
 		19
 	],
 	"./LatrineConstruction/AgeDemography.vue": [
 		"./resources/js/Pages/LatrineConstruction/AgeDemography.vue",
-		6,
+		0,
 		1,
 		19
 	],
@@ -27410,194 +27410,194 @@ var map = {
 		"./resources/js/Pages/LatrineConstruction/DateRangePicker.vue",
 		1,
 		5,
-		11,
-		23
+		6,
+		26
 	],
 	"./LatrineConstruction/DateRangePicker.vue": [
 		"./resources/js/Pages/LatrineConstruction/DateRangePicker.vue",
 		1,
 		5,
-		11,
-		23
+		6,
+		26
 	],
 	"./LatrineConstruction/GenderDemography": [
 		"./resources/js/Pages/LatrineConstruction/GenderDemography.vue",
-		6,
+		0,
 		1,
 		20
 	],
 	"./LatrineConstruction/GenderDemography.vue": [
 		"./resources/js/Pages/LatrineConstruction/GenderDemography.vue",
-		6,
+		0,
 		1,
 		20
 	],
 	"./LatrineConstruction/HouseWithLatrines": [
 		"./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue",
-		6,
+		0,
 		30
 	],
 	"./LatrineConstruction/HouseWithLatrines.vue": [
 		"./resources/js/Pages/LatrineConstruction/HouseWithLatrines.vue",
-		6,
+		0,
 		30
 	],
 	"./LatrineConstruction/HouseholdVisiting": [
 		"./resources/js/Pages/LatrineConstruction/HouseholdVisiting.vue",
-		6,
+		0,
 		1,
-		13,
-		25
+		10,
+		34
 	],
 	"./LatrineConstruction/HouseholdVisiting.vue": [
 		"./resources/js/Pages/LatrineConstruction/HouseholdVisiting.vue",
-		6,
+		0,
 		1,
-		13,
-		25
+		10,
+		34
 	],
 	"./LatrineConstruction/Index": [
 		"./resources/js/Pages/LatrineConstruction/Index.vue",
-		6,
+		0,
 		1,
 		2,
 		5,
 		3,
-		7,
-		11,
+		4,
+		6,
+		10,
 		13,
-		9,
-		14,
-		17,
-		41
+		12,
+		11,
+		16
 	],
 	"./LatrineConstruction/Index.vue": [
 		"./resources/js/Pages/LatrineConstruction/Index.vue",
-		6,
+		0,
 		1,
 		2,
 		5,
 		3,
-		7,
-		11,
+		4,
+		6,
+		10,
 		13,
-		9,
-		14,
-		17,
-		41
+		12,
+		11,
+		16
 	],
 	"./LatrineConstruction/LatrineCharacteristics": [
 		"./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue",
-		6,
+		0,
 		1,
-		17,
-		33
+		11,
+		35
 	],
 	"./LatrineConstruction/LatrineCharacteristics.vue": [
 		"./resources/js/Pages/LatrineConstruction/LatrineCharacteristics.vue",
-		6,
+		0,
 		1,
-		17,
-		33
+		11,
+		35
 	],
 	"./LatrineConstruction/LatrineCharacteristicsTrend": [
 		"./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue",
-		6,
+		0,
 		1,
-		14,
-		35
+		12,
+		36
 	],
 	"./LatrineConstruction/LatrineCharacteristicsTrend.vue": [
 		"./resources/js/Pages/LatrineConstruction/LatrineCharacteristicsTrend.vue",
-		6,
+		0,
 		1,
-		14,
-		35
+		12,
+		36
 	],
 	"./LatrineConstruction/LatrineConstructionImprovementScoreCard": [
 		"./resources/js/Pages/LatrineConstruction/LatrineConstructionImprovementScoreCard.vue",
-		6,
+		0,
 		1,
-		7,
-		9,
-		44
+		4,
+		13,
+		39
 	],
 	"./LatrineConstruction/LatrineConstructionImprovementScoreCard.vue": [
 		"./resources/js/Pages/LatrineConstruction/LatrineConstructionImprovementScoreCard.vue",
-		6,
+		0,
 		1,
-		7,
-		9,
-		44
+		4,
+		13,
+		39
 	],
 	"./LatrineConstruction/LatrineTypesDistribution": [
 		"./resources/js/Pages/LatrineConstruction/LatrineTypesDistribution.vue",
-		6,
+		0,
 		1,
 		21
 	],
 	"./LatrineConstruction/LatrineTypesDistribution.vue": [
 		"./resources/js/Pages/LatrineConstruction/LatrineTypesDistribution.vue",
-		6,
+		0,
 		1,
 		21
 	],
 	"./LatrineConstruction/NumberOfUReporters": [
 		"./resources/js/Pages/LatrineConstruction/NumberOfUReporters.vue",
-		6,
+		0,
 		1,
 		22
 	],
 	"./LatrineConstruction/NumberOfUReporters.vue": [
 		"./resources/js/Pages/LatrineConstruction/NumberOfUReporters.vue",
-		6,
+		0,
 		1,
 		22
 	],
 	"./LatrineConstruction/NumberOfVillages": [
 		"./resources/js/Pages/LatrineConstruction/NumberOfVillages.vue",
-		6,
+		0,
 		1,
-		39
+		23
 	],
 	"./LatrineConstruction/NumberOfVillages.vue": [
 		"./resources/js/Pages/LatrineConstruction/NumberOfVillages.vue",
-		6,
+		0,
 		1,
-		39
+		23
 	],
 	"./LatrineConstruction/TotalNumberOfHouseholds": [
 		"./resources/js/Pages/LatrineConstruction/TotalNumberOfHouseholds.vue",
-		6,
+		0,
 		1,
 		24
 	],
 	"./LatrineConstruction/TotalNumberOfHouseholds.vue": [
 		"./resources/js/Pages/LatrineConstruction/TotalNumberOfHouseholds.vue",
-		6,
+		0,
 		1,
 		24
 	],
 	"./LatrineConstruction/VisitedHousehold": [
 		"./resources/js/Pages/LatrineConstruction/VisitedHousehold.vue",
-		6,
+		0,
 		1,
-		40
+		25
 	],
 	"./LatrineConstruction/VisitedHousehold.vue": [
 		"./resources/js/Pages/LatrineConstruction/VisitedHousehold.vue",
-		6,
+		0,
 		1,
-		40
+		25
 	],
 	"./LatrineConstruction/VisitingsPerContact": [
 		"./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue",
-		6,
+		0,
 		31
 	],
 	"./LatrineConstruction/VisitingsPerContact.vue": [
 		"./resources/js/Pages/LatrineConstruction/VisitingsPerContact.vue",
-		6,
+		0,
 		31
 	],
 	"./LatrineConstruction/VisitingsPerVillage": [
@@ -27610,44 +27610,44 @@ var map = {
 	],
 	"./Users/Create": [
 		"./resources/js/Pages/Users/Create.vue",
-		6,
+		0,
 		2,
-		15
+		14
 	],
 	"./Users/Create.vue": [
 		"./resources/js/Pages/Users/Create.vue",
-		6,
+		0,
 		2,
-		15
+		14
 	],
 	"./Users/Edit": [
 		"./resources/js/Pages/Users/Edit.vue",
-		6,
+		0,
 		2,
-		16
+		15
 	],
 	"./Users/Edit.vue": [
 		"./resources/js/Pages/Users/Edit.vue",
-		6,
+		0,
 		2,
-		16
+		15
 	],
 	"./Users/Index": [
 		"./resources/js/Pages/Users/Index.vue",
-		6,
+		0,
 		2,
 		3,
-		16,
 		15,
+		14,
 		32
 	],
 	"./Users/Index.vue": [
 		"./resources/js/Pages/Users/Index.vue",
-		6,
+		0,
 		2,
 		3,
-		16,
 		15,
+		14,
 		32
 	]
 };
@@ -27715,6 +27715,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.silent = true;
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.devtools = true;
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_inertiajs_inertia_vue__WEBPACK_IMPORTED_MODULE_2__["InertiaApp"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(highcharts_vue__WEBPACK_IMPORTED_MODULE_6___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(v_tooltip__WEBPACK_IMPORTED_MODULE_9__["default"]);

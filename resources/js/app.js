@@ -11,6 +11,10 @@ import VTooltip from 'v-tooltip';
 import route from 'ziggy';
 import { Ziggy } from './ziggy';
 
+Vue.config.silent = true;
+Vue.config.devtools = true;
+Vue.config.productionTip = false;
+
 Vue.use(InertiaApp);
 Vue.use(HighchartsVue);
 Vue.use(VTooltip);
