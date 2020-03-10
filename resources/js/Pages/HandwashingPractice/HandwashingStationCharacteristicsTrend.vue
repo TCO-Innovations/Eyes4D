@@ -13,17 +13,6 @@
                         <a
                             href="#"
                             class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
-                            :class="{ 'border-blue-500' : period === 'monthly' }"
-                            @click.prevent="monthlyReport"
-                        >
-                            <template v-if="currentLanguage === 'english'">Monthly</template>
-                            <template v-if="currentLanguage === 'kiswahili'">Mwezi</template>
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
                             :class="{ 'border-blue-500' : period === 'annually' }"
                             @click.prevent="annuallyReport"
                         >
@@ -33,19 +22,6 @@
                     </li>
                 </ul>
 
-                <form class="flex items-center">
-                    <select id="month" class="bg-transparent" v-model="month" v-if="period === 'daily' || period === 'monthly'">
-                        <option :value="monthNumber" v-for="monthNumber in Array(12).keys()">
-                            {{ getMonthName(monthNumber) }}
-                        </option>
-                    </select>
-
-                    <select id="year" class="bg-transparent" v-model="year">
-                        <option v-for="yearNumber in Array(5).keys()" :value="year - yearNumber">
-                            {{ year - yearNumber }}
-                        </option>
-                    </select>
-                </form>
             </div>
         </header>
 
@@ -53,7 +29,7 @@
             <highcharts :options="chartOptions"/>
         </div>
 
-        <div class="px-6 py-6 bg-gray-100" v-if="isVisible">
+        <div class="px-6 py-6 bg-gray-100" v-if="false">
             <table class="w-full">
                 <tbody>
                 <tr>
@@ -109,146 +85,77 @@
 
 <script>
     import axios from 'axios';
-    import queryString from 'query-string';
+    import ReportComponent from "@/ReportComponent";
+    import moment from "moment";
 
-    export default {
-        props: {
-            area: {
-                required: true,
-                type: Object
-            },
-            duration: {
-                required: true
-            }
-        },
+    export default  {
+        extends: ReportComponent,
         data() {
             return {
-                period: "monthly",
-                year: (new Date).getFullYear(),
-                month: (new Date).getMonth(),
-                day: (new Date).getDate(),
                 isVisible: false,
-                statistics: [],
                 categories: []
             }
         },
-        mounted() {
-            this.fetchReport();
-        },
-        watch: {
-            month() {
-
-                this.date = new Date(this.year, this.month, this.day);
-
-                this.fetchReport();
-            },
-            year() {
-                this.date = new Date(this.year, this.month, this.day);
-
-                this.fetchReport();
-            },
-            duration(value) {
-                this.year = value;
-
-                this.date = new Date(value, this.month, this.day);
-
-                this.fetchReport();
-            }
-        },
         computed: {
-            chartOptions() {
-                return {
-                    title: { text: this.title, margin: 36, style: { "color": "#333333", "fontSize": "14px" } },
-                    subtitle: { text: `${this.areaName}: Jul 2019 - Sep 2019`},
-                    yAxis: { title: { text: this.yAxisTitle } },
-                    xAxis: { categories: this.categories },
-                    series: this.statistics,
-                    credits: { enabled: false },
-                }
-            },
-            areaName() {
-                return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`
-            },
             title() {
                 return this.currentLanguage === 'english' ? 'Hand Washing Characteristics Trend' : 'Tabia za unawaji mikono';
             },
             yAxisTitle() {
                 return this.currentLanguage === 'english' ? 'Number of Households' : 'Idadi ya nyumba';
-            }
+            },
+            chartOptions() {
+                return {
+                    title: { text: this.title, margin: 36, style: { "color": "#333333", "fontSize": "14px" } },
+                    subtitle: { text: this.subTitle },
+                    yAxis: { title: { text: this.yAxisTitle } },
+                    xAxis: { categories: this.categories },
+                    series: this.data,
+                    credits: { enabled: false },
+                }
+            },
         },
         methods: {
-            toggle() {
-                this.isVisible = !this.isVisible;
-            },
-            getMonthName(month) {
-                return (new Date(this.year, month, this.day)).toLocaleString('default', {
-                    month: 'long'
+            async fetchReport() {
+                const { data } = await axios.get('/api/latrine_characteristics_trend', {
+                    params: this.filters
                 });
-            },
-            aggregateAttribute(response, type) {
-                return response.data.map(item => {
-                    return item[type] == null ? 0 : item[type] ;
-                });
-            },
-            dailyReport() {
-                this.period = "daily";
 
-                this.fetchReport();
-            },
-            monthlyReport() {
-                this.period = "monthly";
-
-                this.fetchReport();
-            },
-            annuallyReport() {
-                this.period = "annually";
-
-                this.fetchReport();
-            },
-            fetchReport() {
-                axios.get('/api/latrine_characteristics_trend', {
-                    params: {
-                        period: this.period,
-                        date: this.date
-                    }
-                }).then((response) => {
-                    if(this.period === 'daily') {
-                        this.categories = response.data.map(item => {
-                            return item['hour'];
-                        });
-                    }
-
-                    if (this.period === 'monthly') {
-                        this.categories = response.data.map(item => {
-                            return item['day'];
-                        });
-                    }
-
-                    if (this.period === 'annually') {
-                        this.categories = response.data.map(item => {
-                            return item['month'];
-                        });
-                    }
-
-
-                    this.statistics = this.transformResult(response)
-                })
-            },
-            transformResult(response) {
-                return [
+                this.data = [
                     {
                         name: this.currentLanguage === 'english' ? 'Hand wash place' : 'Kuna sehemu yakuoshea mikono',
-                        data: this.aggregateAttribute(response, 'has_latrine')
+                        data: data.map(house => {
+                            if (house.has_handwashing_place) {
+                                return house.has_handwashing_place;
+                            } else {
+                                return 0;
+                            }
+                        })
                     },
                     {
                         name: this.currentLanguage === 'english' ? 'Hand wash container' : 'Kuna chombo chakuoshea mikono',
-                        data: this.aggregateAttribute(response, 'has_lockable_door')
+                        data: data.map(house => {
+                            if (house.has_handwashing_container) {
+                                return house.has_handwashing_container;
+                            } else {
+                                return 0;
+                            }
+                        })
                     },
                     {
                         name: this.currentLanguage === 'english' ? 'Has Soap' : 'Kuna sabuni',
-                        data: this.aggregateAttribute(response, 'has_brick_wall')
+                        data: data.map(house => {
+                            if (house.has_soap) {
+                                return house.has_soap;
+                            } else {
+                                return 0;
+                            }
+                        })
                     },
-                ]
+                ];
+
+                this.categories = data.map(house => {
+                    return moment(house.benchmark_date).format('MMM YYYY');
+                });
             }
         },
     }

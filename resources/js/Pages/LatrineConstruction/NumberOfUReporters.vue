@@ -9,44 +9,19 @@
 </template>
 
 <script>
-    import EventBus from '@/events';
     import Axios from 'axios';
+    import ReportComponent from "@/ReportComponent";
 
     export default {
-        props: {
-            period: {
-                required: true,
-                type: Object
-            }
-        },
+        extends: ReportComponent,
         data() {
             return {
-                total: 10,
-                filters: {
-                    areaName: null,
-                    areaType: null
-                },
-            }
-        },
-        mounted() {
-            this.fetchReport();
-
-            EventBus.$on("filter:area", area => {
-                this.filters.areaType = area.type;
-                this.filters.areaName = area.name;
-            });
-        },
-        watch: {
-            filters: {
-                deep: true,
-                handler() {
-                    this.fetchReport();
-                }
+                total: null,
             }
         },
         methods: {
             async fetchReport() {
-                let { data } = await Axios.get(`/api/number_of_u_reporters`, {
+                let { data } = await Axios.get(`/api/number_of_reporters`, {
                     params: this.filters
                 });
 

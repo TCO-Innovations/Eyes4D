@@ -17,20 +17,15 @@ class LatrineConstructionController extends Controller
 
     public function __invoke(Request $request)
     {
-        return Inertia::render("LatrineConstruction/Index", [
-            "regions" => Surveys::query()
-                ->select("region as name")
-                ->distinct('region')
-                ->whereNotNull("region")
-                ->get(),
-            "totalHouseholds" => $this->totalHouseholds(),
-            "visitedHouseholds" => $this->visitedHouseholds(),
-            "houseWithLatrine" => $this->houseWithLatrine(),
+        $regions = Surveys::query()
+            ->select("region as name")
+            ->distinct('region')
+            ->whereNotNull("region")
+            ->where("region", "<>", "")
+            ->get();
 
-            "numberOfUReporters" => $this->numberOfUReporters(),
-            "numberOfVillages" => $this->numberOfVillages(),
-            "numberOfVisitedHouseholds" => $this->numberOfVisitedHouseholds(),
-            "totalNumberOfHouseholds" => $this->totalNumberOfHouseholds(),
+        return Inertia::render("LatrineConstruction/Index", [
+            "regions" => $regions,
         ]);
     }
 

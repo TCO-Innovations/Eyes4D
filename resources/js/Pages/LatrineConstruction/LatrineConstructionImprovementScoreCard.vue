@@ -7,7 +7,7 @@
                         <template v-if="currentLanguage === 'english'">Latrine Construction and Improvement Scorecard</template>
                         <template v-if="currentLanguage === 'kiswahili'">Ubora wa miundombinu ya choo</template>
                     </h2>
-                    <div class="text-sm text-gray-700">{{ areaName }}: {{ timeRange }}</div>
+                    <div class="text-sm text-gray-700">{{ timePresenter }}: {{ areaPresenter }}</div>
                 </div>
 
                 <div class="flex flex-col">
@@ -154,18 +154,12 @@
 
 <script>
     import Axios from  "axios";
-    import Voca from "voca";
-    import EventBus from "@/events";
     import moment from "moment";
     import AppPagination from '@/Components/AppPagination';
+    import ReportComponent from "@/ReportComponent";
 
     export default {
-        props: {
-            period: {
-                required: true,
-                type: Object
-            }
-        },
+        extends: ReportComponent,
         components: {
             AppPagination
         },
@@ -173,55 +167,7 @@
             return {
                 houses: [],
                 links: [],
-                filters: {
-                    page: 1,
-                    areaType: null,
-                    areaName: null,
-                    start: null,
-                    stop: null
-                }
             }
-        },
-        watch: {
-            filters: {
-                deep: true,
-                handler () {
-                    this.fetchReport();
-                }
-            },
-            period: {
-                deep: true,
-                handler (value) {
-                    this.filters.start = value.start;
-                    this.filters.stop = value.stop;
-                }
-            }
-        },
-        computed: {
-            areaName() {
-                if (this.filters.areaName && this.filters.areaType) {
-                    let name = `${this.filters.areaName} ${this.filters.areaType}`;
-
-                    return Voca.titleCase(name);
-                }
-
-                return `All Regions`;
-            },
-            timeRange() {
-                if (this.period) {
-                    return `${this.toFormattedDate(this.period.start)} - ${this.toFormattedDate(this.period.stop)}`;
-                }
-                return "All The Time";
-            }
-        },
-        mounted() {
-
-            this.fetchReport();
-
-            EventBus.$on("filter:area", area => {
-                this.filters.areaName = area.name;
-                this.filters.areaType = area.type;
-            });
         },
         methods: {
             async fetchReport() {

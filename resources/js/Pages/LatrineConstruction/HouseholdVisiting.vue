@@ -40,7 +40,7 @@
                         </a>
                     </th>
                     <th class="py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-right">
-                        <a href="#" class="inline-flex items-center" @click.prevent="sortBy('reporters')">
+                        <a href="#" class="inline-flex items-center">
                             <template v-if="currentLanguage === 'english'">Number of U-Reporters</template>
                             <template v-if="currentLanguage === 'kiswahili'">Idadi ya U-Reporters</template>
                             <template v-if="'reporters' in filters.sort">
@@ -54,7 +54,7 @@
                         </a>
                     </th>
                     <th class="py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-right">
-                        <a href="#" class="inline-flex items-center" @click.prevent="sortBy('houses')">
+                        <a href="#" class="inline-flex items-center">
                             <template v-if="currentLanguage === 'english'"> Number of Households</template>
                             <template v-if="currentLanguage === 'kiswahili'">Idadi ya nyumba</template>
                             <template v-if="'houses' in filters.sort">
@@ -68,7 +68,7 @@
                         </a>
                     </th>
                     <th class="py-4 px-5 border-b-2 uppercase tracking-wide text-xs text-gray-600 text-right">
-                        <a href="#" class="inline-flex items-center" @click.prevent="sortBy('visited_houses')">
+                        <a href="#" class="inline-flex items-center">
                             <template v-if="currentLanguage === 'english'">Visited Households</template>
                             <template v-if="currentLanguage === 'kiswahili'">Nyumba zilizotembelewa</template>
                             <template v-if="'visited_houses' in filters.sort">
@@ -90,14 +90,26 @@
                 <tbody>
                     <template v-for="visit in visits">
                         <tr  class="border-b last:border-0 cursor-pointer" @click="showContacts(visit)">
-                            <td class="py-4 px-5 whitespace-no-wrap text-left">{{ titleCase(visit.district) }}</td>
-                            <td class="py-4 px-5 whitespace-no-wrap text-left">{{ titleCase(visit.village) }}</td>
+                            <td class="py-4 px-5 whitespace-no-wrap text-left">{{ visit.district | toTitleCase }}</td>
+                            <td class="py-4 px-5 whitespace-no-wrap text-left">{{ visit.village  | toTitleCase }}</td>
                             <td class="py-4 px-5 whitespace-no-wrap text-right">{{ visit.reporters }}</td>
-                            <td class="py-4 px-5 whitespace-no-wrap text-right">{{ visit.houses }}</td>
-                            <td class="py-4 px-5 whitespace-no-wrap text-right">{{ visit.visited_houses }}</td>
                             <td class="py-4 px-5 whitespace-no-wrap text-right">
-                                <template v-if="visit.visited_houses && visit.houses">
-                                    {{ ((visit.visited_houses/ visit.houses) * 100).toFixed(2) }}%
+                                <template v-if="visit.total_household">
+                                    {{ visit.total_household }}
+                                </template>
+                                <template v-else>
+                                    <span class="text-gray-500">NIL</span>
+                                </template>
+                            </td>
+                            <td class="py-4 px-5 whitespace-no-wrap text-right">
+                                {{ visit.visited_household }}
+                            </td>
+                            <td class="py-4 px-5 whitespace-no-wrap text-right">
+                                <template v-if="visit.total_household && visit.visited_household">
+                                    {{ ((visit.visited_household / visit.total_household) * 100).toFixed(2) }}%
+                                </template>
+                                <template v-else>
+                                    <span class="text-gray-500">NIL</span>
                                 </template>
                             </td>
                         </tr>
@@ -118,10 +130,10 @@
                                             <tr v-for="contact in contacts" class="border-t">
                                                 <td class="py-3 px-4">
                                                     <template v-if="$page.auth.user.permissions.contacts_view">
-                                                        {{ titleCase(contact.contact_name) }}
+                                                        {{ contact.contact_name | toTitleCase }}
                                                     </template>
                                                     <template v-else>
-                                                        <span class="text-transparent bg-gray-300 rounded">{{ titleCase(contact.contact_name) }}</span>
+                                                        <span class="text-transparent bg-gray-300 rounded">{{ contact.contact_name | toTitleCase }}</span>
                                                     </template>
                                                 </td>
                                                 <td class="py-3 px-4">
@@ -132,7 +144,7 @@
                                                         <span class="text-transparent bg-gray-300 rounded">{{ contact.contact_phone }}</span>
                                                     </template>
                                                 </td>
-                                                <td class="py-3 px-4">{{ titleCase(contact.contact_gender) }}</td>
+                                                <td class="py-3 px-4">{{ contact.contact_gender | toTitleCase }}</td>
                                                 <td class="py-3 px-4 text-right">{{ contact.households_visited }}</td>
                                                 <td class="py-3 px-4 text-right">{{ contact.last_household_visit }}</td>
                                             </tr>
@@ -161,50 +173,26 @@
 
 <script>
     import Axios from 'axios';
-    import Voca from 'voca';
+    import ReportComponent from "@/ReportComponent";
 
-    export default {
+    export default  {
+        extends: ReportComponent,
         data() {
             return {
                 visits: [],
                 contacts: [],
-                filters: {
-                    limit: 5,
-                    sort: {
-                        visited_houses: 'desc'
-                    },
-                },
-                area: null,
-                timePeriod: null
-            }
-        },
-        mounted() {
-            this.fetchReport();
-        },
-        watch: {
-            filters: {
-                deep: true,
-                handler() {
-                    this.fetchReport();
-                }
             }
         },
         methods: {
             async fetchReport() {
                 let { data } = await Axios.get(`/api/household_visiting`, { params: this.filters });
 
-                this.visits = data.map(visit => ({
-                    ...visit,
-                    isVisible: false
-                }));
+                this.visits = data.map(visit => ({ ...visit, isVisible: false }));
             },
             async fetchContacts(path){
                 let { data } = await Axios.get(path);
 
                 this.contacts = data;
-            },
-            titleCase(string) {
-                return Voca.titleCase(string);
             },
             sortBy(field) {
                 if(field in this.filters.sort) {

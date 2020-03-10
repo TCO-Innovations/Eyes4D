@@ -2,43 +2,35 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Contact;
+use App\Surveys;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Str;
 
 class NumberOfVillagesController extends Controller
 {
     public function __invoke(Request $request)
     {
-        // SELECT COUNT(DISTINCT LOWER(village_name)) AS total FROM surveys
+        $total = Surveys::query()
+            ->selectRaw("DISTINCT village, district")
+            ->when($this->isAreaFilterable($request), function (Builder $query){
+                $query->where(request("areaType"), request("areaName"));
+            })
+            ->whereNotNull("village")
+            ->where("village", "<>", "")
+            ->get()
+            ->count();
 
-        $query = Contact::query()->distinct('village_name');
-
-        if ($request->has('areaType') && $request->has('areaName')) {
-            $query->whereHas("surveys", function ($query) {
-                $this->areaFilter($query);
-            });
-        }
-
-        return Response::json($query->count(), 200);
+        return Response::json($total, 200);
     }
 
-    private function areaFilter($query)
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public function isAreaFilterable(Request $request)
     {
-        $area = [
-            "region" => "region",
-            "village" => "assigned_village",
-            "district" => "district"
-        ];
-
-        $field = $area[request('areaType')];
-
-        $value = request('areaType') == 'region' ? request('areaName') : Str::lower(request('areaName'));
-
-        if (request()->has('areaType') && request()->has('areaName')) {
-            return $query->where($field, 'LIKE', "%{$value}%");
-        }
+        return $request->areaType && $request->areaName;
     }
 }

@@ -3,8 +3,11 @@
         <div class="shadow bg-white rounded-lg overflow-hidden">
             <header class="flex justify-between px-6 bg-gray-100 py-4">
                 <div>
-                    <h2 class="text-lg mb-2">Alama katika unawaji mikono</h2>
-                    <div class="text-sm text-gray-700">{{ areaName }} - July 2019 to September 2019</div>
+                    <h2 class="text-lg mb-2">
+                        <template v-if="currentLanguage === 'english'">Hand washing scorecard</template>
+                        <template v-if="currentLanguage === 'kiswahili'">Alama katika unawaji mikono</template>
+                    </h2>
+                    <div class="text-sm text-gray-700">{{ areaPresenter }} - {{ timePresenter }}</div>
                 </div>
 
                 <div class="flex flex-col">
@@ -88,18 +91,12 @@
 
 <script>
     import Axios from  "axios";
-    import Voca from "voca";
-    import EventBus from "@/events";
     import moment from "moment";
     import AppPagination from '@/Components/AppPagination';
+    import ReportComponent from "@/ReportComponent";
 
-    export default {
-        props: {
-            period: {
-                required: true,
-                type: Object
-            }
-        },
+    export default  {
+        extends: ReportComponent,
         components: {
             AppPagination
         },
@@ -107,36 +104,11 @@
             return {
                 houses: [],
                 links: [],
-                area: null,
-                timePeriod: null,
             }
-        },
-        computed: {
-            areaName() {
-                if (this.area) {
-                    let name = `${this.area.name} ${this.area.type}`;
-
-                    return Voca.titleCase(name);
-                }
-
-                return `All Regions`;
-            },
-            timeRange() {
-                if (this.timePeriod) {
-                    return `${this.toFormattedDate(this.timePeriod.start)} - ${this.toFormattedDate(this.timePeriod.stop)}`;
-                }
-                return "All The Time";
-            }
-        },
-        mounted() {
-            this.fetchReport();
-
-            EventBus.$on("filter:area", area => { this.area = area });
-            EventBus.$on("filter:period", period => { this.timePeriod = period });
         },
         methods: {
-            async fetchReport(page = 1) {
-                let { data, links } = await Axios.get(`/api/latrine_construction_improvement?page=${page}`);
+            async fetchReport() {
+                let { data } = await Axios.get(`/api/latrine_construction_improvement`, { params: this.filters });
 
                 this.houses = data.data;
                 this.links  = data.links
@@ -144,8 +116,8 @@
             toFormattedDate(date) {
                 return moment(date).format("MMM DD, YYYY");
             },
-            switchPage(page) {
-                this.fetchReport(page);
+            switchPage() {
+                this.fetchReport();
             }
         }
     }

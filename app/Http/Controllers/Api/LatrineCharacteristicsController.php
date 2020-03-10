@@ -25,6 +25,18 @@ class LatrineCharacteristicsController extends Controller
             ->when($request->filled('start') && $request->filled('stop'), function(Builder $query) {
                 $query->whereBetween("created_at", [request('start'), request('stop')]);
             })
+            ->when($this->isAreaFilterable($request), function (Builder $query){
+                $query->where(request("areaType"), request("areaName"));
+            })
             ->get();
+    }
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public function isAreaFilterable(Request $request)
+    {
+        return $request->areaType && $request->areaName;
     }
 }

@@ -13,17 +13,6 @@
                         <a
                             href="#"
                             class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
-                            :class="{ 'border-blue-500' : period === 'monthly' }"
-                            @click.prevent="getReportBy('monthly')"
-                        >
-                            <template v-if="currentLanguage === 'english'">Monthly</template>
-                            <template v-if="currentLanguage === 'kiswahili'">Mwezi</template>
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#"
-                            class="px-3 py-5 inline-block text-xs uppercase hover:bg-blue-200 border-b-2 hover:border-blue-500"
                             :class="{ 'border-blue-500' : period === 'annually' }"
                             @click.prevent="getReportBy('annually')"
                         >
@@ -32,24 +21,6 @@
                         </a>
                     </li>
                 </ul>
-
-                <form class="flex items-center">
-                    <select
-                        class="bg-transparent"
-                        v-model="selectedMonth"
-                        v-if="period === 'daily' || period === 'monthly'"
-                    >
-                        <option :value="monthNumber" v-for="monthNumber in Array(12).keys()">
-                            {{ getMonthName(monthNumber) }}
-                        </option>
-                    </select>
-
-                    <select class="bg-transparent" v-model="selectedYear">
-                        <option v-for="yearNumber in Array(5).keys()" :value="selectedYear - yearNumber">
-                            {{ selectedYear - yearNumber }}
-                        </option>
-                    </select>
-                </form>
             </div>
         </header>
 
@@ -60,51 +31,14 @@
         <div class="px-6 py-6 bg-gray-100" v-if="isVisible">
             <table class="w-full">
                 <tbody>
-                <tr>
-                    <th class="py-1">
-                        <div class="flex items-center text-sm font-semibold text-gray-700">
-                            <span class="block h-4 w-4 rounded bg-blue-500 mr-2"></span> Easy Washable Cemented Floor
-                        </div>
-                    </th>
-                    <td class="py-2 px-2 font-normal text-sm">12</td>
-                    <td class="py-2 px-2 font-normal text-sm">20%</td>
-                </tr>
-                <tr>
-                    <th class="py-1">
-                        <div class="flex items-center text-sm font-semibold text-gray-700">
-                            <span class="block h-4 w-4 rounded bg-green-500 mr-2"></span> Iron Sheet Roof
-                        </div>
-                    </th>
-                    <td class="py-2 px-2 font-normal text-sm">12</td>
-                    <td class="py-2 px-2 font-normal text-sm">20%</td>
-                </tr>
-                <tr>
-                    <th class="py-1">
-                        <div class="flex items-center text-sm font-semibold text-gray-700">
-                            <span class="block h-4 w-4 rounded bg-yellow-500 mr-2"></span> Adjacent Bathroom
-                        </div>
-                    </th>
-                    <td class="py-2 px-2 font-normal text-sm">12</td>
-                    <td class="py-2 px-2 font-normal text-sm">20%</td>
-                </tr>
-                <tr>
-                    <th class="py-1">
-                        <div class="flex items-center text-sm font-semibold text-gray-700">
-                            <span class="block h-4 w-4 rounded bg-red-500 mr-2"></span> Lockable Door
-                        </div>
-                    </th>
-                    <td class="py-2 px-2 font-normal text-sm">12</td>
-                    <td class="py-2 px-2 font-normal text-sm">20%</td>
-                </tr>
-                <tr>
-                    <th class="py-1">
-                        <div class="flex items-center text-sm font-semibold text-gray-700">
-                            <span class="block h-4 w-4 rounded bg-purple-500 mr-2"></span> Wall With Bricks
-                        </div>
-                    </th>
-                    <td class="py-2 px-2 font-normal text-sm">12</td>
-                    <td class="py-2 px-2 font-normal text-sm">20%</td>
-                </tr>
+                    <tr v-for="item in data">
+                        <th class="py-1">
+                            <div class="flex items-center text-sm font-semibold text-gray-700">
+                                <span class="block h-4 w-4 rounded mr-2" :style="{ background: item.color }"></span> {{ item.name }}
+                            </div>
+                        </th>
+                        <td class="py-2 px-2 font-normal text-sm">{{ item.y }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -113,95 +47,27 @@
 
 <script>
     import Axios from 'axios';
-    import queryString from 'query-string';
+    import ReportComponent from "@/ReportComponent";
 
-    export default {
-        props: {
-            area: {
-                required: true,
-                type: Object
-            },
-            duration: {
-                required: true
-            }
-        },
+    export default  {
+        extends: ReportComponent,
         data() {
             return {
-                apiEndPoint: "",
-                report: {},
-                period: 'monthly',
-                date: new Date,
-                isVisible: false,
-                selectedDate: (new Date).getDate(),
-                selectedMonth: (new Date).getMonth(),
-                selectedYear: (new Date).getFullYear(),
-            }
-        },
-        mounted() {
-            let query = Object.assign({
-                period: this.period,
-                date: this.date.toJSON().slice(0, 10)
-            }, queryString.parse(window.location.search));
-
-            this.apiEndPoint = queryString.stringifyUrl({
-                url: `${window.location.origin}/api/handwashing_characteristics`,
-                query: query
-            });
-        },
-        watch: {
-            area: {
-                deep: true,
-                handler() {
-                    this.apiEndPoint = queryString.stringifyUrl({
-                        url: this.apiEndPoint,
-                        query: { [this.area.type.toLowerCase()]: this.area.name }
-                    })
-                }
-            },
-            apiEndPoint() {
-                this.fetchReport();
-            },
-            selectedDate(date) {
-                this.date.setDate(date);
-
-                this.apiEndPoint = queryString.stringifyUrl({
-                    url: this.apiEndPoint,
-                    query: { date: this.date.toJSON().slice(0, 10) }
-                })
-            },
-            selectedMonth(month) {
-                this.date.setMonth(month);
-
-                this.apiEndPoint = queryString.stringifyUrl({
-                    url: this.apiEndPoint,
-                    query: { date: this.date.toJSON().slice(0, 10) }
-                })
-            },
-            selectedYear(year) {
-                this.date.setFullYear(year);
-
-                this.apiEndPoint = queryString.stringifyUrl({
-                    url: this.apiEndPoint,
-                    query: { date: this.date.toJSON().slice(0, 10) }
-                });
-            },
-            duration(year) {
-                this.selectedYear = year;
-
-                this.date.setFullYear(year);
-
-                this.apiEndPoint = queryString.stringifyUrl({
-                    url: this.apiEndPoint,
-                    query: { date: this.date.toJSON().slice(0, 10) }
-                });
+                isVisible: false
             }
         },
         computed: {
+            title() {
+                return this.currentLanguage === 'english' ? 'Hand Washing Characteristics' : 'Tabia uoshaji mikono';
+            },
+            yAxisTitle() {
+                return this.currentLanguage === 'english' ? 'Household With Handwash Place' : 'Nyumba zenye sehemu yakuoshea mikono';
+            },
             chartOptions() {
                 return {
                     chart: { type: 'column' },
                     title: { text: this.title, margin: 36, style: { "color": "#333333", "fontSize": "14px" } },
-                    subtitle: { text: `${this.areaName}: Jul 2019 - Sep 2019` },
+                    subtitle: { text: this.subTitle },
                     accessibility: { announceNewData: { enabled: true } },
                     xAxis: { type: 'category' },
                     yAxis: { title: { text: this.yAxisTitle } },
@@ -211,55 +77,30 @@
                         pointFormat:  '<span>{point.name}</span>: <b>{point.y}</b><br/>'
                     },
                     credits: { enabled: false },
-                    series: [
-                        {
-                            colorByPoint: true,
-                            data: [
-                                {
-                                    name: this.currentLanguage === 'english' ? 'Hand wash place' : 'Kuna sehemu yakuoshea mikono',
-                                    y: this.report.has_handwash_place
-                                },
-                                {
-                                    name: this.currentLanguage === 'english' ? 'Hand wash container' : 'Kuna chombo chakuoshea mikono',
-                                    y: this.report.has_handwash_container
-                                },
-                                {
-                                    name: this.currentLanguage === 'english' ? 'Has Soap' : 'Kuna sabuni',
-                                    y: this.report.has_soap
-                                },
-                            ]
-                        }
-                    ],
+                    series: [{
+                        colorByPoint: true,
+                        data: this.data
+                    }],
                 };
             },
-            areaName() {
-                return `${this.area.name ? this.area.name : "All"} ${this.area.type ? this.area.type : "Regions"}`;
-            },
-            title() {
-                return this.currentLanguage === 'english' ? 'Hand Washing Characteristics' : 'Tabia uoshaji mikono';
-            },
-            yAxisTitle() {
-                return this.currentLanguage === 'english' ? 'Household With Handwash Place' : 'Nyumba zenye sehemu yakuoshea mikono';
-            }
         },
         methods: {
-            getMonthName(month) {
-                return (new Date(this.selectedYear, month, this.selectedDate)).toLocaleString('default', {
-                    month: 'long'
-                });
-            },
-            getReportBy(period) {
-                this.period = period;
-
-                this.apiEndPoint = queryString.stringifyUrl({
-                    url: this.apiEndPoint,
-                    query: { period: period }
-                });
-            },
             async fetchReport() {
-                let response = await Axios.get(this.apiEndPoint);
+                let { data } = await Axios.get(`/api/handwashing_characteristics`, { params: this.filters });
 
-                this.report = response.data[0];
+                this.data = [{
+                    name: this.currentLanguage === 'english' ? 'handwashing place' : 'Sehemu ya kunawia',
+                    y: data.filter(item => item.has_handwashing_place === 'Yes').length,
+                    color: '#48BB78',
+                }, {
+                    name: this.currentLanguage === 'english' ? 'handwashing container' : 'Chombo cha kunawia',
+                    y: data.filter(item => item.has_handwashing_container === 'Yes').length,
+                    color: '#4299E1',
+                }, {
+                    name: this.currentLanguage === 'english' ? 'has soap' : 'Kuna sabuni',
+                    y: data.filter(item => item.has_soap === 'Yes').length,
+                    color: '#ED64A6'
+                }];
             }
         }
     }

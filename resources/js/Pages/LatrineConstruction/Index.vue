@@ -115,18 +115,6 @@
         props: {
             regions: {
                 required: true
-            },
-            numberOfUReporters: {
-                required: true
-            },
-            numberOfVillages: {
-                required: true
-            },
-            numberOfVisitedHouseholds: {
-                required: true
-            },
-            totalNumberOfHouseholds: {
-                required: true
             }
         },
     }

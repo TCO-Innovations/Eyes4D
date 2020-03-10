@@ -152,7 +152,12 @@ __webpack_require__.r(__webpack_exports__);
         start: this.period.start,
         stop: this.period.stop,
         areaName: null,
-        areaType: null
+        areaType: null,
+        limit: 5,
+        sort: {
+          district: 'desc'
+        },
+        page: 1
       }
     };
   },

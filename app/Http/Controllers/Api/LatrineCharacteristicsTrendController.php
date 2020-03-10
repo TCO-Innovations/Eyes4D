@@ -62,12 +62,51 @@ class LatrineCharacteristicsTrendController extends Controller
                         ->groupBy(DB::raw("to_char(created_at::TIMESTAMP, 'YYYY-MM')"))
                         ->limit(1);
                 },
+                'has_soap' => function(Builder $query) {
+                    $query
+                        ->selectRaw("COUNT(has_soap) as has_soap")
+                        ->from('surveys')
+                        ->where("has_soap", "Yes")
+                        ->whereRaw("to_char(created_at::TIMESTAMP, 'YYYY-MM') = to_char(time_series.benchmark_date::TIMESTAMP, 'YYYY-MM')")
+                        ->groupBy(DB::raw("to_char(created_at::TIMESTAMP, 'YYYY-MM')"))
+                        ->limit(1);
+                },
+                'has_handwashing_place' => function(Builder $query) {
+                    $query
+                        ->selectRaw("COUNT(has_handwashing_place) as has_handwashing_place")
+                        ->from('surveys')
+                        ->where("has_soap", "Yes")
+                        ->whereRaw("to_char(created_at::TIMESTAMP, 'YYYY-MM') = to_char(time_series.benchmark_date::TIMESTAMP, 'YYYY-MM')")
+                        ->groupBy(DB::raw("to_char(created_at::TIMESTAMP, 'YYYY-MM')"))
+                        ->limit(1);
+                },
+                'has_handwashing_container' => function(Builder $query) {
+                    $query
+                        ->selectRaw("COUNT(has_handwashing_container) as has_handwashing_place")
+                        ->from('surveys')
+                        ->where("has_soap", "Yes")
+                        ->whereRaw("to_char(created_at::TIMESTAMP, 'YYYY-MM') = to_char(time_series.benchmark_date::TIMESTAMP, 'YYYY-MM')")
+                        ->groupBy(DB::raw("to_char(created_at::TIMESTAMP, 'YYYY-MM')"))
+                        ->limit(1);
+                },
             ])
             ->fromSub(function (Builder $builder) {
                 $builder->fromRaw("generate_series('2019-12-01'::TIMESTAMP, '2020-05-30'::TIMESTAMP, '1 month'::INTERVAL) as benchmark_date");
             }, "time_series")
+            ->when($this->isAreaFilterable($request), function ($query){
+                $query->where(request("areaType"), request("areaName"));
+            })
             ->get();
 
         return Response::json($result, 200);
+    }
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public function isAreaFilterable(Request $request)
+    {
+        return $request->areaType && $request->areaName;
     }
 }

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Surveys;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Response;
 
 class HouseholdVisitingController extends Controller
 {
@@ -16,39 +19,51 @@ class HouseholdVisitingController extends Controller
 
     public function __invoke(Request $request)
     {
-        $sort = json_decode($request->get('sort'), true);
+        $response = Surveys::query()
+            ->selectRaw("village, district, region, COUNT(DISTINCT contact_name) AS reporters")
+            ->addSelect([
+                "visited_household" => function($query) {
+                    $query
+                        ->selectRaw("COUNT(run_id)")
+                        ->from('surveys', "s1")
+                        ->whereColumn('s1.village', 'surveys.village');
+                },
+                "total_household" => function($query) {
+                    $query
+                        ->select("total_houses")
+                        ->from('surveys', "s1")
+                        ->whereColumn('s1.village', 'surveys.village')
+                        ->limit(1);
+                }
+            ])
+            ->groupBy(["village", "district", "region"])
+            ->whereNotNull("village")
+            ->where("village", "<>", "")
+            ->when($request->has("sort"), function (Builder $builder) {
 
-        $this->sortKey = array_key_first($sort);
+                $sortObject = json_decode(request('sort'), true);
 
-        $this->sortDir = $sort[$this->sortKey];
+                $sortKey = array_key_first($sortObject);
 
-        $this->limit = $request->get('limit');
+                $sortDirection = $sortObject[$sortKey];
 
-        return collect(\DB::select($this->queryBuilder()));
+                $builder->orderBy($sortKey, $sortDirection);
+            })
+            ->when($this->isAreaFilterable($request), function (Builder $query){
+                $query->where(request("areaType"), request("areaName"));
+            })
+            ->limit($request->get("limit", 5))
+            ->get();
+
+        return Response::json($response, 200);
     }
 
-    public function queryBuilder()
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public function isAreaFilterable(Request $request)
     {
-        return "SELECT {$this->columns()} {$this->table()} {$this->groupByClause()} {$this->orderByClause()} LIMIT {$this->limit}";
-    }
-
-    public function columns()
-    {
-        return "region, district, assigned_village AS village, COUNT(DISTINCT contact_name) AS reporters, (SELECT houses FROM surveys WHERE region=s1.region AND district=s1.district AND assigned_village=s1.assigned_village LIMIT 1)AS houses,COUNT(run_id)AS visited_houses";
-    }
-
-    public function table()
-    {
-        return "FROM surveys s1";
-    }
-
-    public function groupByClause()
-    {
-        return "GROUP BY region, district, assigned_village";
-    }
-
-    public function orderByClause()
-    {
-        return "ORDER BY {$this->sortKey} {$this->sortDir}";
+        return $request->areaType && $request->areaName;
     }
 }

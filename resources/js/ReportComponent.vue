@@ -20,6 +20,11 @@
                     stop: this.period.stop,
                     areaName: null,
                     areaType: null,
+                    limit: 5,
+                    sort: {
+                        district: 'desc'
+                    },
+                    page: 1,
                 },
             }
         },

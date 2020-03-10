@@ -35,51 +35,18 @@
         <div class="px-6 py-6 bg-gray-100" v-if="isVisible">
             <table class="w-full">
                 <tbody>
-                <tr>
-                    <th class="py-1">
-                        <div class="flex items-center text-sm font-semibold text-gray-700">
-                            <span class="block h-4 w-4 rounded bg-blue-500 mr-2"/> Easy Washable Cemented Floor
-                        </div>
-                    </th>
-                    <td class="py-2 px-2 font-normal text-sm">12</td>
-                    <td class="py-2 px-2 font-normal text-sm">20%</td>
-                </tr>
-                <tr>
-                    <th class="py-1">
-                        <div class="flex items-center text-sm font-semibold text-gray-700">
-                            <span class="block h-4 w-4 rounded bg-green-500 mr-2"/> Iron Sheet Roof
-                        </div>
-                    </th>
-                    <td class="py-2 px-2 font-normal text-sm">12</td>
-                    <td class="py-2 px-2 font-normal text-sm">20%</td>
-                </tr>
-                <tr>
-                    <th class="py-1">
-                        <div class="flex items-center text-sm font-semibold text-gray-700">
-                            <span class="block h-4 w-4 rounded bg-yellow-500 mr-2"/> Adjacent Bathroom
-                        </div>
-                    </th>
-                    <td class="py-2 px-2 font-normal text-sm">12</td>
-                    <td class="py-2 px-2 font-normal text-sm">20%</td>
-                </tr>
-                <tr>
-                    <th class="py-1">
-                        <div class="flex items-center text-sm font-semibold text-gray-700">
-                            <span class="block h-4 w-4 rounded bg-red-500 mr-2"/> Lockable Door
-                        </div>
-                    </th>
-                    <td class="py-2 px-2 font-normal text-sm">12</td>
-                    <td class="py-2 px-2 font-normal text-sm">20%</td>
-                </tr>
-                <tr>
-                    <th class="py-1">
-                        <div class="flex items-center text-sm font-semibold text-gray-700">
-                            <span class="block h-4 w-4 rounded bg-purple-500 mr-2"/> Wall With Bricks
-                        </div>
-                    </th>
-                    <td class="py-2 px-2 font-normal text-sm">12</td>
-                    <td class="py-2 px-2 font-normal text-sm">20%</td>
-                </tr>
+                    <tr v-for="item in data">
+                        <th class="py-1">
+                            <div class="flex items-center text-sm font-semibold text-gray-700">
+                                <span class="block h-4 w-4 rounded mr-2" :style="{ background : item.color }"/> {{ item.name }}
+                            </div>
+                        </th>
+                        <td class="py-2 px-2 font-normal text-sm text-right">{{ item.y }}</td>
+                        <td class="py-2 px-2 font-normal text-sm text-right">{{ totalHouses }}</td>
+                        <td class="py-2 px-2 font-normal text-sm text-right">
+                            {{ ((Number(item.y) / Number(totalHouses)) * 100).toFixed(2) }}%
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -95,6 +62,7 @@
         data() {
             return {
                 isVisible: false,
+                totalHouses: 0
             }
         },
         computed: {
@@ -107,11 +75,7 @@
             chartOptions() {
                 return {
                     chart: { type: 'column' },
-                    title: {
-                        text: this.title,
-                        margin: 36,
-                        style: { "color": "#333333", "fontSize": "14px" }
-                    },
+                    title: { text: this.title, margin: 36, style: { "color": "#333333", "fontSize": "14px" } },
                     subtitle: { text: this.subTitle },
                     accessibility: { announceNewData: { enabled: true } },
                     xAxis: { type: 'category' },
@@ -133,25 +97,32 @@
                 this.data =  [
                     {
                         name: this.currentLanguage === 'english' ? 'Lockable Door' : 'Mlango unaofunga',
-                        y: data.filter(item => item.has_lockable_door === 'Yes').length
+                        y: data.filter(item => item.has_lockable_door === 'Yes').length,
+                        color: '#48BB78',
                     },
                     {
                         name: this.currentLanguage === 'english' ? 'Brick Wall' : 'Ukuta wa tofari',
-                        y: data.filter(item => item.has_brick_wall === 'Yes').length
+                        y: data.filter(item => item.has_brick_wall === 'Yes').length,
+                        color: '#4299E1',
                     },
                     {
                         name: this.currentLanguage === 'english' ? 'Cemented Floor' : 'Sakafu ya saruji',
-                        y: data.filter(item => item.has_cemented_floor === 'Yes').length
+                        y: data.filter(item => item.has_cemented_floor === 'Yes').length,
+                        color: '#ED64A6'
                     },
                     {
                         name: this.currentLanguage === 'english' ? 'Iron Sheet Roof' : 'Paa la bati',
-                        y: data.filter(item => item.has_iron_sheet_roof === 'Yes').length
+                        y: data.filter(item => item.has_iron_sheet_roof === 'Yes').length,
+                        color: '#ECC94B'
                     },
                     {
                         name: this.currentLanguage === 'english' ? 'Adjacent bathroom' : 'Bafu mkabala na choo',
-                        y: data.filter(item => item.has_adjacent_bathroom === 'Yes').length
+                        y: data.filter(item => item.has_adjacent_bathroom === 'Yes').length,
+                        color: '#2D3748'
                     }
                 ];
+
+                this.totalHouses = data.filter(item => item.has_latrine === 'Yes').length;
             },
         }
     }

@@ -1,17 +1,64 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[32],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/DateRangePicker.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/DateRangePicker.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Users/Index.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Users/Index.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/events */ "./resources/js/events.js");
-/* harmony import */ var _Components_DatePicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Components/DatePicker */ "./resources/js/Components/DatePicker.vue");
-/* harmony import */ var _Components_CustomDateItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Components/CustomDateItem */ "./resources/js/Components/CustomDateItem.vue");
+/* harmony import */ var _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Shared/Layout */ "./resources/js/Shared/Layout.vue");
+/* harmony import */ var _Create__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Create */ "./resources/js/Pages/Users/Create.vue");
+/* harmony import */ var _Edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Edit */ "./resources/js/Pages/Users/Edit.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -57,69 +104,43 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    period: {
+    regions: {
       required: true,
-      type: Object
+      type: Array
+    },
+    users: {
+      required: true,
+      type: Array
     }
   },
   components: {
-    DatePicker: _Components_DatePicker__WEBPACK_IMPORTED_MODULE_1__["default"],
-    CustomDateItem: _Components_CustomDateItem__WEBPACK_IMPORTED_MODULE_2__["default"]
-  },
-  data: function data() {
-    return {
-      periodRange: this.period,
-      customDateItems: [{
-        title: 'Last 30 Days',
-        name: 'last30Days'
-      }, {
-        title: 'This month',
-        name: 'thisMonth'
-      }, {
-        title: 'Last month',
-        name: 'lastMonth'
-      }, {
-        title: 'Last 3 months',
-        name: 'last3Months'
-      }, {
-        title: 'Last 6 Months',
-        name: 'last6Months'
-      }, {
-        title: 'Last year',
-        name: 'lastYear'
-      }, {
-        title: 'All time',
-        name: 'allTime'
-      }]
-    };
-  },
-  mounted: function mounted() {
-    _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit("filter:period", this.periodRange);
-  },
-  watch: {
-    period: {
-      deep: true,
-      handler: function handler() {
-        _events__WEBPACK_IMPORTED_MODULE_0__["default"].$emit("filter:period", this.periodRange);
-      }
-    }
+    AppLayout: _Shared_Layout__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   methods: {
-    appendStart: function appendStart(date) {
-      this.periodRange.start = date;
+    handleCreating: function handleCreating() {
+      this.$modal.show(_Create__WEBPACK_IMPORTED_MODULE_1__["default"], {}, {
+        height: 'auto'
+      });
     },
-    appendStop: function appendStop(date) {
-      this.periodRange.stop = date;
+    handleEditing: function handleEditing(user) {
+      this.$modal.show(_Edit__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        user: user
+      }, {
+        height: 'auto'
+      });
+    },
+    handleDeleting: function handleDeleting(user) {
+      this.$inertia["delete"]("/users/".concat(user.id));
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/DateRangePicker.vue?vue&type=template&id=58d82713&":
-/*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/LatrineConstruction/DateRangePicker.vue?vue&type=template&id=58d82713& ***!
-  \*********************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Users/Index.vue?vue&type=template&id=5cc3d152&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Users/Index.vue?vue&type=template&id=5cc3d152& ***!
+  \*********************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -131,127 +152,303 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "nav",
-      {
-        staticClass:
-          "flex items-center bg-white shadow rounded-lg px-3 text-sm py-1"
-      },
-      [
+  return _c("AppLayout", { attrs: { regions: _vm.regions } }, [
+    _c("div", { staticClass: "px-6" }, [
+      _c("header", { staticClass: "flex items-center justify-between" }, [
         _c(
-          "div",
-          { staticClass: "flex items-center justify-between" },
+          "h1",
           [
-            _c("DatePicker", {
-              staticClass:
-                "bg-transparent w-24 focus:outline-none focus:text-blue-500 text-center",
-              attrs: { placeholder: "From.." },
-              model: {
-                value: _vm.periodRange.start,
-                callback: function($$v) {
-                  _vm.$set(_vm.periodRange, "start", $$v)
-                },
-                expression: "periodRange.start"
-              }
-            }),
+            _vm.currentLanguage === "english" ? [_vm._v("Users")] : _vm._e(),
             _vm._v(" "),
-            _c("span", { staticClass: "px-2 inline-block" }, [
+            _vm.currentLanguage === "kiswahili"
+              ? [_vm._v("Watumiaji")]
+              : _vm._e()
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _vm.$page.auth.user.permissions.users_create
+          ? _c("div", [
               _c(
-                "svg",
+                "button",
                 {
-                  staticClass: "h-5 w-5 fill-current text-gray-600",
-                  attrs: {
-                    xmlns: "http://www.w3.org/2000/svg",
-                    viewBox: "0 0 24 24"
+                  staticClass:
+                    "inline-flex items-center bg-blue-600 text-white px-3 py-2 rounded-lg text-sm font-medium",
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.handleCreating($event)
+                    }
                   }
                 },
                 [
-                  _c("path", { attrs: { fill: "none", d: "M0 0h24v24H0z" } }),
-                  _c("path", { attrs: { d: "M5 11h14v2H5z" } })
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("DatePicker", {
-              staticClass:
-                "bg-transparent w-24 focus:outline-none focus:text-blue-500 text-center",
-              attrs: { placeholder: "To.." },
-              model: {
-                value: _vm.periodRange.stop,
-                callback: function($$v) {
-                  _vm.$set(_vm.periodRange, "stop", $$v)
-                },
-                expression: "periodRange.stop"
-              }
-            })
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "v-popover",
-          {
-            attrs: { placement: "bottom-end", offset: "16" },
-            scopedSlots: _vm._u([
-              {
-                key: "popover",
-                fn: function() {
-                  return [
-                    _c(
-                      "div",
-                      { staticClass: "bg-white rounded-lg overflow-hidden" },
-                      _vm._l(_vm.customDateItems, function(customDateItem) {
-                        return _c("CustomDateItem", {
-                          key: customDateItem.name,
-                          attrs: {
-                            dateItem: customDateItem,
-                            period: _vm.period
-                          },
-                          on: { stop: _vm.appendStop, start: _vm.appendStart }
-                        })
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "h-4 w-4 mr-2 fill-current",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 24 24"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: { fill: "none", d: "M0 0h24v24H0z" }
                       }),
-                      1
-                    )
-                  ]
-                },
-                proxy: true
-              }
+                      _c("path", {
+                        attrs: { d: "M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.currentLanguage === "english"
+                    ? [_vm._v("New user")]
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.currentLanguage === "kiswahili"
+                    ? [_vm._v("Mtumiaji mpya")]
+                    : _vm._e()
+                ],
+                2
+              )
             ])
-          },
-          [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "border-l pl-3 ml-3 py-1 text-gray-600 focus:outline-none focus:text-blue-500"
-              },
-              [
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "bg-white rounded-lg shadow overflow-hidden mt-6" },
+        [
+          _c("table", { staticClass: "w-full" }, [
+            _c("thead", [
+              _c("tr", [
                 _c(
-                  "svg",
+                  "th",
                   {
-                    staticClass: "w-5 h-5 fill-current",
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      viewBox: "0 0 24 24"
-                    }
+                    staticClass:
+                      "text-left py-4 px-4 text-xs uppercase tracking-wide text-gray-600 font-medium bg-gray-100"
                   },
                   [
-                    _c("path", { attrs: { fill: "none", d: "M0 0h24v24H0z" } }),
-                    _c("path", {
-                      attrs: {
-                        d: "M3 4h18v2H3V4zm0 7h12v2H3v-2zm0 7h18v2H3v-2z"
-                      }
-                    })
-                  ]
-                )
-              ]
+                    _vm.currentLanguage === "english"
+                      ? [_vm._v("Name")]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.currentLanguage === "kiswahili"
+                      ? [_vm._v("Jina")]
+                      : _vm._e()
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "text-left py-4 px-4 text-xs uppercase tracking-wide text-gray-600 font-medium bg-gray-100"
+                  },
+                  [
+                    _vm.currentLanguage === "english"
+                      ? [_vm._v("Email address")]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.currentLanguage === "kiswahili"
+                      ? [_vm._v("Barua pepe")]
+                      : _vm._e()
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "text-left py-4 px-4 text-xs uppercase tracking-wide text-gray-600 font-medium bg-gray-100"
+                  },
+                  [
+                    _vm.currentLanguage === "english"
+                      ? [_vm._v("Role")]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.currentLanguage === "kiswahili"
+                      ? [_vm._v("Cheo")]
+                      : _vm._e()
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("th", {
+                  staticClass:
+                    "text-left py-4 px-4 text-xs uppercase tracking-wide text-gray-600 font-medium bg-gray-100"
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.users, function(user) {
+                return _c("tr", { key: user.id }, [
+                  _c("td", { staticClass: "py-4 px-4 text-sm" }, [
+                    _vm._v(_vm._s(user.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "py-4 px-4 text-sm" }, [
+                    _vm._v(_vm._s(user.email))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "py-4 px-4 text-sm" }, [
+                    _vm._v(_vm._s(_vm._f("toTitleCase")(user.role)))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "py-4 px-4 text-sm text-right" }, [
+                    _c(
+                      "div",
+                      { staticClass: "flex justify-end" },
+                      [
+                        _vm.$page.auth.user.permissions.users_edit
+                          ? [
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "text-blue-600 hover:text-indigo-900 focus:outline-none focus:underline mx-3",
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.handleEditing(user)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm.currentLanguage === "english"
+                                    ? [_vm._v("Edit")]
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.currentLanguage === "kiswahili"
+                                    ? [_vm._v("Hariri")]
+                                    : _vm._e()
+                                ],
+                                2
+                              )
+                            ]
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.$page.auth.user.permissions.users_delete
+                          ? [
+                              _c(
+                                "v-popover",
+                                {
+                                  attrs: { placement: "top-start" },
+                                  scopedSlots: _vm._u(
+                                    [
+                                      {
+                                        key: "popover",
+                                        fn: function() {
+                                          return [
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass:
+                                                  "w-64 bg-white shadow-2xl rounded-b-lg border-t-4 border-red-400 px-4 py-3"
+                                              },
+                                              [
+                                                _c(
+                                                  "h4",
+                                                  {
+                                                    staticClass:
+                                                      "text-sm text-gray-600 font-normal"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      "Are you sure to trash this user?"
+                                                    )
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "footer",
+                                                  { staticClass: "flex mt-6" },
+                                                  [
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "inline-flex font-medium rounded-lg py-1 px-3 bg-gray-300 leading-5 text-sm text-gray-800 mr-2"
+                                                      },
+                                                      [_vm._v("Cancel")]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "button",
+                                                      {
+                                                        staticClass:
+                                                          "inline-flex font-medium rounded-lg py-1 px-3 bg-red-500 leading-5 text-sm text-white",
+                                                        on: {
+                                                          click: function(
+                                                            $event
+                                                          ) {
+                                                            $event.preventDefault()
+                                                            return _vm.handleDeleting(
+                                                              user
+                                                            )
+                                                          }
+                                                        }
+                                                      },
+                                                      [_vm._v("Confirm")]
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        },
+                                        proxy: true
+                                      }
+                                    ],
+                                    null,
+                                    true
+                                  )
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "text-red-600 hover:text-indigo-900 focus:outline-none focus:underline",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm.currentLanguage === "english"
+                                        ? [_vm._v("Delete")]
+                                        : _vm._e(),
+                                      _vm._v(" "),
+                                      _vm.currentLanguage === "kiswahili"
+                                        ? [_vm._v("Ondoa")]
+                                        : _vm._e()
+                                    ],
+                                    2
+                                  )
+                                ]
+                              )
+                            ]
+                          : _vm._e()
+                      ],
+                      2
+                    )
+                  ])
+                ])
+              }),
+              0
             )
-          ]
-        )
-      ],
-      1
-    )
+          ])
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -261,124 +458,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \********************************************************************/
+/***/ "./resources/js/Pages/Users/Index.vue":
+/*!********************************************!*\
+  !*** ./resources/js/Pages/Users/Index.vue ***!
+  \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode /* vue-cli only */
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ "./resources/js/Pages/LatrineConstruction/DateRangePicker.vue":
-/*!********************************************************************!*\
-  !*** ./resources/js/Pages/LatrineConstruction/DateRangePicker.vue ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _DateRangePicker_vue_vue_type_template_id_58d82713___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DateRangePicker.vue?vue&type=template&id=58d82713& */ "./resources/js/Pages/LatrineConstruction/DateRangePicker.vue?vue&type=template&id=58d82713&");
-/* harmony import */ var _DateRangePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DateRangePicker.vue?vue&type=script&lang=js& */ "./resources/js/Pages/LatrineConstruction/DateRangePicker.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Index_vue_vue_type_template_id_5cc3d152___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=5cc3d152& */ "./resources/js/Pages/Users/Index.vue?vue&type=template&id=5cc3d152&");
+/* harmony import */ var _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Users/Index.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -388,9 +478,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _DateRangePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _DateRangePicker_vue_vue_type_template_id_58d82713___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _DateRangePicker_vue_vue_type_template_id_58d82713___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Index_vue_vue_type_template_id_5cc3d152___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Index_vue_vue_type_template_id_5cc3d152___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -400,56 +490,40 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/Pages/LatrineConstruction/DateRangePicker.vue"
+component.options.__file = "resources/js/Pages/Users/Index.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/Pages/LatrineConstruction/DateRangePicker.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/Pages/LatrineConstruction/DateRangePicker.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************/
+/***/ "./resources/js/Pages/Users/Index.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/Pages/Users/Index.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DateRangePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./DateRangePicker.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/DateRangePicker.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DateRangePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Users/Index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/Pages/LatrineConstruction/DateRangePicker.vue?vue&type=template&id=58d82713&":
-/*!***************************************************************************************************!*\
-  !*** ./resources/js/Pages/LatrineConstruction/DateRangePicker.vue?vue&type=template&id=58d82713& ***!
-  \***************************************************************************************************/
+/***/ "./resources/js/Pages/Users/Index.vue?vue&type=template&id=5cc3d152&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/Pages/Users/Index.vue?vue&type=template&id=5cc3d152& ***!
+  \***************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DateRangePicker_vue_vue_type_template_id_58d82713___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./DateRangePicker.vue?vue&type=template&id=58d82713& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/LatrineConstruction/DateRangePicker.vue?vue&type=template&id=58d82713&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DateRangePicker_vue_vue_type_template_id_58d82713___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_5cc3d152___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Index.vue?vue&type=template&id=5cc3d152& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Users/Index.vue?vue&type=template&id=5cc3d152&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_5cc3d152___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DateRangePicker_vue_vue_type_template_id_58d82713___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_5cc3d152___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/events.js":
-/*!********************************!*\
-  !*** ./resources/js/events.js ***!
-  \********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-
-/* harmony default export */ __webpack_exports__["default"] = (new vue__WEBPACK_IMPORTED_MODULE_0___default.a());
 
 /***/ })
 

@@ -14,19 +14,19 @@
 
             <div class="flex -mx-6 mb-16">
                 <section class="w-full px-6">
-                    <HandwashingStationCharacteristics :area="area" :duration="selectedPeriod" />
+                    <HandwashingStationCharacteristics :period="period" />
                 </section>
             </div>
 
             <div class="flex -mx-6 mb-16">
                 <section class="w-full px-6">
-                    <HandwashingStationCharacteristicsTrend :area="area" :duration="selectedPeriod" />
+                    <HandwashingStationCharacteristicsTrend :period="period" />
                 </section>
             </div>
 
             <div class="flex mb-16">
                 <section class="w-full">
-                    <HandwashingScoreCard :area="area" :period="period" />
+                    <HandwashingScoreCard :period="period" />
                 </section>
             </div>
         </div>
