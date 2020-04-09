@@ -172,6 +172,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -183,8 +231,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      houses: [],
-      links: []
+      links: [],
+      houses: []
     };
   },
   methods: {
@@ -239,486 +287,811 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "div",
-        { staticClass: "mx-auto bg-white rounded-lg shadow overflow-hidden" },
-        [
-          _c(
-            "header",
-            { staticClass: "flex justify-between px-6 bg-gray-100 py-4" },
-            [
-              _c("div", [
-                _c(
-                  "h2",
-                  { staticClass: "text-lg mb-2" },
-                  [
-                    _vm.currentLanguage === "english"
-                      ? [
-                          _vm._v(
-                            "Latrine Construction and Improvement Scorecard"
-                          )
-                        ]
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.currentLanguage === "kiswahili"
-                      ? [_vm._v("Ubora wa miundombinu ya choo")]
-                      : _vm._e()
-                  ],
-                  2
-                ),
+  return _c("div", [
+    _c(
+      "div",
+      { staticClass: "mx-auto bg-white rounded-lg shadow overflow-hidden" },
+      [
+        _c("header", { staticClass: "flex justify-between px-6 py-4" }, [
+          _c("div", [
+            _c(
+              "h2",
+              { staticClass: "text-lg mb-2" },
+              [
+                _vm.currentLanguage === "english"
+                  ? [_vm._v("Latrine Construction and Improvement Scorecard")]
+                  : _vm._e(),
                 _vm._v(" "),
-                _c("div", { staticClass: "text-sm text-gray-700" }, [
-                  _vm._v(
-                    _vm._s(_vm.timePresenter) + ": " + _vm._s(_vm.areaPresenter)
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "flex flex-col" }, [
-                _c("div", { staticClass: "flex -mx-4" }, [
+                _vm.currentLanguage === "kiswahili"
+                  ? [_vm._v("Ubora wa miundombinu ya choo")]
+                  : _vm._e()
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "text-sm text-gray-700" }, [
+              _vm._v(
+                _vm._s(_vm.timePresenter) + ": " + _vm._s(_vm.areaPresenter)
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "flex flex-col" }, [
+            _c("div", { staticClass: "flex -mx-4" }, [
+              _c(
+                "span",
+                { staticClass: "px-4 flex items-center text-sm text-gray-600" },
+                [
                   _c(
-                    "span",
+                    "svg",
                     {
-                      staticClass:
-                        "px-4 flex items-center text-sm text-gray-600"
+                      staticClass: "h-3 w-3 fill-current text-green-600 mr-2",
+                      attrs: {
+                        viewBox: "0 0 24 24",
+                        xmlns: "http://www.w3.org/2000/svg"
+                      }
                     },
                     [
-                      _c(
-                        "svg",
-                        {
-                          staticClass:
-                            "h-3 w-3 fill-current text-green-600 mr-2",
-                          attrs: {
-                            viewBox: "0 0 24 24",
-                            xmlns: "http://www.w3.org/2000/svg"
-                          }
-                        },
-                        [
-                          _c("rect", {
-                            attrs: { width: "24", height: "24", rx: "4" }
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
+                      _c("rect", {
+                        attrs: { width: "24", height: "24", rx: "4" }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.currentLanguage === "english"
+                    ? [_vm._v("Present")]
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.currentLanguage === "kiswahili"
+                    ? [_vm._v("Ipo")]
+                    : _vm._e()
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                { staticClass: "px-4 flex items-center text-sm text-gray-600" },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "h-3 w-3 fill-current text-red-600 mr-2",
+                      attrs: {
+                        viewBox: "0 0 24 24",
+                        xmlns: "http://www.w3.org/2000/svg"
+                      }
+                    },
+                    [
+                      _c("rect", {
+                        attrs: { width: "24", height: "24", rx: "4" }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.currentLanguage === "english"
+                    ? [_vm._v("Absent")]
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.currentLanguage === "kiswahili"
+                    ? [_vm._v("Haipo")]
+                    : _vm._e()
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex items-start text-sm mt-3 text-gray-600" },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass:
+                      "inline-block text-center text-red-500 h-3 w-3 mr-2 text-base"
+                  },
+                  [_vm._v("*")]
+                ),
+                _vm._v(" "),
+                _vm.currentLanguage === "english"
+                  ? [_vm._v("Observation has no impact on latrine type")]
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.currentLanguage === "kiswahili"
+                  ? [_vm._v("Uangalizi usiokuwa na madhara kiutendaji wa choo")]
+                  : _vm._e()
+              ],
+              2
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "flex justify-end px-6 py-4 border-b border-t bg-gray-100"
+          },
+          [
+            _c(
+              "a",
+              {
+                staticClass:
+                  "flex items-center text-sm text-gray-600 font-medium",
+                attrs: {
+                  href: "/latrine-construction-improvement-scorecard-export"
+                }
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "h-4 w-4 fill-current text-gray-500 mr-2",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 24 24"
+                    }
+                  },
+                  [
+                    _c("path", { attrs: { fill: "none", d: "M0 0h24v24H0z" } }),
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"
+                      }
+                    })
+                  ]
+                ),
+                _vm._v("\n                Export as excel\n            ")
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "overflow-x-scroll" }, [
+          _c("table", { staticClass: "whitespace-no-wrap" }, [
+            _c("thead", [
+              _c(
+                "tr",
+                {
+                  staticClass:
+                    "text-xs uppercase tracking-wider text-gray-700 font-semibold"
+                },
+                [
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "py-4 px-4 border-b text-left whitespace-no-wrap"
+                    },
+                    [
                       _vm.currentLanguage === "english"
-                        ? [_vm._v("Present")]
+                        ? [_vm._v("Head Of House")]
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.currentLanguage === "kiswahili"
-                        ? [_vm._v("Ipo")]
+                        ? [_vm._v("Mkuu wa familia")]
                         : _vm._e()
                     ],
                     2
                   ),
                   _vm._v(" "),
                   _c(
-                    "span",
+                    "th",
                     {
                       staticClass:
-                        "px-4 flex items-center text-sm text-gray-600"
+                        "py-4 px-4 border-b text-right whitespace-no-wrap"
                     },
                     [
-                      _c(
-                        "svg",
-                        {
-                          staticClass: "h-3 w-3 fill-current text-red-600 mr-2",
-                          attrs: {
-                            viewBox: "0 0 24 24",
-                            xmlns: "http://www.w3.org/2000/svg"
-                          }
-                        },
-                        [
-                          _c("rect", {
-                            attrs: { width: "24", height: "24", rx: "4" }
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
                       _vm.currentLanguage === "english"
-                        ? [_vm._v("Absent")]
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Has latrine",
+                                    expression: "'Has latrine'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Has latrine")]
+                            )
+                          ]
                         : _vm._e(),
                       _vm._v(" "),
                       _vm.currentLanguage === "kiswahili"
-                        ? [_vm._v("Haipo")]
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Kuna choo",
+                                    expression: "'Kuna choo'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Kuna choo")]
+                            )
+                          ]
+                        : _vm._e()
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "py-4 px-4 border-b text-right whitespace-no-wrap"
+                    },
+                    [
+                      _vm.currentLanguage === "english"
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Easy washable cemented floor",
+                                    expression: "'Easy washable cemented floor'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Easy washable cemented floor")]
+                            )
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.currentLanguage === "kiswahili"
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Sakafu ya saruji",
+                                    expression: "'Sakafu ya saruji'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Sakafu ya saruji")]
+                            )
+                          ]
+                        : _vm._e()
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "py-4 px-4 border-b text-right whitespace-no-wrap"
+                    },
+                    [
+                      _vm.currentLanguage === "english"
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Lockable door",
+                                    expression: "'Lockable door'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Lockable door")]
+                            )
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.currentLanguage === "kiswahili"
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Mlango unafungika",
+                                    expression: "'Mlango unafungika'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Mlango unafungika")]
+                            )
+                          ]
+                        : _vm._e()
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "py-4 px-4 border-b text-right whitespace-no-wrap"
+                    },
+                    [
+                      _vm.currentLanguage === "english"
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Iron sheet roof",
+                                    expression: "'Iron sheet roof'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Iron sheet roof")]
+                            )
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.currentLanguage === "kiswahili"
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Paa la bati",
+                                    expression: "'Paa la bati'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Paa la bati")]
+                            )
+                          ]
+                        : _vm._e()
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "py-4 px-4 border-b text-right whitespace-no-wrap"
+                    },
+                    [
+                      _vm.currentLanguage === "english"
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Wall with bricks",
+                                    expression: "'Wall with bricks'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Wall with bricks")]
+                            )
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.currentLanguage === "kiswahili"
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Ukuta wa tofari",
+                                    expression: "'Ukuta wa tofari'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Ukuta wa tofari")]
+                            )
+                          ]
+                        : _vm._e()
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "py-4 px-4 border-b text-right whitespace-no-wrap"
+                    },
+                    [
+                      _vm.currentLanguage === "english"
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Adjacent bathroom",
+                                    expression: "'Adjacent bathroom'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Adjacent bathroom")]
+                            )
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.currentLanguage === "kiswahili"
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Kuna bafu mkabala na choo",
+                                    expression: "'Kuna bafu mkabala na choo'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Kuna bafu mkabala na choo")]
+                            )
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("sup", { staticClass: "text-base text-red-500" }, [
+                        _vm._v("*")
+                      ])
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "py-4 px-4 border-b text-right whitespace-no-wrap"
+                    },
+                    [
+                      _vm.currentLanguage === "english"
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Clean latrine",
+                                    expression: "'Clean latrine'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Clean latrine")]
+                            )
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.currentLanguage === "kiswahili"
+                        ? [
+                            _c(
+                              "a",
+                              {
+                                directives: [
+                                  {
+                                    name: "tooltip",
+                                    rawName: "v-tooltip",
+                                    value: "Choo kisafi",
+                                    expression: "'Choo kisafi'"
+                                  }
+                                ],
+                                staticClass: "inline-block w-12 truncate",
+                                attrs: { href: "#" }
+                              },
+                              [_vm._v("Choo kisafi")]
+                            )
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("sup", { staticClass: "text-base text-red-500" }, [
+                        _vm._v("*")
+                      ])
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass:
+                        "py-4 px-4 border-b text-right whitespace-no-wrap"
+                    },
+                    [
+                      _vm.currentLanguage === "english"
+                        ? [_vm._v("Latrine type")]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.currentLanguage === "kiswahili"
+                        ? [_vm._v("Aina ya choo")]
                         : _vm._e()
                     ],
                     2
                   )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "flex items-start text-sm mt-3 text-gray-600"
-                  },
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              { staticClass: "text-sm" },
+              _vm._l(_vm.houses, function(house) {
+                return _c(
+                  "tr",
+                  { key: house.id },
                   [
                     _c(
-                      "span",
+                      "td",
                       {
                         staticClass:
-                          "inline-block text-center text-red-500 h-3 w-3 mr-2 text-base"
+                          "border border-l-0 border-gray-400 text-left  py-4 px-4 w-full"
                       },
-                      [_vm._v("*")]
+                      [
+                        _c(
+                          "a",
+                          {
+                            directives: [
+                              {
+                                name: "tooltip",
+                                rawName: "v-tooltip",
+                                value: house.head_of_house,
+                                expression: "house.head_of_house"
+                              }
+                            ],
+                            attrs: { href: "#" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(
+                                  _vm._f("toTitleCase")(house.head_of_house)
+                                ) +
+                                "\n                            "
+                            )
+                          ]
+                        )
+                      ]
                     ),
                     _vm._v(" "),
-                    _vm.currentLanguage === "english"
-                      ? [_vm._v("Observation has no impact on latrine type")]
-                      : _vm._e(),
+                    _c(
+                      "td",
+                      {
+                        staticClass:
+                          "border border-gray-400 text-right py-4 text-transparent px-4",
+                        class: {
+                          "bg-green-600": house.has_latrine === "Yes",
+                          "bg-red-600": house.has_latrine === "No"
+                        }
+                      },
+                      [_vm._v(_vm._s(house.has_latrine))]
+                    ),
                     _vm._v(" "),
-                    _vm.currentLanguage === "kiswahili"
-                      ? [
-                          _vm._v(
-                            "Uangalizi usiokuwa na madhara kiutendaji wa choo"
-                          )
-                        ]
+                    _c(
+                      "td",
+                      {
+                        staticClass:
+                          "border border-gray-400 text-right py-4 text-transparent px-4",
+                        class: {
+                          "bg-green-600": house.has_cemented_floor === "Yes",
+                          "bg-red-600": house.has_cemented_floor === "No"
+                        }
+                      },
+                      [_vm._v(_vm._s(house.has_cemented_floor))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {
+                        staticClass:
+                          "border border-gray-400 text-right py-4 text-transparent px-4",
+                        class: {
+                          "bg-green-600": house.has_lockable_door === "Yes",
+                          "bg-red-600": house.has_lockable_door === "No"
+                        }
+                      },
+                      [_vm._v(_vm._s(house.has_lockable_door))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {
+                        staticClass:
+                          "border border-gray-400 text-right py-4 text-transparent px-4",
+                        class: {
+                          "bg-green-600": house.has_iron_sheet_roof === "Yes",
+                          "bg-red-600": house.has_iron_sheet_roof === "No"
+                        }
+                      },
+                      [_vm._v(_vm._s(house.has_iron_sheet_roof))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {
+                        staticClass:
+                          "border border-gray-400 text-right py-4 text-transparent px-4",
+                        class: {
+                          "bg-green-600": house.has_brick_wall === "Yes",
+                          "bg-red-600": house.has_brick_wall === "No"
+                        }
+                      },
+                      [_vm._v(_vm._s(house.has_brick_wall))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {
+                        staticClass:
+                          "border border-gray-400 text-right py-4 text-transparent px-4",
+                        class: {
+                          "bg-green-600": house.has_adjacent_bathroom === "Yes",
+                          "bg-red-600": house.has_adjacent_bathroom === "No"
+                        }
+                      },
+                      [_vm._v(_vm._s(house.has_adjacent_bathroom))]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {
+                        staticClass:
+                          "border border-gray-400 text-right py-4 text-transparent px-4",
+                        class: {
+                          "bg-green-600":
+                            house.kinyesi_ukutani === "No" &&
+                            house.kinyesi_kuzunguka_nyumba === "No",
+                          "bg-red-600":
+                            house.kinyesi_ukutani === "Yes" ||
+                            house.kinyesi_kuzunguka_nyumba === "Yes"
+                        }
+                      },
+                      [_vm._v(_vm._s(house.clean_latrine))]
+                    ),
+                    _vm._v(" "),
+                    house.has_latrine === "No"
+                      ? [_vm._m(0, true)]
+                      : house.has_latrine === "Yes" &&
+                        house.has_cemented_floor === "No"
+                      ? [_vm._m(1, true)]
+                      : house.has_latrine === 1 &&
+                        house.has_cemented_floor === 1 &&
+                        (house.has_lockable_door === 1 ||
+                          house.has_brick_wall ||
+                          house.has_iron_sheet_roof)
+                      ? [_vm._m(2, true)]
+                      : house.has_latrine === "Yes" &&
+                        house.has_cemented_floor === "Yes"
+                      ? [_vm._m(3, true)]
                       : _vm._e()
                   ],
                   2
                 )
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "overflow-x-scroll" }, [
-            _c("table", { staticClass: "whitespace-no-wrap" }, [
-              _c("thead", [
-                _c(
-                  "tr",
-                  {
-                    staticClass:
-                      "text-xs uppercase tracking-wider text-gray-700 font-semibold"
-                  },
-                  [
-                    _c(
-                      "th",
-                      {
-                        staticClass:
-                          "py-4 px-4 border-b text-left whitespace-no-wrap"
-                      },
-                      [
-                        _vm.currentLanguage === "english"
-                          ? [_vm._v("Head Of House")]
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.currentLanguage === "kiswahili"
-                          ? [_vm._v("Mkuu wa familia")]
-                          : _vm._e()
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        staticClass:
-                          "py-4 px-4 border-b text-right whitespace-no-wrap"
-                      },
-                      [
-                        _vm.currentLanguage === "english"
-                          ? [_vm._v("Has latrine")]
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.currentLanguage === "kiswahili"
-                          ? [_vm._v("Kuna choo")]
-                          : _vm._e()
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        staticClass:
-                          "py-4 px-4 border-b text-right whitespace-no-wrap"
-                      },
-                      [
-                        _vm.currentLanguage === "english"
-                          ? [_vm._v("Easy washable cemented floor")]
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.currentLanguage === "kiswahili"
-                          ? [_vm._v("Sakafu ya saruji")]
-                          : _vm._e()
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        staticClass:
-                          "py-4 px-4 border-b text-right whitespace-no-wrap"
-                      },
-                      [
-                        _vm.currentLanguage === "english"
-                          ? [_vm._v("Lockable door")]
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.currentLanguage === "kiswahili"
-                          ? [_vm._v("Mlango unafungika")]
-                          : _vm._e()
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        staticClass:
-                          "py-4 px-4 border-b text-right whitespace-no-wrap"
-                      },
-                      [
-                        _vm.currentLanguage === "english"
-                          ? [_vm._v("Iron sheet roof")]
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.currentLanguage === "kiswahili"
-                          ? [_vm._v("Paa la bati")]
-                          : _vm._e()
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        staticClass:
-                          "py-4 px-4 border-b text-right whitespace-no-wrap"
-                      },
-                      [
-                        _vm.currentLanguage === "english"
-                          ? [_vm._v(" Wall with bricks")]
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.currentLanguage === "kiswahili"
-                          ? [_vm._v("Ukuta wa tofari")]
-                          : _vm._e()
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        staticClass:
-                          "py-4 px-4 border-b text-right whitespace-no-wrap"
-                      },
-                      [
-                        _vm.currentLanguage === "english"
-                          ? [_vm._v("Adjacent bathroom")]
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.currentLanguage === "kiswahili"
-                          ? [_vm._v("Kuna bafu mkabala na choo")]
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("sup", { staticClass: "text-base text-red-500" }, [
-                          _vm._v("*")
-                        ])
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        staticClass:
-                          "py-4 px-4 border-b text-right whitespace-no-wrap"
-                      },
-                      [
-                        _vm.currentLanguage === "english"
-                          ? [_vm._v("Clean latrine")]
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.currentLanguage === "kiswahili"
-                          ? [_vm._v("Choo kisafi")]
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("sup", { staticClass: "text-base text-red-500" }, [
-                          _vm._v("*")
-                        ])
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        staticClass:
-                          "py-4 px-4 border-b text-right whitespace-no-wrap"
-                      },
-                      [
-                        _vm.currentLanguage === "english"
-                          ? [_vm._v("Latrine type")]
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.currentLanguage === "kiswahili"
-                          ? [_vm._v("Aina ya choo")]
-                          : _vm._e()
-                      ],
-                      2
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                { staticClass: "text-sm" },
-                _vm._l(_vm.houses, function(house) {
-                  return _c(
-                    "tr",
-                    { key: house.id },
-                    [
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "border border-l-0 border-gray-400 text-left  py-4 px-4"
-                        },
-                        [
-                          _vm._v(
-                            "\n                            " +
-                              _vm._s(
-                                _vm._f("toTitleCase")(house.head_of_house)
-                              ) +
-                              "\n                        "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "border border-gray-400 text-right py-4 text-transparent px-4",
-                          class: {
-                            "bg-green-600": house.has_latrine === "Yes",
-                            "bg-red-600": house.has_latrine === "No"
-                          }
-                        },
-                        [_vm._v(_vm._s(house.has_latrine))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "border border-gray-400 text-right py-4 text-transparent px-4",
-                          class: {
-                            "bg-green-600": house.has_cemented_floor === "Yes",
-                            "bg-red-600": house.has_cemented_floor === "No"
-                          }
-                        },
-                        [_vm._v(_vm._s(house.has_cemented_floor))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "border border-gray-400 text-right py-4 text-transparent px-4",
-                          class: {
-                            "bg-green-600": house.has_lockable_door === "Yes",
-                            "bg-red-600": house.has_lockable_door === "No"
-                          }
-                        },
-                        [_vm._v(_vm._s(house.has_lockable_door))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "border border-gray-400 text-right py-4 text-transparent px-4",
-                          class: {
-                            "bg-green-600": house.has_iron_sheet_roof === "Yes",
-                            "bg-red-600": house.has_iron_sheet_roof === "No"
-                          }
-                        },
-                        [_vm._v(_vm._s(house.has_iron_sheet_roof))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "border border-gray-400 text-right py-4 text-transparent px-4",
-                          class: {
-                            "bg-green-600": house.has_brick_wall === "Yes",
-                            "bg-red-600": house.has_brick_wall === "No"
-                          }
-                        },
-                        [_vm._v(_vm._s(house.has_brick_wall))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "border border-gray-400 text-right py-4 text-transparent px-4",
-                          class: {
-                            "bg-green-600":
-                              house.has_adjacent_bathroom === "Yes",
-                            "bg-red-600": house.has_adjacent_bathroom === "No"
-                          }
-                        },
-                        [_vm._v(_vm._s(house.has_adjacent_bathroom))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "border border-gray-400 text-right py-4 text-transparent px-4",
-                          class: {
-                            "bg-green-600":
-                              house.kinyesi_ukutani === "No" &&
-                              house.kinyesi_kuzunguka_nyumba === "No",
-                            "bg-red-600":
-                              house.kinyesi_ukutani === "Yes" ||
-                              house.kinyesi_kuzunguka_nyumba === "Yes"
-                          }
-                        },
-                        [_vm._v(_vm._s(house.clean_latrine))]
-                      ),
-                      _vm._v(" "),
-                      house.has_latrine === "No"
-                        ? [_vm._m(0, true)]
-                        : house.has_latrine === "Yes" &&
-                          house.has_cemented_floor === "No"
-                        ? [_vm._m(1, true)]
-                        : house.has_latrine === 1 &&
-                          house.has_cemented_floor === 1 &&
-                          (house.has_lockable_door === 1 ||
-                            house.has_brick_wall ||
-                            house.has_iron_sheet_roof)
-                        ? [_vm._m(2, true)]
-                        : house.has_latrine === "Yes" &&
-                          house.has_cemented_floor === "Yes"
-                        ? [_vm._m(3, true)]
-                        : _vm._e()
-                    ],
-                    2
-                  )
-                }),
-                0
-              )
-            ])
+              }),
+              0
+            )
           ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("AppPagination", {
-        attrs: { links: _vm.links },
-        on: { page: _vm.switchPage }
-      })
-    ],
-    1
-  )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "flex justify-between items-center" },
+      [
+        _c("div", { staticClass: "mt-6" }, [
+          _c("label", { attrs: { for: "items_per_page" } }, [
+            _vm._v("Items per page")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.perPage,
+                  expression: "filters.perPage"
+                }
+              ],
+              staticClass: "bg-transparent",
+              attrs: { id: "items_per_page" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.filters,
+                    "perPage",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "100" } }, [_vm._v("100")])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("AppPagination", {
+          attrs: { links: _vm.links },
+          on: { page: _vm.switchPage }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = [
   function() {

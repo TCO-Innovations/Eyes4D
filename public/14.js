@@ -88,9 +88,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -475,10 +472,6 @@ var staticRenderFns = [
     return _c("span", [
       _c("span", { staticClass: "block font-medium leading-1 text-sm" }, [
         _vm._v("Administrator")
-      ]),
-      _vm._v(" "),
-      _c("span", { staticClass: "block text-sm text-gray-600" }, [
-        _vm._v("Lorem ipsum dolor sit amet, consectetur adipisicing elit.")
       ])
     ])
   },
@@ -489,10 +482,6 @@ var staticRenderFns = [
     return _c("span", [
       _c("span", { staticClass: "block font-medium leading-1 text-sm" }, [
         _vm._v("UNICEF")
-      ]),
-      _vm._v(" "),
-      _c("span", { staticClass: "block text-sm text-gray-600" }, [
-        _vm._v("Lorem ipsum dolor sit amet, consectetur adipisicing elit.")
       ])
     ])
   },
@@ -503,10 +492,6 @@ var staticRenderFns = [
     return _c("span", [
       _c("span", { staticClass: "block font-medium leading-1 text-sm" }, [
         _vm._v("Government")
-      ]),
-      _vm._v(" "),
-      _c("span", { staticClass: "block text-sm text-gray-600" }, [
-        _vm._v("Lorem ipsum dolor sit amet, consectetur adipisicing elit.")
       ])
     ])
   }

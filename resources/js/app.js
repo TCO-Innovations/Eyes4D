@@ -1,15 +1,15 @@
 import Vue from 'vue';
 import './filters';
-import { InertiaApp } from '@inertiajs/inertia-vue';
-import VueApexCharts from 'vue-apexcharts';
+import route from 'ziggy';
+import VTooltip from 'v-tooltip';
+import { Ziggy } from './ziggy';
 import VModal from 'vue-js-modal';
 import Highcharts from 'highcharts';
+import VueApexCharts from 'vue-apexcharts';
 import HighchartsVue from 'highcharts-vue';
+import { InertiaApp } from '@inertiajs/inertia-vue';
 import highchartsMore from 'highcharts/highcharts-more';
 import solidGauge from 'highcharts/modules/solid-gauge';
-import VTooltip from 'v-tooltip';
-import route from 'ziggy';
-import { Ziggy } from './ziggy';
 
 Vue.config.silent = true;
 Vue.config.devtools = true;

@@ -25,6 +25,7 @@
                         district: 'desc'
                     },
                     page: 1,
+                    perPage: 10
                 },
             }
         },

@@ -10,6 +10,6 @@ class VillageContactsController extends Controller
 {
     public function __invoke($village)
     {
-        return DB::table('surveys')->distinct('contact_name')->where('village_name', $village)->get();
+        return DB::table('surveys')->distinct('contact_name')->where('village', $village)->get();
     }
 }

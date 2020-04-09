@@ -105,6 +105,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -113,7 +118,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       isVisible: false,
-      categories: []
+      categories: [],
+      isLoading: true
     };
   },
   computed: {
@@ -159,12 +165,13 @@ __webpack_require__.r(__webpack_exports__);
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              this.isLoading = true;
+              _context.next = 3;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/latrine_characteristics_trend', {
                 params: this.filters
               }));
 
-            case 2:
+            case 3:
               _ref = _context.sent;
               data = _ref.data;
               this.data = [{
@@ -216,8 +223,9 @@ __webpack_require__.r(__webpack_exports__);
               this.categories = data.map(function (house) {
                 return moment__WEBPACK_IMPORTED_MODULE_1___default()(house.benchmark_date).format('MMM YYYY');
               });
+              this.isLoading = false;
 
-            case 6:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -366,12 +374,26 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "px-6 py-8", class: { "border-b": _vm.isVisible } },
-        [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
-        1
-      ),
+      _vm.isLoading
+        ? _c(
+            "div",
+            {
+              staticClass: "flex items-center justify-center",
+              staticStyle: { height: "25rem" }
+            },
+            [_c("span", [_vm._v("Loading...")])]
+          )
+        : _c("div", [
+            _c(
+              "div",
+              {
+                staticClass: "px-6 py-8",
+                class: { "border-b": _vm.isVisible }
+              },
+              [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
+              1
+            )
+          ]),
       _vm._v(" "),
       _vm.isVisible
         ? _c("div", { staticClass: "px-6 py-6 bg-gray-100" }, [_vm._m(0)])

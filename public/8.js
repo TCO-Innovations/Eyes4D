@@ -109,6 +109,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -176,288 +206,470 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", { staticClass: "shadow bg-white rounded-lg overflow-hidden" }, [
-        _c(
-          "header",
-          { staticClass: "flex justify-between px-6 bg-gray-100 py-4" },
-          [
-            _c("div", [
-              _c(
-                "h2",
-                { staticClass: "text-lg mb-2" },
-                [
-                  _vm.currentLanguage === "english"
-                    ? [_vm._v("Hand washing scorecard")]
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.currentLanguage === "kiswahili"
-                    ? [_vm._v("Alama katika unawaji mikono")]
-                    : _vm._e()
-                ],
-                2
-              ),
+  return _c("div", [
+    _c("div", { staticClass: "shadow bg-white rounded-lg overflow-hidden" }, [
+      _c("header", { staticClass: "flex justify-between px-6 py-4" }, [
+        _c("div", [
+          _c(
+            "h2",
+            { staticClass: "text-lg mb-2" },
+            [
+              _vm.currentLanguage === "english"
+                ? [_vm._v("Hand washing scorecard")]
+                : _vm._e(),
               _vm._v(" "),
-              _c("div", { staticClass: "text-sm text-gray-700" }, [
-                _vm._v(
-                  _vm._s(_vm.areaPresenter) + " - " + _vm._s(_vm.timePresenter)
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "flex flex-col" }, [
-              _c("div", { staticClass: "flex -mx-4" }, [
+              _vm.currentLanguage === "kiswahili"
+                ? [_vm._v("Alama katika unawaji mikono")]
+                : _vm._e()
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "text-sm text-gray-700" }, [
+            _vm._v(
+              _vm._s(_vm.areaPresenter) + " - " + _vm._s(_vm.timePresenter)
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex flex-col" }, [
+          _c("div", { staticClass: "flex -mx-4" }, [
+            _c(
+              "span",
+              { staticClass: "px-4 flex items-center text-sm text-gray-600" },
+              [
                 _c(
-                  "span",
+                  "svg",
                   {
-                    staticClass: "px-4 flex items-center text-sm text-gray-600"
+                    staticClass: "h-3 w-3 fill-current text-green-600 mr-2",
+                    attrs: {
+                      viewBox: "0 0 24 24",
+                      xmlns: "http://www.w3.org/2000/svg"
+                    }
                   },
                   [
-                    _c(
-                      "svg",
-                      {
-                        staticClass: "h-3 w-3 fill-current text-green-600 mr-2",
-                        attrs: {
-                          viewBox: "0 0 24 24",
-                          xmlns: "http://www.w3.org/2000/svg"
-                        }
-                      },
-                      [
-                        _c("rect", {
-                          attrs: { width: "24", height: "24", rx: "4" }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
+                    _c("rect", {
+                      attrs: { width: "24", height: "24", rx: "4" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.currentLanguage === "english"
+                  ? [_vm._v("Present")]
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.currentLanguage === "kiswahili" ? [_vm._v("Ipo")] : _vm._e()
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c(
+              "span",
+              { staticClass: "px-4 flex items-center text-sm text-gray-600" },
+              [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "h-3 w-3 fill-current text-red-600 mr-2",
+                    attrs: {
+                      viewBox: "0 0 24 24",
+                      xmlns: "http://www.w3.org/2000/svg"
+                    }
+                  },
+                  [
+                    _c("rect", {
+                      attrs: { width: "24", height: "24", rx: "4" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.currentLanguage === "english"
+                  ? [_vm._v("Absent")]
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.currentLanguage === "kiswahili"
+                  ? [_vm._v("Haipo")]
+                  : _vm._e()
+              ],
+              2
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "flex items-start text-sm mt-3 text-gray-600" },
+            [
+              _c(
+                "span",
+                {
+                  staticClass:
+                    "inline-block text-center text-red-500 h-3 w-3 mr-2 text-base"
+                },
+                [_vm._v("*")]
+              ),
+              _vm._v(" "),
+              _vm.currentLanguage === "english"
+                ? [_vm._v("Observation has no impact on latrine type")]
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.currentLanguage === "kiswahili"
+                ? [
+                    _vm._v(
+                      "Uangalizi usiokuwa na madhara kiutendaji wa sehemu ya kunawa"
+                    )
+                  ]
+                : _vm._e()
+            ],
+            2
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "flex justify-end px-6 py-4 border-b border-t bg-gray-100"
+        },
+        [
+          _c(
+            "a",
+            {
+              staticClass:
+                "flex items-center text-sm text-gray-600 font-medium",
+              attrs: {
+                href: "/latrine-construction-improvement-scorecard-export"
+              }
+            },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "h-4 w-4 fill-current text-gray-500 mr-2",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 24 24"
+                  }
+                },
+                [
+                  _c("path", { attrs: { fill: "none", d: "M0 0h24v24H0z" } }),
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"
+                    }
+                  })
+                ]
+              ),
+              _vm._v("\n                Export as excel\n            ")
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "overflow-x-scroll", staticStyle: { height: "42rem" } },
+        [
+          _c("table", { staticClass: "whitespace-no-wrap w-full" }, [
+            _c("thead", [
+              _c("tr", [
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left"
+                  },
+                  [
                     _vm.currentLanguage === "english"
-                      ? [_vm._v("Present")]
+                      ? [_vm._v("Head Of House")]
                       : _vm._e(),
                     _vm._v(" "),
                     _vm.currentLanguage === "kiswahili"
-                      ? [_vm._v("Ipo")]
+                      ? [_vm._v("Mkuu wa familia")]
                       : _vm._e()
                   ],
                   2
                 ),
                 _vm._v(" "),
                 _c(
-                  "span",
+                  "th",
                   {
-                    staticClass: "px-4 flex items-center text-sm text-gray-600"
+                    staticClass:
+                      "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left"
                   },
                   [
-                    _c(
-                      "svg",
-                      {
-                        staticClass: "h-3 w-3 fill-current text-red-600 mr-2",
-                        attrs: {
-                          viewBox: "0 0 24 24",
-                          xmlns: "http://www.w3.org/2000/svg"
-                        }
-                      },
-                      [
-                        _c("rect", {
-                          attrs: { width: "24", height: "24", rx: "4" }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
                     _vm.currentLanguage === "english"
-                      ? [_vm._v("Absent")]
+                      ? [
+                          _c(
+                            "a",
+                            {
+                              directives: [
+                                {
+                                  name: "tooltip",
+                                  rawName: "v-tooltip",
+                                  value: "Has handwash place",
+                                  expression: "'Has handwash place'"
+                                }
+                              ],
+                              staticClass: "inline-block w-32 truncate",
+                              attrs: { href: "#" }
+                            },
+                            [_vm._v("Has handwash place")]
+                          )
+                        ]
                       : _vm._e(),
                     _vm._v(" "),
                     _vm.currentLanguage === "kiswahili"
-                      ? [_vm._v("Haipo")]
+                      ? [
+                          _c(
+                            "a",
+                            {
+                              directives: [
+                                {
+                                  name: "tooltip",
+                                  rawName: "v-tooltip",
+                                  value: "Kuna sehemu ya kunawa mikono",
+                                  expression: "'Kuna sehemu ya kunawa mikono'"
+                                }
+                              ],
+                              staticClass: "inline-block w-32 truncate",
+                              attrs: { href: "#" }
+                            },
+                            [_vm._v("Kuna sehemu ya kunawa mikono")]
+                          )
+                        ]
+                      : _vm._e()
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left"
+                  },
+                  [
+                    _vm.currentLanguage === "english"
+                      ? [
+                          _c(
+                            "a",
+                            {
+                              directives: [
+                                {
+                                  name: "tooltip",
+                                  rawName: "v-tooltip",
+                                  value: "Has soap",
+                                  expression: "'Has soap'"
+                                }
+                              ],
+                              staticClass: "inline-block w-32 truncate",
+                              attrs: { href: "#" }
+                            },
+                            [_vm._v("Has soap")]
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.currentLanguage === "kiswahili"
+                      ? [
+                          _c(
+                            "a",
+                            {
+                              directives: [
+                                {
+                                  name: "tooltip",
+                                  rawName: "v-tooltip",
+                                  value: "Kuna sabuni",
+                                  expression: "'Kuna sabuni'"
+                                }
+                              ],
+                              staticClass: "inline-block w-32 truncate",
+                              attrs: { href: "#" }
+                            },
+                            [_vm._v("Kuna sabuni")]
+                          )
+                        ]
+                      : _vm._e()
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass:
+                      "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left"
+                  },
+                  [
+                    _vm.currentLanguage === "english"
+                      ? [
+                          _c(
+                            "a",
+                            {
+                              directives: [
+                                {
+                                  name: "tooltip",
+                                  rawName: "v-tooltip",
+                                  value: "Has handwash container",
+                                  expression: "'Has handwash container'"
+                                }
+                              ],
+                              staticClass: "inline-block w-32 truncate",
+                              attrs: { href: "#" }
+                            },
+                            [_vm._v("Has handwash container")]
+                          )
+                        ]
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.currentLanguage === "kiswahili"
+                      ? [
+                          _c(
+                            "a",
+                            {
+                              directives: [
+                                {
+                                  name: "tooltip",
+                                  rawName: "v-tooltip",
+                                  value: "Kuna chombo chakunawia",
+                                  expression: "'Kuna chombo chakunawia'"
+                                }
+                              ],
+                              staticClass: "inline-block w-32 truncate",
+                              attrs: { href: "#" }
+                            },
+                            [_vm._v("Kuna chombo chakunawia")]
+                          )
+                        ]
                       : _vm._e()
                   ],
                   2
                 )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "flex items-start text-sm mt-3 text-gray-600" },
-                [
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.houses, function(house) {
+                return _c("tr", { key: house.id }, [
+                  _c("td", { staticClass: "border-b text-left  py-4 px-4" }, [
+                    _vm._v(_vm._s(_vm._f("toTitleCase")(house.head_of_house)))
+                  ]),
+                  _vm._v(" "),
                   _c(
-                    "span",
+                    "td",
                     {
                       staticClass:
-                        "inline-block text-center text-red-500 h-3 w-3 mr-2 text-base"
+                        "border text-left py-4 px-4 text-transparent w-32",
+                      class: {
+                        "bg-green-500": house.has_handwashing_place === "Yes",
+                        "bg-red-500": house.has_handwashing_place === "No"
+                      }
                     },
-                    [_vm._v("*")]
-                  ),
-                  _vm._v(" "),
-                  _vm.currentLanguage === "english"
-                    ? [_vm._v("Observation has no impact on latrine type")]
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.currentLanguage === "kiswahili"
-                    ? [
-                        _vm._v(
-                          "Uangalizi usiokuwa na madhara kiutendaji wa sehemu ya kunawa"
-                        )
-                      ]
-                    : _vm._e()
-                ],
-                2
-              )
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "overflow-x-scroll",
-            staticStyle: { height: "42rem" }
-          },
-          [
-            _c("table", { staticClass: "whitespace-no-wrap w-full" }, [
-              _c("thead", [
-                _c("tr", [
-                  _c(
-                    "th",
-                    {
-                      staticClass:
-                        "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left"
-                    },
-                    [
-                      _vm.currentLanguage === "english"
-                        ? [_vm._v("Head Of House")]
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.currentLanguage === "kiswahili"
-                        ? [_vm._v("Mkuu wa familia")]
-                        : _vm._e()
-                    ],
-                    2
+                    [_vm._v(_vm._s(Math.round(house.has_handwashing_place)))]
                   ),
                   _vm._v(" "),
                   _c(
-                    "th",
+                    "td",
                     {
                       staticClass:
-                        "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"
+                        "border text-right py-4 px-4 text-transparent w-32",
+                      class: {
+                        "bg-green-500": house.has_soap === "Yes",
+                        "bg-red-500": house.has_soap === "No"
+                      }
                     },
-                    [
-                      _vm.currentLanguage === "english"
-                        ? [_vm._v("Has handwash place")]
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.currentLanguage === "kiswahili"
-                        ? [_vm._v("Kuna sehemu ya kunawa mikono")]
-                        : _vm._e()
-                    ],
-                    2
+                    [_vm._v(_vm._s(Math.round(house.has_soap)))]
                   ),
                   _vm._v(" "),
                   _c(
-                    "th",
+                    "td",
                     {
                       staticClass:
-                        "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"
+                        "border text-right py-4 px-4 text-transparent w-32",
+                      class: {
+                        "bg-green-500":
+                          house.has_handwashing_container === "Yes",
+                        "bg-red-500": house.has_handwashing_container === "No"
+                      }
                     },
                     [
-                      _vm.currentLanguage === "english"
-                        ? [_vm._v("Has soap")]
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.currentLanguage === "kiswahili"
-                        ? [_vm._v("Kuna sabuni")]
-                        : _vm._e()
-                    ],
-                    2
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "th",
-                    {
-                      staticClass:
-                        "py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right"
-                    },
-                    [
-                      _vm.currentLanguage === "english"
-                        ? [_vm._v("Has handwash container")]
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.currentLanguage === "kiswahili"
-                        ? [_vm._v("Kuna chombo chakunawia")]
-                        : _vm._e()
-                    ],
-                    2
+                      _vm._v(
+                        _vm._s(Math.round(house.has_handwashing_container))
+                      )
+                    ]
                   )
                 ])
-              ]),
+              }),
+              0
+            )
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "flex justify-between items-center" },
+      [
+        _c("div", { staticClass: "mt-6" }, [
+          _c("label", { attrs: { for: "items_per_page" } }, [
+            _vm._v("Items per page")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filters.perPage,
+                  expression: "filters.perPage"
+                }
+              ],
+              staticClass: "bg-transparent",
+              attrs: { id: "items_per_page" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.filters,
+                    "perPage",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
               _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.houses, function(house) {
-                  return _c("tr", { key: house.id }, [
-                    _c("td", { staticClass: "border-b text-left  py-4 px-4" }, [
-                      _vm._v(_vm._s(_vm._f("toTitleCase")(house.head_of_house)))
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "border text-left py-4 px-4 text-transparent",
-                        class: {
-                          "bg-green-500": house.has_handwashing_place === "Yes",
-                          "bg-red-500": house.has_handwashing_place === "No"
-                        }
-                      },
-                      [_vm._v(_vm._s(Math.round(house.has_handwashing_place)))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "border text-right py-4 px-4 text-transparent",
-                        class: {
-                          "bg-green-500": house.has_soap === "Yes",
-                          "bg-red-500": house.has_soap === "No"
-                        }
-                      },
-                      [_vm._v(_vm._s(Math.round(house.has_soap)))]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "border text-right py-4 px-4 text-transparent",
-                        class: {
-                          "bg-green-500":
-                            house.has_handwashing_container === "Yes",
-                          "bg-red-500": house.has_handwashing_container === "No"
-                        }
-                      },
-                      [
-                        _vm._v(
-                          _vm._s(Math.round(house.has_handwashing_container))
-                        )
-                      ]
-                    )
-                  ])
-                }),
-                0
-              )
-            ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c("AppPagination", {
-        attrs: { links: _vm.links },
-        on: { page: _vm.switchPage }
-      })
-    ],
-    1
-  )
+              _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "100" } }, [_vm._v("100")])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("AppPagination", {
+          attrs: { links: _vm.links },
+          on: { page: _vm.switchPage }
+        })
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -75,16 +75,16 @@ class LatrineCharacteristicsTrendController extends Controller
                     $query
                         ->selectRaw("COUNT(has_handwashing_place) as has_handwashing_place")
                         ->from('surveys')
-                        ->where("has_soap", "Yes")
+                        ->where("has_handwashing_place", "Yes")
                         ->whereRaw("to_char(created_at::TIMESTAMP, 'YYYY-MM') = to_char(time_series.benchmark_date::TIMESTAMP, 'YYYY-MM')")
                         ->groupBy(DB::raw("to_char(created_at::TIMESTAMP, 'YYYY-MM')"))
                         ->limit(1);
                 },
                 'has_handwashing_container' => function(Builder $query) {
                     $query
-                        ->selectRaw("COUNT(has_handwashing_container) as has_handwashing_place")
+                        ->selectRaw("COUNT(has_handwashing_container) as has_handwashing_container")
                         ->from('surveys')
-                        ->where("has_soap", "Yes")
+                        ->where("has_handwashing_container", "Yes")
                         ->whereRaw("to_char(created_at::TIMESTAMP, 'YYYY-MM') = to_char(time_series.benchmark_date::TIMESTAMP, 'YYYY-MM')")
                         ->groupBy(DB::raw("to_char(created_at::TIMESTAMP, 'YYYY-MM')"))
                         ->limit(1);
@@ -107,6 +107,6 @@ class LatrineCharacteristicsTrendController extends Controller
      */
     public function isAreaFilterable(Request $request)
     {
-        return $request->areaType && $request->areaName;
+        return $request->get("areaType") && $request->get("areaName");
     }
 }

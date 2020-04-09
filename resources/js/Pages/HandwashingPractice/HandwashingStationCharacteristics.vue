@@ -24,8 +24,13 @@
             </div>
         </header>
 
-        <div class="px-6 py-8">
-            <highcharts :options="chartOptions"/>
+        <div class="flex items-center justify-center" style="height: 25rem;" v-if="isLoading">
+            <span>Loading...</span>
+        </div>
+        <div v-else>
+            <div class="px-6 py-8">
+                <highcharts :options="chartOptions"/>
+            </div>
         </div>
 
         <div class="px-6 py-6 bg-gray-100" v-if="isVisible">
@@ -53,7 +58,8 @@
         extends: ReportComponent,
         data() {
             return {
-                isVisible: false
+                isVisible: false,
+                isLoading: true,
             }
         },
         computed: {
@@ -86,21 +92,29 @@
         },
         methods: {
             async fetchReport() {
+                this.isLoading = true;
+
                 let { data } = await Axios.get(`/api/handwashing_characteristics`, { params: this.filters });
 
-                this.data = [{
-                    name: this.currentLanguage === 'english' ? 'handwashing place' : 'Sehemu ya kunawia',
-                    y: data.filter(item => item.has_handwashing_place === 'Yes').length,
-                    color: '#48BB78',
-                }, {
-                    name: this.currentLanguage === 'english' ? 'handwashing container' : 'Chombo cha kunawia',
-                    y: data.filter(item => item.has_handwashing_container === 'Yes').length,
-                    color: '#4299E1',
-                }, {
-                    name: this.currentLanguage === 'english' ? 'has soap' : 'Kuna sabuni',
-                    y: data.filter(item => item.has_soap === 'Yes').length,
-                    color: '#ED64A6'
-                }];
+                this.data = [
+                    {
+                        name: this.currentLanguage === 'english' ? 'handwashing place' : 'Sehemu ya kunawia',
+                        y: data.filter(item => item.has_handwashing_place === 'Yes').length,
+                        color: '#48BB78',
+                    },
+                    {
+                        name: this.currentLanguage === 'english' ? 'handwashing container' : 'Chombo cha kunawia',
+                        y: data.filter(item => item.has_handwashing_container === 'Yes').length,
+                        color: '#4299E1',
+                    },
+                    {
+                        name: this.currentLanguage === 'english' ? 'has soap' : 'Kuna sabuni',
+                        y: data.filter(item => item.has_soap === 'Yes').length,
+                        color: '#ED64A6'
+                    }
+                ];
+
+                this.isLoading = false;
             }
         }
     }

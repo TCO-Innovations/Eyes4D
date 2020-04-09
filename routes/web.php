@@ -22,10 +22,9 @@ Route::get("api/latrine_characteristics", "Api\LatrineCharacteristicsController"
 Route::get("api/latrine_construction_improvement", "Api\LatrineConstructionImprovementController");
 Route::get("api/handwashing_characteristics", "Api\HandwashingCharacteristicsController");
 
+Route::get("latrine-construction-improvement-scorecard-export", "LatrineConstructionImprovementScorecardExportController");
 
 Route::get("api/latrine_characteristics_trend", "Api\LatrineCharacteristicsTrendController");
-
-
 
 Route::get("api/house_with_latrine", "Api\HouseWithLatrineController");
 Route::get("api/visiting_per_contact", "Api\VisitingPerContactController");
@@ -36,10 +35,6 @@ Route::get("/api/latrine_type_distribution", "Api\LatrineTypeDistributionControl
 
 Route::get("api/handwashing_houses", "Api\HandwashingHousesController");
 Route::get("api/villages/{village}/contacts", "Api\VillageContactsController");
-
-
-
-
 
 Route::get("users", "UsersController@index")->name('users.index');
 Route::post("users", "UsersController@store")->name('users.store');

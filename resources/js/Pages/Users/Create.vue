@@ -37,7 +37,6 @@
                     <label class="flex items-center px-5 pt-3 pb-4 border rounded-lg bg-gray-100 justify-between cursor-pointer" :class="{ 'border-blue-200 bg-blue-100' : form.role === 'administrator' }" for="administrator">
                         <span>
                             <span class="block font-medium leading-1 text-sm">Administrator</span>
-                            <span class="block text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
                         </span>
 
                         <input type="radio" id="administrator" class="form-radio h-5 w-5 mr-4" v-model="form.role" value="administrator">
@@ -48,7 +47,6 @@
                     <label class="flex items-center px-5 pt-3 pb-4 border rounded-lg bg-gray-100 justify-between cursor-pointer" :class="{ 'border-blue-200 bg-blue-100' : form.role === 'unicef' }" for="unicef">
                         <span>
                             <span class="block font-medium leading-1 text-sm">UNICEF</span>
-                            <span class="block text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
                         </span>
 
                         <input type="radio" id="unicef" class="form-radio h-5 w-5 mr-4" v-model="form.role" value="unicef">
@@ -59,7 +57,6 @@
                     <label class="flex items-center px-5 pt-3 pb-4 border rounded-lg bg-gray-100 justify-between cursor-pointer" :class="{ 'border-blue-200 bg-blue-100' : form.role === 'government' }" for="government">
                         <span>
                             <span class="block font-medium leading-1 text-sm">Government</span>
-                            <span class="block text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
                         </span>
 
                         <input type="radio" id="government" class="form-radio h-5 w-5 mr-4" v-model="form.role" value="government">

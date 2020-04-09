@@ -43,7 +43,8 @@ __webpack_require__.r(__webpack_exports__);
         sort: {
           district: 'desc'
         },
-        page: 1
+        page: 1,
+        perPage: 10
       }
     };
   },

@@ -28,8 +28,13 @@
             </div>
         </header>
 
-        <div class="px-6 py-8" :class="{ 'border-b' : isVisible }">
-            <highcharts :options="chartOptions"/>
+        <div class="flex items-center justify-center" style="height: 25rem;" v-if="isLoading">
+            <span>Loading...</span>
+        </div>
+        <div v-else>
+            <div class="px-6 py-8" :class="{ 'border-b' : isVisible }">
+                <highcharts :options="chartOptions"/>
+            </div>
         </div>
 
         <div class="px-6 py-6 bg-gray-100" v-if="isVisible">
@@ -97,6 +102,7 @@
             return {
                 isVisible: false,
                 categories: [],
+                isLoading: true,
             }
         },
         computed: {
@@ -119,6 +125,8 @@
         },
         methods: {
             async fetchReport() {
+                this.isLoading = true;
+
                 const { data } = await Axios.get('/api/latrine_characteristics_trend', {
                     params: this.filters
                 });
@@ -179,6 +187,8 @@
                 this.categories = data.map(house => {
                     return moment(house.benchmark_date).format('MMM YYYY');
                 });
+
+                this.isLoading = false;
             }
         },
     }

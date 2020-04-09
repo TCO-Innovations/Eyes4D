@@ -21,7 +21,7 @@ class LatrineConstructionImprovementController extends Controller
             ->when($request->filled('start') && $request->filled('stop'), function(Builder $query) {
                 $query->whereBetween("created_at", [request('start'), request('stop')]);
             })
-            ->paginate();
+            ->paginate(request("perPage"));
 
         return Response::json($response, 200);
     }

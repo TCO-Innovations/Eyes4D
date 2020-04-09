@@ -21,13 +21,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   "extends": _ReportComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
   data: function data() {
     return {
-      data: []
+      data: [],
+      isLoading: true
     };
   },
   computed: {
@@ -82,12 +88,13 @@ __webpack_require__.r(__webpack_exports__);
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              this.isLoading = true;
+              _context.next = 3;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/age_demography", {
                 params: this.filters
               }));
 
-            case 2:
+            case 3:
               _ref = _context.sent;
               data = _ref.data;
               this.data = [{
@@ -109,8 +116,9 @@ __webpack_require__.r(__webpack_exports__);
                 }).length,
                 color: '#F56565'
               }];
+              this.isLoading = false;
 
-            case 5:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -259,10 +267,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   "extends": _ReportComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+  data: function data() {
+    return {
+      isLoading: true
+    };
+  },
   computed: {
     title: function title() {
       return this.currentLanguage === 'english' ? 'U-Reporters gender demography' : 'Demografia ya jinsia wa U-Reporters';
@@ -320,12 +338,13 @@ __webpack_require__.r(__webpack_exports__);
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              this.isLoading = true;
+              _context.next = 3;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/gender_demography", {
                 params: this.filters
               }));
 
-            case 2:
+            case 3:
               _ref = _context.sent;
               data = _ref.data;
               colors = {
@@ -339,8 +358,9 @@ __webpack_require__.r(__webpack_exports__);
                   color: colors[item.gender]
                 };
               });
+              this.isLoading = false;
 
-            case 6:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -506,10 +526,15 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _ReportComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/ReportComponent */ "./resources/js/ReportComponent.vue");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ReportComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/ReportComponent */ "./resources/js/ReportComponent.vue");
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -521,10 +546,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  "extends": _ReportComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+  "extends": _ReportComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
   data: function data() {
     return {
-      data: null
+      data: null,
+      isLoading: true
     };
   },
   computed: {
@@ -585,35 +611,37 @@ __webpack_require__.r(__webpack_exports__);
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/latrine_type_distribution', {
+              this.isLoading = true;
+              _context.next = 3;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/latrine_type_distribution', {
                 params: this.filters
               }));
 
-            case 2:
+            case 3:
               _ref = _context.sent;
               data = _ref.data;
               this.data = [{
+                name: 'No latrine',
+                color: "#2D3748",
+                y: data.filter(function (house) {
+                  return house.has_latrine === 'No';
+                }).length
+              }, {
                 name: 'Traditional Pit latrine',
                 color: "#667EEA",
                 y: data.filter(function (house) {
                   return house.has_latrine === 'Yes' && house.has_cemented_floor === 'No';
                 }).length
               }, {
-                name: 'Ventilated Improved Pit (VIP) Latrine',
-                color: "#2D3748",
-                y: data.filter(function (house) {
-                  return house.has_latrine === 'Yes' && house.has_cemented_floor === 'Yes' && (house.has_lockable_door === 'Yes' || house.has_brick_wall === 'Yes' || house.has_iron_sheet_roof === 'Yes');
-                }).length
-              }, {
                 name: 'Improved Traditional Pit latrine',
                 y: data.filter(function (house) {
-                  return house.has_latrine === 'Yes' && house.has_cemented_floor === 'No';
+                  return house.has_latrine === 'Yes' && house.has_cemented_floor === 'Yes' && (house.has_lockable_door === 'Yes' || house.has_brick_wall === 'Yes' || house.has_iron_sheet_roof === 'Yes');
                 }).length,
                 color: "#744210"
               }];
+              this.isLoading = false;
 
-            case 5:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -899,8 +927,22 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "bg-white shadow overflow-hidden rounded-lg py-6 px-4" },
-    [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
-    1
+    [
+      _vm.isLoading
+        ? _c(
+            "div",
+            {
+              staticClass: "flex items-center justify-center",
+              staticStyle: { height: "25rem" }
+            },
+            [_c("span", [_vm._v("Loading...")])]
+          )
+        : _c(
+            "div",
+            [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
+            1
+          )
+    ]
   )
 }
 var staticRenderFns = []
@@ -1073,8 +1115,22 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "bg-white shadow overflow-hidden rounded-lg py-6 px-4" },
-    [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
-    1
+    [
+      _vm.isLoading
+        ? _c(
+            "div",
+            {
+              staticClass: "flex items-center justify-center",
+              staticStyle: { height: "25rem" }
+            },
+            [_c("span", [_vm._v("Loading...")])]
+          )
+        : _c(
+            "div",
+            [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
+            1
+          )
+    ]
   )
 }
 var staticRenderFns = []
@@ -1246,12 +1302,23 @@ var render = function() {
     "div",
     { staticClass: "mx-auto bg-white rounded-lg shadow overflow-hidden" },
     [
-      _c(
-        "div",
-        { staticClass: "px-6 py-8 border-b" },
-        [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
-        1
-      )
+      _vm.isLoading
+        ? _c(
+            "div",
+            {
+              staticClass: "flex items-center justify-center",
+              staticStyle: { height: "25rem" }
+            },
+            [_c("span", [_vm._v("Loading...")])]
+          )
+        : _c("div", [
+            _c(
+              "div",
+              { staticClass: "px-6 py-8 border-b" },
+              [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
+              1
+            )
+          ])
     ]
   )
 }

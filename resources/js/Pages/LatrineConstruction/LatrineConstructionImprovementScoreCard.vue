@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="mx-auto bg-white rounded-lg shadow overflow-hidden">
-            <header class="flex justify-between px-6 bg-gray-100 py-4">
+            <header class="flex justify-between px-6 py-4">
                 <div>
                     <h2 class="text-lg mb-2">
                         <template v-if="currentLanguage === 'english'">Latrine Construction and Improvement Scorecard</template>
@@ -31,6 +31,12 @@
                     </div>
                 </div>
             </header>
+            <div class="flex justify-end px-6 py-4 border-b border-t bg-gray-100">
+                <a href="/latrine-construction-improvement-scorecard-export" class="flex items-center text-sm text-gray-600 font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500 mr-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"/></svg>
+                    Export as excel
+                </a>
+            </div>
             <div class="overflow-x-scroll">
                 <table class="whitespace-no-wrap">
                     <thead>
@@ -40,33 +46,61 @@
                                 <template v-if="currentLanguage === 'kiswahili'">Mkuu wa familia</template>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <template v-if="currentLanguage === 'english'">Has latrine</template>
-                                <template v-if="currentLanguage === 'kiswahili'">Kuna choo</template>
+                                <template v-if="currentLanguage === 'english'">
+                                    <a href="#" v-tooltip="'Has latrine'" class="inline-block w-12 truncate">Has latrine</a>
+                                </template>
+                                <template v-if="currentLanguage === 'kiswahili'">
+                                    <a href="#" v-tooltip="'Kuna choo'" class="inline-block w-12 truncate">Kuna choo</a>
+                                </template>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <template v-if="currentLanguage === 'english'">Easy washable cemented floor</template>
-                                <template v-if="currentLanguage === 'kiswahili'">Sakafu ya saruji</template>
+                                <template v-if="currentLanguage === 'english'">
+                                    <a href="#" v-tooltip="'Easy washable cemented floor'" class="inline-block w-12 truncate">Easy washable cemented floor</a>
+                                </template>
+                                <template v-if="currentLanguage === 'kiswahili'">
+                                    <a href="#" v-tooltip="'Sakafu ya saruji'" class="inline-block w-12 truncate">Sakafu ya saruji</a>
+                                </template>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <template v-if="currentLanguage === 'english'">Lockable door</template>
-                                <template v-if="currentLanguage === 'kiswahili'">Mlango unafungika</template>
+                                <template v-if="currentLanguage === 'english'">
+                                    <a href="#" v-tooltip="'Lockable door'" class="inline-block w-12 truncate">Lockable door</a>
+                                </template>
+                                <template v-if="currentLanguage === 'kiswahili'">
+                                    <a href="#" v-tooltip="'Mlango unafungika'" class="inline-block w-12 truncate">Mlango unafungika</a>
+                                </template>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <template v-if="currentLanguage === 'english'">Iron sheet roof</template>
-                                <template v-if="currentLanguage === 'kiswahili'">Paa la bati</template>
+                                <template v-if="currentLanguage === 'english'">
+                                    <a href="#" v-tooltip="'Iron sheet roof'" class="inline-block w-12 truncate">Iron sheet roof</a>
+                                </template>
+                                <template v-if="currentLanguage === 'kiswahili'">
+                                    <a href="#" v-tooltip="'Paa la bati'" class="inline-block w-12 truncate">Paa la bati</a>
+                                </template>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <template v-if="currentLanguage === 'english'"> Wall with bricks</template>
-                                <template v-if="currentLanguage === 'kiswahili'">Ukuta wa tofari</template>
+                                <template v-if="currentLanguage === 'english'">
+                                    <a href="#" v-tooltip="'Wall with bricks'" class="inline-block w-12 truncate">Wall with bricks</a>
+                                </template>
+                                <template v-if="currentLanguage === 'kiswahili'">
+                                    <a href="#" v-tooltip="'Ukuta wa tofari'" class="inline-block w-12 truncate">Ukuta wa tofari</a>
+                                </template>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <template v-if="currentLanguage === 'english'">Adjacent bathroom</template>
-                                <template v-if="currentLanguage === 'kiswahili'">Kuna bafu mkabala na choo</template>
+                                <template v-if="currentLanguage === 'english'">
+                                    <a href="#" v-tooltip="'Adjacent bathroom'" class="inline-block w-12 truncate">Adjacent bathroom</a>
+                                </template>
+                                <template v-if="currentLanguage === 'kiswahili'">
+                                    <a href="#" v-tooltip="'Kuna bafu mkabala na choo'" class="inline-block w-12 truncate">Kuna bafu mkabala na choo</a>
+                                </template>
                                 <sup class="text-base text-red-500">*</sup>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
-                                <template v-if="currentLanguage === 'english'">Clean latrine</template>
-                                <template v-if="currentLanguage === 'kiswahili'">Choo kisafi</template>
+                                <template v-if="currentLanguage === 'english'">
+                                    <a href="#" v-tooltip="'Clean latrine'" class="inline-block w-12 truncate">Clean latrine</a>
+                                </template>
+                                <template v-if="currentLanguage === 'kiswahili'">
+                                    <a href="#" v-tooltip="'Choo kisafi'" class="inline-block w-12 truncate">Choo kisafi</a>
+                                </template>
                                 <sup class="text-base text-red-500">*</sup>
                             </th>
                             <th class="py-4 px-4 border-b text-right whitespace-no-wrap">
@@ -78,8 +112,10 @@
 
                     <tbody class="text-sm">
                         <tr v-for="house in houses" :key="house.id">
-                            <td class="border border-l-0 border-gray-400 text-left  py-4 px-4">
-                                {{ house.head_of_house | toTitleCase }}
+                            <td class="border border-l-0 border-gray-400 text-left  py-4 px-4 w-full">
+                                <a href="#" v-tooltip="house.head_of_house">
+                                    {{ house.head_of_house | toTitleCase }}
+                                </a>
                             </td>
                             <td
                                 class="border border-gray-400 text-right py-4 text-transparent px-4"
@@ -148,7 +184,19 @@
             </div>
         </div>
 
-        <AppPagination :links="links" @page="switchPage"/>
+        <div class="flex justify-between items-center">
+            <div class="mt-6">
+                <label for="items_per_page">Items per page</label>
+                <select id="items_per_page" v-model="filters.perPage" class="bg-transparent">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+
+            <AppPagination :links="links" @page="switchPage"/>
+        </div>
     </div>
 </template>
 
@@ -165,8 +213,8 @@
         },
         data() {
             return {
-                houses: [],
                 links: [],
+                houses: [],
             }
         },
         methods: {

@@ -1,6 +1,11 @@
 <template>
     <div class="bg-white shadow overflow-hidden rounded-lg py-6 px-4">
-        <highcharts :options="chartOptions"></highcharts>
+        <div class="flex items-center justify-center" style="height: 25rem;" v-if="isLoading">
+            <span>Loading...</span>
+        </div>
+        <div v-else>
+            <highcharts :options="chartOptions"></highcharts>
+        </div>
     </div>
 </template>
 
@@ -12,10 +17,10 @@
         extends: ReportComponent,
         data() {
             return {
-                data: []
+                data: [],
+                isLoading: true,
             }
         },
-
         computed: {
             title() {
                 return this.currentLanguage === 'english' ? 'U-Reporters age demography' : 'Demografia ya umri wa U-Reporters';
@@ -47,6 +52,8 @@
         },
         methods: {
             async fetchReport() {
+                this.isLoading = true;
+
                 let { data } = await Axios.get(`/api/age_demography`, {
                     params: this.filters
                 });
@@ -73,7 +80,9 @@
                         }).length,
                         color: '#F56565'
                     }
-                ]
+                ];
+
+                this.isLoading = false;
             }
         }
     }

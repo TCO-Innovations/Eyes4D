@@ -12,6 +12,22 @@
                 </header>
             </div>
 
+            <!-- Overview -->
+            <div class="flex mb-8 bg-blue-600 rounded-lg shadow">
+                <div class="w-1/4">
+                    <NumberOfUReporters :period="period"/>
+                </div>
+                <div class="w-1/4">
+                    <NumberOfVillages :period="period"/>
+                </div>
+                <div class="w-1/4">
+                    <VisitedHousehold :period="period"/>
+                </div>
+                <div class="w-1/4">
+                    <TotalNumberOfHouseholds :period="period" />
+                </div>
+            </div>
+
             <div class="flex -mx-6 mb-16">
                 <section class="w-full px-6">
                     <HandwashingStationCharacteristics :period="period" />
@@ -39,6 +55,10 @@
     import AppLayout from "@/Shared/Layout";
     import DateRangePicker from "@/Components/DateRangePicker";
     import HandwashingScoreCard from "./HandwashingScoreCard";
+    import NumberOfUReporters from "../LatrineConstruction/NumberOfUReporters";
+    import NumberOfVillages from "../LatrineConstruction//NumberOfVillages";
+    import VisitedHousehold from "../LatrineConstruction/VisitedHousehold";
+    import TotalNumberOfHouseholds from "../LatrineConstruction/TotalNumberOfHouseholds";
     import HandwashingHouses from "./HandwashingHouses";
     import HandwashingStationCharacteristics from "./HandwashingStationCharacteristics";
     import HandwashingStationCharacteristicsTrend from "./HandwashingStationCharacteristicsTrend";
@@ -46,6 +66,10 @@
     export default {
         components: {
             AppLayout,
+            NumberOfUReporters,
+            NumberOfVillages,
+            VisitedHousehold,
+            TotalNumberOfHouseholds,
             DateRangePicker,
             HandwashingScoreCard,
             HandwashingHouses,

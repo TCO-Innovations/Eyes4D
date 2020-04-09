@@ -28,8 +28,13 @@
             </div>
         </header>
 
-        <div class="px-6 py-8">
-            <highcharts :options="chartOptions"/>
+        <div class="flex items-center justify-center" style="height: 25rem;" v-if="isLoading">
+            <span>Loading...</span>
+        </div>
+        <div v-else>
+            <div class="px-6 py-8">
+                <highcharts :options="chartOptions"/>
+            </div>
         </div>
 
         <div class="px-6 py-6 bg-gray-100" v-if="isVisible">
@@ -62,7 +67,8 @@
         data() {
             return {
                 isVisible: false,
-                totalHouses: 0
+                totalHouses: 0,
+                isLoading: true,
             }
         },
         computed: {
@@ -92,6 +98,8 @@
         },
         methods: {
             async fetchReport() {
+                this.isLoading = true;
+
                 let { data } = await axios.get('/api/latrine_characteristics', { params: this.filters });
 
                 this.data =  [
@@ -123,6 +131,8 @@
                 ];
 
                 this.totalHouses = data.filter(item => item.has_latrine === 'Yes').length;
+
+                this.isLoading = false;
             },
         }
     }

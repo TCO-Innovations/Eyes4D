@@ -62,13 +62,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   "extends": _ReportComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
   data: function data() {
     return {
-      isVisible: false
+      isVisible: false,
+      isLoading: true
     };
   },
   computed: {
@@ -132,12 +138,13 @@ __webpack_require__.r(__webpack_exports__);
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              this.isLoading = true;
+              _context.next = 3;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/handwashing_characteristics", {
                 params: this.filters
               }));
 
-            case 2:
+            case 3:
               _ref = _context.sent;
               data = _ref.data;
               this.data = [{
@@ -159,8 +166,9 @@ __webpack_require__.r(__webpack_exports__);
                 }).length,
                 color: '#ED64A6'
               }];
+              this.isLoading = false;
 
-            case 5:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -215,7 +223,8 @@ __webpack_require__.r(__webpack_exports__);
         sort: {
           district: 'desc'
         },
-        page: 1
+        page: 1,
+        perPage: 10
       }
     };
   },
@@ -666,12 +675,23 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "px-6 py-8" },
-        [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
-        1
-      ),
+      _vm.isLoading
+        ? _c(
+            "div",
+            {
+              staticClass: "flex items-center justify-center",
+              staticStyle: { height: "25rem" }
+            },
+            [_c("span", [_vm._v("Loading...")])]
+          )
+        : _c("div", [
+            _c(
+              "div",
+              { staticClass: "px-6 py-8" },
+              [_c("highcharts", { attrs: { options: _vm.chartOptions } })],
+              1
+            )
+          ]),
       _vm._v(" "),
       _vm.isVisible
         ? _c("div", { staticClass: "px-6 py-6 bg-gray-100" }, [

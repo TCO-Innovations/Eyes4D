@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="shadow bg-white rounded-lg overflow-hidden">
-            <header class="flex justify-between px-6 bg-gray-100 py-4">
+            <header class="flex justify-between px-6 py-4">
                 <div>
                     <h2 class="text-lg mb-2">
                         <template v-if="currentLanguage === 'english'">Hand washing scorecard</template>
@@ -32,6 +32,12 @@
                     </div>
                 </div>
             </header>
+            <div class="flex justify-end px-6 py-4 border-b border-t bg-gray-100">
+                <a href="/latrine-construction-improvement-scorecard-export" class="flex items-center text-sm text-gray-600 font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500 mr-2"><path fill="none" d="M0 0h24v24H0z"/><path d="M2.859 2.877l12.57-1.795a.5.5 0 0 1 .571.495v20.846a.5.5 0 0 1-.57.495L2.858 21.123a1 1 0 0 1-.859-.99V3.867a1 1 0 0 1 .859-.99zM4 4.735v14.53l10 1.429V3.306L4 4.735zM17 19h3V5h-3V3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1h-4v-2zm-6.8-7l2.8 4h-2.4L9 13.714 7.4 16H5l2.8-4L5 8h2.4L9 10.286 10.6 8H13l-2.8 4z"/></svg>
+                    Export as excel
+                </a>
+            </div>
             <div class="overflow-x-scroll" style="height: 42rem;">
                 <table class="whitespace-no-wrap w-full">
                     <thead>
@@ -40,17 +46,29 @@
                                 <template v-if="currentLanguage === 'english'">Head Of House</template>
                                 <template v-if="currentLanguage === 'kiswahili'">Mkuu wa familia</template>
                             </th>
-                            <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                                <template v-if="currentLanguage === 'english'">Has handwash place</template>
-                                <template v-if="currentLanguage === 'kiswahili'">Kuna sehemu ya kunawa mikono</template>
+                            <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left">
+                                <template v-if="currentLanguage === 'english'">
+                                    <a href="#" v-tooltip="'Has handwash place'" class="inline-block w-32 truncate">Has handwash place</a>
+                                </template>
+                                <template v-if="currentLanguage === 'kiswahili'">
+                                    <a href="#" v-tooltip="'Kuna sehemu ya kunawa mikono'" class="inline-block w-32 truncate">Kuna sehemu ya kunawa mikono</a>
+                                </template>
                             </th>
-                            <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                                <template v-if="currentLanguage === 'english'">Has soap</template>
-                                <template v-if="currentLanguage === 'kiswahili'">Kuna sabuni</template>
+                            <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left">
+                                <template v-if="currentLanguage === 'english'">
+                                    <a href="#" v-tooltip="'Has soap'" class="inline-block w-32 truncate">Has soap</a>
+                                </template>
+                                <template v-if="currentLanguage === 'kiswahili'">
+                                    <a href="#" v-tooltip="'Kuna sabuni'" class="inline-block w-32 truncate">Kuna sabuni</a>
+                                </template>
                             </th>
-                            <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-right">
-                                <template v-if="currentLanguage === 'english'">Has handwash container</template>
-                                <template v-if="currentLanguage === 'kiswahili'">Kuna chombo chakunawia</template>
+                            <th class="py-4 px-4 border-b text-xs uppercase tracking-wider text-gray-700 font-semibold text-left">
+                                <template v-if="currentLanguage === 'english'">
+                                    <a href="#" v-tooltip="'Has handwash container'" class="inline-block w-32 truncate">Has handwash container</a>
+                                </template>
+                                <template v-if="currentLanguage === 'kiswahili'">
+                                    <a href="#" v-tooltip="'Kuna chombo chakunawia'" class="inline-block w-32 truncate">Kuna chombo chakunawia</a>
+                                </template>
                             </th>
                         </tr>
                     </thead>
@@ -59,21 +77,21 @@
                     <tr v-for="house in houses" :key="house.id">
                         <td class="border-b text-left  py-4 px-4">{{ house.head_of_house | toTitleCase }}</td>
                         <td
-                            class="border text-left py-4 px-4 text-transparent"
+                            class="border text-left py-4 px-4 text-transparent w-32"
                             :class="{
                                 'bg-green-500' : house.has_handwashing_place === 'Yes',
                                 'bg-red-500': house.has_handwashing_place === 'No'
                             }"
                         >{{ Math.round(house.has_handwashing_place) }}</td>
                         <td
-                            class="border text-right py-4 px-4 text-transparent"
+                            class="border text-right py-4 px-4 text-transparent w-32"
                             :class="{
                                 'bg-green-500' : house.has_soap === 'Yes',
                                 'bg-red-500': house.has_soap === 'No'
                             }"
                         >{{ Math.round(house.has_soap) }}</td>
                         <td
-                            class="border text-right py-4 px-4 text-transparent"
+                            class="border text-right py-4 px-4 text-transparent w-32"
                             :class="{
                                 'bg-green-500' : house.has_handwashing_container === 'Yes',
                                 'bg-red-500': house.has_handwashing_container === 'No'
@@ -85,7 +103,19 @@
             </div>
         </div>
 
-        <AppPagination :links="links" @page="switchPage" />
+        <div class="flex justify-between items-center">
+            <div class="mt-6">
+                <label for="items_per_page">Items per page</label>
+                <select id="items_per_page" v-model="filters.perPage" class="bg-transparent">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+
+            <AppPagination :links="links" @page="switchPage"/>
+        </div>
     </div>
 </template>
 

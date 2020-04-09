@@ -86,7 +86,8 @@ __webpack_require__.r(__webpack_exports__);
         sort: {
           district: 'desc'
         },
-        page: 1
+        page: 1,
+        perPage: 10
       }
     };
   },
@@ -493,10 +494,7 @@ var render = function() {
                   key: key,
                   staticClass:
                     "mr-1 mb-1 px-4 py-3 text-sm border rounded hover:bg-white focus:border-indigo-500 focus:text-indigo-500",
-                  class: {
-                    "bg-white": link.active,
-                    "ml-auto": link.label === "Next"
-                  },
+                  class: { "bg-white": link.active },
                   attrs: { href: "#" },
                   on: {
                     click: function($event) {
